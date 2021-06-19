@@ -1,0 +1,254 @@
+*{
+    margin : 0px;
+    padding : 0px;
+    box-sizing: border-box;
+}
+
+
+nav{
+    margin : 20px;
+    padding : 20px; 
+    display : flex;
+    justify-content : flex-start;
+    align-items : center;
+    min-height : 8vh;
+    font-family : 'Noto Sans KR', sans-serif;
+}
+
+.member{
+    display : inline-flex;
+    position : relative;
+    left : 1000px;
+    top : -15px;
+}
+
+.main button{
+    font-size : 15px;
+    font-weight: bolder;
+}
+
+.logo{
+    display : inline;
+    padding-left : 20px; 
+    color : navy;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 35px;
+    font-family : 'Noto Sans KR', sans-serif;
+}
+
+.logoImg{
+   position : relative;
+   top : 25px;
+   left : 20px; 
+}
+
+.logo h4{
+    display : inline-block;
+}
+
+.logo search{
+    position : relative;
+    width : 100px;
+}
+
+.member *{
+    text-align : center;
+    font-weight: bold;
+}
+
+.container td{
+    height : 30px;
+    width : 100px;
+}
+
+.btn_search{
+    background-color: white;
+    border : none;
+}
+
+button{
+    background-color: white;
+    border : none;
+}
+
+
+.search input{
+    display: inline-block;
+    height : 30px;
+    width : 250px;
+    background-color: #fff;
+    box-sizing : border-box;
+    border-color : lightgray;
+    border-radius: 20px;
+}
+
+.search input:focus{
+    outline : none;
+}
+
+.search img{
+    position : relative;
+    top : 6px;
+    left : -5px;
+    height : 20px;
+    width: 20px;
+}
+
+.nav-links{
+    display : flex;
+    justify-content: space-around;
+    width: 50%; /* nav 메뉴 글자간격(flexible)*/
+}
+.nav-links li{
+    list-style: none;
+}
+
+.nav-links a{
+    color : navy;
+    text-decoration : none;
+    letter-spacing : 3px;
+    font-weight: bold;
+    font-size : 25px;
+}
+
+.nav-links a:hover{
+    /* 밑줄 데코 너무 구린 듯.. => 추후 변경 
+    text-decoration : underline; */
+}
+
+
+/* 버거 영역 : 메뉴 모양 */
+.burger{
+    display : none;
+    margin : 10px;
+    cursor: pointer;
+}
+
+.burger div{
+    width : 25px;
+    height : 4px;
+    background-color : navy;
+    margin : 5px;
+    transition : all 0.3s ease;
+}
+
+/* relation with mobile ... maybe?? */
+@media screen and (max-width:1024px){
+    .nav-links{
+       width : 60%;
+    }
+}
+
+
+@media screen and (max-width:768px){
+    body{
+        overflow-x : hidden;
+    }
+    .nav-links{
+        position : absolute;
+        right : 0px;
+        height : 92vh; 
+        top : 20vh; 
+        background: lightslategray;
+        display : flex;
+        flex-direction : column;
+        align-items : center;
+        width : 50%;
+        transform : translateX(100%);
+        transition : transform 0.5s ease-in;
+    }
+    .nav-links li{
+        opacity : 0;
+    }
+    .burger{
+        display : block;
+    }
+}
+
+.nav-active{
+    transform : translateX(0%);
+}
+
+@keyframes navLinkFade{
+    from{
+        opacity : 0;
+        transform : translateX(50px);
+    }
+    to{
+        opacity : 1;
+        transform : translateX(0px);
+    }
+}
+
+.toggle .line1{
+    transform : rotate(-45deg) translate(-5px, 6px);
+}
+.toggle .line2{
+    opacity : 0;
+}
+.toggle .line3{
+    transform : rotate(45deg) translate(-5px, -6px);
+}
+
+section{
+    margin : 20px;
+    padding : 20px; 
+    display : flex;
+    justify-content : flex-start;
+    align-items : center;
+    min-height : 60vh;
+    font-family : 'Noto Sans KR', sans-serif;
+}
+
+footer{
+    margin : 20px;
+    padding : 20px; 
+    min-height : 7vh;
+    width : 100%
+    display : flex;
+    justify-content : flex-start;
+    align-items : center;
+    font-family : 'Noto Sans KR', sans-serif;
+}
+
+.leftFooter{
+    width : 60%;
+    float : left;    
+}
+
+.leftFooter img{
+    max-height: 40px;
+    position : relative;
+    top : 3px;
+}
+
+.leftFooter h4{
+    display : inline;
+    position : relative;
+    top : -10px;
+    left : -4px;
+}
+
+.rightFooter{
+    width : 20%;
+    float : right;
+    position : relative;
+    top : 5px;
+}
+
+.rightFooter img{
+    max-height: 35px;
+    position : relative;
+    left : 10px;
+}
+
+.rightFooter a{
+    text-decoration: none;
+    color : black;
+}
+
+
+
+
+

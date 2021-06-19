@@ -1,14 +1,89 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-<h1>
-	Hello world!  
-</h1>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<P>  The time on the server is ${serverTime}. </P>
-</body>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="widh=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="${path}/css/style.css">
+        <link rel="shortcut icon" type="imae/x-icon" href="${path}/images/logo.png"/>
+        <script src="${ path }/js/header.js"></script>
+        <title> 취미상점  </title>
+    </head>
+
+    <body>
+        <header>
+            <div class="logo" onclick="location.href=''">
+                <img class="logoImg" src="${ path }/images/logo.png"> <h4> 취미상점</h4>
+            </div>
+            <div class="logo search">
+                <input type="text"  placeholder="  어떤 취미를 찾고 있나요?"/>
+                <button class="search btn_search" type="button"><img src="${path}/images/search.png"/></button>
+            </div>
+            <div class="member">
+                <!-- 로그인이 되어있지 않은 경우  -->
+                    <table class="container" align="center">
+                        <tr class="main">
+                            <td class="btn login"><button type="button" onclick="location.href='${path}'">로그인</button></td>
+                            <td class="btn join"><button type="button" onclick="location.href='${path}'">회원가입</button></td>
+                        </tr>
+                        <tr class="find">
+                            <td class="btn findId"><button type="button" onclick="location.href='${path}'">아이디찾기</button></td>
+                            <td class="btn findPwd"><button type="button" onclick="location.href='${path}'">비밀번호찾기</button></td>
+                        </tr>
+                <!-- 로그인 되어있는 경우   
+                        <tr class="main info">
+                            <td colspan="2" class="infoId"> 님, 환영합니다</td>
+                        </tr>
+                        <tr>
+                            <td class="btn logout"><button type="button" onclick="location.href=''">로그아웃</button></td>
+                            <td class="btn myPage"><button type="button" onclick="location.href=''">마이 페이지</button></td>
+                        </tr>
+               -->
+
+                    </table>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">전체 카테고리</a>
+                        <span> </span>
+                    </li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">오픈 예정</a></li>
+                    <li><a href="#">베스트</a></li>
+                </ul>
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </header>
+        <section>
+
+        </section>
+        <footer>
+            <div class="leftFooter">
+                <img src="${path}/images/logo.png""><h4> 취미상점 </h4>
+                <h5> 취미상점은 모든 사람이 취미부자가 되는 <br>
+                    그 날까지 함께합니다.
+                </h5>
+            </div>
+            <div class="rightFooter">
+                <table align="center">
+                    <tr>
+                        <td><a href=""><h5>공지사항</h5></a></td>
+                        <td rowspan="2"><a href="#"><img src="${path}/images/logo2.png""></a></td>
+                    </tr>
+                    <tr><td><a href=""><h5>자주 묻는 질문</h5></a></td></tr>
+                </table>
+            </div>
+        </footer>
+    </body>
 </html>
