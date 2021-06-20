@@ -4,11 +4,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../views/common/header.jsp"%>
+<%@ include file="../../views/common/header.jsp"%>
 
+
+
+<link rel="stylesheet" href="${path}/css/member_css/enroll.css">
 
 <section>
-<h1>메인페이지입니다.</h1>
+
+	<h2 class="enroll_title">회원가입</h2>
+
+
+
 </section>
 
-<%@ include file="../views/common/footer.jsp"%>
+<%@ include file="../../views/common/footer.jsp"%>
