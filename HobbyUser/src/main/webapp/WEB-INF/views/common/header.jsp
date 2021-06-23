@@ -14,7 +14,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="${path}/css/style.css">
         <link rel="shortcut icon" type="imae/x-icon" href="${path}/images/logo.png"/>
-        <script src="${ path }/js/header.js"></script>
         <title> 취미상점  </title>
     </head>
 
@@ -66,3 +65,5 @@
                 </div>
             </nav>
         </header>
+        
+   <script type="text/javascript" src="${ path }/js/header.js"></script>
