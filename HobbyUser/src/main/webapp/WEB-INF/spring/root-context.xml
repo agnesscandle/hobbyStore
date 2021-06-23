@@ -9,4 +9,6 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:property-placeholder location="classpath:driver.properties"/>	
+	
+	<import resource="mybatis-context.xml"/>
 </beans>

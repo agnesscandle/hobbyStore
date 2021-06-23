@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.kh.mvc.hobby.model.mapper.HobbyMapper">
+ 
+ 	<sql id="HobbyListSql">
+		SELECT  HB_NO,
+    			MER_NO,
+			    CATE_NO,
+			    HB_TITLE,
+			    HB_SUMMARY,
+			    HB_STARTDATE,
+			    HB_ENDDATE,
+			    HB_URL,
+			    HB_THUM_URL,
+			    HB_THUM_NAME,
+			    HB_INFO,
+			    HB_LOCATION
+		FROM HOBBY
+		WHERE STATUS = 'Y'
+	</sql>
+	
+	<resultMap type="Hobby" id="HobbyListResultMap">
+		<id property="hb_no" column="HB_NO"/>
+		<result property="mer_no" column="MER_NO"/>
+		<result property="cate_no" column="CATE_NO"/>
+		<result property="hb_title" column="HB_TITLE"/>
+		<result property="hb_summary" column="HB_SUMMARY"/>
+		<result property="hb_startdate" column="HB_STARTDATE"/>
+		<result property="hb_enddate" column="HB_ENDDATE"/>
+		<result property="url" column="HB_URL"/>
+		<result property="hb_thum_url" column="HB_THUM_URL"/>
+		<result property="hb_thum_name" column="HB_THUM_NAME"/>
+		<result property="hb_info" column="HB_INFO"/>
+		<result property="hb_location" column="HB_LOCATION"/>
+	</resultMap>
+	
+	<select id="selectHobbyList" parameterType="map" resultMap="HobbyListResultMap">
+		
+		<include refid="HobbyListSql"/>
+		
+		ORDER BY HB_NO DESC
+	</select>
+	
+	<select id="selectHobbyCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM HOBBY
+		WHERE STATUS='Y' 
+	</select>
+	
+ </mapper>
