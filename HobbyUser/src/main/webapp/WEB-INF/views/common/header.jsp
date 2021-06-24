@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="${path}/css/style.css">
         <link rel="shortcut icon" type="imae/x-icon" href="${path}/images/logo.png"/>
 
-        <script src="${ path }/js/header.js"></script>
         <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 
         <title> 취미상점  </title>
