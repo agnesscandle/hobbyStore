@@ -28,8 +28,8 @@
       <result property="cate_no" column="CATE_NO"/>
       <result property="hb_title" column="HB_TITLE"/>
       <result property="hb_summary" column="HB_SUMMARY"/>
-      <result property="hb_startdate" column="HB_STARTDATE"/>
-      <result property="hb_enddate" column="HB_ENDDATE"/>
+      <result property="hb_startDate" column="HB_STARTDATE"/>
+      <result property="hb_endDate" column="HB_ENDDATE"/>
       <result property="hb_url" column="HB_URL"/>
       <result property="hb_thum_url" column="HB_THUM_URL"/>
       <result property="hb_thum_name" column="HB_THUM_NAME"/>
@@ -68,18 +68,18 @@
 		STATUS
 	) VALUES(
 		SEQ_HOBBY_NO.NEXTVAL,
-		#{mer_no},
-		#{cate_no},
+		1,
+		1,
 		#{hb_title},
 		#{hb_summary},
-		#{hb_startDate},
-		#{hb_endDate},
+		TO_DATE(#{hb_startDate},'YYYY-MM-DD'),
+		TO_DATE(#{hb_endDate},'YYYY-MM-DD'),
 		#{hb_url},
 		#{hb_thum_url},
 		#{hb_thum_name},
 		#{hb_info},
 		#{hb_location},
-		DEFAULT
+		'Y'
 	)	
 </insert>
 </mapper>

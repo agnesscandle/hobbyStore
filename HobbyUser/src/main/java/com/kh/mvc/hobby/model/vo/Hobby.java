@@ -1,6 +1,7 @@
 package com.kh.mvc.hobby.model.vo;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,11 +22,11 @@ public class Hobby {
 	private String hb_title;
 	
 	private String hb_summary;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
+	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */
 	private Date hb_startDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */
 	private Date hb_endDate;
 
 	private String hb_url;

@@ -72,7 +72,7 @@ public class HobbyController {
 		int result = 0;
 		log.info("게시글 작성요청");
 		
-
+		System.out.println(hobby.getHb_startDate());
 		
 		result = service.save(hobby);
 		

@@ -12,8 +12,7 @@
 
 
 	<div id='hobby-enroll-container' align="center">	
-	<form action="${ path }/hobby/enroll" method="POST"
-		enctype="multipart/form-data">
+	<form action="${ path }/hobby/enroll" method="POST">
 		<table border="1">
 		<tr>
 		<th>제목</th>
