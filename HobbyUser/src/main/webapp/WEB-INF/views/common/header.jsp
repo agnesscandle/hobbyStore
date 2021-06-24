@@ -58,7 +58,7 @@
             </div>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="#">전체 카테고리</a>
+                    <li><a href="${ path }/hobby/list">전체 카테고리</a>
                         <span> </span>
                     </li>
                     <li><a href="#">이벤트</a></li>
