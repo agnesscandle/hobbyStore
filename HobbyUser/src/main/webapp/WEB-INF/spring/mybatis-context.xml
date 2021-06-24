@@ -33,6 +33,7 @@
 		p:basePackage="com.kh.mvc.*.model.mapper"	
 	/>
 	
+	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource"
 	/>

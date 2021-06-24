@@ -1,23 +1,24 @@
-.memEnrollWrapper {
-	margin-left: 33%;
-	margin-right: 33%;
+.mLoginWrapper {
+	margin-top: 0%;
+	margin-left: 35%;
+	margin-right: 35%;
 }
 
-.memEnrollTitle {
+.loginTitle {
 	text-align: center;
 	font-size: 30px;
 	font-weight: bold;
 	color: black;
-	margin: 20px 0px 40px 0px;
+	margin: 0px 0px 40px 0px;
 }
 
-.memEnrollLabel {
+.mloginLabel {
 	display: inline-block;
 	text-align: right;
 	font-size: 18px;
 }
 
-.enrollInput {
+.mloginInput {
 	font-size: 14px;
     font-weight: normal;
     line-height: 20px;
@@ -34,40 +35,35 @@
     border-radius: 3px;
 }
 
-.enrollInput:active {
-   background-color: slategray;
+.loginGroup {
+    flex-direction: column;
+    margin: 0px 0px 16px;
 }
 
 
-#mSignup {
+
+#mLoginBtn{
 	text-align: center;
-	margin: 5px;
+	margin: 0px 0px 5px 0px;
 }
 
-.regex {
-	font-size: 16px;
-	margin-left: 230px;
-	padding: 5px 0;
-	color: red;
+#memEnrollBtn{
+	margin: 5px 0px 5px 0px;
 }
 
-.repw regex{
-	padding: 15px 0;
+.contain{
+	background-color: rgb(25, 161, 224);	
 }
 
-#enrollSubmit{
+#mLoginSubmit{
 	background-color: rgb(25, 161, 224);
 }
 
-#kakaoSubmit{
-	background-color: rgb(255, 232, 18);
-	background-repeat: no-repeat;
-	box-sizing: border-box;
-	background-position: 27% center;
-	background-size: 40px;
+.find_mId{
+	font-size: 13px;
 }
 
-
-
-
+.find_mPw{
+	font-size: 13px;
+}
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.kh.mvc.member.model.mapper.MemberMapper">
+ 	<sql id="selectMemberSql">
+ 		SELECT  MEM_NO, 
+			    MEM_ID, 
+			    MEM_PASSWORD, 
+			    MEM_EMAIL,
+			    MEM_NAME, 
+			    MEM_PHONE, 
+			    STATUS, 
+			    MEM_IMG_ORIGINAL, 
+			    MEM_IMG_RENAME, 
+			    MEM_DATE 
+		FROM MEMBER
+ 	</sql>
+ 
+ 	<resultMap type="Member" id="memberResultMap">
+ 		<id property="memNo" column="MEM_NO"/>
+ 		<result property="memId" column="MEM_ID" />
+ 		<result property="memPassword" column="MEM_PASSWORD"/>
+ 		<result property="memEmail" column="MEM_EMAIL"/>
+ 		<result property="memName" column="MEM_NAME"/>
+ 		<result property="memPhone" column="MEM_PHONE"/>
+ 		<result property="status" column="STATUS"/>
+ 		<result property="memImgOriginal" column="MEM_IMG_ORIGINAL"/>
+ 		<result property="memImgRename" column="MEM_IMG_RENAME"/>
+ 		<result property="status" column="STATUS"/>
+ 		<result property="memDate" column="MEM_DATE"/>
+ 		<result property="cateNo" column="CATE_NO"/>
+ 	</resultMap>
+ 	
+ 	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
+ 		<include refid="selectMemberSql" />
+		WHERE MEM_ID = #{memId} AND STATUS ='Y'
+ 	</select>
+ 	
+ 	<insert id="insertMember" parameterType="Member"
+ 		useGeneratedKeys="true" keyColumn="MEM_NO" keyProperty="memNo" >
+
+		INSERT INTO MEMBER (
+			MEM_NO,
+			MEM_ID,
+			MEM_PASSWORD,
+			MEM_EMAIL,
+			MEM_NAME,
+			MEM_PHONE,
+			STATUS,
+			MEM_IMG_ORIGINAL,
+			MEM_IMG_RENAME,
+			MEM_DATE
+		) VALUES(
+			SEQ_UNO.NEXTVAL, 
+			#{memId},
+			#{memPassword},
+			#{memEmail},
+			#{memName},
+			#{memPhone},
+			DEFAULT,
+			#{memImgOriginal},
+			#{memImgRename},
+			DEFAULT
+		)
+ 	</insert>
+ </mapper>

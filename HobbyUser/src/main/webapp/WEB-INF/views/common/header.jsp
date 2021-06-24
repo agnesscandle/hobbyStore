@@ -14,6 +14,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="${path}/css/style.css">
         <link rel="shortcut icon" type="imae/x-icon" href="${path}/images/logo.png"/>
+
+        <script src="${ path }/js/header.js"></script>
+        <script src="${ path }/js/jquery-3.6.0.min.js"></script>
+
         <title> 취미상점  </title>
     </head>
 
@@ -29,23 +33,27 @@
             <div class="member">
                 <!-- 로그인이 되어있지 않은 경우  -->
                     <table class="container" align="center">
+                <c:if test="${ loginMember == null }">
                         <tr class="main">
-                            <td class="btn login"><button type="button" onclick="location.href='${path}'">로그인</button></td>
+                            <td class="btn login"><button type="button" onclick="location.href='${path}/member/login'">로그인</button></td>
                             <td class="btn join"><button type="button" onclick="location.href='${path}/member/enroll'">회원가입</button></td>
                         </tr>
                         <tr class="find">
                             <td class="btn findId"><button type="button" onclick="location.href='${path}'">아이디찾기</button></td>
                             <td class="btn findPwd"><button type="button" onclick="location.href='${path}'">비밀번호찾기</button></td>
                         </tr>
-                <!-- 로그인 되어있는 경우   
+                 </c:if>
+                 
+                <!-- 로그인 되어있는 경우 --> 
+                <c:if test="${ loginMember != null }">
                         <tr class="main info">
-                            <td colspan="2" class="infoId"> 님, 환영합니다</td>
+                            <td colspan="2" class="infoId">${ loginMember.memName } 님, 환영합니다</td>
                         </tr>
                         <tr>
-                            <td class="btn logout"><button type="button" onclick="location.href=''">로그아웃</button></td>
+                            <td class="btn logout"><button type="button" onclick="location.replace('${path}/logout')">로그아웃</button></td>
                             <td class="btn myPage"><button type="button" onclick="location.href=''">마이 페이지</button></td>
                         </tr>
-               -->
+               </c:if>
 
                     </table>
             </div>
