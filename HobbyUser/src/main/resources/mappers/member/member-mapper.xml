@@ -39,6 +39,8 @@
 		WHERE MEM_ID = #{memId} AND STATUS ='Y'
  	</select>
  	
+	
+ 	
  	<insert id="insertMember" parameterType="Member"
  		useGeneratedKeys="true" keyColumn="MEM_NO" keyProperty="memNo" >
 

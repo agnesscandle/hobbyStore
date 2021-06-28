@@ -46,13 +46,23 @@
 
 .regex {
 	font-size: 16px;
-	margin-left: 230px;
 	padding: 5px 0;
 	color: red;
 }
 
 .repw regex{
 	padding: 15px 0;
+}
+
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1{
+		color : blue;
+		display : none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2{
+		color : red;
+		display : none;
 }
 
 #enrollSubmit{

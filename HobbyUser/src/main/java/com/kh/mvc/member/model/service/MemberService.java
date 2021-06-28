@@ -9,4 +9,8 @@ public interface MemberService {
 	int save(Member member);
 
 	Member findById(String memId);
+
+	boolean validate(String memId);
+
+
 }

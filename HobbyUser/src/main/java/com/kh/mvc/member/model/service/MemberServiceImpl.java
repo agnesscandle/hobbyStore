@@ -48,5 +48,16 @@ public class MemberServiceImpl implements MemberService{
 
 		return mapper.selectMember(memId);
 	}
+
+	@Override
+	public boolean validate(String memId) {
+		
+		return this.findById(memId) != null;
+	}
+
+
+	
+	
+	
 	
 }
