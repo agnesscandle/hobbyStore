@@ -13,31 +13,41 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hobby {
-	private int hb_no;
+	private int hbNo;
 	
-	private int mer_no;
+	private int merNo;
 
-	private int cate_no;
+	private int cateNo;
 	
-	private String hb_title;
+	private String cateName;
 	
-	private String hb_summary;
+	private String hbTitle;
+	
+	private String hbSummary;
+	
+	private String hbFee;
+	
+	private String hbDiscountRate;
+	
+	private String hbDiscountStatus;	
 
 	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */
-	private Date hb_startDate;
+	private Date hbStartDate;
 	
 	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */
-	private Date hb_endDate;
+	private Date hbEndDate;
 
-	private String hb_url;
+	private String hbImgsOri;
 	
-	private String hb_thum_url;
+	private String hbImgsRename;
 	
-	private String hb_thum_name;
+	private String hbThumOri;
 	
-	private String hb_info;
+	private String hbThumRename;
 	
-	private String hb_location;
+	private String hbInfo;
+	
+	private String hbLocation;
 	
 	private String status;
 }
