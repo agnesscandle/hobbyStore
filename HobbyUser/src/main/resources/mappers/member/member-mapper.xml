@@ -61,7 +61,7 @@
 			MEM_IMG_RENAME,
 			MEM_DATE
 		) VALUES(
-			SEQ_UNO.NEXTVAL, 
+			SEQ_MEM_NO.NEXTVAL, 
 			#{memId},
 			#{memPassword},
 			#{memEmail},
