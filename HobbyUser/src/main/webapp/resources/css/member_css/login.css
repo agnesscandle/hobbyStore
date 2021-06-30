@@ -51,13 +51,17 @@
 	margin: 5px 0px 5px 0px;
 }
 
-.contain{
-	background-color: rgb(25, 161, 224);	
+#mLoginSubmit{
+	background-color: rgb(32, 51, 84);
+	color: white;
 }
 
-#mLoginSubmit{
-	background-color: rgb(25, 161, 224);
+.contain{
+	background-color: rgb(32, 51, 84);
+	color: white;	
 }
+
+
 
 .find_mId{
 	font-size: 13px;

@@ -39,7 +39,12 @@
 		WHERE MEM_ID = #{memId} AND STATUS ='Y'
  	</select>
  	
-	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultMap="memberResultMap">
+		SELECT MEM_ID FROM MEMBER 
+		WHERE MEM_NAME = #{memName} 
+		AND MEM_EMAIL = #{memEmail}
+	</select>
  	
  	<insert id="insertMember" parameterType="Member"
  		useGeneratedKeys="true" keyColumn="MEM_NO" keyProperty="memNo" >
@@ -68,4 +73,14 @@
 			DEFAULT
 		)
  	</insert>
+ 	
+ 	<update id="updateMember" parameterType="Member">
+ 		UPDATE MEMBER 
+ 		SET 
+ 			MEM_NAME = #{memName},
+ 			MEM_PHONE = #{memPhone},
+ 			MEM_EMAIL = #{memEmail}
+		WHERE MEM_NO = #{memNo}
+ 	</update>
+ 	
  </mapper>

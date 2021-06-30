@@ -11,6 +11,10 @@ public interface MemberMapper {
 
 	int insertMember(Member member);
 
+	Member findId(@Param("memName") String memName, @Param("memEmail") String memEmail);
+
+	int updateMember(Member member);
+
 
 
 }

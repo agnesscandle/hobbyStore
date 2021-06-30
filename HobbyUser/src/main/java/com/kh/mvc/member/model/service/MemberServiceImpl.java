@@ -32,8 +32,7 @@ public class MemberServiceImpl implements MemberService{
 		int result = 0;
 		
 		if(member.getMemNo() != 0) {
-			// update
-//			result = mapper.updateMember(member);
+			result = mapper.updateMember(member);
 		} else {
 			member.setMemPassword(passwordEncoder.encode(member.getMemPassword()));
 			
@@ -53,6 +52,12 @@ public class MemberServiceImpl implements MemberService{
 	public boolean validate(String memId) {
 		
 		return this.findById(memId) != null;
+	}
+
+	
+	public Member findByIdAndName(String memName, String memEmail) {
+
+		return mapper.findId(memName, memEmail);
 	}
 
 

@@ -9,6 +9,7 @@
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 
+<div>
 <section class="mLoginWrapper">
 <form name="memberLoginFrm" id="loginForm"
 	action="${ path }/member/login" method="POST">
@@ -17,14 +18,14 @@
 	<div class="loginGroup">
 	<label class="mloginLabel">아이디</label><br>
 	<input type="text" class="mloginInput" placeholder="아이디를 입력하세요." name="memId" required /> <br>
-	<div class="find_mId"><a>아이디를 잊으셨나요?</a></div>	
+	<span id="find_mId_btn" class="find mId">아이디를 잊으셨나요?</span>	
 	</div>
 	 
 	 <!-- 비밀번호 -->
 	 <div class="loginGroup">
 	 <label class="mloginLabel">비밀번호</label><br>
      <input type="password" class="mloginInput" placeholder="비밀번호를 입력하세요." name="memPassword" required/> <br>
-	 <div class="find_mPw"><a>비밀번호를 잊으셨나요?</a></div>	
+	 <span id="find_mPw_btn" class="find mPw">비밀번호를 잊으셨나요?</span>	
 	 </div>
 	 
 	<!-- 로그인 버튼 -->
@@ -46,7 +47,21 @@
 	<button type="button" class="mloginInput" id="mLoginSubmit">상인회원 가입하기</button>
 	</div>
 	
-	
+
 </form>
+<script>
+	$(function(){
+		$("#find_mId_btn").click(function(){
+			location.href='${ path }/member/memberIdSearch';
+		})
+	})
+	
+	$(function(){
+		$("#find_mPw_btn").click(function(){
+			location.href='${ path }/member/memberPwSearch';
+		})
+	})
+</script>
 </section>
+</div>
 <%@ include file="../../views/common/footer.jsp"%>

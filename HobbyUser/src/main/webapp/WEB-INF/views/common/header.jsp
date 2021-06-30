@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <td class="btn logout"><button type="button" onclick="location.replace('${path}/logout')">로그아웃</button></td>
-                            <td class="btn myPage"><button type="button" onclick="location.href=''">마이 페이지</button></td>
+                            <td class="btn myPage"><button type="button" onclick="location.href='${path}/member/myInfo'">마이 페이지</button></td>
                         </tr>
                </c:if>
 

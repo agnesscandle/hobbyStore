@@ -12,5 +12,7 @@ public interface MemberService {
 
 	boolean validate(String memId);
 
+	Member findByIdAndName(String memName, String memEmail);
+
 
 }

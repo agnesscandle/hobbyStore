@@ -25,4 +25,21 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
+	<interceptors>
+		<interceptor>
+		
+		<mapping path="/member/**"/>
+		
+		<exclude-mapping path="/member/enroll"/>
+		<exclude-mapping path="/member/login"/>
+		<exclude-mapping path="/member/memberIdChk"/>
+		<exclude-mapping path="/member/memberIdSearch"/>
+		<exclude-mapping path="/member/memberPwSearch"/>
+		
+		
+		
+		<beans:bean id="loginCheckInterceptor" class="com.kh.mvc.common.Interceptor.LoginCheckIntercaptor" />
+		</interceptor>	
+	</interceptors>	
+		
 </beans:beans>

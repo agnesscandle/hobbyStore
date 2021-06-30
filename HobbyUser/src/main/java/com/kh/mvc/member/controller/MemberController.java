@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -102,6 +103,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	// 아이디 중복검사 
 	@GetMapping("/member/memberIdChk")
 	@ResponseBody
 	public Map<String, Object> memberIdChk(@RequestParam("memId") String memId) {
@@ -113,4 +115,79 @@ public class MemberController {
 		
 		return map;
 	}
+	
+	// 아이디 찾기 페이지 이동
+	@GetMapping("/member/memberIdSearch")
+	public String idSearchView() { 
+		log.info("아이디 찾기 페이지 요청");
+		
+		return "member/memberIdSearch";
+	}
+	
+	// 아이디 찾기 실행
+	@RequestMapping(value="/member/memberIdSearch", method = {RequestMethod.POST})
+	public ModelAndView findId(ModelAndView model, @ModelAttribute Member member,
+			@RequestParam("memName")String memName, @RequestParam("memEmail")String memEmail) {
+		
+		log.info("{}, {}", memName, memEmail);
+		
+		Member result = service.findByIdAndName(memName, memEmail);
+		
+		if(result == null) {
+			model.addObject("msg", "일치하는 회원이 없습니다.");
+			model.addObject("location", "/member/memberIdSearch");
+		} else {
+			model.addObject("msg", "아이디는 " + result.getMemId() + " 입니다.");
+			model.addObject("location", "/member/login");
+		}
+		model.setViewName("common/msg");
+		
+		return model;
+		
+	}
+	
+	// 마이페이지 이동
+		@GetMapping("/member/myInfo")
+		public String myInfoView() { 
+			log.info("회원정보 페이지 요청");
+			
+			return "member/myInfo";
+		}
+		
+	// 마이페이지 이동
+		@GetMapping("/member/updateMyInfo")
+		public String updateMyInfoView() { 
+			log.info("회원정보 수정 페이지 요청");
+			
+			return "member/updateMyInfo";
+		}
+		
+	@PostMapping("/member/update")
+		public ModelAndView update(ModelAndView model, 
+				@ModelAttribute Member member, 
+				@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+			int result = 0;
+			
+			if(loginMember.getMemId().equals(member.getMemId())) {
+				member.setMemNo(loginMember.getMemNo());
+				
+				result = service.save(member);		
+				
+				if(result > 0) {
+					model.addObject("loginMember" , service.findById(loginMember.getMemId())); 
+					model.addObject("msg", "회원정보 수정을 완료했습니다.");
+					model.addObject("location", "/member/updateMyInfo");
+				} else {
+					model.addObject("msg", "회원정보 수정에 실패했습니다.");
+					model.addObject("location", "/member/updateMyInfo");
+				}			
+			} else {
+				model.addObject("msg", "잘못된 접근입니다");
+				model.addObject("location", "/");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
 }
