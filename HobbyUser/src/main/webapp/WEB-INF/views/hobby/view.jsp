@@ -11,7 +11,7 @@
 
 
 <section>
-	<div class="container">
+   <div class="container">
                 <!-- 상단 : 취미 intro -->
                 <div class="top">
                     <div class="left" id="leftTop">
