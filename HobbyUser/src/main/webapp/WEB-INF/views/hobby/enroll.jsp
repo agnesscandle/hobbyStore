@@ -32,10 +32,10 @@
 		<div class="enroll enroll-1 active">
 			<section>
 				<div class="title">
-					<span>타이틀</span> <input type="text" id="hbTitle" name="hbTitle"
-						class="req" placeholder="취미 키워드를 적어주세요.(13자 이내)"> <span>간략소개</span>
-					<input type="text" id="hbSummary" name="hbSummary" class="req"
-						placeholder="취미를 간략하게 소개해주세요.">
+					<span>타이틀</span> 
+					<input type="text" id="hbTitle" name="hbTitle" class="req" placeholder="취미 키워드를 적어주세요.(13자 이내)"> 
+					<span>간략소개</span>
+					<input type="text" id="hbSummary" name="hbSummary" class="req" placeholder="취미를 간략하게 소개해주세요.">
 					<span>카테고리</span>
 					<select id="cateNo" name="cateNo" class="req">
                          <option value="" selected> 카테고리 </option>       
@@ -116,16 +116,14 @@
 		<div class="enroll enroll-3">
 			<section>
 				<div class="title">
-					<span>취미 시작일</span> <input type="date" id="hbStartDate"
-						name="hbStartDate" min="${today}" class="req"> <span>취미
-						종료일</span> <input type="date" id="hbEndDate" name="hbEndDate"
-						min="${today}" class="req">
+					<span>취미 시작일</span> 
+					<input type="date" id="hbStartDate" name="hbStartDate" min="${today}" class="req"> 
+					<span>취미 종료일</span> 
+					<input type="date" id="hbEndDate" name="hbEndDate" min="${today}" class="req">
 
 					<div class="btn">
-
-						<input type="button" class="before" value="이전으로" /> <input
-							type="button" class="next" value="다음으로" />
-
+						<input type="button" class="before" value="이전으로" /> 
+						<input type="button" class="next" value="다음으로" />
 					</div>
 				</div>
 				<div class="warn">
@@ -141,10 +139,9 @@
 		<div class="enroll enroll-4">
 			<section>
 				<div class="title">
-					<span>취미 구매 옵션(1회권)</span> <input type="text" id="hbFee"
-						name="hbFee" placeholder="1회권의 가격을 책정해주세요.(숫자만 입력해주세요.)"
-						class="req"> <span>취미 할인여부</span>
-
+					<span>취미 구매 옵션(1회권)</span> 
+					<input type="text" id="hbFee" name="hbFee" placeholder="1회권의 가격을 책정해주세요.(숫자만 입력해주세요.)" class="req"> 
+					<span>취미 할인여부</span>
 					<div id="disStat">
 						<label>할인 적용</label> 
 						<input type="checkbox" id="hbDiscountStatus"
@@ -152,19 +149,14 @@
 						<c:out value="(추후에 변경이 가능합니다.)"></c:out>
 						<div id="disRate">
 							<span>취미 할인률</span> 
-							<input type="text" id="hbDiscountRate"
-								name="hbDiscountRate" class="reqDisRate"
-								placeholder="1회권의 가격을 책정해주세요.(%없이 숫자만 입력해주세요.)">
+							<input type="text" id="hbDiscountRate" name="hbDiscountRate" class="reqDisRate" placeholder="1회권의 가격을 책정해주세요.(%없이 숫자만 입력해주세요.)">
 						</div>
 					</div>
 					
 
 					<div class="btn">
-
-						<input type="button" class="before" value="이전으로" /> <input
-							type="button" class="next" 
-							value="다음으로" />
-
+						<input type="button" class="before" value="이전으로" /> 
+						<input type="button" class="next" value="다음으로" />
 					</div>
 				</div>
 				<div class="warn">
@@ -181,21 +173,17 @@
 			<section>
 				<div class="title">
 
-					<span>설명</span> <input type="text" id="hbThumUrl" name="hbInfo"
-						class="req" placeholder="설명"> 
-						
-						<span>주소 입력하기</span> 
-						<input type="text" class="req" name="postcode" id="postcode" placeholder="우편번호"/> 
-						<input type="button" value="주소 찾기" id="hbLocationButton" onclick="sample4_execDaumPostcode();"/> 
-						<input type="text" class="req" name="hbLocation" id="roadAddress"  placeholder="주소"/>
-						<input type="text" class="req" name="exactAddress" id="exactAddress"  placeholder="상세주소"/>
-
+					<span>설명</span> 
+					<input type="text" id="hbThumUrl" name="hbInfo" class="req" placeholder="설명"> 
+					<span>주소 입력하기</span> 
+					<input type="text" class="req" name="postcode" id="postcode" placeholder="우편번호"/> 
+					<input type="button" value="주소 찾기" id="hbLocationButton" onclick="sample4_execDaumPostcode();"/> 
+					<input type="text" class="req" name="hbLocation" id="roadAddress"  placeholder="주소"/>
+					<input type="text" class="req" name="exactAddress" id="exactAddress"  placeholder="상세주소"/>
 
 					<div class="btn">
-
 						<input type="button" class="before" value="이전으로" /> 
 						<input type="button" class="register" value="등록하기" />
-
 					</div>
 				</div>
 				<div class="warn">
@@ -214,7 +202,7 @@
 <script>
 
 
-
+/* 다음으로 버튼 클릭 시 각 section 항목들이 다 작성되어있는지 검사 */
 var seq = 1;
 $('.next').click(function(){
 	
@@ -255,6 +243,8 @@ $('.next').click(function(){
     $('.enroll-'+seq).addClass('active')
   });
  
+ 
+ /* 등록하기 버튼 클릭 시 마지막 section 항목들이 다 작성되어있는지 검사 */
  $('.register').click(function(){
 	 var is_empty = false;
 		$('.enroll-5').find('.req').each(function(){
@@ -271,7 +261,7 @@ $('.next').click(function(){
  });
  
   
-  /* 미리보기 */
+  /* 다중 이미지 파일 미리보기 */
  ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
   imageView = function imageView(att_zone, btn){
 
@@ -375,13 +365,8 @@ $('.next').click(function(){
   
   
   
- /* 썸네일 미리보기 */
+ /* 썸네일 이미지 파일 미리보기 */
 $(document).ready(function(){
-
-    //$('#ex_filename').change(function() {
-    //	var filename = $(this).val();
-    //	$('.upload-name').val(filename);
-    //});
 
     var fileTarget = $('.file-upload .upload-hidden');
 
@@ -428,7 +413,7 @@ imgTarget.on('change', function(){
 });
 
 
-/* 주소 API */
+/* Daum 주소 API */
 	function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {

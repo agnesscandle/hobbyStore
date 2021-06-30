@@ -15,12 +15,14 @@ public interface HobbyService {
 
 	int save(Hobby hobby);
 
-
 	List<Category> getCateList();
-
 
 	void saveFile(MultipartFile thumFile, String savePath, Hobby hobby);
 
 	void saveFiles(List<MultipartFile> fileList, String savePath, Hobby hobby);
+
+	int getHobbySearchCount(String search);
+
+	List<Hobby> getHobbySearchList(PageInfo pageInfo, String search);
 
 }

@@ -16,5 +16,8 @@ public interface HobbyMapper {
 	
 	List<Category> selectCateList();
 
+	int selectHobbySearchCount(String sreach);
+
+	List<Hobby> getHobbySearchList(RowBounds rowBounds, String search);
 
 }

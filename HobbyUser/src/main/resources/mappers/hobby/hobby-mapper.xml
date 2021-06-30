@@ -7,21 +7,21 @@
 
    <sql id="HobbyListSql">
       SELECT HB_NO,
-      MER_NO,
-      CATE_NO,
-      HB_TITLE,
-      HB_SUMMARY,
-      HB_STARTDATE,
-      HB_FEE,
-      HB_DISCOUNT_RATE,
-      HB_DISCOUNT_STATUS,
-      HB_ENDDATE,
-      HB_IMGS_ORI,
-      HB_IMGS_RENAME,
-      HB_THUM_ORI,
-      HB_THUM_RENAME,
-      HB_INFO,
-      HB_LOCATION
+	      MER_NO,
+	      CATE_NO,
+	      HB_TITLE,
+	      HB_SUMMARY,
+	      HB_STARTDATE,
+	      HB_FEE,
+	      HB_DISCOUNT_RATE,
+	      HB_DISCOUNT_STATUS,
+	      HB_ENDDATE,
+	      HB_IMGS_ORI,
+	      HB_IMGS_RENAME,
+	      HB_THUM_ORI,
+	      HB_THUM_RENAME,
+	      HB_INFO,
+	      HB_LOCATION
       FROM HOBBY
       WHERE
       STATUS = 'Y'
@@ -92,10 +92,49 @@
 	      H.HB_LOCATION
       FROM HOBBY H
       JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
-      WHERE
-      H.STATUS = 'Y'
+      WHERE H.STATUS = 'Y'
 
       ORDER BY H.HB_NO DESC
+
+   </select>
+   
+      <select id="getHobbySearchList" parameterType="map"
+      resultMap="HobbyListResultMap">
+
+      SELECT H.HB_NO,
+	      H.MER_NO,
+	      H.CATE_NO,
+	      C.CATE_NAME,
+	      H.HB_TITLE,
+	      H.HB_SUMMARY,
+	      H.HB_STARTDATE,
+	      H.HB_FEE,
+	      H.HB_DISCOUNT_RATE,
+	      H.HB_DISCOUNT_STATUS,
+	      H.HB_ENDDATE,
+	      H.HB_IMGS_ORI,
+	      H.HB_IMGS_RENAME,
+	      H.HB_THUM_ORI,
+	      H.HB_THUM_RENAME,
+	      H.HB_INFO,
+	      H.HB_LOCATION
+      FROM HOBBY H
+      JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+      WHERE H.STATUS = 'Y'
+	  AND  H.HB_TITLE LIKE '%' || #{search} || '%' 
+
+      ORDER BY H.HB_NO DESC
+
+   </select>
+   
+   
+   
+    <select id="selectHobbySearchCount" parameterType="String"
+      resultType="_int">
+      SELECT COUNT(*)
+      FROM HOBBY
+      WHERE STATUS='Y'
+      AND HB_TITLE LIKE '%' || #{search} || '%' 
    </select>
 
    <select id="selectHobbyCount" parameterType="map"

@@ -29,3 +29,8 @@ const navSlide = () =>{ /* 버거 버튼 누르면 nav-link 활성화되도록 �
 }
 
 navSlide();
+
+$('#search').click(function(){
+ 	
+ 	$('#searchForm').submit();
+ });

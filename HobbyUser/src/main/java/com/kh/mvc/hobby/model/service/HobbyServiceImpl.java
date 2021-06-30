@@ -30,6 +30,12 @@ public class HobbyServiceImpl implements HobbyService{
    }
 
    @Override
+   public int getHobbySearchCount(String sreach) {
+	   
+	   return mapper.selectHobbySearchCount(sreach);
+   }
+   
+   @Override
    public List<Hobby> getHobbyList(PageInfo pageInfo) {
       int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getListLimit();
       RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
@@ -37,6 +43,13 @@ public class HobbyServiceImpl implements HobbyService{
       return mapper.selectHobbyList(rowBounds);
    }
 
+	@Override
+	public List<Hobby> getHobbySearchList(PageInfo pageInfo, String search) {
+		 int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getListLimit();
+	     RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	      
+		return  mapper.getHobbySearchList(rowBounds,search);
+	}
 
 	@Override
 	@Transactional
@@ -122,6 +135,8 @@ public class HobbyServiceImpl implements HobbyService{
 	     hobby.setHbThumRename(thumRename);
 		
 	}
+
+
 
 	
 

@@ -47,18 +47,38 @@ public class HobbyController {
 	   public ModelAndView list(ModelAndView model,
 	         @RequestParam(value="page", required= false,defaultValue="1")int page) {
 	      
-	      List<Hobby> list = null;
-	      
-	      PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
-	      list = service.getHobbyList(pageInfo);
-	     
-	      model.addObject("list", list);
-	      model.addObject("pageInfo", pageInfo);
-	      model.setViewName("hobby/list");
-	      
-	      return model;
+
+		List<Hobby> list = null;
+
+			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			list = service.getHobbyList(pageInfo);
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("hobby/list");
+		
+		return model;
 	      
 	   }
+	
+	@GetMapping("/list/search")
+	   public ModelAndView searchList(ModelAndView model,
+			 @RequestParam("searchDate") String search,
+	         @RequestParam(value="page", required= false,defaultValue="1")int page) {
+	      
+		
+		List<Hobby> list = null;
+		
+	
+			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbySearchCount(search), 8);
+			list = service.getHobbySearchList(pageInfo,search);
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("hobby/list");
+
+		return model;
+	      
+	   }
+
 
 	
 	 @GetMapping("/enroll")
