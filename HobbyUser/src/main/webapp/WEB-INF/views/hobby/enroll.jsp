@@ -466,7 +466,7 @@ imgTarget.on('change', function(){
                 guideTextBox.innerHTML = '';
                 guideTextBox.style.display = 'none';
             }
- 
+ 			
         }
     }).open();
     

@@ -25,10 +25,12 @@
             <div class="logo" onclick="location.href=''">
                 <img class="logoImg" src="${ path }/images/logo.png"> <h4> 취미상점</h4>
             </div>
-            <div class="logo search">
-                <input type="text"  placeholder="  어떤 취미를 찾고 있나요?"/>
-                <button class="search btn_search" type="button"><img src="${path}/images/search.png"/></button>
-            </div>
+            <form id ="searchForm" class="logo search" action="${ path }/hobby/list/search" method="GET">
+                <input type="text" name="searchDate" placeholder=" 어떤 취미를 찾고 있나요?"/>
+                <button class="search btn_search" id="search" type="button"/>
+                <img src="${path}/images/search.png"/></button>
+            </form>
+
             <div class="member">
                 <!-- 로그인이 되어있지 않은 경우  -->
                     <table class="container" align="center">

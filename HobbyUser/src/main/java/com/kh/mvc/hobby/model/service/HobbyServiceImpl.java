@@ -14,6 +14,7 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.mapper.HobbyMapper;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+import com.kh.mvc.hobby.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -135,6 +136,25 @@ public class HobbyServiceImpl implements HobbyService{
         hobby.setHbThumRename(thumRename);
       
    }
+
+	@Override
+	public int getReviewCount(int hbNo) {
+		
+		return mapper.selectReviewCount(hbNo);
+	}
+
+	@Override
+	public List<Review> getReviewList(PageInfo pageInfo, int hbNo) {
+		 int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getListLimit();
+	     RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	     
+		return mapper.selectReviewList(rowBounds, hbNo);
+	}
+
+	@Override
+	public Hobby findByNo(int hbNo) {
+		return mapper.selectHobbyByNo(hbNo);
+	}
 
 
 

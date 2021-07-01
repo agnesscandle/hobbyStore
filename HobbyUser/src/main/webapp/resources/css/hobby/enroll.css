@@ -173,6 +173,7 @@ input[type=checkbox]:checked ~ #disRate{
    display: block;
 }
 
+
 /* image */
 .file-upload label {
     display: inline-block;

@@ -173,10 +173,7 @@
    color: #fff;
 }
 
-#pageBar {
-   text-align: center;
-   margin-top: 30px;
-}
+
 </style>
 
 <div class="divList">

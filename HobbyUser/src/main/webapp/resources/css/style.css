@@ -199,7 +199,6 @@ section{
     justify-content : flex-start;
     align-items : center;
     min-height : 60vh;
-    font-family : 'Noto Sans KR', sans-serif;
 }
 
 footer{
@@ -249,7 +248,10 @@ footer{
     color : black;
 }
 
-
-
+/* 페이지바 */
+#pageBar {
+   text-align: center;
+   margin-top: 30px;
+}
 
 
