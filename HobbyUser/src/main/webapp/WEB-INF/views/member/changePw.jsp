@@ -29,7 +29,7 @@
 	</tr>
 	<tr>
 		<th>현재 비밀번호</th>
-		<td><input type="password" class="curPw" id="memPassword" name="memPassword" /></td>
+		<td><input type="password" class="curPw" id="memPassword" name="memPassword" required/></td>
 	</tr>
 	<tr>
 		<td><input type="submit" value="다음 단계로 넘어가기" /></td>

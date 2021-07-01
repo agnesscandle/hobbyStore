@@ -183,7 +183,7 @@ $('.enrollInput').on("propertychange change keyup paste input", function(){
 		} else if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
 			$("#pw-danger").show(); 
 			$("#pw-success").hide();
-			$("#pw-danger").html("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+			$("#pw-danger").html("영문,숫자,특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
 		} else {
 			 $("#pw-success").show();
 			 $("#pw-danger").hide();
