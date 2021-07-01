@@ -22,7 +22,7 @@
 
     <body>
         <header>
-            <div class="logo" onclick="location.href=''">
+            <div class="logo" onclick="location.href='${path}'">
                 <img class="logoImg" src="${ path }/images/logo.png"> <h4> 취미상점</h4>
             </div>
             <div class="logo search">

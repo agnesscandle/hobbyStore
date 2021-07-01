@@ -3,11 +3,16 @@ package com.kh.mvc.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +36,7 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	
 	// 로그인
 	@RequestMapping(value = "/member/login", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model,
@@ -45,7 +51,7 @@ public class MemberController {
 			model.setViewName("redirect:/");
 		} else {
 			model.addObject("msg", "아이디나 패스워드가 일치하지 않습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/member/login");
 			model.setViewName("common/msg");
 		}
 		
@@ -84,7 +90,7 @@ public class MemberController {
 		
 		if(result > 0) {
 			model.addObject("msg", "회원가입이 정상적으로 완료되었습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/member/login");
 		} else {
 			model.addObject("msg", "회원가입을 실패하였습니다.");
 			model.addObject("location", "/member/enroll");
@@ -161,8 +167,9 @@ public class MemberController {
 			
 			return "member/updateMyInfo";
 		}
-		
-	@PostMapping("/member/update")
+	
+	// 회원정보 수정
+		@PostMapping("/member/update")
 		public ModelAndView update(ModelAndView model, 
 				@ModelAttribute Member member, 
 				@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
@@ -190,4 +197,66 @@ public class MemberController {
 			
 			return model;
 		}
-}
+	
+	// 비밀번호 변경 페이지 이동
+		@GetMapping("/member/changePw")
+		public String changePwView() { 
+			log.info("회원정보 수정 페이지 요청");
+			
+			return "member/changePw";
+		}
+			
+	// 현재 비밀번호 확인 처리 요청
+		@PostMapping("/member/changePw")
+		public ModelAndView changePw(ModelAndView model,
+				@RequestParam("memId")String memId, @RequestParam("memPassword")String memPassword) {
+			
+			log.info("{}, {}", memId, memPassword);
+			
+			Member loginMember = service.checkpw(memId, memPassword);
+			
+			if(loginMember != null) {
+				model.setViewName("/member/changePw2");
+			} else {
+				model.addObject("msg", "패스워드가 일치하지 않습니다.");
+				model.addObject("location", "/member/changePw");
+				model.setViewName("common/msg");
+			}
+			
+			return model;
+		}
+		
+	// 새로운 비밀번호 변경 처리
+		@PostMapping("/member/changePw2")
+		public ModelAndView changePw2(ModelAndView model, SessionStatus status,
+				@ModelAttribute Member member,
+				@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+			
+			int result = 0;
+			
+			if(loginMember.getMemId().equals(member.getMemId())) {
+				member.setMemNo(loginMember.getMemNo());
+				
+				result = service.changePw(member);
+			if(result > 0) {
+				model.addObject("loginMember" , service.findById(loginMember.getMemId()));
+				model.addObject("msg", "비밀번호 변경이 완료되었습니다. 다시 로그인해주세요.");
+				status.setComplete();
+				model.addObject("location", "/member/login");
+			} else {
+				model.addObject("msg", "비밀번호 변경을 실패하였습니다.");
+				model.addObject("location", "/member/changePw2");
+			} 
+			}else {
+				model.addObject("msg", "잘못된 접근입니다");
+				model.addObject("location", "/");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+			
+		}
+	}	
+			
+

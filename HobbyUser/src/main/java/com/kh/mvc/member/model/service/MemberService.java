@@ -14,5 +14,15 @@ public interface MemberService {
 
 	Member findByIdAndName(String memName, String memEmail);
 
+	Member checkpw(String memId, String memPassword);
+
+	int changePw(Member member);
+
+
+
+
+
+
+
 
 }

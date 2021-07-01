@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 
 <div>
-<section class="mLoginWrapper">
+<contents class="mLoginWrapper">
 <form name="memberLoginFrm" id="loginForm"
 	action="${ path }/member/login" method="POST">
 	<div class="loginTitle">로그인</div>
@@ -62,6 +62,9 @@
 		})
 	})
 </script>
-</section>
+</contents>
 </div>
-<%@ include file="../../views/common/footer.jsp"%>
+
+<div id="footer">
+	<%@ include file="../../views/common/footer.jsp"%>
+</div>

@@ -15,6 +15,17 @@ public interface MemberMapper {
 
 	int updateMember(Member member);
 
+	Member checkPw(@Param("memPassword") String memPassword);
+
+	int updateMemPwd(Member member);
+
+
+
+
+
+
+
+
 
 
 }

@@ -10,10 +10,17 @@
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 
 <style>
-
+#footer {
+	position: fixed;
+	background-color: white; /*임의색상*/
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 6rem;
+}
 </style>
 
-<section id="updateInfo">
+<contents id="updateInfo">
 <div>
 <div>${ loginMember.memName } 님, 안녕하세요!</div><br>
 <form id="memberFrm" action="${ path }/member/update" method="POST">
@@ -46,9 +53,12 @@
 
 </form>
 </div>
-</section>
+</contents>
 
 <script>
 
 </script>
-<%@ include file="../../views/common/footer.jsp"%>
+
+<div id="footer">
+	<%@ include file="../../views/common/footer.jsp"%>
+</div>
