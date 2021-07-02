@@ -16,7 +16,7 @@
 		<div class="top">
 			<div class="left" id="leftTop">
 				<div class="imgContainer">
-					<img class="hobbyImg" src="${ path }/images/신규 클래스2.jpg">
+					<img class="hobbyImg" src="${ path }/upload/hobby/${hobby.hbThumRename}">
 				</div>
 			</div>
 			<div class="right" id="rightTop">

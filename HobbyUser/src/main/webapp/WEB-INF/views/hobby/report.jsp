@@ -38,7 +38,7 @@
                         </tr>
                         <tr>
                             <th>신고 제목</th>
-                            <td><input class="col1" id="rpTitle" type="text" placeholder="신고합니다." required/></td>
+                            <td><input class="col1" id="rpTitle" type="text" placeholder="신고합니다."/></td>
                         </tr>
                         <tr>
                             <th >신고 내용</th>
