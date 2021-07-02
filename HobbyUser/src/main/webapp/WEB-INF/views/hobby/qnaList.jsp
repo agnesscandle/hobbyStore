@@ -45,14 +45,11 @@
 							<span> 
 							<c:forEach var="replyList" items="${ qna.reply }" >
 							
-									 <c:forEach var="j" items="${ replyList }">
-										
-										
-										<%-- <c:out value="${ status.replyNo }"></c:out>
-										<c:out value="${ status.replyContent }"></c:out>
-										<c:out value="${ status.replayDate }"></c:out>
- --%>
-									</c:forEach> 
+							<c:out value="${ replyList.replyNo }"></c:out>
+							<c:out value="${ replyList.replyContent }"></c:out>
+							<c:out value="${ replyList.replayDate }"></c:out>
+							
+
 								</c:forEach>
 
 							</span>
