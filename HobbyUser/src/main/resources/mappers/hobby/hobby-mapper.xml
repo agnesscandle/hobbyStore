@@ -49,9 +49,25 @@
 		R.RV_ORIGINAL_FILENAME,
 		R.RV_RENAME_FILENAME
 		FROM REVIEW R
-		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO) 
+		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
 		WHERE R.STATUS = 'Y'
 	</sql>
+
+	<select id="selectReserveCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM RESERVATION
+		WHERE HB_NO = ${hbNo}
+		AND
+		MEM_NO = ${memNo}
+	</select>
+
+
+	<select id="selectReviewByNo" parameterType="_int"
+		resultMap="ReviewListResultMap">
+		<include refid="ReviewListSql" />
+		AND R.MEM_NO = ${memNo}
+	</select>
 
 	<resultMap type="Hobby" id="HobbyListResultMap">
 		<id property="hbNo" column="HB_NO" />
@@ -84,7 +100,8 @@
 		<result property="rvCreateDate" column="RV_CREATEDATE" />
 		<result property="rvModifyDate" column="RV_MODIFYDATE" />
 		<result property="goodReview" column="GOOD_REVIEW" />
-		<result property="rvOriginalFilename" column="RV_ORIGINAL_FILENAME" />
+		<result property="rvOriginalFilename"
+			column="RV_ORIGINAL_FILENAME" />
 		<result property="rvRenameFilename" column="RV_RENAME_FILENAME" />
 	</resultMap>
 
@@ -126,7 +143,8 @@
 		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
 		WHERE H.STATUS = 'Y'
 
-		ORDER BY H.HB_NO DESC
+		ORDER BY
+		H.HB_NO DESC
 
 	</select>
 
@@ -153,7 +171,8 @@
 		FROM HOBBY H
 		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
 		WHERE H.STATUS = 'Y'
-		AND H.HB_TITLE LIKE '%' || #{search} || '%'
+		AND
+		H.HB_TITLE LIKE '%' || #{search} || '%'
 
 		ORDER BY H.HB_NO DESC
 
@@ -172,7 +191,8 @@
 		SELECT COUNT(*)
 		FROM HOBBY
 		WHERE STATUS='Y'
-		AND HB_TITLE LIKE '%' || #{search} || '%'
+		AND HB_TITLE LIKE
+		'%' || #{search} || '%'
 	</select>
 
 	<select id="selectHobbyCount" parameterType="map"
@@ -188,18 +208,21 @@
 		SELECT COUNT(*)
 		FROM REVIEW
 		WHERE STATUS='Y'
-		AND HB_NO = ${hbNo}
+		AND HB_NO =
+		${hbNo}
 	</select>
 
-	<select id="selectHobbyByNo" parameterType="_int" resultMap="HobbyListResultMap">
-	   <include refid="HobbyListSql"/>
-	       AND HB_NO=#{hbNo}
+	<select id="selectHobbyByNo" parameterType="_int"
+		resultMap="HobbyListResultMap">
+		<include refid="HobbyListSql" />
+		AND HB_NO=#{hbNo}
 	</select>
 
 
 	<insert id="insertHobby" parameterType="map"
 		useGeneratedKeys="true" keyProperty="hbNo" keyColumn="HB_NO">
-		INSERT INTO HOBBY(
+		INSERT INTO
+		HOBBY(
 		HB_NO,
 		MER_NO,
 		CATE_NO,
@@ -217,7 +240,8 @@
 		HB_INFO,
 		HB_LOCATION,
 		STATUS
-		) VALUES(
+		)
+		VALUES(
 		SEQ_HOBBY_NO.NEXTVAL,
 		1,
 		#{cateNo},
@@ -237,4 +261,71 @@
 		'Y'
 		)
 	</insert>
+
+
+	<!-- 좋아요 -->
+	<select id="selectLikedStatusByNo" parameterType="hashMap"
+		resultType="String">
+		SELECT STATUS FROM LIKED
+		WHERE HB_NO = #{hbNo} AND MEM_NO =
+		#{memNo}
+	</select>
+
+
+	<insert id="insertLiked" parameterType="map"
+		useGeneratedKeys="true" keyProperty="likedNo" keyColumn="LIKE_NO">
+
+		INSERT INTO
+		LIKED(
+		LIKE_NO,
+		HB_NO,
+		MEM_NO,
+		STATUS
+		) VALUES (
+		SEQ_LIKE_SEQ.NEXTVAL,
+		#{hbNo},
+		#{memNo},
+		DEFAULT
+		)
+	</insert>
+
+	<update id="updateLiked" parameterType="hashMap">
+		UPDATE LIKED
+		SET
+		STATUS='Y'
+		WHERE HB_NO = #{hbNo} AND MEM_NO = #{memNo}
+	</update>
+
+
+	<update id="updateUnliked" parameterType="hashMap">
+		UPDATE LIKED
+		SET
+		STATUS='N'
+		WHERE HB_NO = #{hbNo} AND MEM_NO = #{memNo}
+	</update>
+
+	<!-- 신고하기 -->
+	<insert id="saveReport" parameterType="map"
+		useGeneratedKeys="true" keyProperty="rpNo" keyColumn="RP_NO">
+		INSERT INTO REPORT(
+		RP_NO,
+		HB_NO,
+		MEM_NO,
+		MEM_ID,
+		RP_TITLE,
+		RP_CONTENT,
+		RP_DATE,
+		STATUS
+		) VALUES (
+		SEQ_REPORT_NO.NEXTVAL,
+		#{hbNo},
+		#{rpWriterNo},
+		#{rpWriterId},
+		DEFAULT,
+		#{rpContent},
+		DEFAULT,
+		DEFAULT
+		)
+	</insert>
+
 </mapper>

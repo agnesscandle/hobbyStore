@@ -25,7 +25,7 @@
 
 
    <form id="enrollForm" action="${ path }/hobby/enroll" method="POST"
-      enctype="multipart/form-data"/>
+      enctype="multipart/form-data">
 
       <input type="hidden" name="merNo" value="1" /> 
 

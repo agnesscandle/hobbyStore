@@ -3,6 +3,8 @@ package com.kh.mvc.hobby.model.service;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+import com.kh.mvc.hobby.model.vo.Liked;
+import com.kh.mvc.hobby.model.vo.Report;
 import com.kh.mvc.hobby.model.vo.Review;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public interface HobbyService {
    /* 검색된 목록 가져오기 위한 인터페이스 [김예원]*/
    int getHobbySearchCount(String search);
 
+   
    List<Hobby> getHobbySearchList(PageInfo pageInfo, String search);
 
    
@@ -36,6 +39,23 @@ public interface HobbyService {
    List<Review> getReviewList(PageInfo pageInfo, int hbNo);
 
    Hobby findByNo(int hbNo);
+
+   /* review(후기)작성 관련 인터페이스 [김예원]*/
+   int getReserveCount(int hbNo, int memNo);
+
+   Review reviewFindByNo(int memNo);
+
+	/* Liked(좋아요) 관련 인터페이스 */
+   String selectLikedStatusByNo(int hbNo, int memNo);
+
+   int insertLiked(Liked liked);
+
+   int updateLiked(int hbNo, int memNo);
+
+   int updateUnliked(int hbNo, int memNo);
+
+	/* Report(신고하기) 관련 인터페이스 */
+   int saveReport(Report report);
 
 
 

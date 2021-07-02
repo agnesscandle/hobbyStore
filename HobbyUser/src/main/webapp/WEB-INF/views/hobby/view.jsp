@@ -22,10 +22,10 @@
 			<div class="right" id="rightTop">
 				<div class="forBorder">
 					<div class="infoContainer">
-						<h4 id="cate">[ 취미 카테고리 ]</h4>
-						<h2 id="title">취미 제목 ( 요약 ? )</h2>
+						<h4 id="cate">${hobby.cateNo}</h4>
+						<h2 id="title">${hobby.hbTitle}</h2>
 						<!-- 가격 오른쪽 정렬 + 단위 콤마 표시 -->
-						<h3 id="price">취미 가격 (원)</h3>
+						<h3 id="price">${hobby.hbFee}(원)</h3>
 					</div>
 					<br>
 					<hr>
@@ -47,7 +47,7 @@
 							<button class="btn" id="btnQuestion">문의하기</button>
 						</p>
 						<p class="btnSml2">
-							<button class="btn" id="btnReport">신고하기</button>
+							<button class="btn" id="btnReport" onclick="reportPopup();">신고하기</button>
 						</p>
 					</div>
 				</div>
@@ -66,7 +66,7 @@
 		</div>
 		<div class="bottom">
 			<div class="detail" id="reviewArea">
-			<!-- 
+				<!-- 
 				<div id="reviewList">
 					<c:forEach var="review" items="${ reviewList }">
 						<div id="review"></div>
@@ -88,6 +88,25 @@
 </section>
 
 <script>
+
+//좋아요 버튼
+$(document).ready(()=>{
+   $("#btnLiked").on("click", (e)=>{
+      location.href="${path}/hobby/liked?no=${hobby.hbNo}";
+   });
+});
+
+//신고하기 버튼
+function reportPopup(){
+   var hbNo =$("#hbNo").val();
+   console.log("취미번호 : " + hbNo);
+
+// 취미번호까지 제대로 찍힘 + 자식 창에서 부모 창의 값 가져오기
+   var url = "${path}/hobby/report?hbNo=${hobby.hbNo}&hbTitle=${hobby.hbTitle}";
+   var name = "report";
+   var option = "width=650, height=630, left=400, top=150, location=no, resizable=no, scrollbars=no";
+   window.open(url, name, option);
+}
 
 /* 
  // Get the modal
