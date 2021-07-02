@@ -19,6 +19,8 @@ public interface MemberMapper {
 
 	int updateMemPwd(Member member);
 
+	int deleteMember(int memNo);
+
 
 
 

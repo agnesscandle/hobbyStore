@@ -93,6 +93,12 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
+	// 탈퇴 처리 
+	public int delete(int memNo) {
+		
+			return mapper.deleteMember(memNo);
+	}
 	
 	
 

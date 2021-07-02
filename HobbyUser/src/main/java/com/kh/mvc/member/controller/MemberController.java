@@ -42,7 +42,8 @@ public class MemberController {
 	public ModelAndView login(ModelAndView model,
 			@RequestParam("memId")String memId, @RequestParam("memPassword")String memPassword) {
 		
-		log.info("{}, {}", memId, memPassword);
+//		테스트 로그
+//		log.info("{}, {}", memId, memPassword); 
 		
 		Member loginMember =  service.login(memId, memPassword);
 		
@@ -135,7 +136,8 @@ public class MemberController {
 	public ModelAndView findId(ModelAndView model, @ModelAttribute Member member,
 			@RequestParam("memName")String memName, @RequestParam("memEmail")String memEmail) {
 		
-		log.info("{}, {}", memName, memEmail);
+//		테스트 로그
+//		log.info("{}, {}", memName, memEmail);
 		
 		Member result = service.findByIdAndName(memName, memEmail);
 		
@@ -256,6 +258,45 @@ public class MemberController {
 			
 			return model;
 			
+		}
+		
+	// 회원탈퇴 약관동의 페이지 이동
+		@GetMapping("/member/deleteAgree")
+		public String deleteAgreeView() { 
+			log.info("회원탈퇴 약관동의 페이지 요청");
+			
+			return "member/deleteAgree";
+		}
+		
+	// 회원 약관동의 후 탈퇴 페이지 이동
+		@GetMapping("/member/delete")
+		public String delete() { 
+			log.info("회원탈퇴 페이지 요청");
+			
+			return "member/delete";
+		}
+	
+	// 탈퇴처리
+		@PostMapping("/member/delete")
+		public ModelAndView delete(ModelAndView model,
+				@RequestParam("memId")String memId, @RequestParam("memPassword")String memPassword,
+				@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+			
+			Member chkMember = service.checkpw(memId, memPassword);
+
+			int result = service.delete(loginMember.getMemNo());
+			
+			if(chkMember != null && result > 0) {
+				model.addObject("msg", "정상적으로 탈퇴되었습니다.");
+				model.addObject("location", "/logout");
+			} else {
+				model.addObject("msg", "회원탈퇴에 실패했습니다.");
+				model.addObject("location", "/member/delete");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
 		}
 	}	
 			

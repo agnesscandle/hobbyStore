@@ -93,4 +93,11 @@
 		WHERE MEM_NO = #{memNo}
  	</update>
  	
+ 	<update id="deleteMember" parameterType="_int">
+ 		UPDATE MEMBER
+ 		SET
+ 			STATUS='N'
+ 		WHERE
+ 			MEM_NO = #{memNo}
+ 	</update>
  </mapper>

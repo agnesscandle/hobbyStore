@@ -31,22 +31,32 @@
 <h2>내 정보 관리</h2>
 <div id="updateInfo_btn">프로필 수정</div>
 <div id="changePw_btn">비밀번호 변경</div>
-<div>회원 탈퇴</div>
+<div id="deleteInfo_btn">회원 탈퇴</div>
 <div>예약 관리</div>
 <div>좋아요 관리</div>
 
 </contents>
 
 <script>
+
+<!-- 회원정보 수정 페이지 이동 -->
 $(function(){
 	$("#updateInfo_btn").click(function(){
 		location.href='${ path }/member/updateMyInfo';
 	})
 })
 
+<!-- 비밀번호 변경 페이지 이동 -->
 $(function(){
 	$("#changePw_btn").click(function(){
 		location.href='${ path }/member/changePw';
+	})
+})
+
+<!-- 회원 탈퇴 페이지 이동 -->
+$(function(){
+	$("#deleteInfo_btn").click(function(){
+		location.href='${ path }/member/deleteAgree';
 	})
 })
 </script>

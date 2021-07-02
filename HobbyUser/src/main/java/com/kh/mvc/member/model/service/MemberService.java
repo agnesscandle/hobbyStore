@@ -18,6 +18,8 @@ public interface MemberService {
 
 	int changePw(Member member);
 
+	int delete(int memNo);
+
 
 
 
