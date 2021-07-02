@@ -23,6 +23,7 @@
     </head>
 <body>
                <div class="container">
+               <h1> 신고하기 </h1>
                 <form action="${path}/hobby/report" method="POST">
                     <table id="tblReport">
                         <tr>
@@ -33,7 +34,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>작성자 아이디</th>
+                            <th>작성자</th>
                             <td><input  class="col1" id="rpWriterId" type="text" name="rpWriterId" value="${loginMember.memId}" readonly/></td>
                         </tr>
                         <tr>
@@ -46,6 +47,7 @@
                                 <textarea class="col1" cols="70" rows="15" id="rpContent" name="rpContent" placeholder="신고하고 싶은 내용을 입력하세요." required></textarea>
                             </td>
                         </tr>
+                        <br><br>
                         <tr>
                             <th id="btnContainer" colspan="2">
                                 <input class="btn" id="btnReport" type="submit" value="신고하기">

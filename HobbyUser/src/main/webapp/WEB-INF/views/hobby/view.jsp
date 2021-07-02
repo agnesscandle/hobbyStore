@@ -116,7 +116,7 @@ function reportPopup(){
 // 취미번호까지 제대로 찍힘 + 자식 창에서 부모 창의 값 가져오기
    var url = "${path}/hobby/report?hbNo=${hobby.hbNo}&hbTitle=${hobby.hbTitle}";
    var name = "report";
-   var option = "width=650, height=630, left=400, top=150, location=no, resizable=no, scrollbars=no";
+   var option = "width=660, height=680, left=400, top=150, location=no, resizable=no, scrollbars=no";
    window.open(url, name, option);
 }
 
