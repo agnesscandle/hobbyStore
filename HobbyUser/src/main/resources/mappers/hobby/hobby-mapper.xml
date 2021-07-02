@@ -307,7 +307,8 @@
 	<!-- 신고하기 -->
 	<insert id="saveReport" parameterType="map"
 		useGeneratedKeys="true" keyProperty="rpNo" keyColumn="RP_NO">
-		INSERT INTO REPORT(
+		INSERT INTO
+		REPORT(
 		RP_NO,
 		HB_NO,
 		MEM_NO,
@@ -316,7 +317,8 @@
 		RP_CONTENT,
 		RP_DATE,
 		STATUS
-		) VALUES (
+		)
+		VALUES (
 		SEQ_REPORT_NO.NEXTVAL,
 		#{hbNo},
 		#{rpWriterNo},
@@ -324,6 +326,140 @@
 		DEFAULT,
 		#{rpContent},
 		DEFAULT,
+		DEFAULT
+		)
+	</insert>
+
+
+
+	<!-- 문의 및 답글 -->
+
+	<!-- Qna -->
+	<sql id="qnaListSql">
+		SELECT
+		Q.QNA_NO,
+		Q.HB_NO,
+		Q.MEM_NO,
+		Q.QNA_TITLE,
+		Q.QNA_CONTENT,
+		Q.STATUS,
+		Q.QNA_DATE,
+		Q.QNA_SECURE
+		FROM QNA Q
+		JOIN HOBBY H ON(Q.HB_NO = H.HB_NO)
+		JOIN MEMBER M ON(Q.MEM_NO = M.MEM_NO)
+	</sql>
+
+	<resultMap type="Qna" id="qnaListResultMap">
+		<id property="qnaNo" column="QNA_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="qnaTitle" column="QNA_TITLE" />
+		<result property="qnaContent" column="QNA_CONTENT" />
+		<result property="status" column="STATUS" />
+		<result property="qnaDate" column="QNA_DATE" />
+		<result property="qnaSecure" column="QNA_SECURE" />
+	</resultMap>
+
+
+	<select id="selectQnaCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA
+		WHERE HB_NO = #{hbNo}
+	</select>
+
+	<select id="selectQnaList" resultMap="qnaListResultMap">
+		<include refid="qnaListSql"></include>
+		WHERE Q.HB_NO = #{hbNo}
+		ORDER BY Q.QNA_NO DESC
+	</select>
+
+
+	<select id="selectHobbyByNoQna" parameterType="_int"
+		resultMap="HobbyListResultMap">
+		<include refid="HobbyListSql" />
+		AND HB_NO=#{hbNo}
+	</select>
+
+
+	<insert id="insertQna" parameterType="map"
+		useGeneratedKeys="true" keyProperty="qnaNo" keyColumn="QNA_NO">
+		INSERT INTO QNA(
+		QNA_NO,
+		HB_NO,
+		MEM_NO,
+		QNA_TITLE,
+		QNA_CONTENT,
+		STATUS,
+		QNA_DATE,
+		QNA_SECURE)
+		VALUES(
+		SEQ_QNA_NO.NEXTVAL,
+		#{hbNo},
+		1,
+		#{qnaTitle},
+		#{qnaContent},
+		DEFAULT,
+		DEFAULT,
+		#{qnaSecure}
+		)
+
+	</insert>
+
+
+
+
+	<!-- Reply -->
+
+	<sql id="replyList">
+		SELECT
+		R.REPLY_NO,
+		R.QNA_NO,
+		R.MER_NO,
+		R.REPLY_CONTENT,
+		R.REPLAY_DATE
+		FROM REPLY R
+		JOIN MERCHANT M ON(R.MER_NO = M.MER_NO)
+	</sql>
+	
+	<resultMap type="Reply" id="ReplyListResultMap">
+		<id property="replyNo" column="REPLY_NO" />
+		<result property="qnaNo" column="QNA_NO" />
+		<result property="merNo" column="MER_NO" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="replayDate" column="REPLAY_DATE" />
+	</resultMap>
+
+	<select id="selectReplyCount" parameterType="_int">
+		SELECT COUNT(*)
+		FROM
+		REPLY
+		WHERE QNA_NO =#{qnaNo}
+	</select>
+
+	<select id="selectReplyList" resultMap="ReplyListResultMap"
+		parameterType="_int">
+		<include refid="replyList" />
+		WHERE R.QNA_NO = #{qnaNo}
+		ORDER BY R.QNA_NO DESC
+	</select>
+
+
+
+	<insert id="saveReply" parameterType="map"
+		useGeneratedKeys="true" keyProperty="replyNo" keyColumn="REPLY_NO">
+		INSERT INTO
+		REPLY(
+		REPLY_NO,
+		QNA_NO,
+		MER_NO,
+		REPLY_CONTENT,
+		REPLAY_DATE
+		)VALUES(
+		SEQ_REPLY_NO.NEXTVAL,
+		#{qnaNo},
+		1,
+		#{replyContent},
 		DEFAULT
 		)
 	</insert>

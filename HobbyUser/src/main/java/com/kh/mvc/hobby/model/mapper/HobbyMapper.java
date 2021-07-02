@@ -7,6 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Liked;
+import com.kh.mvc.hobby.model.vo.Qna;
+import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
 import com.kh.mvc.hobby.model.vo.Review;
 
@@ -58,5 +60,12 @@ public interface HobbyMapper {
 	
 	/* Report(신고하기) 관련 mapper [심지영]*/
 	int saveReport(Report report);
+
+	/* Qnd(문의) 관련 mapper [이재용]*/
+	int selectQnaCount(int hbNo);
+
+	List<Qna> selectQnaList(RowBounds rowBounds,@Param("hbNo") int hbNo);
+
+	List<Reply> selectReplyList(@Param("qnaNo") int qnaNo);
 
 }

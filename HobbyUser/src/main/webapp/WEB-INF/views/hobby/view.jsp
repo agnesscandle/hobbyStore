@@ -80,8 +80,20 @@
 		</div>
 		<div class="detail" id="infoD">취미 소개 상세</div>
 		<div class="detail" id="locationD">위치 상세</div>
-		<div class="detail" id="questionD">문의하기 상세</div>
-		<div class="detail" id="policyD">환불 정책 상세</div>
+		<div class="detail" id="questionD">
+
+			<div id="qnaList">
+				<c:forEach var="qna" items="${ qnaList }">
+					<div id="qna"></div>
+				</c:forEach>
+			</div>
+			<button
+				onclick="location.replace('${path}/hobby/qnaList?hbNo=${hobby.hbNo}')"
+				class="add-cart">더보기</button>
+
+		</div>
+	</div>
+	<div class="detail" id="policyD">환불 정책 상세</div>
 	</div>
 	</div>
 

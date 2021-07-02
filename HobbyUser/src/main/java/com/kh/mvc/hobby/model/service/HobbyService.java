@@ -4,6 +4,8 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Liked;
+import com.kh.mvc.hobby.model.vo.Qna;
+import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
 import com.kh.mvc.hobby.model.vo.Review;
 
@@ -57,7 +59,12 @@ public interface HobbyService {
 	/* Report(신고하기) 관련 인터페이스 */
    int saveReport(Report report);
 
+   /* Qna(신고하기) 관련 인터페이스 */
+   List<Qna> getQnaList(PageInfo pageInfo, int hbNo);
 
+   int getQnaCount(int hbNo);
+
+   List<Reply> getReplyList(int qnaNo);
 
 
 

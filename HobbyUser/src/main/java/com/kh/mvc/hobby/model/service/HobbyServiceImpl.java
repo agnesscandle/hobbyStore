@@ -16,6 +16,8 @@ import com.kh.mvc.hobby.model.mapper.HobbyMapper;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Liked;
+import com.kh.mvc.hobby.model.vo.Qna;
+import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
 import com.kh.mvc.hobby.model.vo.Review;
 
@@ -211,6 +213,26 @@ public class HobbyServiceImpl implements HobbyService {
 	public int saveReport(Report report) {
 
 		return mapper.saveReport(report);
+	}
+
+	
+	/* 문의하기 */
+	@Override
+	public int getQnaCount(int hbNo) {
+		return mapper.selectQnaCount(hbNo);
+	}
+
+	@Override
+	public List<Qna> getQnaList(PageInfo pageInfo,  int hbNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return mapper.selectQnaList(rowBounds,hbNo);
+	}
+
+	@Override
+	public List<Reply> getReplyList(int qnaNo) {
+		
+		return mapper.selectReplyList(qnaNo);
 	}
 
 }
