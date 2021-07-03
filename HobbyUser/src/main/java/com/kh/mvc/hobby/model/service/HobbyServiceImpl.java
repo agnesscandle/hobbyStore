@@ -242,4 +242,10 @@ public class HobbyServiceImpl implements HobbyService {
 		return mapper.selectMerInfoByNo(merNo);
 	}
 
+	@Override
+	public String findCateNameByNo(int cateNo) {
+		
+		return mapper.selectCateNameByNo(cateNo);
+	}
+
 }

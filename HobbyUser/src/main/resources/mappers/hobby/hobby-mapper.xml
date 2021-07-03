@@ -160,7 +160,14 @@
 		ORDER BY CATE_NO DESC
 	</select>
 
-
+	<select id="selectCateNameByNo" parameterType="_int"
+		resultType="String">
+			SELECT CATE_NAME
+			FROM CATEGORY
+			WHERE CATE_NO=#{cateNo}
+	</select>
+	
+	
 	<select id="selectHobbyList" parameterType="map"
 		resultMap="HobbyListResultMap">
 

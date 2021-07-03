@@ -73,4 +73,6 @@ public interface HobbyMapper {
 
 	Merchant selectMerInfoByNo(int merNo);
 
+	String selectCateNameByNo(int cateNo);
+
 }

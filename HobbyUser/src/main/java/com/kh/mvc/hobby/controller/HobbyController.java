@@ -45,6 +45,10 @@ public class HobbyController {
 		/* Hobby(취미) 상세내용 가져오기 */
 		Hobby hobby = service.findByNo(hbNo);
 
+		/*CategoryName(카테고리명) 가져오기*/
+		String cateName = service.findCateNameByNo(hobby.getCateNo());
+		hobby.setCateName(cateName);
+		
 		model.addObject("hobby", hobby);
 		model.setViewName("hobby/view");
 

@@ -70,5 +70,7 @@ public interface HobbyService {
    /* 상인 정보 관련 인터페이스 */
    Merchant findMerInfoByNo(int merNo);
 
+   String findCateNameByNo(int cateNo);
+
 
 }
