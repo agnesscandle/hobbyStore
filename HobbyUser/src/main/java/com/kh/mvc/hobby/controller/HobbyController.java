@@ -208,6 +208,14 @@ public class HobbyController {
 
 	}
 
+	/* 상인정보보기 페이지 요청 */
+	@GetMapping("/merInfo")
+	public String merInfoView(){
+		log.info("상인정보 페이지 요청");
+		return "hobby/merInfo";
+	}
+	
+	
 	/* 좋아요 */
 	@GetMapping("/liked")
 	public ModelAndView liked(ModelAndView model,

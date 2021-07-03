@@ -35,7 +35,7 @@
 							<button class="btn" id="btnPay">결제하기</button>
 						</p>
 						<p>
-							<button class="btn" id="btnMerchantInfo">상인 정보보기</button>
+							<button class="btn" id="btnMerchantInfo" onclick="merInfoPopup();">상인 정보보기</button>
 						</p>
 						<p class="btnSml1">
 							<button class="btn" id="btnLiked">좋아요</button>
@@ -101,24 +101,33 @@
 
 <script>
 
-//좋아요 버튼
+
 $(document).ready(()=>{
+	
+// 좋아요 버튼
    $("#btnLiked").on("click", (e)=>{
       location.href="${path}/hobby/liked?no=${hobby.hbNo}";
    });
 });
 
-//신고하기 버튼
-function reportPopup(){
-   var hbNo =$("#hbNo").val();
-   console.log("취미번호 : " + hbNo);
+// 상인 정보보기 버튼 : 상인정보 팝업
+	function merInfoPopup(){
+			var url = "${path}/hobby/merInfo?hbNo=${hobby.hbNo}&merNo=${hobby.merNo}";
+			var name="merchantInfo";
+			var option = "width=600, height=500, left=400, top=150, location=no, resizable=no, scrollbars=no";
+		window.open(url, name, option);
+	}
 
-// 취미번호까지 제대로 찍힘 + 자식 창에서 부모 창의 값 가져오기
-   var url = "${path}/hobby/report?hbNo=${hobby.hbNo}&hbTitle=${hobby.hbTitle}";
-   var name = "report";
-   var option = "width=660, height=680, left=400, top=150, location=no, resizable=no, scrollbars=no";
-   window.open(url, name, option);
-}
+//신고하기 버튼 : 신고창 팝업
+	function reportPopup(){
+	   var hbNo =$("#hbNo").val();
+	   console.log("취미번호 : " + hbNo);
+	
+	   var url = "${path}/hobby/report?hbNo=${hobby.hbNo}&hbTitle=${hobby.hbTitle}";
+	   var name = "report";
+	   var option = "width=660, height=680, left=400, top=150, location=no, resizable=no, scrollbars=no";
+	   window.open(url, name, option);
+	}
 
 /* 
  // Get the modal
