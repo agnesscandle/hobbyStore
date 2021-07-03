@@ -23,6 +23,7 @@
 					<div class="infoContainer">
 						<h4 id="cate"><c:out value="${hobby.cateName}"/></h4>
 						<h2 id="title"><c:out value="${hobby.hbTitle}"/></h2>
+						<br>
 						<h3 id="price"><fmt:formatNumber value="${hobby.hbFee}" pattern="#,###"/> 원</h3>
 					</div>
 					<br>
