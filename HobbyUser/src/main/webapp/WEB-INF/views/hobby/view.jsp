@@ -21,8 +21,8 @@
 			<div class="right" id="rightTop">
 				<div class="forBorder">
 					<div class="infoContainer">
-						<h4 id="cate">${hobby.cateNo}</h4>
-						<h2 id="title">${hobby.hbTitle}</h2>
+						<h4 id="cate"><c:out value="${hobby.cateName}"/></h4>
+						<h2 id="title"><c:out value="${hobby.hbTitle}"/></h2>
 						<!-- 가격 오른쪽 정렬 + 단위 콤마 표시 -->
 						<h3 id="price">${hobby.hbFee}(원)</h3>
 					</div>
