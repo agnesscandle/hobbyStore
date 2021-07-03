@@ -1,5 +1,9 @@
 package com.kh.mvc.hobby.model.service;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
@@ -8,10 +12,7 @@ import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
 import com.kh.mvc.hobby.model.vo.Review;
-
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 public interface HobbyService {
    
@@ -66,6 +67,8 @@ public interface HobbyService {
 
    List<Reply> getReplyList(int qnaNo);
 
+   /* 상인 정보 관련 인터페이스 */
+   Merchant findMerInfoByNo(int merNo);
 
 
 }

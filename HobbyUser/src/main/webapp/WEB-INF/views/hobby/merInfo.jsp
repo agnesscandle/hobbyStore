@@ -28,27 +28,27 @@
             <div class="tblContainer">
                 <table>
                     <tr>
-                        <td rowspan="2"><img id="merProfile" src=""></td>
-                        <th rowspan="2" colspan="2" id="merNick"> merNickName</th>
+                        <td rowspan="2"><img id="merProfile" src="${ path }/images/필카맨프로필.png"></td>
+                        <th rowspan="2" colspan="2" id="merNick">
+                        	<c:out value="${merchant.merNick}"/>
+                        </th>
                     </tr>
                     <tr></tr>
                     <tr>
                         <td colspan="3">
-                            상인이 가입시 기재한 본인 간략 소개 <br>
-                            상인이 가입시 기재한 본인 간략 소개 <br>
-                            상인이 가입시 기재한 본인 간략 소개 <br>
+                            <c:out value="${merchant.greeting}"/>
                         </td>
                     </tr>
                     <tr>
                         <th id="merEmail">Email  </th>
-                        <td colspan="2"></td>
+                        <td colspan="2"><c:out value="${merchant.merEmail}"/></td>
                     </tr>
                     <tr>
-                        <th id="merEmail">Address  </th>
-                        <td colspan="2"></td>
+                        <th id="merLocation">Address  </th>
+                        <td colspan="2"><c:out value="${hobby.hbLocation}"/></td>
                     </tr>
                 </table>
-                <sub> * 위 정보는 상인의 동의를 받아 기재된 정보입니다. </sub>
+                <br><sub> * 위 정보는 상인의 동의를 받아 기재된 정보입니다. </sub>
             </div>
             <br>
             <input class="btn" id="btnClose" type="button" value="닫기">

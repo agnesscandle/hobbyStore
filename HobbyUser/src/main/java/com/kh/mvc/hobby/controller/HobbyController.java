@@ -1,13 +1,9 @@
 package com.kh.mvc.hobby.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +26,7 @@ import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
 import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.member.model.vo.Member;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -208,11 +205,22 @@ public class HobbyController {
 
 	}
 
-	/* 상인정보보기 페이지 요청 */
+	/* 상인정보보기 */
 	@GetMapping("/merInfo")
-	public String merInfoView(){
-		log.info("상인정보 페이지 요청");
-		return "hobby/merInfo";
+	public ModelAndView merInfo(ModelAndView model,
+			@RequestParam("hbNo") int hbNo, @RequestParam("merNo") int merNo){
+		
+		log.info("상인정보 팝업창 요청");
+		
+		Hobby hobby = service.findByNo(hbNo);
+		
+		Merchant merchant = service.findMerInfoByNo(merNo);		
+		
+		model.addObject("hobby", hobby);
+		model.addObject("merchant", merchant);
+		model.setViewName("hobby/merInfo");
+		
+		return model;
 	}
 	
 	

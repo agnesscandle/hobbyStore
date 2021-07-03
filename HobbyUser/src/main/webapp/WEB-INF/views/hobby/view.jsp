@@ -114,7 +114,7 @@ $(document).ready(()=>{
 	function merInfoPopup(){
 			var url = "${path}/hobby/merInfo?hbNo=${hobby.hbNo}&merNo=${hobby.merNo}";
 			var name="merchantInfo";
-			var option = "width=600, height=500, left=400, top=150, location=no, resizable=no, scrollbars=no";
+			var option = "width=610, height=540, left=400, top=150, location=no, resizable=no, scrollbars=no";
 		window.open(url, name, option);
 	}
 
