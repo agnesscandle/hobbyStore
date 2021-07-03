@@ -7,8 +7,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <%@ include file="../../views/common/header.jsp"%>
-<link rel="stylesheet" href="${path}/css/view.css">
-
+<link rel="stylesheet" href="${path}/css/hobby/view.css">
 
 <section>
 	<div class="container">
