@@ -50,6 +50,31 @@
 #price{
 	text-align : right;
 }
+
+.price {
+   text-align: right;
+   width: 90px;
+}
+
+.price span {
+   width: 17px;
+   height: 17px;
+   display: inline-block;
+   margin-right: 6px;
+   cursor: pointer;
+}
+
+.price .discount {
+   color: red;
+}
+
+.price del {
+   color: #d3d3d3;
+}
+
+.finalPrice{
+	font-size : 20px;
+}
 .hobbyImg{
     max-width : 100%;
     max-height : 100%;

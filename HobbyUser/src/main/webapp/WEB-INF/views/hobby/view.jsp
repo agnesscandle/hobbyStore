@@ -15,16 +15,43 @@
 		<div class="top">
 			<div class="left" id="leftTop">
 				<div class="imgContainer">
-					<img class="hobbyImg" src="${ path }/upload/hobby/${hobby.hbThumRename}">
+					<img class="hobbyImg"
+						src="${ path }/upload/hobby/${hobby.hbThumRename}">
 				</div>
 			</div>
 			<div class="right" id="rightTop">
 				<div class="forBorder">
 					<div class="infoContainer">
-						<h4 id="cate"><c:out value="${hobby.cateName}"/></h4>
-						<h2 id="title"><c:out value="${hobby.hbTitle}"/></h2>
+						<h4 id="cate"><c:out value="${hobby.cateName}" />
+						</h4>
+						<h2 id="title">
+							<c:out value="${hobby.hbTitle}" />
+						</h2>
 						<br>
-						<h3 id="price"><fmt:formatNumber value="${hobby.hbFee}" pattern="#,###"/> 원</h3>
+						<div id="price">
+							<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
+								<c:set var="disFee"
+									value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />
+								<fmt:formatNumber value="${disFee}" type="number"
+									var="discountFee" />
+								<fmt:formatNumber value="${hobby.hbFee}" type="number"
+									pattern="#,###" var="originalFee" />
+								<span class="price">
+									<div class="discount">
+										${ hobby.hbDiscountRate }% &nbsp;
+										<del>${originalFee}원 </del>
+									</div> <b class="finalPrice">${discountFee}원 </b>
+							</c:if>
+
+							<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
+								<fmt:formatNumber value="${hobby.hbFee}" type="number"
+									pattern="#,###" var="originalFee" />
+								<span class="price"> <b class="finalPrice">${ originalFee }원</b>
+							</c:if>
+							</span>
+
+
+						</div>
 					</div>
 					<br>
 					<hr>
@@ -34,7 +61,8 @@
 							<button class="btn" id="btnPay">결제하기</button>
 						</p>
 						<p>
-							<button class="btn" id="btnMerchantInfo" onclick="merInfoPopup();">상인 정보보기</button>
+							<button class="btn" id="btnMerchantInfo"
+								onclick="merInfoPopup();">상인 정보보기</button>
 						</p>
 						<p class="btnSml1">
 							<button class="btn" id="btnLiked">좋아요</button>
