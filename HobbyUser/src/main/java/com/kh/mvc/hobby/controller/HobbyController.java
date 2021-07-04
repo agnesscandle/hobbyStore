@@ -399,5 +399,14 @@ public class HobbyController {
 	 * "게시글이 등록을 실패하였습니다."); model.addObject("location", "/"); }
 	 * model.setViewName("common/msg"); return model; } }
 	 */
+	
+	
+	/* 예약 및 결제 페이지 요청 */
+	@GetMapping("/reserve")
+	public String reserveView() {
+
+		log.info("예약 및 결제 페이지 요청");
+		return "hobby/reserve";
+	}
 
 }
