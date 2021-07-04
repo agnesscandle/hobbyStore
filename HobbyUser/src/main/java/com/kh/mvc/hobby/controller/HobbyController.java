@@ -24,6 +24,7 @@ import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.vo.Merchant;
@@ -232,7 +233,7 @@ public class HobbyController {
 	/* 좋아요 */
 	@GetMapping("/liked")
 	public ModelAndView liked(ModelAndView model,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @RequestParam("no") int hbNo,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @RequestParam("hbNo") int hbNo,
 			@ModelAttribute Liked liked) {
 
 		int result = 0;
@@ -403,10 +404,39 @@ public class HobbyController {
 	
 	/* 예약 및 결제 페이지 요청 */
 	@GetMapping("/reserve")
-	public String reserveView() {
+	public ModelAndView reserveView(ModelAndView model, @RequestParam("hbNo") int hbNo) {
 
 		log.info("예약 및 결제 페이지 요청");
-		return "hobby/reserve";
+		
+		/* Hobby(취미) 상세내용 가져오기 */
+		Hobby hobby = service.findByNo(hbNo);
+
+		
+		model.addObject("hobby", hobby);
+		model.setViewName("hobby/reserve");
+
+		return model;
+	}
+	
+	/* 예약 및 결제하기 */
+	@PostMapping("/reserve")
+	public ModelAndView reserve(ModelAndView model, @RequestParam("hbNo") int hbNo,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@ModelAttribute Reserve reserve) {
+
+		
+		log.info("예약 및 결제 요청");
+
+		// 1. 로그인 정보 확인
+		// loginMember의 아이디로 report의 rpWriterNo로 set해줌
+
+		System.out.println("로그인 성공된 회원 아이디 : " + loginMember.getMemId());
+
+			model.addObject("msg", "결제 성공.");
+			model.addObject("location", "/");
+			
+		model.setViewName("common/msg");
+		return model;
 	}
 
 }

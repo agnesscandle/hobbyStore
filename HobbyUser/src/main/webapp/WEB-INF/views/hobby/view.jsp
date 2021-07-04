@@ -130,10 +130,14 @@
 
 
 $(document).ready(()=>{
-	
+// 결제하기 버튼
+$("#btnPay").on("click", (e)=>{
+	location.href="${path}/hobby/reserve?hbNo=${hobby.hbNo}";
+});
+
 // 좋아요 버튼
    $("#btnLiked").on("click", (e)=>{
-      location.href="${path}/hobby/liked?no=${hobby.hbNo}";
+      location.href="${path}/hobby/liked?hbNo=${hobby.hbNo}";
    });
 });
 

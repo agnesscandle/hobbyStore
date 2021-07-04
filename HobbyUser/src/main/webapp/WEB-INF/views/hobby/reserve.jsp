@@ -31,9 +31,9 @@
              <div class="title">
                 <span>취미명</span> 
                 <input type="text" id="hbTitle" name="hbTitle" class="req" value="취미명 값 넣기" readonly/>
-                <input type="hidden" id="hbNo" name="hbNo" class="req" value="취미 번호"/>
+                <input type="hidden" id="hbNo" name="hbNo" class="req" value="1"/>
                 <span>취미 가격</span>
-                <input type="text" id="hbFee" name="hbFee" class="req" value="취미 가격" placeholer="(원)" readonly/>        
+                <input type="text" id="hbFee" name="hbFee" class="req" value="13500" placeholer="(원)" readonly/>        
                 <span>인원 수</span>
                 <input type="text" id="resCount" name="resCount" class="req" value="1" placeholder="1(인)" required/>
  
@@ -83,8 +83,8 @@
           <section>
              <div class="title">
                 <span>예약자 아이디</span> 
-                <input type="hidden" id="memNo" name="memNo" class="req" value="loginMember에서 memNo"/>
-                <input type="text" id="memId" name="memId" class="req" value="loginMember에서 memId" readonly/>
+                <input type="hidden" id="memNo" name="memNo" class="req" value="1"/>
+                <input type="text" id="memId" name="memId" class="req" value="user1" readonly/>
                 
                 <span>예약자 성함</span>
                 <input type="text" id="resName" name="resName" class="req" placeholder="홍길동" required/>
