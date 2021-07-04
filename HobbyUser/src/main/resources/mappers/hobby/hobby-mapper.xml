@@ -74,6 +74,23 @@
       WHERE STATUS = 'Y'
    </sql>
 	
+	<sql id="ReserveListSql">
+		SELECT 
+		RES_NO, 
+		HB_NO, 
+		MEM_NO, 
+		RES_NAME, 
+		RES_PHONE, 
+		RES_COUNT, 
+		RES_DATE, 
+		TAKE_DATE, 
+		PAY_FEE, 
+		RES_ATTEND, 
+		RES_STATUS, 
+		PAY_STATUS 
+		FROM RESERVE
+		WHERE RES_STATUS = 'Y'
+	</sql>
 
 	<select id="selectReserveCount" parameterType="map"
 		resultType="_int">
@@ -150,6 +167,22 @@
        <result property="cateNo" column="CATE_NO"/>
        <result property="greeting" column="GREETING"/>
     </resultMap>
+	
+	<resultMap type="Reserve" id="ReserveListResultMap">
+		<id property="" column="RES_NO"/>
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resPhone" column="RES_PHONE" />
+		<result property="resCount" column="RES_COUNT" />
+		<result property="resDate" column="RES_DATE" />
+		<result property="takeDate" column="TAKE_DATE" />
+		<result property="payFee" column="PAY_FEE" />
+		<result property="resAttend" column="RES_ATTEND" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="payStatus" column="PAY_STATUS" />
+	</resultMap>
+	
 	
 	
 	<select id="selectCateList" parameterType="map"
