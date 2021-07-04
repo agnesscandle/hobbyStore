@@ -146,7 +146,7 @@
 					이용자의 사전 동의 없이는 동 범위를 초과하여 이용하거나 원칙적으로 이용자의 개인정보를 외부에 공개하지 않습니다. <br>
                 	</p>
                     <br><br>
-                    <input type="checkbox" id="term" name="check2" value="clause" required/> 
+                    <input type="checkbox" name="clause" value="clause"/> 
                     <b>개인정보 제 3자 제공 동의, 결제 대행 서비스 이용 약관 등 모든 약관에 동의합니다. (필수) </b>
  					<br><br><br>
                 <div class="btn">
@@ -216,19 +216,13 @@ $('.next').click(function(){
   });
  
  
- /* 결제하기 버튼 클릭 시 마지막 section 항목들이 다 작성되어있는지 검사 */
+ /* 결제하기 버튼 클릭 시 약관 동의에 체크했는지 검사 */
  $('.pay').click(function(){
-    var is_empty = false;
-      $('.reserve-5').find('.req').each(function(){
-             if(!$(this).val()) {
-                 is_empty = true;
-             }
-      });
-      if(is_empty) {
-          alert('값을 전부 입력해주십시오.');
+      if($("input:checkbox[name='clause']").is(":checked")==false) {
+          alert('약관에 동의해주세요.');
           return;
       }else{
-         $('#reserveForm').submit();
+    	  $('#reserveForm').submit();
       }
  });
 </script>
