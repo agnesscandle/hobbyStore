@@ -63,10 +63,11 @@
 	</select>
 
 
-	<select id="selectReviewByNo" parameterType="_int"
+	<select id="selectReviewByNo" parameterType="map"
 		resultMap="ReviewListResultMap">
 		<include refid="ReviewListSql" />
 		AND R.MEM_NO = ${memNo}
+		AND R.HB_NO = ${hbNo}
 	</select>
 
 	<resultMap type="Hobby" id="HobbyListResultMap">

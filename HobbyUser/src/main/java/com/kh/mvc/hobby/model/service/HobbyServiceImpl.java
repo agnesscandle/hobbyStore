@@ -166,9 +166,9 @@ public class HobbyServiceImpl implements HobbyService {
 	}
 
 	@Override
-	public Review reviewFindByNo(int memNo) {
+	public Review reviewFindByNo(int hbNo,int memNo) {
 
-		return mapper.selectReviewByNo(memNo);
+		return mapper.selectReviewByNo(hbNo,memNo);
 	}
 
 	/* 좋아요 */

@@ -44,7 +44,7 @@ public interface HobbyMapper {
 	/* review(후기) 작성 관련 mapper [김예원] */
 	int selectReserveCount(@Param("hbNo") int hbNo, @Param("memNo") int memNo);
 
-	Review selectReviewByNo(@Param("memNo") int memNo);
+	Review selectReviewByNo(@Param("hbNo") int hbNo, @Param("memNo") int memNo);
 
 	
 	/* Liked(좋아요) 관련 mapper [심지영] */

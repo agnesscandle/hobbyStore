@@ -70,12 +70,20 @@ public class HobbyController {
 		PageInfo pageInfo = new PageInfo(page, 10, service.getReviewCount(hbNo), 4);
 		int listCount = pageInfo.getListCount();
 		reviewList = service.getReviewList(pageInfo, hbNo);
-
+		
+		
 		/* review(리뷰) 작성 가능한지 검사 : 로그인 상태 && 수강 이력이 있고, 후기를 한번도 작성하지 않은 상태 검사 */
-		if (loginMember != null && service.reviewFindByNo(loginMember.getMemNo()) == null) {
+		if (loginMember != null && service.reviewFindByNo(hbNo, loginMember.getMemNo()) == null) {
+
 			int memNo = loginMember.getMemNo();
 			int reserveCount = service.getReserveCount(hbNo, memNo);
 			model.addObject("reserveCount", reserveCount);
+		}
+		/* review(리뷰) 작성 가능한지 검사 : 로그인 상태 && 수강 이력이 있고, 후기를 작성했다면 수정을 위해 후기 정보 가져오기 */
+		if (loginMember != null && service.reviewFindByNo(hbNo, loginMember.getMemNo()) != null) {
+			int memNo = loginMember.getMemNo();
+			Review reviewByNo = service.reviewFindByNo(hbNo, memNo);
+			model.addObject("reviewByNo", reviewByNo);
 		}
 
 		model.addObject("hobby", hobby);

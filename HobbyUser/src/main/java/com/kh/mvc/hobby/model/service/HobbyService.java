@@ -45,7 +45,7 @@ public interface HobbyService {
    /* review(후기)작성 관련 인터페이스 [김예원]*/
    int getReserveCount(int hbNo, int memNo);
 
-   Review reviewFindByNo(int memNo);
+   Review reviewFindByNo(int hbNo, int memNo);
 
 	/* Liked(좋아요) 관련 인터페이스 */
    String selectLikedStatusByNo(int hbNo, int memNo);
@@ -65,6 +65,8 @@ public interface HobbyService {
    int getQnaCount(int hbNo);
 
    List<Reply> getReplyList(int qnaNo);
+
+
 
 
 

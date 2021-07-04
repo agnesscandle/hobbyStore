@@ -34,3 +34,5 @@ $('#search').click(function(){
     
     $('#searchForm').submit();
  });
+ 
+ 
