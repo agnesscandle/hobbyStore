@@ -404,7 +404,8 @@ public class HobbyController {
 	
 	/* 예약 및 결제 페이지 요청 */
 	@GetMapping("/reserve")
-	public ModelAndView reserveView(ModelAndView model, @RequestParam("hbNo") int hbNo) {
+	public ModelAndView reserveView(ModelAndView model, @RequestParam("hbNo") int hbNo,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
 
 		log.info("예약 및 결제 페이지 요청");
 		
@@ -427,10 +428,7 @@ public class HobbyController {
 		
 		log.info("예약 및 결제 요청");
 
-		// 1. 로그인 정보 확인
-		// loginMember의 아이디로 report의 rpWriterNo로 set해줌
-
-		System.out.println("로그인 성공된 회원 아이디 : " + loginMember.getMemId());
+		System.out.println("로그인 회원 아이디 : " + loginMember.getMemId());
 
 			model.addObject("msg", "결제 성공.");
 			model.addObject("location", "/");

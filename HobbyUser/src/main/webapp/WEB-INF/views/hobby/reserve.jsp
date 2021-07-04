@@ -30,10 +30,10 @@
           <section>
              <div class="title">
                 <span>취미명</span> 
-                <input type="text" id="hbTitle" name="hbTitle" class="req" value="취미명 값 넣기" readonly/>
-                <input type="hidden" id="hbNo" name="hbNo" class="req" value="1"/>
+                <input type="text" id="hbTitle" name="hbTitle" class="req" value="${hobby.hbTitle}" readonly/>
+                <input type="hidden" id="hbNo" name="hbNo" class="req" value="${hobby.hbNo}"/>
                 <span>취미 가격</span>
-                <input type="text" id="hbFee" name="hbFee" class="req" value="13500" placeholer="(원)" readonly/>        
+                <input type="text" id="hbFee" name="hbFee" class="req" value="${hobby.hbFee}"  readonly/>        
                 <span>인원 수</span>
                 <input type="text" id="resCount" name="resCount" class="req" value="1" placeholder="1(인)" required/>
  
@@ -83,15 +83,16 @@
           <section>
              <div class="title">
                 <span>예약자 아이디</span> 
-                <input type="hidden" id="memNo" name="memNo" class="req" value="1"/>
-                <input type="text" id="memId" name="memId" class="req" value="user1" readonly/>
+                <input type="hidden" id="memNo" name="memNo" class="req" value="${loginMember.memNo}"/>
+                <input type="text" id="memId" name="memId" class="req" value="${loginMember.memId}" readonly/>
                 
                 <span>예약자 성함</span>
                 <input type="text" id="resName" name="resName" class="req" placeholder="홍길동" required/>
                 
                 <span>휴대폰 번호</span>
                 <input type="text" id="resPhone" name="resPhone" class="req" placeholder="010-1111-2222" required/>
- 
+ 				<sub> * (-) 언더바 없이 입력해 주세요. </sub>
+ 				
                 <div class="btn">
                    <input type="button" class="before" value="이전으로" /> <input
                       type="button" class="next" value="다음으로" />
@@ -109,7 +110,7 @@
           <section>
              <div class="title">
                 <span>예약 취미 금액</span> 
-                <input type="text" id="hbTotalFee" name="hbTotalFee" value="1" class="req" readonly/> 
+                <input type="text" id="hbTotalFee" name="hbTotalFee" value="${hobby.hbFee}" class="req" readonly/> 
                 <span>할인 금액</span> 
                 <input type="text" id="disFee" name="disFee" value="1" class="req" readonly/> 
                 <span>총 결제 금액</span> 
