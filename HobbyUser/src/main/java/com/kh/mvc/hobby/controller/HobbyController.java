@@ -337,6 +337,39 @@ public class HobbyController {
 	 * 
 	 * return model; }
 	 */
+	
+	   @GetMapping("/question")
+	   public ModelAndView question(ModelAndView model,
+	         @RequestParam("hbNo") int hbNo
+//	         ,@SessionAttribute(name = "loginMember", required = false) Member loginMember
+	         ) {
+	      Hobby hobby = service.question(hbNo);
+	      System.out.println(hobby);
+	      model.addObject("hobby",hobby);
+	      model.setViewName("/hobby/question");
+	      
+	      return model;
+	   }
+	   
+	   @PostMapping("/question")
+	   public ModelAndView write(ModelAndView model, HttpServletRequest request,
+	         @ModelAttribute Qna qna) {
+	      int result =0;
+	      
+	      result = service.saveQna(qna);
+	      
+	      if(result > 0) {
+	         model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+	         model.addObject("location", "/");
+	      } else {
+	         model.addObject("msg", "게시글이 등록을 실패하였습니다.");
+	         model.addObject("location", "/");
+	      }
+	      model.setViewName("common/msg");
+	      
+	      return model;
+	   }
+
 	@GetMapping("/qnaList")
 	public ModelAndView qnaList(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -365,18 +398,22 @@ public class HobbyController {
 
 		return model;
 	}
-
-	/*
-	 * @PostMapping("/qnaList") public ModelAndView qnaReply(ModelAndView model, //
-	 * ,@SessionAttribute(name = "loginMerchant", required = false) Merchant
-	 * loginMerchant)
-	 * 
-	 * @ModelAttribute Reply reply) { int result = service.saveReply(reply);
-	 * 
-	 * if(result > 0) { model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-	 * model.addObject("location", "/"); } else { model.addObject("msg",
-	 * "게시글이 등록을 실패하였습니다."); model.addObject("location", "/"); }
-	 * model.setViewName("common/msg"); return model; } }
-	 */
+	  @PostMapping("/qnaList")
+	   public ModelAndView qnaReply(ModelAndView model,
+//	         ,@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant)
+	         @ModelAttribute Reply reply) {
+	      int result = service.saveReply(reply);
+	      
+	      if(result > 0) {
+	         model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+	         model.addObject("location", "/hobby/qnaList");
+	      } else {
+	         model.addObject("msg", "게시글이 등록을 실패하였습니다.");
+	         model.addObject("location", "/hobby/qnaList");
+	      }
+	      model.setViewName("common/msg");
+	      return model;
+	   }
+	
 
 }

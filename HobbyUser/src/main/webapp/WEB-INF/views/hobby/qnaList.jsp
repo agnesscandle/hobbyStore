@@ -8,20 +8,55 @@
 <%@ include file="../../views/common/header.jsp"%>
 <style>
 .qnaItem {
+border: 3px solid black;
+border-bottom : none;
 	text-align: center;
+	font-size : 24px;
 	width: max;
+	height : 3em;
 	background-color: #eee;
-	line-height: 30px;
+	font-weight: bold;
+   display: block;
+   margin-top : auto;
 }
 
-.qnaContent {
+.slideToggle {
 	display: none;
 	height: 100px;
 	background-color: #bbdefb;
 	text-align: center;
 	width: max;
 	height: 200px;
-	line-height: 30px
+	line-height: 30px;
+}
+.qnaContent{
+	height: auto;
+	font-weight: bold;
+   display: block;
+   margin-top: 2em;
+   margin-bottom : 2em;
+	background-color: white;
+}
+.inputContent{
+   margin-top: 2em;
+   margin-bottom : 2em;
+   display: block;
+   margin-top: 20px;
+}
+#replyContent{
+	background-color: rgba(255, 0, 0, 0);
+	border: none;
+	text-align: center;
+}
+.buttonReply{
+    font-size : 18px;
+    font-weight : bold;
+    color : white;
+    background-color: #0277bd;
+    border : none;
+    width : 150px;
+    height : 33px;
+    border-radius : 5px;
 }
 </style>
 <body>
@@ -30,34 +65,37 @@
 		<div class="container">
 			<c:if test="${ qnaList != null }">
 				<c:forEach var="qna" items="${ qnaList }">
-					<div class="qnaItem">
-						<c:out value=" ${ qna.qnaNo } "></c:out>
-						<c:out value=" ${ qna.qnaTitle } "></c:out>
-						<!-- <c:out value=" ${ member.memId } "></c:out> -->
-						<c:out value=" ${ qna.qnaDate } "></c:out>
+					<div class="qnaItem${status.cou }">
+						<span class="no"><c:out value=" ${ qna.qnaNo } "></c:out></span>
+						<span class="title"><c:out value=" ${ qna.qnaTitle } "></c:out></span>
+						 <c:out value=" ${ member.memId } "></c:out>
+						<span class="date"><c:out value=" ${ qna.qnaDate } "></c:out></span>
 					</div>
 
 					<div class="slideToggle">
-						<p>
+						<div class="qnaContent">
 							<c:out value=" ${ qna.qnaContent } "></c:out>
-						</p>
+						</div>
 						<div class="replyView">
-							<span> 
-							<c:forEach var="replyList" items="${ qna.reply }" >
 							
+							<c:forEach var="replyList" items="${ qna.reply }" >
+							<span class="replyList"> 
 							<c:out value="${ replyList.replyNo }"></c:out>
 							<c:out value="${ replyList.replyContent }"></c:out>
 							<c:out value="${ replyList.replayDate }"></c:out>
-							
+							</span>
 
 								</c:forEach>
 
-							</span>
+							
 						</div>
+						<div class="inputContent">
 						<input type="hidden" id="qnaNo" name="qnaNo"
 							value="${ qna.qnaNo }" />
-						<textarea rows="5" cols="50" id="replyContent" name="replyContent"></textarea>
-						<input type="submit" value="등록하기">
+						<textarea rows="5" cols="50" id="replyContent" name="replyContent"
+							placeholder="답변을 입력하세요."style="resize: none;"></textarea><br>
+						<input type="submit" value="등록하기" class="buttonReply">
+						</div>
 					</div>
 
 				</c:forEach>

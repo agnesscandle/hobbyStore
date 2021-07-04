@@ -68,4 +68,10 @@ public interface HobbyMapper {
 
 	List<Reply> selectReplyList(@Param("qnaNo") int qnaNo);
 
+	Hobby selectHobbyByNoQna(int hbNo);
+
+	int insertQna(Qna qna);
+
+	int saveReply(Reply reply);
+
 }

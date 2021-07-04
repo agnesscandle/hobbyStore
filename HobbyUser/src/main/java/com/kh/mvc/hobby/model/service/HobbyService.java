@@ -66,6 +66,12 @@ public interface HobbyService {
 
    List<Reply> getReplyList(int qnaNo);
 
+Hobby question(int hbNo);
+
+int saveQna(Qna qna);
+
+int saveReply(Reply reply);
+
 
 
 }

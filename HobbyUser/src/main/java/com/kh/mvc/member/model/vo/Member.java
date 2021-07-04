@@ -30,6 +30,8 @@ public class Member {
 	
 	private Date memDate;
 	
+	private String greeting;
+	
 //	private int cateNo;
 	
 	

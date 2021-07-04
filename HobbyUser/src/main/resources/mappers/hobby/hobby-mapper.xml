@@ -361,6 +361,30 @@
 		<result property="qnaSecure" column="QNA_SECURE" />
 	</resultMap>
 
+<insert id="insertQna" parameterType="map"
+    useGeneratedKeys="true" keyProperty="qnaNo" keyColumn="QNA_NO">
+    INSERT INTO QNA(
+    QNA_NO,
+    HB_NO,
+    MEM_NO,
+    QNA_TITLE,
+    QNA_CONTENT,
+    STATUS,
+    QNA_DATE,
+    QNA_SECURE)
+    VALUES(
+    SEQ_QNA_NO.NEXTVAL,
+    #{hbNo},
+    1,
+    #{qnaTitle},
+    #{qnaContent},
+    DEFAULT,
+    DEFAULT,
+    #{qnaSecure}
+    )
+    
+    </insert>
+
 
 	<select id="selectQnaCount" resultType="_int">
 		SELECT COUNT(*)
@@ -380,31 +404,6 @@
 		<include refid="HobbyListSql" />
 		AND HB_NO=#{hbNo}
 	</select>
-
-
-	<insert id="insertQna" parameterType="map"
-		useGeneratedKeys="true" keyProperty="qnaNo" keyColumn="QNA_NO">
-		INSERT INTO QNA(
-		QNA_NO,
-		HB_NO,
-		MEM_NO,
-		QNA_TITLE,
-		QNA_CONTENT,
-		STATUS,
-		QNA_DATE,
-		QNA_SECURE)
-		VALUES(
-		SEQ_QNA_NO.NEXTVAL,
-		#{hbNo},
-		1,
-		#{qnaTitle},
-		#{qnaContent},
-		DEFAULT,
-		DEFAULT,
-		#{qnaSecure}
-		)
-
-	</insert>
 
 
 

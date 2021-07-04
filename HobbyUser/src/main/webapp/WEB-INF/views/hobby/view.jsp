@@ -3,12 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<style>
+.link-icon { position: relative; display: inline-block; width: auto;    font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; }
+.link-icon.twitter { background-image: url(../images/icon/icon-twitter.png); background-repeat: no-repeat; }
+.link-icon.facebook { background-image: url(../images/icon/icon-facebook.png); background-repeat: no-repeat; } 
+.link-icon.kakao { background-image: url(../images/icon/icon-kakao.png); background-repeat: no-repeat; }
+</style>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-
 <%@ include file="../../views/common/header.jsp"%>
 <link rel="stylesheet" href="${path}/css/view.css">
-
 
 <section>
 	<div class="container">
@@ -41,16 +44,19 @@
 							<button class="btn" id="btnLiked">좋아요</button>
 						</p>
 						<p class="btnSml1">
-							<button class="btn" id="btnShare">공유하기</button>
-						</p>
-						<p class="btnSml2">
-							<button class="btn" id="btnQuestion">문의하기</button>
-						</p>
+								</p>
+						 <p class="btnSml2"><button class="btn" id="btnQuestion" 
+                                onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기',
+        					 'width=400, height=300, left=100, top=50')">
+                                 문의하기 </button></p>
 						<p class="btnSml2">
 							<button class="btn" id="btnReport" onclick="reportPopup();">신고하기</button>
 						</p>
 					</div>
 				</div>
+			<a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+			<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>    
+			<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오톡</a>    
 
 			</div>
 		</div>
@@ -157,6 +163,18 @@ function reportPopup(){
 		    modal.style.display = "block";
 		}
 */
+//트위터 링크공유
+function shareTwitter() {
+    var sendText = "${hobby.hbTitle}"; // 전달할 텍스트
+    var sendUrl = "${path}/hobby/view?hbNo=${hobby.hbNo}"; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+//페이스북 링크공유
+function shareFacebook() {
+    var sendUrl = "${path}/hobby/view?hbNo=${hobby.hbNo}"; // 전달할 URL
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
+
 </script>
 
 

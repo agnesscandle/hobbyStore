@@ -218,6 +218,24 @@ public class HobbyServiceImpl implements HobbyService {
 	
 	/* 문의하기 */
 	@Override
+	   public Hobby question(int hbNo) {
+	      // TODO Auto-generated method stub
+	      return mapper.selectHobbyByNoQna(hbNo);
+	   }
+
+	   @Override
+	   public int saveQna(Qna qna) {
+	   int result = 0;
+	      
+	      if(qna.getQnaNo() !=0) {
+	         //업데이트
+	      } else {
+	         result= mapper.insertQna(qna);
+	      }
+	      return result;
+	   }
+
+	@Override
 	public int getQnaCount(int hbNo) {
 		return mapper.selectQnaCount(hbNo);
 	}
@@ -234,5 +252,16 @@ public class HobbyServiceImpl implements HobbyService {
 		
 		return mapper.selectReplyList(qnaNo);
 	}
+	   @Override
+	   public int saveReply(Reply reply) {
+	int result = 0;
+	      
+	      if(reply.getReplyNo() !=0) {
+	         //업데이트
+	      } else {
+	         result= mapper.saveReply(reply);
+	      }
+	      return result;
+	   }
 
 }
