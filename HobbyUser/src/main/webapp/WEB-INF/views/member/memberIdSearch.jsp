@@ -8,35 +8,114 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 
-<style>
 
 
-</style>
-
-<section>
 <div class="findIdPage">
 <form name="mIdSearchFrm" id="idSearchForm" 
 	action="${ path }/member/memberIdSearch" method="POST">
-	<div class="mId Search Title">아이디 찾기</div>
-	<label class="mId Search Title">이름</label><br>
-	<div>
-		<input type="text" name="memName" id="memName"/>
+	<div class="mId_Search_Title">아이디 찾기</div>
+	<div class="search_box">
+		<label class="labelMname">이름</label><br>
+		<input type="text" class="idSearchInput"  name="memName" id="memName" placeholder="홍길동"/>
+		<div class="name regex"></div>
 	</div>
 	
-	
-	<label class="mId Search Title">이메일 주소</label><br>
-	<div>
-		<input type="email" class="idSearchInput" name="memEmail" id="memEmail" />
+	<div class="search_box">
+		<label class="labelMemail">이메일 주소</label><br>
+		<input type="email" class="idSearchInput" name="memEmail" id="memEmail" placeholder="hobbyuser@market.com"/>
+		<div class="email regex"></div>
 	</div>
 	
 	<p>
-		<button type="submit">아이디 찾기</button>
+		<button type="submit" id="searchId_submit" class="searchId_btn">아이디 찾기</button>
 	</p>
 
-	<div class="resultIdSearch"></div>
 
 
 </form>
 </div>
-</section>
-<%@ include file="../../views/common/footer.jsp"%>
+
+<style>
+.findIdPage {
+	padding: 7% 40% 10% 40%;
+}
+
+.mId_Search_Title {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	color: black;
+	margin: 0px 0px 40px 0px;
+}
+
+.searchId_btn, .idSearchInput {
+	font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    margin: 0px;
+    border: 1px solid rgb(239, 239, 239);
+    background-color: white;
+    height: 48px;
+    flex: 1 1 auto;
+    width: 100%;
+    color: rgb(26, 26, 26);
+    box-sizing: border-box;
+    padding: 0px 16px;
+    border-radius: 3px;
+}
+
+.labelMname, .labelMemail {
+	display: inline-block;
+	text-align: right;
+	font-size: 18px;
+	font-weight: 600;
+	padding-bottom: 8px;
+}
+
+.regex {
+	font-size: 14px;
+	padding: 5px 0;
+	color: red;
+}
+
+.search_box{
+	margin-bottom: 8%;
+}
+
+.searchId_btn {
+	background-color: rgb(32, 51, 84);
+	color: white;
+	font-weight: bold;
+	font-size : 20px;
+}
+</style>
+
+<script>
+//이름 유효성 검사
+$("#memName").on("input",function(){
+    var regex = /[가-힣]{2,}/;
+    var result = regex.exec($("#memName").val());
+    
+    if(result != null){
+       $(".name.regex").html("");  
+    }else{
+        $(".name.regex").html("한글만 입력 가능합니다.");
+    }
+}); 
+
+//email유효성 검사
+$("#memEmail").on("input",function(){
+     var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+     var result = regex.exec($("#memEmail").val());
+    
+    if(result != null){
+       $(".email.regex").html("");  
+    }else{
+        $(".email.regex").html("올바른 이메일이 아닙니다");
+    }
+});
+
+
+</script>
+	<%@ include file="../../views/common/footer.jsp"%>

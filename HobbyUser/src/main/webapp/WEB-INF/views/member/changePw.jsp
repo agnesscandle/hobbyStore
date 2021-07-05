@@ -8,39 +8,87 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <style>
-#footer {
-	position: fixed;
-	background-color: white; /*임의색상*/
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 6rem;
+.changePwPage {
+	padding: 7% 33% 8% 33%;
+}
+
+.mPw_Change_Title {
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+	color: black;
+	margin: 0px 0px 10px 0px;
+}
+
+.mPw_Change_step {
+	margin-bottom: 5%;;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.changePw_btn, .pwChangeInput {
+	font-size: 15px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    margin-bottom: 8px;
+    border: 1px solid rgb(239, 239, 239);
+    background-color: white;
+    height: 48px;
+    flex: 1 1 auto;
+    width: 100%;
+    color: rgb(26, 26, 26);
+    box-sizing: border-box;
+    padding: 0px 16px;
+    border-radius: 3px;
+}
+
+.changePw_btn {
+	background-color: rgb(32, 51, 84);
+	color: white;
+	font-weight: bold;
+	font-size : 20px;
+}
+
+.labelMPw {
+	display: inline-block;
+	text-align: right;
+	font-size: 20px;
+	font-weight: 600;
+	padding-bottom: 8px;
+}
+
+.change_box{
+	margin-bottom: 3%;
+}
+
+#find_mPw_btn{
+	font-size: 16px;
+	color: rgb(163, 162, 162);
 }
 </style>
-<contents>
-<form id="memberFrm" action="${ path }/member/changePw" method="POST">
-<h2>비밀번호 변경</h2>
-<br>
-<div>step 1/ 현재 사용하고 있는 비밀번호를 입력해주세요.</div>
-<br>
-<table>
-	<tr class="hide">
-		<td><input type="hidden" name="memId" value="${ loginMember.memId }" readonly/></td>
-	</tr>
-	<tr>
-		<th>현재 비밀번호</th>
-		<td><input type="password" class="curPw" id="memPassword" name="memPassword" required/></td>
-	</tr>
-	<tr>
-		<td><input type="submit" value="다음 단계로 넘어가기" /></td>
-	</tr>
-</table>
 
-<br><br>
-<div>비밀번호를 잊으셨나요?</div>
+<div class="changePwPage">
+<form id="mChangePwFrm" action="${ path }/member/changePw" method="POST">
+<div class="mPw_Change_Title">비밀번호 변경</div>
+
+<div class="mPw_Change_step">Step 1) 현재 사용하고 있는 비밀번호를 입력해주세요.</div>
+
+	<div class="change_box">
+	<input type="hidden" name="memId" value="${ loginMember.memId }" readonly/>
+	<label class="labelMPw">현재 비밀번호</label><br>
+	<input type="password" class="pwChangeInput curPw" id="memPassword" name="memPassword" required/>
+	</div>
+
+	<p>
+		<input type="submit" class="changePw_btn" value="다음 단계로 넘어가기" />
+	</p>
+	
+	<br>
+	<div id="find_mPw_btn">비밀번호를 잊으셨나요?</div>
 	
 </form>
-</contents>
+</div>
 
 
 <script>
@@ -50,6 +98,4 @@
 </script>
 
 
-<div id="footer">
-	<%@ include file="../../views/common/footer.jsp"%>
-</div>
+<%@ include file="../../views/common/footer.jsp"%>

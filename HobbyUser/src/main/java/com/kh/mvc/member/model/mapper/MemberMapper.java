@@ -21,6 +21,9 @@ public interface MemberMapper {
 
 	int deleteMember(int memNo);
 
+	Member searchEmail(@Param("memEmail") String memEmail);
+
+
 
 
 

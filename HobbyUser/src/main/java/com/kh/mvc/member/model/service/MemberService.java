@@ -20,6 +20,13 @@ public interface MemberService {
 
 	int delete(int memNo);
 
+	void certifiedPhoneNumber(String memPhone, String cerNum);
+
+	Member findByEmail(String memEmail);
+	
+	boolean result(String memEmail);
+
+
 
 
 

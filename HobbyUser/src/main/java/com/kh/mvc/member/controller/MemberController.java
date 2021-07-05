@@ -2,6 +2,7 @@ package com.kh.mvc.member.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -81,6 +82,30 @@ public class MemberController {
 		return "member/enroll";
 	}
 	
+	// 회원가입 이용약관 페이지 이동
+	@GetMapping("/member/registerPage_1")
+	public String registerPage_1_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "member/registerPage_1";
+	}
+		
+	// 회원가입 이용약관2 페이지 이동
+	@GetMapping("/member/registerPage_2")
+	public String registerPage_2_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "member/registerPage_2";
+	}
+			
+	// 회원가입 이용약관2 페이지 이동
+	@GetMapping("/member/registerPage_3")
+	public String registerPage_3_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "member/registerPage_3";
+	}
+	
 	// 회원가입 처리
 	@RequestMapping(value = "/member/enroll", method = {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member) {
@@ -123,6 +148,19 @@ public class MemberController {
 		return map;
 	}
 	
+	// 이메일 중복검사 
+	@GetMapping("/member/memberEmailChk")
+	@ResponseBody
+		public Map<String, Object> memberEmailChk(@RequestParam("memEmail") String memEmail) {
+			log.info("User Email : {}", memEmail);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("result", service.result(memEmail));
+			
+			return map;
+		}
+	
 	// 아이디 찾기 페이지 이동
 	@GetMapping("/member/memberIdSearch")
 	public String idSearchView() { 
@@ -152,6 +190,14 @@ public class MemberController {
 		
 		return model;
 		
+	}
+	
+	// 비밀번호 찾기 페이지 이동
+	@GetMapping("/member/memberPwSearch")
+	public String pwSearchView() { 
+		log.info("비밀번호 찾기 페이지 요청");
+		
+		return "member/memberPwSearch";
 	}
 	
 	// 마이페이지 이동
@@ -298,6 +344,60 @@ public class MemberController {
 			
 			return model;
 		}
-	}	
+		
+		// 비밀번호 찾기 실행 전 아이디 확인
+		@RequestMapping(value="/member/memberPwSearch", method = {RequestMethod.POST})
+		public ModelAndView memberPwSearch(ModelAndView model, 
+				@RequestParam("memId")String memId) {
+			
+			// 테스트 로그
+			log.info("회원 아이디 : " + memId);
+			
+			Member loginMember = service.findById(memId);
+			
+			if(loginMember != null) {
+				model.setViewName("/member/memberPwSearch2");
+			} else {
+				model.addObject("msg", "일치하는 회원이 없습니다.");
+				model.addObject("location", "/member/memberPwSearch");
+				model.setViewName("common/msg");
+			}
+			
+			return model;
+			
+		}
+		
+		// 비번찾기 핸드폰 번호 입력 페이지 이동
+			@GetMapping("/member/memberPwSearch2")
+			public String memberPwSearch2_view() { 
+				log.info("비밀번호 찾기 핸드폰 번호 인증 페이지 요청");
+				
+				return "member/memberPwSearch2";
+			}
+		
+		// 인증번호 전송 메소드 
+		@PostMapping("/member/memberPwSearch2")
+	    public @ResponseBody
+	    String sendSMS(String memPhone) {
+
+	        Random rand  = new Random();
+	        String numStr = "";
+	        for(int i=0; i<6; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+
+	        System.out.println("수신자 번호 : " + memPhone);
+	        System.out.println("인증번호 : " + numStr);
+	        service.certifiedPhoneNumber(memPhone,numStr);
+	        return numStr;
+	    }
+
+
+
+}	
+
+
+
 			
 

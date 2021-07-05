@@ -1,6 +1,9 @@
 package com.kh.mvc.member.model.service;
 
 
+import java.util.HashMap;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.mvc.member.model.mapper.MemberMapper;
 import com.kh.mvc.member.model.vo.Member;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -55,6 +61,11 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectMember(memId);
 	}
 	
+	@Override
+	public Member findByEmail(String memEmail) {
+
+		return mapper.searchEmail(memEmail);
+	}
 	
 
 	@Override
@@ -62,6 +73,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		return this.findById(memId) != null;
 	}
+	
+	@Override
+	public boolean result(String memEmail) {
+		
+		return this.findByEmail(memEmail) != null;
+	}
+	
 
 	// 아이디 찾기
 	public Member findByIdAndName(String memName, String memEmail) {
@@ -96,8 +114,32 @@ public class MemberServiceImpl implements MemberService{
 
 	// 탈퇴 처리 
 	public int delete(int memNo) {
+			   return mapper.deleteMember(memNo);
+	}
+
+	// 핸드폰 번호 인증
+	@Override
+	public void certifiedPhoneNumber(String memPhone, String cerNum) {
+		 	String api_key = "NCSNUA19NYDFS14M"; // 개인 api key
+	        String api_secret = "GKNWAFFDUOSR8YUK67XDLHAIJTAWHMDZ"; // 개인 secret api key
+	        Message coolsms = new Message(api_key, api_secret);
+
+	        // 4 params(to, from, type, text) are mandatory. must be filled
+	        HashMap<String, String> params = new HashMap<String, String>();
+	        params.put("to", memPhone);    // 수신전화번호
+	        params.put("from", "01026582644");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+	        params.put("type", "SMS");
+	        params.put("text", "취미상점 휴대폰인증 메시지 : 인증번호는" + "["+cerNum+"]" + "입니다.");
+	        params.put("app_version", "test app 1.2"); // application name and version
+
+	        try {
+	            JSONObject obj = (JSONObject) coolsms.send(params);
+	            System.out.println(obj.toString());
+	        } catch (CoolsmsException e) {
+	            System.out.println(e.getMessage());
+	            System.out.println(e.getCode());
+	        }
 		
-			return mapper.deleteMember(memNo);
 	}
 	
 	

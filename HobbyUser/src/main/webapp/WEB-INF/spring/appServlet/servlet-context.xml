@@ -31,10 +31,14 @@
 		<mapping path="/member/**"/>
 		
 		<exclude-mapping path="/member/enroll"/>
+		<exclude-mapping path="/member/registerPage_1"/>
+		<exclude-mapping path="/member/registerPage_2"/>
+		<exclude-mapping path="/member/registerPage_3"/>
 		<exclude-mapping path="/member/login"/>
 		<exclude-mapping path="/member/memberIdChk"/>
 		<exclude-mapping path="/member/memberIdSearch"/>
 		<exclude-mapping path="/member/memberPwSearch"/>
+		<exclude-mapping path="/member/memberPwSearch2"/>
 		
 		
 		

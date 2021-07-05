@@ -8,45 +8,87 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <style>
-#footer {
-	position: fixed;
-	background-color: white; /*임의색상*/
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 6rem;
+.changePwPage {
+	padding: 7% 33% 8% 33%;
+}
+
+.mPw_Change_Title {
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+	color: black;
+	margin: 0px 0px 10px 0px;
+}
+
+.mPw_Change_step {
+	margin-bottom: 5%;;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.newPw_btn, .pwChangeInput {
+	font-size: 15px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    margin-bottom: 8px;
+    border: 1px solid rgb(239, 239, 239);
+    background-color: white;
+    height: 48px;
+    flex: 1 1 auto;
+    width: 100%;
+    color: rgb(26, 26, 26);
+    box-sizing: border-box;
+    padding: 0px 16px;
+    border-radius: 3px;
+}
+
+.newPw_btn {
+	background-color: rgb(32, 51, 84);
+	color: white;
+	font-weight: bold;
+	font-size : 20px;
+}
+
+.labelMPw {
+	display: inline-block;
+	text-align: right;
+	font-size: 18px;
+	font-weight: 600;
+	padding-bottom: 8px;
+}
+
+.change_box{
+	margin-bottom: 3%;
 }
 </style>
-<contents>
-<form id="memberFrm" action="${ path }/member/changePw2" method="POST">
-<h2>비밀번호 변경</h2>
-<br>
-<div>step 2/ 새로운 비밀번호를 입력하세요.</div>
-<br>
-<table>
-	<tr class="hide">
-		<td><input type="hidden" name="memId" value="${ loginMember.memId }" readonly/></td>
-	</tr>
-	<tr>
-		<th>새 비밀번호</th>
-		<td><input type="password" class="newPw" id="memPassword" name="memPassword" required /></td>
-		<td><div id="pw-success"></div><td>
-		<td><div id="pw-danger"></div><td>
-	</tr>
-	<tr>
-		<th>새 비밀번호 확인</th>
-		<td><input type="password" class="newPw" id="memPassword2" required /></td>
-		<td><div id="alert-success"></div><td>
-		<td><div id="alert-danger"></div><td>
-	</tr>
-	<tr>
-		<td><input type="submit" id="newPwUpdate" value="비밀번호 변경" /></td>
-	</tr>
-</table>
 
-	
+<div class="changePwPage">
+<form id="mChangePwFrm_2" action="${ path }/member/changePw2" method="POST">
+<div class="mPw_Change_Title">비밀번호 변경</div>
+<div class="mPw_Change_step">step 2) 새로운 비밀번호를 입력하세요.</div>
+
+<div class="change_box">
+	<input type="hidden" name="memId" value="${ loginMember.memId }" readonly/>
+	<label class="labelMPw">새 비밀번호</label><br>
+	<input type="password" class="pwChangeInput newPw" id="memPassword" name="memPassword" required />
+	<div id="pw-success"></div>
+	<div id="pw-danger"></div>
+</div>
+
+<div class="change_box">
+	<label class="labelMPw">새 비밀번호 확인</label><br>
+	<input type="password" class="pwChangeInput newPw" id="memPassword2" required />
+		<div id="alert-success"></div>
+		<div id="alert-danger"></div>
+</div>
+		
+<p>
+	<input type="submit" class="newPw_btn" id="newPwUpdate" value="비밀번호 변경" />
+</p>
+
 </form>
-</contents>
+</div>
 
 
 <script>
@@ -106,6 +148,4 @@ $("#memPassword2").on("input",function(){
 </script>
 
 
-<div id="footer">
 	<%@ include file="../../views/common/footer.jsp"%>
-</div>

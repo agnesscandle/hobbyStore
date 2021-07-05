@@ -13,14 +13,14 @@ div {
 	display: block;
 }
 
-#footer {
-	position: fixed;
-	background-color: white; /*임의색상*/
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 6rem;
+.deleteContent{
+	padding: 7% 33% 8% 33%;
 }
+
+.info_agree {
+	background-color: rgb(219, 219, 219);
+}
+
 
 .dimmed_layer {
     position: fixed;
@@ -84,7 +84,7 @@ div {
 					<h3 class="tit_comm tit_outagree">회원 탈퇴에 앞서 유의사항 및 안내를 반드시 읽고 진행해 주세요!</h3>
 			</div>
 			</div>
-	<form id="mDeleteFrm" action="${ path }/member/deleteAgree" method="get">
+	<form id="mDeleteFrm" action="${ path }/member/delete" method="get">
 		<div class="info_agree">
 			<div class="info_user">
 				<strong class="tit_agree">내 정보 및 개인형 서비스 이용 기록 삭제 안내</strong>
@@ -133,22 +133,30 @@ div {
 			<a href="${ path }/member/myInfo" class="btn_comm btn_cancle" data-tiara-action-name="탈퇴_취소">
 				<span class="screen_out">탈퇴 취소</span>
 			</a>
-			<button type="button" class="btn_comm btn_next" onclick="location.href='${path}/member/delete'" data-tiara-action-name="다음_단계">
+			<button type="submit" id="delete_btn" class="btn_comm btn_next"  data-tiara-action-name="다음_단계">
 				<span class="screen_out">다음 단계</span>
 			</button>
 		</div>
 	</form>
 	
-			
 	</div> <!-- mArticle -->
 </div> <!-- deleteContent -->
 
 
 <script>
-
+//약관동의 체크 했는지 검사
+$("#delete_btn").click(function(){
+	  if($("input:checkbox[name='serviceAgree']").is(":checked")==false){
+		  alert('안내에 동의해주세요.');
+		  return false;
+	  } else if($("input:checkbox[name='boardAgree']").is(":checked")==false){
+		  alert('안내에 동의해주세요.');
+		  return false;
+	  } else {
+		  $("#delete_btn").submit();
+	  }
+});
 </script>
 
 
-<div id="footer">
 	<%@ include file="../../views/common/footer.jsp"%>
-</div>
