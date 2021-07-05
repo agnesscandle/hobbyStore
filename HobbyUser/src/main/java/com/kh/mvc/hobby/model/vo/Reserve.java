@@ -30,7 +30,7 @@ public class Reserve {
 	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */
 	private Date takeDate;
 	
-	private int payFee;
+	private String payFee;
 	
 	private String resAttend;
 	

@@ -35,8 +35,7 @@
                 <span>취미 가격</span>
                 <input type="text" id="hbFee" name="hbFee" class="req" value="${hobby.hbFee}"  readonly/>        
                 <span>인원 수</span>
-                <input type="text" id="resCount" name="resCount" class="req" value="1" placeholder="1(인)" required/>
- 
+                <input type="number" id="resCount" name="resCount" class="req" value="1" required/>
                 <div class="btn">
  
                    <!-- <button>이전으로</button> -->
@@ -109,13 +108,29 @@
        <div class="reserve reserve-4">
           <section>
              <div class="title">
-                <span>예약 취미 금액</span> 
-                <input type="text" id="hbTotalFee" name="hbTotalFee" value="${hobby.hbFee}" class="req" readonly/> 
-                <span>할인 금액</span> 
-                <input type="text" id="disFee" name="disFee" value="1" class="req" readonly/> 
-                <span>총 결제 금액</span> 
-                <input type="text" id="payFee" name="payFee" value="2" class="req" readonly/> <br>
-        
+                <span>예약 취미 금액</span>
+                <input type="text" id="hbFee" name="hbFee" value="${hobby.hbFee}" class="req" readonly/>
+                
+				<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
+	                <c:set var="disFee"
+	                       value="${ (hobby.hbFee * hobby.hbDiscountRate) / 100}" />
+	                <fmt:formatNumber value="${disFee}" type="number" var="discountFee" pattern="#,###" />
+	                <fmt:formatNumber value="${hobby.hbFee}" type="number" var="originalFee" pattern="#,###"/>
+	                <c:set var="totalFee" value="${hobby.hbFee-disFee}"/>
+	                <fmt:formatNumber value="${totalFee}" type="number" var="payFee" pattern="#,###"/>
+	                <span>할인 금액</span>
+	                <input type="text" name="disFee" value="${discountFee}" class="req" readonly/>
+	                <span>총 결제 금액</span>
+	                <b><input type="text" id="payFee" name="payFee" value="${payFee}" class="req" readonly/></b>
+	            </c:if>
+                <c:if test="${ hobby.hbDiscountStatus eq 'N' }">
+                	<fmt:formatNumber value="${hobby.hbFee}" type="number"
+                           var="originalFee" />
+					<span>할인 금액</span> 
+	                    <input type="text" name="disFee" value="0" class="req" readonly/>
+	                <span>총 결제 금액</span>
+	                <b><input type="text" id="payFee" name="payFee" value="${originalFee}" class="req" readonly/></b>
+                </c:if>
                 <sub> * 금액 확인 후, 이상이 없으면 "다음" 버튼을 클릭해 주세요 </sub>
                 
  
