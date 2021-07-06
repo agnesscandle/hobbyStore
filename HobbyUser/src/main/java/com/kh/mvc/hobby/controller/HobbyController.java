@@ -421,18 +421,26 @@ public class HobbyController {
 	
 	/* 예약 및 결제하기 */
 	@PostMapping("/reserve")
-	public ModelAndView reserve(ModelAndView model, @RequestParam("hbNo") int hbNo,
+	public ModelAndView reserve(ModelAndView model,
+			HttpServletRequest request,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@ModelAttribute Reserve reserve) {
 
-		
 		log.info("예약 및 결제 요청");
-
 		System.out.println("로그인 회원 아이디 : " + loginMember.getMemId());
-
-			model.addObject("msg", "결제 성공.");
-			model.addObject("location", "/");
-			
+		
+		int result = 0;		
+		
+		result = service.saveReserve(reserve);
+		
+		if(result>0) {
+			model.addObject("msg", "결제가 완료되었습니다.");
+            model.addObject("location", "/");
+		} else {
+			model.addObject("msg", "결제가 실패되었습니다.");
+            model.addObject("location", "/");
+		}
+		
 		model.setViewName("common/msg");
 		return model;
 	}

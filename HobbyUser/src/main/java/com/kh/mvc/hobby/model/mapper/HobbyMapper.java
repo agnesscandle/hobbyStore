@@ -13,6 +13,7 @@ import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -74,5 +75,7 @@ public interface HobbyMapper {
 	Merchant selectMerInfoByNo(int merNo);
 
 	String selectCateNameByNo(int cateNo);
+
+	int saveReserve(Reserve reserve);
 
 }

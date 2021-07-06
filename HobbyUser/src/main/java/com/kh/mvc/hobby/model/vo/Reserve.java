@@ -36,6 +36,4 @@ public class Reserve {
 	
 	private String resStatus;
 	
-	private String payStatus;
-	
 }

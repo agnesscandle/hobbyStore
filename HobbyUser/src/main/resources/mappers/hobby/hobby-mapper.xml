@@ -555,4 +555,38 @@
 			AND MER_NO=#{merNo}
 	</select>
 	
+	
+	
+	<!-- Reserve & Pay -->
+	
+	<insert id="saveReserve" parameterType="map"
+		useGeneratedKeys="true" keyProperty="resNo" keyColumn="RES_NO">
+			INSERT INTO 
+			RESERVE(
+				RES_NO, 
+				HB_NO, 
+				MEM_NO, 
+				RES_NAME, 
+				RES_PHONE, 
+				RES_COUNT, 
+				RES_DATE, 
+				TAKE_DATE, 
+				PAY_FEE, 
+				RES_ATTEND, 
+				RES_STATUS
+			) VALUES (
+				SEQ_RESERVE_NO.NEXTVAL, 
+				#{hbNo}, 
+				#{memNo}, 
+				#{resName}, 
+				#{resPhone}, 
+				#{resCount},
+				TO_DATE(#{resDate},'YYYY-MM-DD'),
+				TO_DATE(#{takeDate},'YYYY-MM-DD'),
+				#{payFee}, 
+				DEFAULT, 
+				DEFAULT
+			)
+	</insert>
+	
 </mapper>
