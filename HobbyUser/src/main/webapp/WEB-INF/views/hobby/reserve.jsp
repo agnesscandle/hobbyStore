@@ -24,7 +24,7 @@
        </ul>
     </div>
  
- 	<form id="reserveForm" name="reserveForm" action="${path}/hobby/reserve" method="post">
+ 	<form id="reserveForm" name="reserveForm">
  		<input type="hidden" name="merNo" value="1" /> 
  
        <div class="reserve reserve-1 active">
@@ -37,7 +37,7 @@
                 <input type="text" id="hbFee" name="hbFee" class="req" value="${hobby.hbFee}"  readonly/>
                 <sub> 할인 취미의 경우 "결제 시" 자동으로할인이 적용됩니다. </sub>      
                 <span>인원 수</span>
-                <input type="number" id="resCount" name="resCount" class="req" value="1" required/>
+                <input type="number" id="resCount" name="resCount" class="req" value="1" readonly/>
                 <div class="btn">
  
                    <!-- <button>이전으로</button> -->
@@ -236,12 +236,55 @@ $('.next').click(function(){
           alert('약관에 동의해주세요.');
           return;
       } else{
-          $("#reserveForm").submit();
+          let payFee = $("#payFee").val();
+		  
+       //가맹점 식별코드
+          IMP.init('imp11717395');
+          IMP.request_pay({
+              pg : 'kakaopay',
+              pay_method : 'card',
+              merchant_uid : 'merchant_' + new Date().getTime(),
+              name : '주문명:취미상점결제테스트',
+              amount : payFee,
+              buyer_email : 'iamport@siot.do',
+              buyer_name : '구매자이름',
+              buyer_tel : '010-1234-5678',
+              buyer_addr : '서울특별시 강남구 삼성동',
+              buyer_postcode : '123-456'
+          }, function(rsp) {
+              if ( rsp.success ) {
+            var msg = '결제가 완료되었습니다.';
+            msg += '고유ID : ' + rsp.imp_uid;
+            msg += '상점 거래ID : ' + rsp.merchant_uid;
+            msg += '결제 금액 : ' + rsp.paid_amount;
+            msg += '카드 승인번호 : ' + rsp.apply_num;
+
+            let reserveData = $("#reserveForm").serialize();
+            
+            // 성공시 : HobbyController에 데이터를 전달하여 DB에 입력
+                     $.ajax({
+               url : "${ path }/hobby/reserve",
+               type : "post",
+               data : reserveData,
+               dataType : 'jason',
+               success : function(data){
+                  alert(msg);
+            }
+         });
+      } else {
+                  var msg = '결제에 실패하였습니다.';
+                  msg += '에러내용 : ' + rsp.error_msg;
+                  
+                  alert(msg);
+              }
+          });  
       }
  });
  
 
 </script>
+
+
 
 
 
