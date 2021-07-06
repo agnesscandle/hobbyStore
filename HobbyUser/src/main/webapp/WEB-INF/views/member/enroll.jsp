@@ -53,7 +53,6 @@
    		<!-- 관심분야 -->
    		<label class="memEnrollLabel">관심 분야 체크</label> 
    		<span class="memEnrollLabel_1">(관심 분야를 1개 이상 체크해주세요.)</span><br>
-   		
    		<label class="cateLabel"><input  type="checkbox" name="cateNo" value="1"/>여행</label>
         <label class="cateLabel"><input  type="checkbox" name="cateNo" value="2"/>액티비티</label>
         <label class="cateLabel"><input  type="checkbox" name="cateNo" value="3"/>공예(DIY)</label>
