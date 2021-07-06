@@ -86,8 +86,14 @@ a { text-decoration:none }
 		display : none;
 }
 
+.cateLabel {
+	display:inline-block;
+	width: 100px;
+	line-height: 23px;
+}
 
 #enrollSubmit{
+	cursor: pointer;
 	background-color: rgb(32, 51, 84);
 	color: white;
 	font-weight: bold;
@@ -101,6 +107,7 @@ a { text-decoration:none }
 
 
 #kakaoSubmit{
+	cursor: pointer;
 	font-size : 20px;
 	font-weight: bold;
 	background-color: rgb(255, 232, 18);

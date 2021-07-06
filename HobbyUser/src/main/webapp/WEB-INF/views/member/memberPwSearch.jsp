@@ -62,6 +62,9 @@
 	color: rgb(163, 162, 162);
 }
 
+#searchPw_submit {
+	cursor: pointer;
+}
 
 </style>
 

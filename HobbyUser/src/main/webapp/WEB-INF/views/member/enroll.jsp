@@ -51,21 +51,22 @@
 		<span class="email_input_re_2"></span>
         
    		<!-- 관심분야 -->
-   		<label class="memEnrollLabel">관심 분야 체크</label> <span class="memEnrollLabel_1">(관심 분야를 1개 이상 체크해주세요.)</span><br>
+   		<label class="memEnrollLabel">관심 분야 체크</label> 
+   		<span class="memEnrollLabel_1">(관심 분야를 1개 이상 체크해주세요.)</span><br>
    		
-   		<input  type="checkbox" name="hobby" value="여행"/>여행
-        <input  type="checkbox" name="hobby" value="액티비티"/>액티비티
-        <input  type="checkbox" name="hobby" value="공예(DIY)"/>공예(DIY)
-        <input  type="checkbox" name="hobby" value="음악"/>음악
-        <input  type="checkbox" name="hobby" value="미술"/>미술<br>
-        <input  type="checkbox" name="hobby" value="커리어"/>커리어
-        <input  type="checkbox" name="hobby" value="사진"/>사진
-        <input  type="checkbox" name="hobby" value="요리"/>요리
-        <input  type="checkbox" name="hobby" value="반려동물"/>반려동물
-        <input  type="checkbox" name="hobby" value="건강"/>건강<br>
-        <input  type="checkbox" name="hobby" value="뷰티"/>뷰티
-        <input  type="checkbox" name="hobby" value="모임"/>모임
-        <input  type="checkbox" name="hobby" value="키즈"/>키즈
+   		<label class="cateLabel"><input  type="checkbox" name="cateNo" value="1"/>여행</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="2"/>액티비티</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="3"/>공예(DIY)</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="4"/>음악</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="5"/>미술</label><br>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="6"/>커리어</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="7"/>사진</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="8"/>요리</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="9"/>반려동물</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="10"/>건강</label><br>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="11"/>뷰티</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="12"/>모임</label>
+        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="13"/>키즈</label>
 	<br><br>
 	<hr>
 	<br>
@@ -280,11 +281,20 @@ $('#memId').on("propertychange change keyup paste input", function(){
 	  if($("input:checkbox[name='memAgree']").is(":checked")==false){
 		  alert('약관에 동의해주세요.');
 		  return false;
-	  } else {
+	  } else{
 		  return true;
 	  }
+   });
+   
+   $("#enrollSubmit").click(function(){
+	   if($("input:checkbox[name='cateNo']").is(":checked")==false){
+			  alert('1개 이상의 관심분야를 선택하세요.');
+			  return false;
+		  } else{
+			  return true;
+		  }
    });
 </script>
 
 
-	<%@ include file="../../views/common/footer.jsp"%>
+<%@ include file="../../views/common/footer.jsp"%>

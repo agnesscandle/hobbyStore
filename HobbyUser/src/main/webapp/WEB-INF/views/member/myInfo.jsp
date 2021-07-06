@@ -18,13 +18,28 @@
 	background-color: white; 
 	left: 0;
 	right: 0;
-	bottom: 50;
+	bottom: 30;
 	height: 6rem;
 }
 
+.profilePic-wrapper{
+	height: 150px;
+	width: 150px;
+	position: relative;
+	margin-bottom: 10px;
+	overflow: hideen;
+}
+
+.adjustImage {
+	height: 150px;
+	width: 150px;
+	border: 2px solid rgb(32, 51, 84);
+	border-radius: 50%;
+}
+
 .memInfo_side{
-	float: left; 
-	padding: 5% 2% 40% 4%;
+	float: left;
+	padding: 5% 2% 20% 4%;
 }
 
 .memInfo{
@@ -59,7 +74,8 @@
 	font-size: 18px;
 	color: rgb(32, 51, 84);
 	font-weight: 600;
-	padding: 10px 0px 0px 0px; ;
+	padding: 10px 0px 0px 0px; 
+	cursor: pointer;
 }
 
 
@@ -68,7 +84,19 @@
 
 <aside class="memInfo_side">
 <div class="memInfo">
-<img src="${ path }/profile/${ loginMember.memImgRename }" width="150" height="150" /><br>
+<div class="profilePic-wrapper">
+
+<!-- 등록된 이미지가 없는 경우 -->
+<c:if test="${ loginMember.memImgRename == null }">
+<img src="${ path }/images/memUser.png"  class="adjustImage"  /><br>
+</c:if>
+
+<!-- 등록된 이미지가 있는 경우 -->
+<c:if test="${ loginMember.memImgRename != null }">
+<img src="${ path }/profile/${ loginMember.memImgRename }" class="adjustImage"  /><br>
+</c:if>
+
+</div>
 <span class="infoMemName">${ loginMember.memName }</span> 
 <span class="infoMemId">/ ${ loginMember.memId }</span><br>
 <span class="infoMemEmail">${ loginMember.memEmail }</span>

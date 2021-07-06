@@ -61,6 +61,10 @@
 .change_box{
 	margin-bottom: 3%;
 }
+
+#newPwUpdate{
+	cursor: pointer;
+}
 </style>
 
 <div class="changePwPage">

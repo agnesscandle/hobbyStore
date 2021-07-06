@@ -17,12 +17,12 @@
 	box-sizing: border-box;
 }
 .profile-wrapper{
-	height: 200px;
-	width: 200px;
+	height: 150px;
+	width: 150px;
 	position: relative;
 	border: 2px solid rgb(32, 51, 84);
 	border-radius: 50%;
-	background: url('${ path }/images/memUser.png');
+	background: url('${ path }/profile/${ loginMember.memImgRename }');
 	background-size: 100% 100% ;
 	margin: 50px auto;
 	overflow: hideen;
@@ -53,11 +53,12 @@
 
 .profile-wrapper label {
 	display: inline-block;
-	margin: 80% 0% 0% 80%;
+	margin: 80% 0% 0% 75%;
 	color: #999;
 	cursor: pointer;
 	background: url('${ path }/images/camera.png');
 	background-repeat: no-repeat;
+	background-size: 40px 35px;
 	width:100%;
 	height: 30%;
 }
@@ -119,6 +120,7 @@
     margin-top: 10px;
     padding: 0px 16px;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 </style>
@@ -129,7 +131,6 @@
 <div class="profile-wrapper">
 	<input type="file" id="my-profile" class="my-file" name="upfile"/>
 	<label class="my-file-button" for="my-profile"></label>
-	
 </div>
 
 <div class="infoTitle">${ loginMember.memName } 님, 안녕하세요!</div><br>

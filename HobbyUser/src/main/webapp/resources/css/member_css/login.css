@@ -73,6 +73,10 @@
 	font-size: 13px;
 }
 
+#find_mId_btn, #find_mPw_btn{
+	cursor: pointer;
+}
+
 .loginGroup {
     flex-direction: column;
     margin: 0px 0px 40px 0px;
@@ -80,6 +84,7 @@
 
 
 #mLoginSubmit, #mEnrollSubmit{
+	cursor: pointer;
 	background-color: rgb(32, 51, 84);
 	font-weight: bold;
 	font-size : 18px;
@@ -87,6 +92,7 @@
 }
 
 #merLoginSumit, #merEnrollSubmit{
+	cursor: pointer;
 	background-color: #E89C31;
 	font-weight: bold;
 	font-size : 18px;

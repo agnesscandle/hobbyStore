@@ -398,23 +398,7 @@ public class MemberController {
 				return "member/memberPwSearch2";
 			}
 		
-		// 인증번호 전송 메소드 
-		@PostMapping("/member/memberPwSearch2")
-	    public @ResponseBody
-	    String sendSMS(String memPhone) {
-
-	        Random rand  = new Random();
-	        String numStr = "";
-	        for(int i=0; i<6; i++) {
-	            String ran = Integer.toString(rand.nextInt(10));
-	            numStr+=ran;
-	        }
-
-	        System.out.println("수신자 번호 : " + memPhone);
-	        System.out.println("인증번호 : " + numStr);
-	        service.certifiedPhoneNumber(memPhone,numStr);
-	        return numStr;
-	    }
+		
 
 
 

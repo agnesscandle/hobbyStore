@@ -89,6 +89,10 @@
 	font-weight: bold;
 	font-size : 20px;
 }
+
+#searchId_submit{
+	cursor: pointer;
+}
 </style>
 
 <script>

@@ -15,7 +15,8 @@
 			    STATUS, 
 			    MEM_IMG_ORIGINAL, 
 			    MEM_IMG_RENAME, 
-			    MEM_DATE 
+			    MEM_DATE,
+			    CATE_NO
 		FROM MEMBER
  	</sql>
  
@@ -65,7 +66,8 @@
 			STATUS,
 			MEM_IMG_ORIGINAL,
 			MEM_IMG_RENAME,
-			MEM_DATE
+			MEM_DATE,
+			CATE_NO
 		) VALUES(
 			SEQ_MEM_NO.NEXTVAL, 
 			#{memId},
@@ -76,7 +78,8 @@
 			DEFAULT,
 			#{memImgOriginal},
 			#{memImgRename},
-			DEFAULT
+			DEFAULT,
+			#{cateNo}
 		)
  	</insert>
  	

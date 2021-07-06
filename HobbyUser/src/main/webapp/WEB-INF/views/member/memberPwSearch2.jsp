@@ -7,8 +7,7 @@
 <%@ include file="../../views/common/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+ <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
 .searchPwPage2 {
 	padding: 7% 40% 8% 40%;
@@ -81,7 +80,7 @@
 		<button type="submit" id="checkBtn" class="searchPw_btn">다음</button>
 	</p>
 
-
+	
 
 </form>
 </div>
@@ -93,36 +92,7 @@ $(function(){
 	})
 })
 
-<script>
-$('#sendPhoneNumber').click(function(){
-    let phoneNumber = $('.inputMemPhone').val();
 
-
-    $.ajax({
-        type: "GET",
-        url: "/member/memberPwSearch2",
-        data: {
-            "phoneNumber" : phoneNumber
-        },
-        success: function(res){
-            $('#checkBtn').click(function(){
-                if($.trim(res) ==$('#inputCertifiedNumber').val()){
-                    Swal.fire(
-                        '인증성공!',
-                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                        'success'
-                    )
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '인증오류',
-                        text: '인증번호가 올바르지 않습니다!',
-                    })
-                }
-            })
-        }
-    })
-});
 </script>
 
 <%@ include file="../../views/common/footer.jsp"%>

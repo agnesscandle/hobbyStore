@@ -63,8 +63,13 @@
 }
 
 #find_mPw_btn{
+	cursor: pointer;
 	font-size: 16px;
 	color: rgb(163, 162, 162);
+}
+
+#changePw_submit{
+	cursor: pointer;
 }
 </style>
 
@@ -81,7 +86,7 @@
 	</div>
 
 	<p>
-		<input type="submit" class="changePw_btn" value="다음 단계로 넘어가기" />
+		<input type="submit" id="changePw_submit" class="changePw_btn" value="다음 단계로 넘어가기" />
 	</p>
 	
 	<br>
