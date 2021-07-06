@@ -580,10 +580,10 @@
 				#{memNo}, 
 				#{resName}, 
 				#{resPhone}, 
-				#{resCount},
-				TO_DATE(#{resDate},'YYYY-MM-DD'),
+				DEFAULT,
+				SYSDATE,
 				TO_DATE(#{takeDate},'YYYY-MM-DD'),
-				#{payFee}, 
+				TO_NUMBER(#{payFee}),
 				DEFAULT, 
 				DEFAULT
 			)

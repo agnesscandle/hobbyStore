@@ -428,7 +428,7 @@ public class HobbyController {
 
 		log.info("예약 및 결제 요청");
 		System.out.println("로그인 회원 아이디 : " + loginMember.getMemId());
-		
+		System.out.println("결제 금액 : " + reserve.getPayFee());
 		int result = 0;		
 		
 		result = service.saveReserve(reserve);

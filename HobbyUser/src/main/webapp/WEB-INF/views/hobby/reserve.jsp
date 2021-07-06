@@ -24,7 +24,7 @@
        </ul>
     </div>
  
- 	<form id="reserveForm" name="reserveForm">
+ 	<form id="reserveForm" name="reserveForm" action="${path}/hobby/reserve" method="post">
  		<input type="hidden" name="merNo" value="1" /> 
  
        <div class="reserve reserve-1 active">
@@ -114,24 +114,20 @@
                 <input type="text" id="hbFee" name="hbFee" value="${hobby.hbFee}" class="req" readonly/>
                 
 				<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
-	                <c:set var="disFee"
-	                       value="${ (hobby.hbFee * hobby.hbDiscountRate) / 100}" />
-	                <fmt:formatNumber value="${disFee}" type="number" var="discountFee" pattern="#,###" />
-	                <fmt:formatNumber value="${hobby.hbFee}" type="number" var="originalFee" pattern="#,###"/>
-	                <c:set var="totalFee" value="${hobby.hbFee-disFee}"/>
-	                <fmt:formatNumber value="${totalFee}" type="number" var="payFee" pattern="#,###"/>
+				<!-- disFee(할인가:할인해주는 가격), payFee(최종 결제금액:취미금액-할인가) -->
+					<fmt:parseNumber var="disFee" value="${(hobby.hbFee * hobby.hbDiscountRate) / 100}" integerOnly="true"/>
+	                <fmt:parseNumber var="payFee" value="${hobby.hbFee-disFee}" integerOnly="true"/>
+	                
 	                <span>할인 금액</span>
-	                <input type="text" name="disFee" value="${discountFee}" class="req" readonly/>
+	                <input type="text" name="disFee" value="${disFee}" class="req" readonly/>
 	                <span>총 결제 금액</span>
 	                <b><input type="text" id="payFee" name="payFee" value="${payFee}" class="req" readonly/></b>
 	            </c:if>
                 <c:if test="${ hobby.hbDiscountStatus eq 'N' }">
-                	<fmt:formatNumber value="${hobby.hbFee}" type="number"
-                           var="originalFee" />
 					<span>할인 금액</span> 
 	                    <input type="text" name="disFee" value="0" class="req" readonly/>
 	                <span>총 결제 금액</span>
-	                <b><input type="text" id="payFee" name="payFee" value="${originalFee}" class="req" readonly/></b>
+	                <b><input type="text" id="payFee" name="payFee" value="${hobby.hbFee}" class="req" readonly/></b>
                 </c:if>
                 <sub> * 금액 확인 후, 이상이 없으면 "다음" 버튼을 클릭해 주세요 </sub>
                 
@@ -240,55 +236,7 @@ $('.next').click(function(){
           alert('약관에 동의해주세요.');
           return;
       } else{
-          let reserveData = $("#reserveForm").serialize();
-          let payFee = $("#payFee").val();
-
-    	//가맹점 식별코드
-          IMP.init('imp11717395');
-          IMP.request_pay({
-              pg : 'kakaopay',
-              pay_method : 'card',
-              merchant_uid : 'merchant_' + new Date().getTime(),
-              name : '주문명:취미상점결제테스트',
-              amount : payFee,
-              buyer_email : 'iamport@siot.do',
-              buyer_name : '구매자이름',
-              buyer_tel : '010-1234-5678',
-              buyer_addr : '서울특별시 강남구 삼성동',
-              buyer_postcode : '123-456'
-          }, function(rsp) {
-              if ( rsp.success ) {
-                 //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달
-                 jQuery.ajax({
-                    url: "/payments/complete",
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                       imp_uid : rsp.imp_uid
-                    }
-                 }).done(function(data) {
-                    //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-                    if ( everythings_fine ) {
-                       var msg = '결제가 완료되었습니다.';
-                       msg += '\n고유ID : ' + rsp.imp_uid;
-                       msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                       msg += '\결제 금액 : ' + rsp.paid_amount;
-                       msg += '카드 승인번호 : ' + rsp.apply_num;
-                       
-                       alert(msg);
-                       
-                    } else {
-                       //[3] 아직 제대로 결제가 되지 않았습니다.
-                       //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-                    }
-                 });
-              } else {
-                  var msg = '결제에 실패하였습니다.';
-                  msg += '에러내용 : ' + rsp.error_msg;
-                  
-                  alert(msg);
-              }
-          });         
+          $("#reserveForm").submit();
       }
  });
  
