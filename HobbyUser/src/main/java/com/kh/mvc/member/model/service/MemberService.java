@@ -1,5 +1,7 @@
 package com.kh.mvc.member.model.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kh.mvc.member.model.vo.Member;
 
 public interface MemberService {
@@ -25,6 +27,8 @@ public interface MemberService {
 	Member findByEmail(String memEmail);
 	
 	boolean result(String memEmail);
+
+	String saveFile(MultipartFile upfile, String savePath);
 
 
 

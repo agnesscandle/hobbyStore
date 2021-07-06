@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.mvc.member.model.service.MemberService;
@@ -218,13 +220,34 @@ public class MemberController {
 	
 	// 회원정보 수정
 		@PostMapping("/member/update")
-		public ModelAndView update(ModelAndView model, 
-				@ModelAttribute Member member, 
+		public ModelAndView update(ModelAndView model, HttpServletRequest request,
+				@ModelAttribute Member member, @RequestParam("upfile") MultipartFile upfile,
 				@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+			
 			int result = 0;
+			
+			log.info("프로필 수정 작성 요청");
+			System.out.println(upfile.getOriginalFilename());
+			System.out.println(upfile.isEmpty());
+			
 			
 			if(loginMember.getMemId().equals(member.getMemId())) {
 				member.setMemNo(loginMember.getMemNo());
+				
+				if(upfile != null && !upfile.isEmpty()) {
+					
+					String rootPath = request.getSession().getServletContext().getRealPath("resources");
+					String savePath = rootPath + "/upload/profile";
+					String renameFileName = service.saveFile(upfile, savePath);
+					
+					System.out.println(renameFileName);
+					
+					if(renameFileName != null) {
+						member.setMemImgOriginal(upfile.getOriginalFilename());
+						member.setMemImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
+					}
+				}
+				
 				
 				result = service.save(member);		
 				

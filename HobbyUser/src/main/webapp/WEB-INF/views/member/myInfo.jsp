@@ -68,6 +68,7 @@
 
 <aside class="memInfo_side">
 <div class="memInfo">
+<img src="${ path }/profile/${ loginMember.memImgRename }" width="150" height="150" /><br>
 <span class="infoMemName">${ loginMember.memName }</span> 
 <span class="infoMemId">/ ${ loginMember.memId }</span><br>
 <span class="infoMemEmail">${ loginMember.memEmail }</span>

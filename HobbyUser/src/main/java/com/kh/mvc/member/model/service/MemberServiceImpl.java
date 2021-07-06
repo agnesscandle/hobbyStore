@@ -1,6 +1,10 @@
 package com.kh.mvc.member.model.service;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import org.json.simple.JSONObject;
@@ -9,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mvc.member.model.mapper.MemberMapper;
 import com.kh.mvc.member.model.vo.Member;
@@ -141,6 +146,38 @@ public class MemberServiceImpl implements MemberService{
 	        }
 		
 	}
+
+	@Override
+	public String saveFile(MultipartFile upfile, String savePath) {
+		String renameFileName = null;
+		String renamePath = null;
+		String originalFileName = upfile.getOriginalFilename();
+		
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		renameFileName = 
+				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + 
+				originalFileName.substring(originalFileName.lastIndexOf("."));
+		renamePath = savePath + "/"  + renameFileName;
+		
+		try {
+			// 업로드한 파일 데이터를 지정한 파일에 저장한다.
+			upfile.transferTo(new File(renamePath));
+		} catch (IOException e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
+	}
+		
+		
+		
 	
 	
 

@@ -8,11 +8,62 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
-
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
 <style>
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.profile-wrapper{
+	height: 200px;
+	width: 200px;
+	position: relative;
+	border: 2px solid rgb(32, 51, 84);
+	border-radius: 50%;
+	background: url('${ path }/images/memUser.png');
+	background-size: 100% 100% ;
+	margin: 50px auto;
+	overflow: hideen;
+}
+
+.my_file{
+	position:absolute;
+	bottom: 0;
+	outline: none;
+	color: transparent;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 15px 120px;
+	cursor: pointer;
+	transition: 0.5s;
+	background: rgba(0,0,0,0.5);
+}
+
+#my-profile{
+	position: absoulte;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	border: 0;
+	margin: -1px;
+	display: none;
+}
+
+.profile-wrapper label {
+	display: inline-block;
+	margin: 80% 0% 0% 80%;
+	color: #999;
+	cursor: pointer;
+	background: url('${ path }/images/camera.png');
+	background-repeat: no-repeat;
+	width:100%;
+	height: 30%;
+}
+
 .updateMemInfo {
-	padding: 7% 35% 5% 35%;
-	
+	padding: 0% 35% 5% 35%;
 }
 
 .infoTitle{
@@ -69,12 +120,19 @@
     padding: 0px 16px;
     border-radius: 3px;
 }
+
 </style>
 
 <div class="updateMemInfo">
-<div class="infoTitle">${ loginMember.memName } 님, 안녕하세요!</div><br>
-<form id="memberFrm" action="${ path }/member/update" method="POST">
 
+<form id="memberFrm" action="${ path }/member/update" method="POST" enctype="multipart/form-data">
+<div class="profile-wrapper">
+	<input type="file" id="my-profile" class="my-file" name="upfile"/>
+	<label class="my-file-button" for="my-profile"></label>
+	
+</div>
+
+<div class="infoTitle">${ loginMember.memName } 님, 안녕하세요!</div><br>
 <div class="m_infoG">
 <label class="mInfoLabel">아이디</label><br>
 		<input type="text" name="memId" id="memId" class="mInfoInput"

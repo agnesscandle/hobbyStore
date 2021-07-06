@@ -93,6 +93,8 @@
  	<update id="updateMember" parameterType="Member">
  		UPDATE MEMBER 
  		SET 
+ 			MEM_IMG_ORIGINAL = #{memImgOriginal},
+ 			MEM_IMG_RENAME = #{memImgRename},
  			MEM_NAME = #{memName},
  			MEM_PHONE = #{memPhone},
  			MEM_EMAIL = #{memEmail}
