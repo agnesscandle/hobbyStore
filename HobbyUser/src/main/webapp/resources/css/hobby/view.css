@@ -166,13 +166,14 @@
 }
 
 .detail{
-    font-size : 30px;
+    font-size : 15px;
     font-weight : bolder;
     flex-basis: 400px;
     /* border : 1px solid black; */
 }
 
-#map{
-	width : 500px;
-	height : 400px;
+.detail #address{
+	font-size : 18px;
+	font-weight : bolder;
 }
+

@@ -108,10 +108,17 @@
 		</div>
 		<div class="detail" id="infoD">취미 소개 상세</div>
 		<div class="detail" id="locationD"> 위치 상세
-			<div id="map"><c:out value="${hobby.hbLocation}"/></div>
+			<div>
+				<span id="address"><c:out value="${hobby.hbLocation}"/></span>
+				<div id="map" style="width:500px;height:350px;">
+			</div>
+			
+			
+			
+			</div>
 		</div>
 		<div class="detail" id="questionD">
-
+			
 			<div id="qnaList">
 				<c:forEach var="qna" items="${ qnaList }">
 					<div id="qna"></div>
@@ -202,45 +209,58 @@ $("#btnPay").on("click", (e)=>{
 */
 </script>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42e9fa59c3e426319f693b117473bea"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42e9fa59c3e426319f693b117473bea"></script> 
-<script type="text/javascript"> 
-	var container = document.getElementById('map'); 
-	var options = { //지도를 생성할 때 필요한 기본 옵션 
-			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표. 
-			level: 3 //지도의 레벨(확대, 축소 정도) 
-	}; // 지도를 생성
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42e9fa59c3e426319f693b117473bea&libraries=services"></script>
+<script>
+// 상인이 등록한 취미 주소를 가져오기
+function findLocation(){
+	var hbL =$("#address")[0].innerText;
+	var sLocation = hbL.split(",");
+	var location = sLocation[1];
 	
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴 
-	
-	// 주소-좌표 변환 객체를 생성합니다 
-	var geocoder = new kakao.maps.services.Geocoder(); // 주소로 좌표를 검색합니다 
-	geocoder.addressSearch('${hobby.hbLocation}', function (result, status) { 
-		
-		// 정상적으로 검색이 완료됐으면 
-		if (status === kakao.maps.services.Status.OK) { 
-			var coords = new kakao.maps.LatLng(result[0].y, result[0].x); 
-			
-			// 결과값으로 받은 위치를 마커로 표시
-			var marker = new kakao.maps.Marker({ 
-				map: map, 
-				position: coords 
-			}); 
-			
-			// 인포윈도우로 장소에 대한 설명을 표시합니다 
-			var infowindow = new kakao.maps.InfoWindow({ 
-				content: '<div style="width:150px;text-align:center;padding:6px 0;"><div style="font-weight: bold;">
-				</div><div> here! </div></div>' 
-				}); 
-			infowindow.open(map, marker); 
-			
-			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다 
-			map.setCenter(coords); 
-		} 
-	}); 
+	console.log(location);
+	return location;
+}
+
+// 카카오 지도 불러오기
+var mapContainer = document.getElementById('map'),
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3
+    };  
+
+// 지도를 생성
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 취미 주소 가져오기(테스트용)
+findLocation();
+
+// 주소로 좌표를 검색(상인 취미 주소)
+geocoder.addressSearch(findLocation(), function(result, status) {
+
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 취미 장소(위치)에 대한 설명
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">취미 클래스 위치</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킴
+        map.setCenter(coords);
+    } 
+});    
 </script>
-
-
 
 
 <%@ include file="../../views/common/footer.jsp"%>
