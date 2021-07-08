@@ -319,11 +319,14 @@ public class HobbyController {
 
 			if (result > 0) {
 				model.addObject("msg", "신고글이 정상적으로 등록되었습니다.");
+				model.addObject("location", "/");
 			} else {
 				model.addObject("msg", "신고글 등록을 실패하였습니다.");
+				model.addObject("location", "/hobby/view?hbNo=" +hbNo);
 			}
 		} else {
 			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/");
 		}
 
 		model.setViewName("common/msg");

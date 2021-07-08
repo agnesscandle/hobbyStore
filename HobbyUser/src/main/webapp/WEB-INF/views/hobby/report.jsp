@@ -24,7 +24,7 @@
 <body>
                <div class="container">
                <h1> 신고하기 </h1>
-                <form action="${path}/hobby/report" method="POST">
+                <form id="reportForm" name="reportForm">
                     <table id="tblReport">
                         <tr>
                             <th class="tblHeader">취미명</th>
@@ -50,8 +50,8 @@
                         <br><br>
                         <tr>
                             <th id="btnContainer" colspan="2">
-                                <input class="btn" id="btnReport" type="submit" value="신고하기">
-                                <input class="btn" id="btnCancle" type="reset" value="취소하기">
+                                <input class="btn" id="btnReport" type="button" value="신고하기">
+                                <input class="btn" id="btnCancle" type="button" value="취소하기">
                             </th>
                         </tr>
                </table>
@@ -59,11 +59,35 @@
             </div>
 </body>
 <script>
-$(document).ready(()=>{
-   // 취소하기 버튼 : 창 닫기
-   $("#btnCancle").on("click", (e)=>{
-         window.close();
-   });
+$(function(){ 
+    $('#btnReport').on("click",function () {
+
+    // 신고내용 입력하도록
+    if( $("#rpContent").val().length==0 ){
+    	alert("신고 내용을 입력해주세요.");
+    	$("#rpContent").focus();
+    	return false;
+    }   	
+    	
+    var reportData = $("#reportForm").serialize();
+    $.ajax({
+      type : "POST",
+      url : "${ path }/hobby/report",
+      data: reportData,
+      datatype: 'json',
+      success : function(data){ 
+         alert("신고글이 정상적으로 등록되었습니다.");
+         window.close()}
+   		});
+	});
 });
+
+$(function(){
+	// 취소하기 버튼 : 창 닫기
+	$("#btnCancle").on("click", (e)=>{
+	         window.close();
+	   });
+});
+
 </script>
 </html>
