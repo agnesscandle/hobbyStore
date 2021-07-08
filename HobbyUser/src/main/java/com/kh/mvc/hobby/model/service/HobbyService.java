@@ -14,70 +14,69 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface HobbyService {
-   
-   int getHobbyCount();
 
-   List<Hobby> getHobbyList(PageInfo pageInfo);
+	int getHobbyCount();
 
-   int save(Hobby hobby);
+	List<Hobby> getHobbyList(PageInfo pageInfo);
 
-   List<Category> getCateList();
+	int save(Hobby hobby);
 
-   void saveFile(MultipartFile thumFile, String savePath, Hobby hobby);
+	List<Category> getCateList();
 
-   void saveFiles(List<MultipartFile> fileList, String savePath, Hobby hobby);
+	void saveFile(MultipartFile thumFile, String savePath, Hobby hobby);
 
-   
-   /* 검색된 목록 가져오기 위한 인터페이스 [김예원]*/
-   int getHobbySearchCount(String search);
+	void saveFiles(List<MultipartFile> fileList, String savePath, Hobby hobby);
 
-   
-   List<Hobby> getHobbySearchList(PageInfo pageInfo, String search);
+	/* 검색된 목록 가져오기 위한 인터페이스 [김예원] */
+	int getHobbySearchCount(String search);
 
-   
-	/* review(후기) 관련 인터페이스 [김예원]*/
-   int getReviewCount(int hbNo);
+	List<Hobby> getHobbySearchList(PageInfo pageInfo, String search);
 
-   List<Review> getReviewList(PageInfo pageInfo, int hbNo);
+	/* review(후기) 관련 인터페이스 [김예원] */
+	int getReviewCount(int hbNo);
 
-   Hobby findByNo(int hbNo);
+	List<Review> getReviewList(PageInfo pageInfo, int hbNo);
 
-   /* review(후기)작성 관련 인터페이스 [김예원]*/
-   int getReserveCount(int hbNo, int memNo);
+	Hobby findByNo(int hbNo);
 
-   Review reviewFindByNo(int hbNo, int memNo);
-   
-   void saveFiles(List<MultipartFile> fileList, String savePath, Review review);
+	/* review(후기)작성 관련 인터페이스 [김예원] */
+	int getReserveCount(int hbNo, int memNo);
 
-   int save(Review review);
+	Review reviewFindByNo(int hbNo, int memNo);
 
-   int deleteReview(int rvNo);
+	void saveFiles(List<MultipartFile> fileList, String savePath, Review review);
+
+	int save(Review review);
+
+	int deleteReview(int rvNo);
 
 	/* Liked(좋아요) 관련 인터페이스 */
-   String selectLikedStatusByNo(int hbNo, int memNo);
+	String selectLikedStatusByNo(int hbNo, int memNo);
 
-   int insertLiked(Liked liked);
+	int insertLiked(Liked liked);
 
-   int updateLiked(int hbNo, int memNo);
+	int updateLiked(int hbNo, int memNo);
 
-   int updateUnliked(int hbNo, int memNo);
+	int updateUnliked(int hbNo, int memNo);
 
 	/* Report(신고하기) 관련 인터페이스 */
-   int saveReport(Report report);
+	int saveReport(Report report);
 
-   /* Qna(신고하기) 관련 인터페이스 */
-   List<Qna> getQnaList(PageInfo pageInfo, int hbNo);
+	/* Qna(신고하기) 관련 인터페이스 */
+	List<Qna> getQnaList(PageInfo pageInfo, int hbNo);
 
-   int getQnaCount(int hbNo);
+	int getQnaCount(int hbNo);
 
-   List<Reply> getReplyList(int qnaNo);
+	List<Reply> getReplyList(int qnaNo);
 
+	Hobby question(int hbNo);
 
+	int saveQna(Qna qna);
 
-   
+	int saveReply(Reply reply);
 
+	Qna findByQnaNo(int qnaNo);
 
-
-
+	int deleteQna(Qna qna);
 
 }

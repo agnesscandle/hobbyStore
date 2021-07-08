@@ -18,7 +18,11 @@ public class Qna {
    
    private int hbNo;
    
+   private String hbTitle;
+   
    private int memNo;
+   
+   private String memId;
    
    private String qnaTitle;
    

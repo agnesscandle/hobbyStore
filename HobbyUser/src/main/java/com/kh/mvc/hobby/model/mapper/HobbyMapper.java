@@ -73,6 +73,18 @@ public interface HobbyMapper {
 
 	List<Reply> selectReplyList(@Param("qnaNo") int qnaNo);
 
+	int saveReply(Reply reply);
+
+	Qna selectQnaByNo(int qnaNo);
+
+	int deleteQna(Qna qna);
+
+	Hobby selectHobbyByNoQna(int hbNo);
+
+	int updateQna(Qna qna);
+
+	int insertQna(Qna qna);
+
 	
 
 	

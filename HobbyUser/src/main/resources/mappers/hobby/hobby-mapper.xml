@@ -7,7 +7,7 @@
 
 
 	<!-- 취미 시작 -->
-	
+
 	<sql id="HobbyListSql">
 		SELECT HB_NO,
 		MER_NO,
@@ -77,7 +77,6 @@
 
 		ORDER BY
 		H.HB_NO DESC
-
 	</select>
 
 	<!-- 검색어에 맞는 취미 목록 검색 -->
@@ -235,8 +234,8 @@
 		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
 		WHERE R.STATUS = 'Y'
 	</sql>
-	
-	
+
+
 	<resultMap type="Review" id="ReviewListResultMap">
 		<id property="rvNo" column="RV_NO" />
 		<result property="hbNo" column="HB_NO" />
@@ -271,7 +270,7 @@
 		AND R.MEM_NO = ${memNo}
 		AND R.HB_NO = ${hbNo}
 	</select>
-	
+
 	<!-- 리뷰 목록 검색[김예원] -->
 	<select id="selectReviewList" parameterType="_int"
 		resultMap="ReviewListResultMap">
@@ -279,7 +278,7 @@
 		AND R.HB_NO = ${hbNo}
 		ORDER BY R.RV_NO DESC
 	</select>
-	
+
 	<!-- 리뷰 수 검색[김예원] -->
 	<select id="selectReviewCount" parameterType="_int"
 		resultType="_int">
@@ -289,7 +288,7 @@
 		AND HB_NO =
 		${hbNo}
 	</select>
-	
+
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview" parameterType="map"
 		useGeneratedKeys="true" keyProperty="rvNo" keyColumn="RV_NO">
@@ -321,29 +320,30 @@
 		'Y'
 		)
 	</insert>
-	
-	
+
+	<!-- 리뷰 수정[김예원] -->
 	<update id="updateReview" parameterType="map">
 		UPDATE REVIEW
 		SET
 		RV_CONTENT=#{rvContent},
 		RV_SCORE=#{rvScore},
-			<if test="rvOriginalFilename != null">
-				RV_ORIGINAL_FILENAME = #{rvOriginalFilename},
-			</if>
-			<if test="rvRenameFilename != null">
-				RV_RENAME_FILENAME = #{rvRenameFilename},
-			</if>
+		<if test="rvOriginalFilename != null">
+			RV_ORIGINAL_FILENAME = #{rvOriginalFilename},
+		</if>
+		<if test="rvRenameFilename != null">
+			RV_RENAME_FILENAME = #{rvRenameFilename},
+		</if>
 		RV_MODIFYDATE = DEFAULT
 		WHERE
-			RV_NO=#{rvNo}
+		RV_NO=#{rvNo}
 	</update>
-	
+
+	<!-- 리뷰 삭제[김예원] -->
 	<delete id="deleteReview">
 		DELETE FROM REVIEW
 		WHERE RV_NO = #{rvNo}
 	</delete>
-	
+
 	<!-- 리뷰 끝 -->
 
 
@@ -417,6 +417,10 @@
 
 
 
+
+
+
+
 	<!-- 문의 및 답글 -->
 
 	<!-- Qna -->
@@ -424,7 +428,9 @@
 		SELECT
 		Q.QNA_NO,
 		Q.HB_NO,
+		H.HB_TITLE,
 		Q.MEM_NO,
+		M.MEM_ID,
 		Q.QNA_TITLE,
 		Q.QNA_CONTENT,
 		Q.STATUS,
@@ -433,18 +439,45 @@
 		FROM QNA Q
 		JOIN HOBBY H ON(Q.HB_NO = H.HB_NO)
 		JOIN MEMBER M ON(Q.MEM_NO = M.MEM_NO)
+
 	</sql>
 
 	<resultMap type="Qna" id="qnaListResultMap">
 		<id property="qnaNo" column="QNA_NO" />
 		<result property="hbNo" column="HB_NO" />
+		<result property="hbTitle" column="HB_TITLE" />
 		<result property="memNo" column="MEM_NO" />
+		<result property="memId" column="MEM_ID" />
 		<result property="qnaTitle" column="QNA_TITLE" />
 		<result property="qnaContent" column="QNA_CONTENT" />
 		<result property="status" column="STATUS" />
 		<result property="qnaDate" column="QNA_DATE" />
 		<result property="qnaSecure" column="QNA_SECURE" />
 	</resultMap>
+
+	<insert id="insertQna" parameterType="map"
+		useGeneratedKeys="true" keyProperty="qnaNo" keyColumn="QNA_NO">
+		INSERT INTO QNA(
+		QNA_NO,
+		HB_NO,
+		MEM_NO,
+		QNA_TITLE,
+		QNA_CONTENT,
+		STATUS,
+		QNA_DATE,
+		QNA_SECURE)
+		VALUES(
+		SEQ_QNA_NO.NEXTVAL,
+		#{hbNo},
+		#{memNo},
+		#{qnaTitle},
+		#{qnaContent},
+		DEFAULT,
+		DEFAULT,
+		#{qnaSecure}
+		)
+
+	</insert>
 
 
 	<select id="selectQnaCount" resultType="_int">
@@ -466,32 +499,31 @@
 		AND HB_NO=#{hbNo}
 	</select>
 
+	<select id="selectQnaByNo" parameterType="_int"
+		resultMap="qnaListResultMap">
+		<include refid="qnaListSql" />
+		WHERE Q.QNA_NO=#{qnaNo}
 
-	<insert id="insertQna" parameterType="map"
-		useGeneratedKeys="true" keyProperty="qnaNo" keyColumn="QNA_NO">
-		INSERT INTO QNA(
-		QNA_NO,
-		HB_NO,
-		MEM_NO,
-		QNA_TITLE,
-		QNA_CONTENT,
-		STATUS,
-		QNA_DATE,
-		QNA_SECURE)
-		VALUES(
-		SEQ_QNA_NO.NEXTVAL,
-		#{hbNo},
-		1,
-		#{qnaTitle},
-		#{qnaContent},
-		DEFAULT,
-		DEFAULT,
-		#{qnaSecure}
-		)
+	</select>
 
-	</insert>
+	<update id="updateQna" parameterType="map">
+		UPDATE QNA
+		SET
+		QNA_TITLE=#{qnaTitle},
+		QNA_CONTENT=#{qnaContent},
+		QNA_DATE=SYSDATE,
+		QNA_SECURE=#{qnaSecure}
+		WHERE
+		QNA_NO = #{qnaNo}
+	</update>
 
+	<update id="deleteQna" parameterType="map">
+		UPDATE QNA
+		SET
+		STATUS = 'N'
+		WHERE QNA_NO =#{qnaNo}
 
+	</update>
 
 
 	<!-- Reply -->
@@ -506,7 +538,7 @@
 		FROM REPLY R
 		JOIN MERCHANT M ON(R.MER_NO = M.MER_NO)
 	</sql>
-	
+
 	<resultMap type="Reply" id="ReplyListResultMap">
 		<id property="replyNo" column="REPLY_NO" />
 		<result property="qnaNo" column="QNA_NO" />
@@ -548,5 +580,7 @@
 		DEFAULT
 		)
 	</insert>
+
+
 
 </mapper>

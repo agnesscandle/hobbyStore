@@ -290,24 +290,64 @@ public class HobbyServiceImpl implements HobbyService {
 	}
 
 	
-	/* 문의하기 */
-	@Override
-	public int getQnaCount(int hbNo) {
-		return mapper.selectQnaCount(hbNo);
-	}
+	  /* 문의하기 */
+	   @Override
+	      public Hobby question(int hbNo) {
+	         // TODO Auto-generated method stub
+	         return mapper.selectHobbyByNoQna(hbNo);
+	      }
 
-	@Override
-	public List<Qna> getQnaList(PageInfo pageInfo,  int hbNo) {
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		return mapper.selectQnaList(rowBounds,hbNo);
-	}
+	      @Override
+	      public int saveQna(Qna qna) {
+	      int result = 0;
+	         
+	         if(qna.getQnaNo() !=0) {
+	            result = mapper.updateQna(qna);
+	         } else {
+	            result= mapper.insertQna(qna);
+	         }
+	         return result;
+	      }
 
-	@Override
-	public List<Reply> getReplyList(int qnaNo) {
-		
-		return mapper.selectReplyList(qnaNo);
-	}
+	   @Override
+	   public int getQnaCount(int hbNo) {
+	      return mapper.selectQnaCount(hbNo);
+	   }
+
+	   @Override
+	   public List<Qna> getQnaList(PageInfo pageInfo,  int hbNo) {
+	      int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+	      RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	      return mapper.selectQnaList(rowBounds,hbNo);
+	   }
+
+	   @Override
+	   public List<Reply> getReplyList(int qnaNo) {
+	      
+	      return mapper.selectReplyList(qnaNo);
+	   }
+	      @Override
+	      public int saveReply(Reply reply) {
+	   int result = 0;
+	         
+	         if(reply.getReplyNo() !=0) {
+	            //업데이트
+	         } else {
+	            result= mapper.saveReply(reply);
+	         }
+	         return result;
+	      }
+
+	   @Override
+	   public Qna findByQnaNo(int qnaNo) {
+	      return mapper.selectQnaByNo(qnaNo);
+	   }
+
+	   @Override
+	   public int deleteQna(Qna qna) {
+	      // TODO Auto-generated method stub
+	      return mapper.deleteQna(qna);
+	   }
 
 
 	
