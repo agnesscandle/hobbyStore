@@ -1,6 +1,8 @@
 package com.kh.mvc.hobby.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -231,21 +234,20 @@ public class HobbyController {
 	
 	
 	/* 좋아요 */
+	@ResponseBody
 	@GetMapping("/liked")
-	public ModelAndView liked(ModelAndView model,
+	public Map<String, String> liked(ModelAndView model,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @RequestParam("hbNo") int hbNo,
 			@ModelAttribute Liked liked) {
-
-		int result = 0;
-		String history = null;
 
 		log.info("좋아요 요청");
 		System.out.println("로그인 회원 번호 : " + loginMember.getMemNo());
 		System.out.println("취미번호 : " + hbNo);
-
-//	      liked.setMemNo(loginMember.getMemNo());
-//	      System.out.println("좋아요 누른 회원 번호 : " + liked.getMemNo());
-
+		
+		int result = 0;
+		String history = null;
+		Map<String, String>map = new HashMap<>();
+		
 		// 로그인 상태 확인
 		if (loginMember != null) {
 			liked.setHbNo(hbNo);
@@ -265,31 +267,26 @@ public class HobbyController {
 			// 1. null인 경우 insert : insertLiked
 			if (history == null) {
 
-				result = service.insertLiked(liked);
 				log.info("좋아요 insert");
-
-				// 2. N인 경우 Y로 update : updateLiked
-				// 3. Y인 경우 N으로 update : updateUnliked
+				result = service.insertLiked(liked);
+				map.put("status", "Y");
+				
+			// 2. N인 경우 Y로 update : updateLiked
 			} else if (history.equals("N")) {
 				log.info("좋아요 update");
 				result = service.updateLiked(liked.getHbNo(), liked.getMemNo());
+				map.put("status", "Y");
+				
+				
+			// 3. Y인 경우 N으로 update : updateUnliked
 			} else {
 				log.info("안 좋아요 update");
 				result = service.updateUnliked(liked.getHbNo(), liked.getMemNo());
-			}
-
-			if (result > 0) {
-				model.addObject("msg", "좋아요 상태를 변경하였습니다.");
-				model.addObject("location", "/hobby/view?hbNo=" + hbNo);
-			} else {
-				model.addObject("msg", "실패하였습니다.");
-				model.addObject("location", "/hobby/view?hbNo=" + hbNo);
-			}
+				map.put("status", "N");
+			}			
 		}
 
-		model.setViewName("common/msg");
-
-		return model;
+		return map;
 	}
 
 	/* 신고하기 페이지 요청 */

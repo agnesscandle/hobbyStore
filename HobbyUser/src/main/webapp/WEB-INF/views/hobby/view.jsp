@@ -23,6 +23,7 @@
 			<div class="right" id="rightTop">
 				<div class="forBorder">
 					<div class="infoContainer">
+					<input type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}"/>
 						<h4 id="cate"><c:out value="${hobby.cateName}" />
 						</h4>
 						<h2 id="title">
@@ -146,8 +147,31 @@ $("#btnPay").on("click", (e)=>{
 });
 
 // 좋아요 버튼
-   $("#btnLiked").on("click", (e)=>{
-      location.href="${path}/hobby/liked?hbNo=${hobby.hbNo}";
+   $("#btnLiked").on("click", ()=>{
+	   var hbNo=$("#hbNo").val();
+	   
+   		$.ajax({
+   			type:"get",
+   			url:"${path}/hobby/liked",
+   			dataType:"json",
+   			data:{
+   				hbNo
+   			},
+   			success:function(data){
+   				console.log(data);
+   				
+   				if(data.status === 'Y'){
+   					alert("좋아요 취미에 등록되었습니다.");
+   					window.close()
+   				} else {
+   					alert("좋아요 취미에서 삭제되었습니다.");
+   					window.close()
+   				}
+   			},
+   			error : function(e){
+   				console.log(e);
+   			}
+   		});
    });
 });
 
