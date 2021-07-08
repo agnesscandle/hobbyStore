@@ -72,6 +72,10 @@ int saveQna(Qna qna);
 
 int saveReply(Reply reply);
 
+Qna findByQnaNo(int qnaNo);
+
+int deleteQna(Qna qna);
+
 
 
 }

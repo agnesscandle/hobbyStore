@@ -228,7 +228,7 @@ public class HobbyServiceImpl implements HobbyService {
 	   int result = 0;
 	      
 	      if(qna.getQnaNo() !=0) {
-	         //업데이트
+	         result = mapper.updateQna(qna);
 	      } else {
 	         result= mapper.insertQna(qna);
 	      }
@@ -263,5 +263,16 @@ public class HobbyServiceImpl implements HobbyService {
 	      }
 	      return result;
 	   }
+
+	@Override
+	public Qna findByQnaNo(int qnaNo) {
+		return mapper.selectQnaByNo(qnaNo);
+	}
+
+	@Override
+	public int deleteQna(Qna qna) {
+		// TODO Auto-generated method stub
+		return mapper.deleteQna(qna);
+	}
 
 }

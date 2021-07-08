@@ -74,4 +74,10 @@ public interface HobbyMapper {
 
 	int saveReply(Reply reply);
 
+	Qna selectQnaByNo(int qnaNo);
+
+	int updateQna(Qna qna);
+
+	int deleteQna(Qna qna);
+
 }
