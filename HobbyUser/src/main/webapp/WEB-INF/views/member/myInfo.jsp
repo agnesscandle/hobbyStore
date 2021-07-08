@@ -13,14 +13,7 @@
 
 <style>
 
-#footer {
-	position: fixed;
-	background-color: white; 
-	left: 0;
-	right: 0;
-	bottom: 30;
-	height: 6rem;
-}
+
 
 .profilePic-wrapper{
 	height: 150px;
@@ -39,7 +32,7 @@
 
 .memInfo_side{
 	float: left;
-	padding: 5% 2% 20% 4%;
+	padding: 2% 2% 20% 4%;
 }
 
 .memInfo{
@@ -81,7 +74,7 @@
 
 </style>
 
-
+<section>
 <aside class="memInfo_side">
 <div class="memInfo">
 <div class="profilePic-wrapper">
@@ -112,7 +105,6 @@
 </div>
 </aside>
 
-<section>
 <div class="page-wrapper" >
 	<!--page slider -->
       <h1 class="silder-title">예약한 취미</h1>
@@ -136,7 +128,6 @@
    </div>
 </div>
 </section>
-
 
 <script>
 <!-- 회원정보 수정 페이지 이동 -->
@@ -174,6 +165,4 @@ $('.slider-nav').slick({
    });
 </script>
 
-<div id="footer">
 	<%@ include file="../../views/common/footer.jsp"%>
-</div>
