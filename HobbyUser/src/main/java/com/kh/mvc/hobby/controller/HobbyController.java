@@ -485,12 +485,12 @@ public class HobbyController {
     public ModelAndView qnaReply(ModelAndView model,
 //          ,@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant)
           HttpServletRequest request,
-          @ModelAttribute Reply reply, @ModelAttribute Hobby hobby) {
+          @ModelAttribute Reply reply,  @RequestParam("hbNo") int hbNo) {
        int result = service.saveReply(reply);
        
        if(result > 0) {
           model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-          model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+          model.addObject("location", "/hobby/qnaList?hbNo=" + hbNo);
        } else {
           model.addObject("msg", "게시글이 등록을 실패하였습니다.");
           model.addObject("location", "/hobby/qnaList");
