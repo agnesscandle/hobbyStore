@@ -11,6 +11,7 @@
 .container{
 	height : max-content;
 }
+
 #qnaItem  {
 border: 3px solid black;
 border-bottom : none;
@@ -59,7 +60,9 @@ height : max-content;
 	background-color: rgba(255, 0, 0, 0);
 	border: none;
 	text-align: center;
-	width: 90%;
+	width: 70%;
+	margin-left: 20px;
+	margin-top: 20px;
 }
 .buttonReply{
 
@@ -102,6 +105,18 @@ cursor: pointer;
     text-align: center;
     font-weight:bold;
     font-size:13px;
+}
+#replyContent{
+display: inline-block;
+float: left;
+}
+#replyDate{
+display: inline-block;
+float: right;
+}
+#replyMer{
+display: inline-block;
+float: right;
 }
 </style>
 <body>
@@ -157,10 +172,10 @@ cursor: pointer;
 							<span class="replyList"> 
 							<span id="replyContent"><c:out value="${ replyList.replyContent }"></c:out></span>
 							<span id="replyDate"><c:out value="${ replyList.replayDate }"></c:out></span>
-								<!-- 작성자 아이디추가해야댐 -->
-							<hr>
+							<span id="replyMer"> 작성자아이디입력칸</span>	<!-- 작성자 아이디추가해야댐 -->
+						
 							</span>
-
+							<hr>
 							</c:forEach>
 						</div>
 						<form action="${ path }/hobby/qnaList" method="POST">

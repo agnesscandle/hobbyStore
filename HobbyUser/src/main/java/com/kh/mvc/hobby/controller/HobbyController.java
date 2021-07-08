@@ -338,7 +338,7 @@ public class HobbyController {
 	 * 
 	 * return model; }
 	 */
-	
+	/* 문의 및 댓글 */
 	   @GetMapping("/question")
 	   public ModelAndView question(ModelAndView model,
 	         @RequestParam("hbNo") int hbNo

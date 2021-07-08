@@ -52,7 +52,7 @@
 						<button class="btn" id="btnShare">공유하기</button>
 							
 	<div class="modal"> 
-		<div class="modal_share" title="클릭하면 창이 닫힙니다.">
+		<div class="modal_share" >
 		<h1>링크 복사</h1>
 		<div id="shareBar">
 		<input id="shareUrl" type="text" dir="ltr" readonly="readonly" size="45">
@@ -145,17 +145,7 @@ function reportPopup(){
    window.open(url, name, option);
 }
 
-//공유하기 모달창
-$(function(){
-	$("#btnShare").click(function(){
-		$(".modal").fadeIn();
-	});
 
-	$(".modal_share").click(function(){
-		$(".modal").fadeOut();
-	});
-
-});
 
 /* 
  // Get the modal
@@ -208,7 +198,17 @@ function shareFacebook() {
     window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
 }
 */
+//공유하기 모달창
+$(function(){
+	$("#btnShare").click(function(){
+		$(".modal").fadeIn();
+	});
 
+	$(".modal").click(function(){
+		$(".modal").fadeOut();
+	});
+
+});
 $(function(){
 
 	document.getElementById("shareUrl").value = document.location.href;
