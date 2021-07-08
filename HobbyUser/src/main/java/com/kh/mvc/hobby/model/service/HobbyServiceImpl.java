@@ -140,6 +140,9 @@ public class HobbyServiceImpl implements HobbyService {
 
 	}
 
+	
+	
+	/* 리뷰관련 */
 	@Override
 	public int getReviewCount(int hbNo) {
 
@@ -171,6 +174,77 @@ public class HobbyServiceImpl implements HobbyService {
 		return mapper.selectReviewByNo(hbNo,memNo);
 	}
 
+	@Override
+	public void saveFiles(List<MultipartFile> fileList, String savePath, Review review) {
+		String originalFileString = null;
+		String renamedFileString = null;
+		for (MultipartFile mf : fileList) {
+			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+			long fileSize = mf.getSize(); // 파일 사이즈
+
+			System.out.println("originFileName : " + originFileName);
+			System.out.println("fileSize : " + fileSize);
+
+			String fileName = System.currentTimeMillis() + originFileName;
+
+			String safeFile = savePath + fileName;
+
+			try {
+				mf.transferTo(new File(safeFile));
+
+				if (renamedFileString == null) {
+					originalFileString = originFileName;
+					renamedFileString = fileName;
+				} else {
+					originalFileString = originalFileString + "," + originFileName;
+					renamedFileString = renamedFileString + "," + fileName;
+				}
+
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		
+		review.setRvOriginalFilename(originalFileString);
+		review.setRvRenameFilename(renamedFileString);
+
+		
+	}
+
+	@Override
+	@Transactional
+	public int save(Review review) {
+		int result = 0;
+
+		if (review.getRvNo() != 0) {
+			result = mapper.updateReview(review);
+		} else {
+			result = mapper.insertReview(review);
+		}
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public int deleteReview(int rvNo) {
+		int result = 0;
+		
+		result = mapper.deleteReview(rvNo);
+		
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
 	/* 좋아요 */
 	@Override
 	public String selectLikedStatusByNo(int hbNo, int memNo) {
@@ -235,4 +309,6 @@ public class HobbyServiceImpl implements HobbyService {
 		return mapper.selectReplyList(qnaNo);
 	}
 
+
+	
 }

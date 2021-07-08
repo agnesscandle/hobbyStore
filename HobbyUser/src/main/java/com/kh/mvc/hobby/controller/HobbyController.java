@@ -67,11 +67,10 @@ public class HobbyController {
 		/* review(리뷰) 리스트 가져오기 */
 		List<Review> reviewList = null;
 		int count = service.getReviewCount(hbNo);
-		PageInfo pageInfo = new PageInfo(page, 10, service.getReviewCount(hbNo), 4);
-		int listCount = pageInfo.getListCount();
+		PageInfo pageInfo = new PageInfo(page, 10, count, 6);
+		int listCount = pageInfo.getListCount(); 
 		reviewList = service.getReviewList(pageInfo, hbNo);
-		
-		
+
 		/* review(리뷰) 작성 가능한지 검사 : 로그인 상태 && 수강 이력이 있고, 후기를 한번도 작성하지 않은 상태 검사 */
 		if (loginMember != null && service.reviewFindByNo(hbNo, loginMember.getMemNo()) == null) {
 
@@ -85,7 +84,7 @@ public class HobbyController {
 			Review reviewByNo = service.reviewFindByNo(hbNo, memNo);
 			model.addObject("reviewByNo", reviewByNo);
 		}
-
+		
 		model.addObject("hobby", hobby);
 		model.addObject("reviewList", reviewList);
 		model.addObject("pageInfo", pageInfo);
@@ -95,24 +94,117 @@ public class HobbyController {
 
 		return model;
 	}
-	/*
-	 * @GetMapping("/view/writeReview") public ModelAndView writeReview(ModelAndView
-	 * model, @RequestParam("hbNo") int hbNo,
-	 * 
-	 * @SessionAttribute(name = "loginMember", required = false) Member loginMember)
-	 * {
-	 * 
-	 * 
-	 * int memNo = loginMember.getMemNo(); int reserveCount =
-	 * service.getReserveCount(hbNo, memNo);
-	 * 
-	 * Review review = service.reviewFindByNo(memNo);
-	 * 
-	 * if (reserveCount > 0 && review == null) { model.addObject("review",review);
-	 * model.setViewName("hobby/writeReview"); } else { model.addObject("msg",
-	 * "후기를 작성할 수 없습니다."); model.addObject("location", "/");
-	 * model.setViewName("common/msg"); } return model; }
-	 */
+	
+	@GetMapping("/view/deleteReview")
+	public ModelAndView deleteReview(ModelAndView model,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("rvNo") int rvNo) {
+
+		int memNo = loginMember.getMemNo();
+		int result = service.deleteReview(rvNo);
+		
+		if (result > 0) {
+			model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+			model.addObject("location", "/");
+		} else {
+			model.addObject("msg", "게시글이 삭제를 실패하였습니다.");
+			model.addObject("location", "/");
+		}
+
+		model.setViewName("common/msg");
+
+		return model;
+	}
+	
+	
+	@PostMapping("/view/updateReview")
+	public ModelAndView update(ModelAndView model, 
+			@RequestParam("hbNo") int hbNo,
+			@RequestParam("rvNo") int rvNo,
+			MultipartHttpServletRequest mtfRequest,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@ModelAttribute Review review) {
+		
+		
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		
+		if(!fileList.get(0).isEmpty()) {
+			/*
+			 * String src = mtfRequest.getParameter("src");
+			 * System.out.println("src value : " + src);
+			 */
+			String rootPath = mtfRequest.getSession().getServletContext().getRealPath("resources");
+			String savePath = rootPath + "/upload/review/";
+			/*
+			 * String originalFileString = null; String renamedFileString = null;
+			 */
+			service.saveFiles(fileList, savePath, review);	
+		}
+
+		
+		int result = 0;
+		
+		review.setRvNo(rvNo);
+		review.setHbNo(hbNo);
+		review.setMemNo(loginMember.getMemNo());
+		result = service.save(review);
+		
+		if (result > 0) {
+			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+			model.addObject("location", "/");
+		} else {
+			model.addObject("msg", "게시글 등록에 실패하였습니다.");
+			model.addObject("location", "/");
+		}
+
+		model.setViewName("common/msg");
+
+		return model;
+		
+	}
+	
+	
+	@PostMapping("/view/writeReview")
+	public ModelAndView writeReview(ModelAndView model, 
+			@RequestParam("hbNo") int hbNo,
+			MultipartHttpServletRequest mtfRequest,
+			@SessionAttribute(name = "loginMember", 
+			required = false) Member loginMember,
+			@ModelAttribute Review review) {
+		
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		
+		if(!fileList.get(0).isEmpty()) {
+			/*
+			 * String src = mtfRequest.getParameter("src");
+			 * System.out.println("src value : " + src);
+			 */
+			String rootPath = mtfRequest.getSession().getServletContext().getRealPath("resources");
+			String savePath = rootPath + "/upload/review/";
+			/*
+			 * String originalFileString = null; String renamedFileString = null;
+			 */
+			service.saveFiles(fileList, savePath, review);
+		}
+
+		int result = 0;
+		
+		review.setHbNo(hbNo);
+		review.setMemNo(loginMember.getMemNo());
+		result = service.save(review);
+		
+		if (result > 0) {
+			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+			model.addObject("location", "/");
+		} else {
+			model.addObject("msg", "게시글 등록에 실패하였습니다.");
+			model.addObject("location", "/");
+		}
+
+		model.setViewName("common/msg");
+
+		return model;
+	}
 
 	/* 취미 목록페이지 요청 */
 	@GetMapping("/list")
@@ -180,10 +272,10 @@ public class HobbyController {
 		System.out.println("src value : " + src);
 		String rootPath = mtfRequest.getSession().getServletContext().getRealPath("resources");
 		String savePath = rootPath + "/upload/hobby/";
-		String originalFileString = null;
-		String renamedFileString = null;
-		String thumOri = null;
-		String thumRename = null;
+		/*
+		 * String originalFileString = null; String renamedFileString = null; String
+		 * thumOri = null; String thumRename = null;
+		 */
 
 		service.saveFiles(fileList, savePath, hobby);
 		service.saveFile(thumFile, savePath, hobby);
@@ -361,11 +453,11 @@ public class HobbyController {
 			int qnaNo = qnaList.get(i).getQnaNo();
 
 			replyList = service.getReplyList(qnaNo);
-			
+
 			qnaList.get(i).setReply(replyList);
-			
+
 		}
-		
+
 		model.addObject("qnaList", qnaList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("listCount", listCount);

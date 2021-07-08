@@ -46,6 +46,11 @@ public interface HobbyMapper {
 
 	Review selectReviewByNo(@Param("hbNo") int hbNo, @Param("memNo") int memNo);
 
+	int insertReview(Review review);
+	
+	int updateReview(Review review);
+	
+	int deleteReview(@Param("rvNo") int rvNo);
 	
 	/* Liked(좋아요) 관련 mapper [심지영] */
 
@@ -67,5 +72,11 @@ public interface HobbyMapper {
 	List<Qna> selectQnaList(RowBounds rowBounds,@Param("hbNo") int hbNo);
 
 	List<Reply> selectReplyList(@Param("qnaNo") int qnaNo);
+
+	
+
+	
+
+	
 
 }

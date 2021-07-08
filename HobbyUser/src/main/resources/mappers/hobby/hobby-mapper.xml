@@ -5,6 +5,9 @@
 
 <mapper namespace="com.kh.mvc.hobby.model.mapper.HobbyMapper">
 
+
+	<!-- 취미 시작 -->
+	
 	<sql id="HobbyListSql">
 		SELECT HB_NO,
 		MER_NO,
@@ -27,49 +30,6 @@
 		STATUS = 'Y'
 	</sql>
 
-	<sql id="cateListSql">
-		SELECT
-		CATE_NO,
-		CATE_NAME
-		FROM
-		CATEGORY
-	</sql>
-
-	<sql id="ReviewListSql">
-		SELECT R.RV_NO,
-		R.HB_NO,
-		R.MEM_NO,
-		M.MEM_NAME,
-		M.MEM_IMG_RENAME,
-		R.RV_SCORE,
-		R.RV_CONTENT,
-		R.RV_CREATEDATE,
-		R.RV_MODIFYDATE,
-		R.GOOD_REVIEW,
-		R.RV_ORIGINAL_FILENAME,
-		R.RV_RENAME_FILENAME
-		FROM REVIEW R
-		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
-		WHERE R.STATUS = 'Y'
-	</sql>
-
-	<select id="selectReserveCount" parameterType="map"
-		resultType="_int">
-		SELECT COUNT(*)
-		FROM RESERVATION
-		WHERE HB_NO = ${hbNo}
-		AND
-		MEM_NO = ${memNo}
-	</select>
-
-
-	<select id="selectReviewByNo" parameterType="map"
-		resultMap="ReviewListResultMap">
-		<include refid="ReviewListSql" />
-		AND R.MEM_NO = ${memNo}
-		AND R.HB_NO = ${hbNo}
-	</select>
-
 	<resultMap type="Hobby" id="HobbyListResultMap">
 		<id property="hbNo" column="HB_NO" />
 		<result property="merNo" column="MER_NO" />
@@ -90,36 +50,7 @@
 		<result property="hbLocation" column="HB_LOCATION" />
 	</resultMap>
 
-	<resultMap type="Review" id="ReviewListResultMap">
-		<id property="rvNo" column="RV_NO" />
-		<result property="hbNo" column="HB_NO" />
-		<result property="memNo" column="MEM_NO" />
-		<result property="memName" column="MEM_NAME" />
-		<result property="memImgRename" column="MEM_IMG_RENAME" />
-		<result property="rvScore" column="RV_SCORE" />
-		<result property="rvContent" column="RV_CONTENT" />
-		<result property="rvCreateDate" column="RV_CREATEDATE" />
-		<result property="rvModifyDate" column="RV_MODIFYDATE" />
-		<result property="goodReview" column="GOOD_REVIEW" />
-		<result property="rvOriginalFilename"
-			column="RV_ORIGINAL_FILENAME" />
-		<result property="rvRenameFilename" column="RV_RENAME_FILENAME" />
-	</resultMap>
-
-	<resultMap type="Category" id="CateListResultMap">
-		<id property="cateNo" column="CATE_NO" />
-		<result property="cateName" column="CATE_NAME" />
-	</resultMap>
-
-	<select id="selectCateList" parameterType="map"
-		resultMap="CateListResultMap">
-
-		<include refid="cateListSql" />
-
-		ORDER BY CATE_NO DESC
-	</select>
-
-
+	<!-- 취미 목록 검색 -->
 	<select id="selectHobbyList" parameterType="map"
 		resultMap="HobbyListResultMap">
 
@@ -149,6 +80,7 @@
 
 	</select>
 
+	<!-- 검색어에 맞는 취미 목록 검색 -->
 	<select id="getHobbySearchList" parameterType="map"
 		resultMap="HobbyListResultMap">
 
@@ -179,14 +111,7 @@
 
 	</select>
 
-	<select id="selectReviewList" parameterType="_int"
-		resultMap="ReviewListResultMap">
-		<include refid="ReviewListSql" />
-		AND R.HB_NO = ${hbNo}
-		ORDER BY R.RV_NO DESC
-	</select>
-
-
+	<!-- 검색어에 맞는 취미 수 검색 -->
 	<select id="selectHobbySearchCount" parameterType="String"
 		resultType="_int">
 		SELECT COUNT(*)
@@ -196,6 +121,7 @@
 		'%' || #{search} || '%'
 	</select>
 
+	<!-- 취미 수 검색 -->
 	<select id="selectHobbyCount" parameterType="map"
 		resultType="_int">
 		SELECT COUNT(*)
@@ -203,23 +129,14 @@
 		WHERE STATUS='Y'
 	</select>
 
-
-	<select id="selectReviewCount" parameterType="_int"
-		resultType="_int">
-		SELECT COUNT(*)
-		FROM REVIEW
-		WHERE STATUS='Y'
-		AND HB_NO =
-		${hbNo}
-	</select>
-
+	<!-- 취미 검색 -->
 	<select id="selectHobbyByNo" parameterType="_int"
 		resultMap="HobbyListResultMap">
 		<include refid="HobbyListSql" />
 		AND HB_NO=#{hbNo}
 	</select>
 
-
+	<!-- 취미 등록 -->
 	<insert id="insertHobby" parameterType="map"
 		useGeneratedKeys="true" keyProperty="hbNo" keyColumn="HB_NO">
 		INSERT INTO
@@ -262,6 +179,173 @@
 		'Y'
 		)
 	</insert>
+
+	<!-- 취미 끝 -->
+
+
+
+
+	<!-- 카테고리 시작 -->
+
+	<sql id="cateListSql">
+		SELECT
+		CATE_NO,
+		CATE_NAME
+		FROM
+		CATEGORY
+	</sql>
+
+	<resultMap type="Category" id="CateListResultMap">
+		<id property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+	</resultMap>
+
+	<!-- 카테고리 검색 -->
+	<select id="selectCateList" parameterType="map"
+		resultMap="CateListResultMap">
+
+		<include refid="cateListSql" />
+
+		ORDER BY CATE_NO DESC
+	</select>
+
+	<!-- 카테고리 끝 -->
+
+
+
+
+
+
+	<!-- 리뷰 시작 -->
+
+	<sql id="ReviewListSql">
+		SELECT R.RV_NO,
+		R.HB_NO,
+		R.MEM_NO,
+		M.MEM_NAME,
+		M.MEM_IMG_RENAME,
+		R.RV_SCORE,
+		R.RV_CONTENT,
+		R.RV_CREATEDATE,
+		R.RV_MODIFYDATE,
+		R.GOOD_REVIEW,
+		R.RV_ORIGINAL_FILENAME,
+		R.RV_RENAME_FILENAME
+		FROM REVIEW R
+		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
+		WHERE R.STATUS = 'Y'
+	</sql>
+	
+	
+	<resultMap type="Review" id="ReviewListResultMap">
+		<id property="rvNo" column="RV_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="memName" column="MEM_NAME" />
+		<result property="memImgRename" column="MEM_IMG_RENAME" />
+		<result property="rvScore" column="RV_SCORE" />
+		<result property="rvContent" column="RV_CONTENT" />
+		<result property="rvCreateDate" column="RV_CREATEDATE" />
+		<result property="rvModifyDate" column="RV_MODIFYDATE" />
+		<result property="goodReview" column="GOOD_REVIEW" />
+		<result property="rvOriginalFilename"
+			column="RV_ORIGINAL_FILENAME" />
+		<result property="rvRenameFilename" column="RV_RENAME_FILENAME" />
+	</resultMap>
+
+
+	<!-- 예약 확인_후기 작성 시 필요[김예원] -->
+	<select id="selectReserveCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM RESERVATION
+		WHERE HB_NO = ${hbNo}
+		AND
+		MEM_NO = ${memNo}
+	</select>
+
+	<!-- 리뷰 검색[김예원] -->
+	<select id="selectReviewByNo" parameterType="map"
+		resultMap="ReviewListResultMap">
+		<include refid="ReviewListSql" />
+		AND R.MEM_NO = ${memNo}
+		AND R.HB_NO = ${hbNo}
+	</select>
+	
+	<!-- 리뷰 목록 검색[김예원] -->
+	<select id="selectReviewList" parameterType="_int"
+		resultMap="ReviewListResultMap">
+		<include refid="ReviewListSql" />
+		AND R.HB_NO = ${hbNo}
+		ORDER BY R.RV_NO DESC
+	</select>
+	
+	<!-- 리뷰 수 검색[김예원] -->
+	<select id="selectReviewCount" parameterType="_int"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE STATUS='Y'
+		AND HB_NO =
+		${hbNo}
+	</select>
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="map"
+		useGeneratedKeys="true" keyProperty="rvNo" keyColumn="RV_NO">
+		INSERT INTO
+		REVIEW(
+		RV_NO,
+		HB_NO,
+		MEM_NO,
+		RV_SCORE,
+		RV_CONTENT,
+		RV_CREATEDATE,
+		RV_MODIFYDATE,
+		GOOD_REVIEW,
+		RV_ORIGINAL_FILENAME,
+		RV_RENAME_FILENAME,
+		STATUS
+		)
+		VALUES(
+		SEQ_REVIEW_NO.NEXTVAL,
+		#{hbNo},
+		#{memNo},
+		#{rvScore},
+		#{rvContent},
+		DEFAULT,
+		DEFAULT,
+		DEFAULT,
+		#{rvOriginalFilename},
+		#{rvRenameFilename},
+		'Y'
+		)
+	</insert>
+	
+	
+	<update id="updateReview" parameterType="map">
+		UPDATE REVIEW
+		SET
+		RV_CONTENT=#{rvContent},
+		RV_SCORE=#{rvScore},
+			<if test="rvOriginalFilename != null">
+				RV_ORIGINAL_FILENAME = #{rvOriginalFilename},
+			</if>
+			<if test="rvRenameFilename != null">
+				RV_RENAME_FILENAME = #{rvRenameFilename},
+			</if>
+		RV_MODIFYDATE = DEFAULT
+		WHERE
+			RV_NO=#{rvNo}
+	</update>
+	
+	<delete id="deleteReview">
+		DELETE FROM REVIEW
+		WHERE RV_NO = #{rvNo}
+	</delete>
+	
+	<!-- 리뷰 끝 -->
+
 
 
 	<!-- 좋아요 -->

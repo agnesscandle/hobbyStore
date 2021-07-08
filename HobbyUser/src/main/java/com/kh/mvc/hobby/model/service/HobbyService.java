@@ -46,6 +46,12 @@ public interface HobbyService {
    int getReserveCount(int hbNo, int memNo);
 
    Review reviewFindByNo(int hbNo, int memNo);
+   
+   void saveFiles(List<MultipartFile> fileList, String savePath, Review review);
+
+   int save(Review review);
+
+   int deleteReview(int rvNo);
 
 	/* Liked(좋아요) 관련 인터페이스 */
    String selectLikedStatusByNo(int hbNo, int memNo);
@@ -65,6 +71,10 @@ public interface HobbyService {
    int getQnaCount(int hbNo);
 
    List<Reply> getReplyList(int qnaNo);
+
+
+
+   
 
 
 
