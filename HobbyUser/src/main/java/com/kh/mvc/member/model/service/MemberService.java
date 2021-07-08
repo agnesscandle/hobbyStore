@@ -8,27 +8,34 @@ public interface MemberService {
 
 	Member login(String memId, String memPassword);
 	
-	int save(Member member);
-
 	Member findById(String memId);
-
-	boolean validate(String memId);
 
 	Member findByIdAndName(String memName, String memEmail);
 
+	
+	Member findByEmail(String memEmail);
+	
 	Member checkpw(String memId, String memPassword);
+	
+	boolean validate(String memId);
+
+	boolean result(String memEmail);
+
+	int save(Member member);
 
 	int changePw(Member member);
 
 	int delete(int memNo);
 
 	void certifiedPhoneNumber(String memPhone, String cerNum);
-
-	Member findByEmail(String memEmail);
 	
-	boolean result(String memEmail);
+	void sendNewPwNumber(String memPhone, String cerNum);
 
 	String saveFile(MultipartFile upfile, String savePath);
+
+	int setNewPw(String memPhone, String numStr);
+
+
 
 
 

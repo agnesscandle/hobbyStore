@@ -23,6 +23,8 @@ public interface MemberMapper {
 
 	Member searchEmail(@Param("memEmail") String memEmail);
 
+	Member findByPhone(String memPhone);
+
 
 
 

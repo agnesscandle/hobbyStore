@@ -36,10 +36,13 @@
 		<exclude-mapping path="/member/registerPage_2"/>
 		<exclude-mapping path="/member/registerPage_3"/>
 		<exclude-mapping path="/member/login"/>
+		<exclude-mapping path="/member/checkSMS"/>
+		<exclude-mapping path="/member/sendNewPw"/>
 		<exclude-mapping path="/member/memberIdChk"/>
 		<exclude-mapping path="/member/memberIdSearch"/>
 		<exclude-mapping path="/member/memberPwSearch"/>
 		<exclude-mapping path="/member/memberPwSearch2"/>
+		<exclude-mapping path="/member/memberPwSearch3"/>
 		
 		
 		

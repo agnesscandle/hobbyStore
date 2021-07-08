@@ -97,7 +97,11 @@
 
 
 <script>
-
+$(function(){
+	$("#find_mPw_btn").click(function(){
+		location.href='${ path }/member/memberPwSearch';
+	})
+})
 
 
 </script>

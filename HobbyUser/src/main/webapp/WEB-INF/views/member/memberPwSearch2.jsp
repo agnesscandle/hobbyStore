@@ -70,15 +70,19 @@
 	
 	<div class="search_box">
 	<label class="labelMName">이름</label><br>
-	<input type="text" class="pwSearchInput" name="memName" id="memName" placeholder="홍길동"/><br>
+	<input type="text" class="pwSearchInput" name="memName" id="memName" placeholder="홍길동" required><br>
 	<label class="labelMPhone">휴대전화</label><br>
-	<input type="text" class="pwSearchInput inputMemPhone" name="memPhone" id="memPhone" placeholder="(-)없이 숫자만 입력"/> <input id="sendPhoneNumber" class="pwSearchInput" type="submit" value="인증번호 받기">
-	<input type="text"  class="pwSearchInput" id="inputCertifiedNumber" name="phNumCode" placeholder="인증번호 6자리 숫자 입력">
+	<input type="text" class="pwSearchInput inputMemPhone" name="memPhone" id="memPhone" placeholder="(-)없이 숫자만 입력" required/> <input id="sendPhoneNumber" class="pwSearchInput" type="button" value="인증번호 받기">
+	<input type="text"  class="pwSearchInput" id="inputCertifiedNumber" name="phNumCode" placeholder="인증번호 6자리 숫자 입력" required/>
 	</div>
-	
 	<p>
-		<button type="submit" id="checkBtn" class="searchPw_btn">다음</button>
+		<button type="button" id="checkBtn" class="searchPw_btn">인증번호 확인</button>
 	</p>
+	
+	
+	
+	
+	
 
 	
 
@@ -92,6 +96,42 @@ $(function(){
 	})
 })
 
+
+// 핸드폰 인증번호
+   $('#sendPhoneNumber').click(function(){
+    let phoneNumber = $('.inputMemPhone').val();
+    alert('인증번호 발송 완료!');
+
+    $.ajax({
+        type: "post",
+        url: "${path}/member/checkSMS",
+        data: {
+            "phoneNumber" : phoneNumber
+        },
+        success: function(res){
+            $('#checkBtn').click(function(){
+                if($.trim(res) != $('#inputCertifiedNumber').val()){
+                	alert('인증번호가 올바르지 않습니다!');
+                	return false;
+                } else {
+                	alert('고객님의 핸드폰으로 임시비밀번호가 발송되었습니다. 로그인 후 비밀번호를 재설정해주세요!');
+                	
+                	$.ajax({
+                		type: "post",
+                        url: "${path}/member/sendNewPw",
+                        data: {
+                            "phoneNumber" : phoneNumber
+                        },
+                        success: function(ss){
+                        	console.log('임시비밀번호 재발급 완료');
+                        	location.href='${ path }';
+                        }
+                	});
+                }
+            })
+        }
+    });
+});
 
 </script>
 

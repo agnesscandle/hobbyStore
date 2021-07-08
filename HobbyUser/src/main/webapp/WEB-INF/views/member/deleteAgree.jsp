@@ -96,7 +96,7 @@ strong {
     font-weight: normal;
     line-height: 20px;
     letter-spacing: -0.15px;
-	border: 1px solid rgb(239, 239, 239);
+	border: 1px solid rgb(214, 212, 212);
     background-color: white;
     width:  200px;
     height: 48px;
@@ -112,6 +112,12 @@ strong {
 	font-weight: bold;
 	font-size : 18px;
 	color: white;
+}
+.btn_cancle {
+    cursor: pointer;
+	font-weight: bold;
+	font-size : 18px;
+	color: rgb(32, 51, 84);
 }
 </style>
 

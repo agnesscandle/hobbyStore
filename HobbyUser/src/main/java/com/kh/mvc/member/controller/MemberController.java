@@ -328,6 +328,7 @@ public class MemberController {
 			return model;
 			
 		}
+	
 		
 	// 회원탈퇴 약관동의 페이지 이동
 		@GetMapping("/member/deleteAgree")
@@ -391,16 +392,52 @@ public class MemberController {
 		}
 		
 		// 비번찾기 핸드폰 번호 입력 페이지 이동
-			@GetMapping("/member/memberPwSearch2")
+			@PostMapping("/member/memberPwSearch2")
 			public String memberPwSearch2_view() { 
 				log.info("비밀번호 찾기 핸드폰 번호 인증 페이지 요청");
 				
 				return "member/memberPwSearch2";
 			}
 		
-		
+			
+		// 비번찾기 핸드폰 번호 인증 
+			@PostMapping("/member/checkSMS")
+			@ResponseBody
+			public String checkSMS(@RequestParam("phoneNumber")String memPhone) {
 
+		        Random rand  = new Random();
+		        String numStr = "";
+		        for(int i=0; i<6; i++) {
+		            String ran = Integer.toString(rand.nextInt(10));
+		            numStr+=ran;
+		        }
 
+		        System.out.println("수신자 번호 : " + memPhone);
+		        System.out.println("인증번호 : " + numStr);
+//		        service.certifiedPhoneNumber(memPhone,numStr);
+		        return numStr;
+		    }
+
+		// 임시번호 휴대폰 발송 
+			@PostMapping("/member/sendNewPw")
+			@ResponseBody
+			public String sendNewPw(@RequestParam("phoneNumber")String memPhone) {
+			
+				Random rand  = new Random();
+		        String numStr = "";
+		        for(int i=0; i<8; i++) {
+		            String ran = Integer.toString(rand.nextInt(10));
+		            numStr+=ran;
+		        }
+		        
+		        System.out.println("수신자 번호 : " + memPhone);
+		        System.out.println("임시비밀번호 : " + numStr);
+//		        service.sendNewPwNumber(memPhone,numStr);
+		        service.setNewPw(memPhone, numStr);
+		        return numStr;
+			}
+			
+			
 
 }	
 

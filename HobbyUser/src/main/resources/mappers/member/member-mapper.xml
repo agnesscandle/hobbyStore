@@ -53,6 +53,17 @@
 		AND MEM_EMAIL = #{memEmail}
 	</select>
  	
+ 	<select id="findByPhone" parameterType="String" resultMap="memberResultMap">
+		SELECT 
+			MEM_NO,
+			MEM_ID,
+			MEM_PASSWORD
+		FROM MEMBER 
+		WHERE 
+			MEM_PHONE = #{memPhone}
+		AND STATUS ='Y'
+	</select>
+	
  	<insert id="insertMember" parameterType="Member"
  		useGeneratedKeys="true" keyColumn="MEM_NO" keyProperty="memNo" >
 

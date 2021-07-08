@@ -122,17 +122,17 @@ public class MemberServiceImpl implements MemberService{
 			   return mapper.deleteMember(memNo);
 	}
 
-	// 핸드폰 번호 인증
+	// 핸드폰 인증번호 보내기
 	@Override
 	public void certifiedPhoneNumber(String memPhone, String cerNum) {
-		 	String api_key = "NCSNUA19NYDFS14M"; // 개인 api key
-	        String api_secret = "GKNWAFFDUOSR8YUK67XDLHAIJTAWHMDZ"; // 개인 secret api key
+		 	String api_key = "NCSIXJYPZAVEE32W"; // 개인 api key
+	        String api_secret = "K9BX4JP35AEEQETZJCSADKUYZEZAUWGY"; // 개인 secret api key
 	        Message coolsms = new Message(api_key, api_secret);
 
 	        // 4 params(to, from, type, text) are mandatory. must be filled
 	        HashMap<String, String> params = new HashMap<String, String>();
 	        params.put("to", memPhone);    // 수신전화번호
-	        params.put("from", "01026582644");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+	        params.put("from", "01073545288");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
 	        params.put("type", "SMS");
 	        params.put("text", "취미상점 휴대폰인증 메시지 : 인증번호는" + "["+cerNum+"]" + "입니다.");
 	        params.put("app_version", "test app 1.2"); // application name and version
@@ -146,6 +146,31 @@ public class MemberServiceImpl implements MemberService{
 	        }
 		
 	}
+	
+	// 핸드폰 임시비밀번호 보내기
+		@Override
+		public void sendNewPwNumber(String memPhone, String cerNum) {
+			 	String api_key = "NCSIXJYPZAVEE32W"; // 개인 api key
+		        String api_secret = "K9BX4JP35AEEQETZJCSADKUYZEZAUWGY"; // 개인 secret api key
+		        Message coolsms = new Message(api_key, api_secret);
+
+		        HashMap<String, String> params = new HashMap<String, String>();
+		        params.put("to", memPhone);    // 수신전화번호
+		        params.put("from", "01073545288");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+		        params.put("type", "SMS");
+		        params.put("text", "취미상점 임시비밀번호 : " + "["+cerNum+"]" + "입니다.");
+		        params.put("app_version", "test app 1.2"); // application name and version
+		        
+		        
+		        try {
+		            JSONObject obj = (JSONObject) coolsms.send(params);
+		            System.out.println(obj.toString());
+		        } catch (CoolsmsException e) {
+		            System.out.println(e.getMessage());
+		            System.out.println(e.getCode());
+		        }
+			
+		}
 
 	@Override
 	public String saveFile(MultipartFile upfile, String savePath) {
@@ -175,6 +200,25 @@ public class MemberServiceImpl implements MemberService{
 		
 		return renameFileName;
 	}
+	
+	// 비밀번호 찾기 새 비밀번호로 변경
+	@Override
+	public int setNewPw(String memPhone, String numStr) {
+		Member member = mapper.findByPhone(memPhone);
+		int result = 0;
+        System.out.println(member);
+        
+        if(member.getMemNo() != 0) {
+        	member.setMemPassword(bcPasswordEncoder.encode(numStr));
+        	result= mapper.updateMemPwd(member);
+        }
+		
+		return result;
+	}
+
+	
+
+	
 		
 		
 		
