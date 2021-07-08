@@ -240,8 +240,13 @@ public class HobbyServiceImpl implements HobbyService {
 		
 	}
 	
-	
-	
+
+	@Override
+	@Transactional
+	public int clickGoodReview(int rvNo) {
+		return mapper.clickGoodReview(rvNo);
+	}
+
 	
 	
 	

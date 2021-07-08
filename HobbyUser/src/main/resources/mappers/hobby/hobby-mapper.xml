@@ -344,6 +344,16 @@
 		WHERE RV_NO = #{rvNo}
 	</delete>
 
+	<update id="clickGoodReview" parameterType="_int">
+		UPDATE REVIEW
+		SET
+		GOOD_REVIEW = GOOD_REVIEW+ 1
+		WHERE
+		RV_NO=#{rvNo}
+	</update>
+
+
+
 	<!-- 리뷰 끝 -->
 
 

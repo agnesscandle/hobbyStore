@@ -98,19 +98,20 @@ public class HobbyController {
 	@GetMapping("/view/deleteReview")
 	public ModelAndView deleteReview(ModelAndView model,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			@RequestParam("rvNo") int rvNo) {
+			@RequestParam("rvNo") int rvNo,
+			@RequestParam("hbNo") int hbNo) {
 
 		int memNo = loginMember.getMemNo();
 		int result = service.deleteReview(rvNo);
 		
 		if (result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
-			model.addObject("location", "/");
+			
 		} else {
 			model.addObject("msg", "게시글이 삭제를 실패하였습니다.");
-			model.addObject("location", "/");
+			
 		}
-
+		model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		model.setViewName("common/msg");
 
 		return model;
@@ -150,13 +151,13 @@ public class HobbyController {
 		result = service.save(review);
 		
 		if (result > 0) {
-			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-			model.addObject("location", "/");
+			model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
+			
 		} else {
-			model.addObject("msg", "게시글 등록에 실패하였습니다.");
-			model.addObject("location", "/");
+			model.addObject("msg", "게시글 수정에 실패하였습니다.");
+			
 		}
-
+		model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		model.setViewName("common/msg");
 
 		return model;
@@ -195,17 +196,38 @@ public class HobbyController {
 		
 		if (result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-			model.addObject("location", "/");
+			
 		} else {
 			model.addObject("msg", "게시글 등록에 실패하였습니다.");
-			model.addObject("location", "/");
+			
 		}
-
+		model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		model.setViewName("common/msg");
 
 		return model;
 	}
 
+	
+	
+
+	@GetMapping("/view/clickGood")
+	public ModelAndView clickGoodReview(ModelAndView model,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("rvNo") int rvNo,
+			@RequestParam("hbNo") int hbNo) {
+
+		int memNo = loginMember.getMemNo();
+		int result = service.clickGoodReview(rvNo);
+
+		model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
+		model.setViewName("common/msg");
+
+		return model;
+	}
+	
+	
+	
+	
 	/* 취미 목록페이지 요청 */
 	@GetMapping("/list")
 	public ModelAndView list(ModelAndView model,

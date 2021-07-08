@@ -124,12 +124,11 @@
                   <div id="memInfo">
                      <img id="memImg"
                         src="${path}/resources/upload/user/${review.memImgRename}" />
-                     <div>
+                     <div id="reviewInfo">
                         <span> ${ review.memName } </span> <span> <fmt:formatDate
                               var="dateTempParse" pattern="yyyy-MM-dd HH:mm"
                               value="${ review.rvModifyDate }" /> <c:set var="addInfo"
                               value=" 작성됨" /> <c:out value="${dateTempParse}${addInfo}" />
-
                         </span> <span> <c:forEach var="i" begin="1"
                               end="${review.rvScore}">
                               <i class="fas fa-star"></i>
@@ -137,15 +136,16 @@
                         </span>
                      </div>
                      <div class="likeReview">
-                     	<span class="clickGood">
-                     		<c:out value="도움돼요"></c:out>
-                     		<i class="far fa-thumbs-up fa-2x"></i>
-                     	</span>
-                     	
+                     	<div class="clickGood">
+                     		<span>
+                     			<c:out value="도움돼요"></c:out>
+                     			<i class="far fa-thumbs-up fa-2x"></i>
+                     		</span>
+                     	</div>
                      	<script>
                      	$('.clickGood').click(function() {
-                     		location.href='${path}/hobby/view/deleteReview?rvNo=${reviewByNo.rvNo}';
-                     	});
+                     		location.href='${path}/hobby/view/clickGood?hbNo=${hobby.hbNo}&rvNo=${review.rvNo}';
+                     	});review
                      	</script>
                      </div>
                   </div>
@@ -159,7 +159,7 @@
                      	$('#delete').click(function() {
                      		var returnValue = confirm('게시글을 삭제하시겠습니까?');
                      		if(returnValue){
-                     			location.href='${path}/hobby/view/deleteReview?rvNo=${reviewByNo.rvNo}';
+                     			location.href='${path}/hobby/view/deleteReview?hbNo=${hobby.hbNo}&rvNo=${reviewByNo.rvNo}';
                      		}
                      		return;
                      	});

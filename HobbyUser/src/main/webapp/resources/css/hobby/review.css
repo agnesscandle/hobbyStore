@@ -69,6 +69,10 @@
 	height: auto;
 	padding: 5px 0 10px 0;
 }
+#memInfo #reviewInfo span{
+	width: 170px;
+}
+
 
 #memInfo div span {
 	display: table;
@@ -76,8 +80,14 @@
 }
 
 .likeReview{
-	float: right;
+	width: 100%;
 }
+
+
+.clickGood{
+	float:right;
+}
+
 
 /* 모달창 관련 css */
 /* The Modal (background) */
@@ -261,3 +271,4 @@ span#noReview{
 	color: red;
 	margin-left:5px; 
 }
+

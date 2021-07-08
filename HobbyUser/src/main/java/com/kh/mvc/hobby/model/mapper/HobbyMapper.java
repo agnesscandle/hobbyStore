@@ -52,6 +52,8 @@ public interface HobbyMapper {
 	
 	int deleteReview(@Param("rvNo") int rvNo);
 	
+	int clickGoodReview(@Param("rvNo") int rvNo);
+	
 	/* Liked(좋아요) 관련 mapper [심지영] */
 
 	String selectLikedStatusByNo(HashMap<String, Integer> hashMap);
@@ -62,6 +64,7 @@ public interface HobbyMapper {
 
 	int updateUnliked(HashMap<String, Integer> hashMap);
 
+	
 	
 	/* Report(신고하기) 관련 mapper [심지영]*/
 	int saveReport(Report report);
@@ -84,6 +87,8 @@ public interface HobbyMapper {
 	int updateQna(Qna qna);
 
 	int insertQna(Qna qna);
+
+
 
 	
 
