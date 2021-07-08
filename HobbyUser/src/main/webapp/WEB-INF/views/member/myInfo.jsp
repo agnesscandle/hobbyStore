@@ -12,7 +12,9 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
 <style>
+body { min-height: 100vh; /* 최소 높이를 지정 */ display: flex; flex-direction: column; }
 
+footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나가도록 설정 */ }
 
 
 .profilePic-wrapper{
@@ -32,7 +34,7 @@
 
 .memInfo_side{
 	float: left;
-	padding: 2% 2% 20% 4%;
+	padding: 2% 2% 10% 4%;
 }
 
 .memInfo{
@@ -71,11 +73,49 @@
 	cursor: pointer;
 }
 
+*{margin:0; padding:0;}
+
+li {list-style: none;}
+
+.slide-wrapper{
+	position: relative;
+	width: 1100px;
+	margin: 0 auto;
+	height: 250px;
+	overflow: hidden;
+}
+
+.slides{
+	position: absolute;
+	left:0; top:0;
+	transition: left 0.5s ease-out;
+}
+
+.slides li:not(:last-child){
+	float: left;
+	margin-right: 30px;
+}
+
+.controls{
+	text-align: center;
+	margin-top: 30px;
+}
+
+.controls span{
+	background:#333;
+	color: #fff;
+	padding: 10px 20px;
+	margin:0 10px;
+}
+
+.controls span.prev{right:calc(100% + 50px);}
+.controls span.next{left:calc(100% + 50px);}
+
 
 </style>
 
-<section>
-<aside class="memInfo_side">
+<main>
+<div class="memInfo_side">
 <div class="memInfo">
 <div class="profilePic-wrapper">
 
@@ -103,31 +143,33 @@
 <div class="Info_update_Mem">예약 관리</div>
 <div class="Info_update_Mem">좋아요 관리</div>
 </div>
-</aside>
-
-<div class="page-wrapper" >
-	<!--page slider -->
-      <h1 class="silder-title">예약한 취미</h1>
-      <div class="slider slider-nav">
-      <div>
-         <!-- 쿼리로 이미지 가져올 부분  -->
-         <img  class="slider-image" src="${ path }/images/logo.png">
-      </div>
-      <div>
-         <img class="slider-image" src="${ path }/images/logo.png">
-      </div>
-      <div>
-         <img class="slider-image" src="${ path }/images/logo.png">
-      </div>
-      <div>
-         <img class="slider-image" src="${ path }/images/logo.png">
-      </div>
-      <div>
-         <img class="slider-image" src="${ path }/images/logo.png">
-      </div>
-   </div>
 </div>
-</section>
+
+
+
+<h1>예약한 취미</h1><br>
+<div class="slide-wrapper">
+	<ul class="slides">
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	<li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
+	</ul>
+</div>
+
+<p class="controls">
+		<span class="prev">prev</span>
+		<span class="next">next</span>
+	</p>
+	
+<h1>예약한 취미</h1>
+<h1>예약한 취미</h1>
+
+</main>
 
 <script>
 <!-- 회원정보 수정 페이지 이동 -->
@@ -151,18 +193,34 @@ $(function(){
 	})
 })
 
-$('.slider-nav').slick({
-      slidesToShow : 3,
-      slidesToScroll : 1,
-      dots : true,
-      focusOnSelect : true
-   });
-
-   $('a[data-slide]').click(function(e) {
-      e.preventDefault();
-      var slideno = $(this).data('slide');
-      $('.slider-nav').slick('slickGoTo', slideno - 1);
-   });
+<!--  slide -->
+var slides = document.querySelector('.slides'),
+	slide = document.querySelector('.slides li'),
+	currentIdx = 0,
+	slideCount = slide.length,
+	prevBtn = document.querySelector('.prev'),
+	slideWidth = 250,
+	slideMargin = 30,
+	nextBtn = document.querySelector('.next');
+	
+	slides.style.width = (slideWidth + slideMargin)*slideCount - slideMargin + 'px';
+	
+	function moveSlide(num){
+		slides.style.left =  -num * 330 + 'px';
+		currentIdx = num;
+	}
+	
+	nextBtn.addEventListener('click', function(){
+		if(currentIdx < slideCount - 3){
+			moveSlide(currentIdx + 1);
+			console.log(slideCount);
+		}else{
+			moveSlide(0);
+		}
+			
+		});
+	
+	
 </script>
 
 	<%@ include file="../../views/common/footer.jsp"%>
