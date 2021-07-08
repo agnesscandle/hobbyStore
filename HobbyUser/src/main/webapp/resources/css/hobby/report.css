@@ -1,56 +1,151 @@
-body{
-    height : 95vh;
-    /* align-items: center; */
+.divReserve{
+   width: 1400px;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   margin: auto;
+   padding-top: 30px;
 }
 
-.container{
-    width : 90%;
-    height : max-content;
-    margin : 4%;
-    padding : 2%;
-    /*border : 1px solid #616161;*/
-    text-align : center;
+section {
+   line-height: 1.5em;
+   margin: 0;
+   font-weight: 300;
+   display: flex;
+   color: #34486b;
+   position: relative;
 }
 
-table{
-   border-spacing : 0 8px;
+a {
+   text-decoration: none;
+   color: #222;
 }
 
-th{
-   width : 165px;
-   height : 20px;
-   font-size : 20px;
+.title {
+   width: 800px;
+   padding: 25px;
+   padding-right :45px; 
+   border-right: 1px solid #ddd;
+   box-sizing: border-box;
 }
 
-input{
-   height : 20px;
-   font-size : 15px;
+.title span {
+   font-weight: bold;
+   display: block;
+   margin-top: 20px;
 }
 
-td{
-   height : 20px;
-   font-size : 15px;
+.title .req, .title .reqDisRate{
+   border: 1px solid #ddd;
+   width: 100%;
+   padding: 15px;
+   box-sizing: border-box;
+   border-radius: 5px;
+   padding-left: 40px;
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
 
-.col1{
-    width : 390px;
+.title .req:hover, .title .reqDisRate:hover {
+   border: 1px solid dodgerblue;
+   box-shadow: 0 0 5px #34486b;
 }
 
-#hbTitle, #rpWriterId{
-   border : none;
+.title .req::placeholder, .title .reqDisRate::placeholder {
+   opacity: 1;
+   transition: 0.3s;
 }
 
-.btn{
-    font-size : 18px;
-    font-weight : bold;
-    color : white;
-    background-color: #0277bd;
-    border : none;
-    width : 150px;
-    height : 33px;
-    border-radius : 5px;
+.title .req:focus::placeholder, .title .reqDisRate:focus::placeholder
+{
+   opacity: 0;
+   visibility: hidden;
 }
 
-#btnContainer{
-   padding-left : 15px;
+.title p {
+   overflow: hidden;
+}
+
+.title p label {
+   float: left;
+   cursor: pointer;
+}
+
+.title p a {
+   float: right;
+}
+
+.title p a:hover {
+   text-decoration: underline;
+}
+
+.title input[type=button], input[type=submit] {
+   background-color: #34486b;
+   color: #fff;
+   width: 300px;
+   padding: 10px;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+   font-size: 24px;
+   transition: 0.3s;
+   margin: 10px;
+}
+
+.btn {
+   text-align: center;
+   margin-top: 30px;
+}
+
+.title input[type=button]:hover, .title input[type=submit]:hover {
+   background-color: #111934;
+}
+
+.warn {
+   height:100%;
+   width:570px;
+   padding-left : 50px;
+   margin:auto;
+   margin-left : 10px;
+   color: #242f83;
+   box-sizing: border-box;
+}
+
+.gnb {
+   list-style: none;
+   /* position: absolute; */
+   padding: 50px 30px;
+   display: flex;
+   width: 100%;
+}
+
+.gnb li {
+   flex: 1;
+   width: 200px;
+   height: 50px;
+   text-align: center;
+}
+
+.gnb li span {
+   font-size: 14px;
+   position: relative;
+}
+
+.gnb>li.active {
+   border-bottom: solid 3px;
+   border-bottom-color: #eacc16;
+}
+.gnb>li.active>span {
+   padding: 20px 0;
+   font-size: 16px;
+   color: #eacc16;
+}
+
+.reserve {
+   padding: 15px;
+   display: none;
+}
+
+.reserve.active {
+   display: block;
 }

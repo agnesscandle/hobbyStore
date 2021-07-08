@@ -208,6 +208,14 @@
 		ORDER BY CATE_NO DESC
 	</select>
 
+	<!-- 카테고리 번호로 검색 -->
+	<select id="selectCateNameByNo" parameterType="_int"
+      resultType="String">
+         SELECT CATE_NAME
+         FROM CATEGORY
+         WHERE CATE_NO=#{cateNo}
+   </select>
+
 	<!-- 카테고리 끝 -->
 
 
@@ -257,7 +265,7 @@
 	<select id="selectReserveCount" parameterType="map"
 		resultType="_int">
 		SELECT COUNT(*)
-		FROM RESERVATION
+		FROM RESERVE
 		WHERE HB_NO = ${hbNo}
 		AND
 		MEM_NO = ${memNo}
@@ -582,5 +590,120 @@
 	</insert>
 
 
+	<!-- 예약 -->
+	
+	 <resultMap type="Merchant" id="MerchantListResultMap">
+	       <id property="merNo" column="MER_NO"/>
+	       <result property="merId" column="MER_ID" />
+	       <result property="merPassword" column="MER_PASSWORD"/>
+	       <result property="merEmail" column="MER_EMAIL"/>
+	       <result property="merName" column="MER_NAME"/>
+	       <result property="merPhone" column="MER_PHONE"/>
+	       <result property="merDate" column="MER_DATE"/>
+	       <result property="Bank" column="BANK"/>
+	       <result property="merNick" column="MER_NICK"/>
+	       <result property="status" column="STATUS"/>
+	       <result property="merImgOriginal" column="MEM_IMG_ORIGINAL"/>
+	       <result property="merImgRename" column="MEM_IMG_RENAME"/>
+	       <result property="merIDCARD" column="MER_IDCARD"/>
+	       <result property="cateNo" column="CATE_NO"/>
+	       <result property="greeting" column="GREETING"/>
+	    </resultMap>
+	   
+	   <resultMap type="Reserve" id="ReserveListResultMap">
+	      <id property="resNo" column="RES_NO"/>
+	      <result property="hbNo" column="HB_NO" />
+	      <result property="memNo" column="MEM_NO" />
+	      <result property="resName" column="RES_NAME" />
+	      <result property="resPhone" column="RES_PHONE" />
+	      <result property="resCount" column="RES_COUNT" />
+	      <result property="resDate" column="RES_DATE" />
+	      <result property="takeDate" column="TAKE_DATE" />
+	      <result property="payFee" column="PAY_FEE" />
+	      <result property="resAttend" column="RES_ATTEND" />
+	      <result property="resStatus" column="RES_STATUS" />
+	      <result property="payStatus" column="PAY_STATUS" />
+	   </resultMap>
+	   
+	<sql id="MerchantListSql">
+       SELECT  
+       MER_NO, 
+       MER_ID, 
+       MER_PASSWORD, 
+       MER_EMAIL,
+       MER_NAME, 
+       MER_PHONE,
+       MER_DATE,
+       BANK,
+       MER_NICK, 
+       STATUS, 
+       MER_IMG_ORIGINAL, 
+       MER_IMG_RENAME, 
+       MER_IDCARD,
+       CATE_NO ,
+       GREETING
+      FROM MERCHANT
+      WHERE STATUS = 'Y'
+   </sql>
+   
+   <sql id="ReserveListSql">
+      SELECT 
+      RES_NO, 
+      HB_NO, 
+      MEM_NO, 
+      RES_NAME, 
+      RES_PHONE, 
+      RES_COUNT, 
+      RES_DATE, 
+      TAKE_DATE, 
+      PAY_FEE, 
+      RES_ATTEND, 
+      RES_STATUS, 
+      PAY_STATUS 
+      FROM RESERVE
+      WHERE RES_STATUS = 'Y'
+   </sql>
+
+
+	<!-- merInfo -->   
+   
+   <select id="selectMerInfoByNo" parameterType="_int" resultMap="MerchantListResultMap">
+      <include refid="MerchantListSql" />
+         AND MER_NO=#{merNo}
+   </select>
+   
+   
+   
+   <!-- Reserve & Pay -->
+   
+   <insert id="saveReserve" parameterType="map"
+      useGeneratedKeys="true" keyProperty="resNo" keyColumn="RES_NO">
+         INSERT INTO 
+         RESERVE(
+            RES_NO, 
+            HB_NO, 
+            MEM_NO, 
+            RES_NAME, 
+            RES_PHONE, 
+            RES_COUNT, 
+            RES_DATE, 
+            TAKE_DATE, 
+            PAY_FEE, 
+            RES_ATTEND, 
+            RES_STATUS
+         ) VALUES (
+            SEQ_RESERVE_NO.NEXTVAL, 
+            #{hbNo}, 
+            #{memNo}, 
+            #{resName}, 
+            #{resPhone}, 
+            DEFAULT,
+            SYSDATE,
+            TO_DATE(#{takeDate},'YYYY-MM-DD'),
+            TO_NUMBER(#{payFee}),
+            DEFAULT, 
+            DEFAULT
+         )
+   </insert>
 
 </mapper>

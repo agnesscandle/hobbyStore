@@ -7,7 +7,9 @@ import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public interface HobbyService {
 	int save(Hobby hobby);
 
 	List<Category> getCateList();
+	
+	String findCateNameByNo(int cateNo);
 
 	void saveFile(MultipartFile thumFile, String savePath, Hobby hobby);
 
@@ -78,5 +82,13 @@ public interface HobbyService {
 	Qna findByQnaNo(int qnaNo);
 
 	int deleteQna(Qna qna);
+
+	
+	
+	Merchant findMerInfoByNo(int merNo);
+
+	int saveReserve(Reserve reserve);
+
+	
 
 }

@@ -19,7 +19,9 @@ import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -348,6 +350,29 @@ public class HobbyServiceImpl implements HobbyService {
 	      // TODO Auto-generated method stub
 	      return mapper.deleteQna(qna);
 	   }
+
+	   
+	   @Override
+	   public Merchant findMerInfoByNo(int merNo) {
+		      
+		      return mapper.selectMerInfoByNo(merNo);
+		   }
+
+		   @Override
+		   public String findCateNameByNo(int cateNo) {
+		      
+		      return mapper.selectCateNameByNo(cateNo);
+		   }
+
+		   @Override
+		   @Transactional
+		   public int saveReserve(Reserve reserve) {
+			   int result = 0;
+			   result = mapper.saveReserve(reserve);
+				
+			   return result;
+
+		   }
 
 
 	
