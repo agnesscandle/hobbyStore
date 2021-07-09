@@ -41,14 +41,16 @@
    		<!-- 전화번호 -->
    		<label class="memEnrollLabel">전화번호</label><br>
         <input class="enrollInput" type="text" name="memPhone" id="memPhone" placeholder="ex) 01012345678" required="required">
+        <div class="phone_input_re_1"></div>
+		<div class="phone_input_re_2"></div>
         <div class="phone regex"></div>
         
    		<!-- 이메일 -->
    		<label class="memEnrollLabel">이메일</label><br>
         <input class="enrollInput" type="text" name="memEmail" id="memEmail" placeholder="hobbyuser@market.com" required="required">
+        <div class="email_input_re_1"></div>
+		<div class="email_input_re_2"></div>
         <div class="email regex"></div>
-        <span class="email_input_re_1"></span>
-		<span class="email_input_re_2"></span><br>
         
    		<!-- 관심분야 -->
    		<label class="memEnrollLabel">관심 분야 체크</label> 
@@ -234,17 +236,24 @@ $('#memId').on("propertychange change keyup paste input", function(){
     $("#memEmail").on("input",function(){
          var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
          var result = regex.exec($("#memEmail").val());
-        
+         var memEmail = $("#memEmail").val();
         if(result != null){
            $(".email.regex").html("");  
+        		
         }else{
+        	if(memEmail != ""){
             $(".email.regex").html("올바른 이메일이 아닙니다");
+        	}
         }
     });
 	
  // 이메일 중복 검사
     $('#memEmail').on("input", function(){
+    	var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        var result = regex.exec($("#memEmail").val());
     	var memEmail = $("#memEmail").val(); 
+    	   
+    	  
     	
     	$.ajax({
     	      type : "get",
@@ -267,9 +276,7 @@ $('#memId').on("propertychange change keyup paste input", function(){
     	            		$('.email_input_re_1').hide();
     	          	  		$('.email_input_re_1').css("display", "none");
     	            	} else{
-    	          	  	$('.email_input_re_1').show();
     	          		$('.email_input_re_2').hide();
-  	        	  		$('.email_input_re_1').html("사용 가능한 이메일입니다.").css("display","inline-block");
   				 		 $('.email_input_re_2').css("display", "none");
     	            	}
     	        	  

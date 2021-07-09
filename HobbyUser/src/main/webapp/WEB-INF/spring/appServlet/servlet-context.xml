@@ -40,6 +40,7 @@
 		<exclude-mapping path="/member/sendNewPw"/>
 		<exclude-mapping path="/member/memberIdChk"/>
 		<exclude-mapping path="/member/memberEmailChk"/>
+		<exclude-mapping path="/member/memberPhChk"/>
 		<exclude-mapping path="/member/memberIdSearch"/>
 		<exclude-mapping path="/member/memberPwSearch"/>
 		<exclude-mapping path="/member/memberPwSearch2"/>
