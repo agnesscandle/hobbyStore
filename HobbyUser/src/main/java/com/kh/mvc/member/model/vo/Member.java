@@ -30,7 +30,7 @@ public class Member {
 	
 	private Date memDate;
 	
-//	private int cateNo;
+	private int cateNo;
 	
 	
 }

@@ -8,11 +8,8 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
-
-<div>
-<section class="mLoginWrapper">
-<form name="memberLoginFrm" id="loginForm"
-	action="${ path }/member/login" method="POST">
+<div class="mLoginWrapper">
+<form name="memberLoginFrm" id="loginForm" method="post" name="form">
 	<div class="loginTitle">로그인</div>
 	<!-- 아이디 -->
 	<div class="loginGroup">
@@ -28,27 +25,27 @@
 	 <span id="find_mPw_btn" class="find mPw">비밀번호를 잊으셨나요?</span>	
 	 </div>
 	 
+	 <hr>
+	 <br><br>
 	<!-- 로그인 버튼 -->
 	<div id="mLoginBtn">
-		<input class="mloginInput" type="submit" id="mLoginSubmit" value="손님으로 로그인"/>
-	</div>
-	<div id="mLoginBtn">
-		<input class="mloginInput" type="button" id="mLoginSubmit"  onclick="" value="상인으로 로그인"/>
-	</div>
-	<hr>
-	
+	<input class="mloginInput_b" type="submit" id="mLoginSubmit" value="손님으로 로그인" 
+	onclick="javascript: form.action='${path}/member/login';"/>
 	<!-- 손님회원 가입하기 버튼 -->
-	<div id="memEnrollBtn">
-	<button type="button" class="mloginInput" id="mLoginSubmit" onclick="location.href='${path}/member/enroll'">손님회원 가입하기</button>
+	<button type="button" class="mloginInput_b" id="mEnrollSubmit" onclick="location.href='${path}/member/enroll'">손님회원 가입하기</button>
 	</div>
-	
+	<div id="EnrollBtn">
 	<!-- 상인회원 가입하기 버튼  -->
-	<div>
-	<button type="button" class="mloginInput" id="mLoginSubmit">상인회원 가입하기</button>
-	</div>
+	<input class="mloginInput_b" type="submit" id="merLoginSumit" 
+	onclick="javascript: form.action='${path}/merchantMember/merlogin';"  value="상인으로 로그인"/>
 	
-
+	<button type="submit" class="mloginInput_b" id="merEnrollSubmit" 
+	onclick="location.href='${path}/merchantMember/enroll'" >상인회원 가입하기</button>
+	</div>
+	<br>
 </form>
+</div>
+
 <script>
 	$(function(){
 		$("#find_mId_btn").click(function(){
@@ -62,6 +59,4 @@
 		})
 	})
 </script>
-</section>
-</div>
 <%@ include file="../../views/common/footer.jsp"%>

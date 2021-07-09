@@ -1,7 +1,9 @@
+
+
 .mLoginWrapper {
-	margin-top: 0%;
-	margin-left: 35%;
-	margin-right: 35%;
+	margin-top: 5%;
+	margin-left: 39%;
+	margin-right: 39%;
 }
 
 .loginTitle {
@@ -16,6 +18,8 @@
 	display: inline-block;
 	text-align: right;
 	font-size: 18px;
+	font-weight: 600;
+	padding-bottom: 8px;
 }
 
 .mloginInput {
@@ -23,7 +27,7 @@
     font-weight: normal;
     line-height: 20px;
     letter-spacing: -0.15px;
-    margin: 0px;
+    margin: 3px 0 10px 0;
     border: 1px solid rgb(239, 239, 239);
     background-color: white;
     height: 48px;
@@ -31,43 +35,108 @@
     width: 100%;
     color: rgb(26, 26, 26);
     box-sizing: border-box;
-    padding: 0px 16px;
+    padding: 16px;
     border-radius: 3px;
+}
+
+.mLabel {
+	margin: 3px 0 10px 0;
+}
+.mloginInput:active {
+	background-color: rgb(230, 243, 250);
+}
+
+.mloginInput_b {
+	display: inline-block;
+	font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+	border: 1px solid rgb(239, 239, 239);
+    background-color: white;
+    width:  200px;
+    height: 48px;
+    flex: 1 1 auto;
+    color: rgb(26, 26, 26);
+    box-sizing: border-box;
+    padding: 16px;
+    border-radius: 3px;
+}
+.mId, .mPw {
+	font-size: 14px;
+	color: rgb(163, 162, 162);
+	margin: 10px;
+}
+
+/* 아이디,비번 찾기 폰트 */
+.find_mId, .find_mPw{
+	font-size: 13px;
+}
+
+#find_mId_btn, #find_mPw_btn{
+	cursor: pointer;
 }
 
 .loginGroup {
     flex-direction: column;
-    margin: 0px 0px 16px;
+    margin: 0px 0px 40px 0px;
 }
 
 
-
-#mLoginBtn{
-	text-align: center;
-	margin: 0px 0px 5px 0px;
-}
-
-#memEnrollBtn{
-	margin: 5px 0px 5px 0px;
-}
-
-#mLoginSubmit{
+#mLoginSubmit, #mEnrollSubmit{
+	cursor: pointer;
 	background-color: rgb(32, 51, 84);
+	font-weight: bold;
+	font-size : 18px;
 	color: white;
 }
 
-.contain{
-	background-color: rgb(32, 51, 84);
-	color: white;	
+#merLoginSumit, #merEnrollSubmit{
+	cursor: pointer;
+	background-color: #E89C31;
+	font-weight: bold;
+	font-size : 18px;
+	color: white;
 }
 
 
 
-.find_mId{
-	font-size: 13px;
+/* 로그인 버튼 */
+#mLoginBtn{
+	text-align: center;
+	margin: 0px 0px 3px 0px;
 }
 
-.find_mPw{
-	font-size: 13px;
+/* 가입하기 버튼 */
+#EnrollBtn{
+	text-align: center;
+	margin: 0px 0px 3px 0px;
 }
+
+.mloginInput_b{
+	position: relative;
+	transition: all 0.4s;
+	overflow: hidden;
+}
+
+#mloginInput_b:: before {
+	content: "";
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: white;
+	top: 100%;
+	left: 0px;
+	transition: all 0.4s;
+	z-index: -1;
+}
+
+#mloginInput_b: hover:: before {
+	transform: translateY(-100%);
+}
+
+
+
+
+
 

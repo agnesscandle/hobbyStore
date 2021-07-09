@@ -15,7 +15,8 @@
 			    STATUS, 
 			    MEM_IMG_ORIGINAL, 
 			    MEM_IMG_RENAME, 
-			    MEM_DATE 
+			    MEM_DATE,
+			    CATE_NO
 		FROM MEMBER
  	</sql>
  
@@ -39,6 +40,12 @@
 		WHERE MEM_ID = #{memId} AND STATUS ='Y'
  	</select>
  	
+ 	<!-- 이메일 중복 검사 -->
+ 	<select id="searchEmail" parameterType="string" resultMap="memberResultMap">
+ 		<include refid="selectMemberSql" />
+		WHERE MEM_EMAIL = #{memEmail} AND STATUS ='Y'
+ 	</select>
+ 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultMap="memberResultMap">
 		SELECT MEM_ID FROM MEMBER 
@@ -46,6 +53,17 @@
 		AND MEM_EMAIL = #{memEmail}
 	</select>
  	
+ 	<select id="findByPhone" parameterType="String" resultMap="memberResultMap">
+		SELECT 
+			MEM_NO,
+			MEM_ID,
+			MEM_PASSWORD
+		FROM MEMBER 
+		WHERE 
+			MEM_PHONE = #{memPhone}
+		AND STATUS ='Y'
+	</select>
+	
  	<insert id="insertMember" parameterType="Member"
  		useGeneratedKeys="true" keyColumn="MEM_NO" keyProperty="memNo" >
 
@@ -59,7 +77,8 @@
 			STATUS,
 			MEM_IMG_ORIGINAL,
 			MEM_IMG_RENAME,
-			MEM_DATE
+			MEM_DATE,
+			CATE_NO
 		) VALUES(
 			SEQ_MEM_NO.NEXTVAL, 
 			#{memId},
@@ -70,17 +89,37 @@
 			DEFAULT,
 			#{memImgOriginal},
 			#{memImgRename},
-			DEFAULT
+			DEFAULT,
+			#{cateNo}
 		)
  	</insert>
  	
+ 	<!-- 비밀번호 업데이트 -->
+ 	<update id="updateMemPwd" parameterType="Member">
+ 		UPDATE MEMBER 
+ 		SET
+ 			MEM_PASSWORD = #{memPassword}
+		WHERE MEM_NO = #{memNo}
+	</update>
+ 			
+ 		
+ 		 
  	<update id="updateMember" parameterType="Member">
  		UPDATE MEMBER 
  		SET 
+ 			MEM_IMG_ORIGINAL = #{memImgOriginal},
+ 			MEM_IMG_RENAME = #{memImgRename},
  			MEM_NAME = #{memName},
  			MEM_PHONE = #{memPhone},
  			MEM_EMAIL = #{memEmail}
 		WHERE MEM_NO = #{memNo}
  	</update>
  	
+ 	<update id="deleteMember" parameterType="_int">
+ 		UPDATE MEMBER
+ 		SET
+ 			STATUS='N'
+ 		WHERE
+ 			MEM_NO = #{memNo}
+ 	</update>
  </mapper>

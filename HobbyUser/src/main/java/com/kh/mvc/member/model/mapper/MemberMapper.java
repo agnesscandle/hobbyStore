@@ -15,6 +15,24 @@ public interface MemberMapper {
 
 	int updateMember(Member member);
 
+	Member checkPw(@Param("memPassword") String memPassword);
+
+	int updateMemPwd(Member member);
+
+	int deleteMember(int memNo);
+
+	Member searchEmail(@Param("memEmail") String memEmail);
+
+	Member findByPhone(String memPhone);
+
+
+
+
+
+
+
+
+
 
 
 }

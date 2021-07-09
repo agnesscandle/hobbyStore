@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.kh.mvc.merchant.model.mapper.MerchantMemberMapper">
+ 	<sql id="selectMerchantMemberSql">
+ 		SELECT  MERNO, 
+			    MERID, 
+			    MERPASSWORD, 
+			    MEREMAIL,
+			    MERNAME, 
+			    MERPHONE,
+			    MERDATE,
+			    BANK,
+			    BANKNUMBER,
+			    MERNICK, 
+			    STATUS, 
+			    MERIMGORIGINAL, 
+			    MERIMGRENAME, 
+			    MERIDCARD,
+			    CATE_NO, 
+			    GREETING
+		FROM MERCHANT
+ 	</sql>
+ 
+ 	<resultMap type="MerchantMember" id="merchantmemberResultMap">
+ 		<id property="merNo" column="MERNO"/>
+ 		<result property="merId" column="MERID" />
+ 		<result property="merPassword" column="MERPASSWORD"/>
+ 		<result property="merEmail" column="MEREMAIL"/>
+ 		<result property="merName" column="MERNAME"/>
+ 		<result property="merPhone" column="MERPHONE"/>
+ 		<result property="merDate" column="MERDATE"/>
+ 		<result property="Bank" column="BANK"/>
+ 		<result property="bankNumber" column="BANKNUMBER"/>
+ 		<result property="merNick" column="MERNICK"/>
+ 		<result property="status" column="STATUS"/>
+ 		<result property="merImgOriginal" column="MEMIMGORIGINAL"/>
+ 		<result property="merImgRename" column="MEMIMGRENAME"/>
+ 		<result property="merIDCARD" column="MERIDCARD"/>
+ 		<result property="cateNo" column="CATE_NO"/>
+ 		<result property="greeting" column="GREETING"/>
+ 		
+ 	</resultMap>
+ 	
+ 	<select id="selectMerchantMember" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
+		WHERE MERID = #{merId} AND STATUS ='N'
+ 	</select>
+ 	
+ 	<insert id="insertMerchantMember" parameterType="MerchantMember"
+ 		useGeneratedKeys="true" keyColumn="MERNO" keyProperty="merNo" >
+
+		INSERT INTO MERCHANT (
+			    MERNO, 
+			    MERID, 
+			    MERPASSWORD, 
+			    MEREMAIL,
+			    MERNAME, 
+			    MERPHONE,
+			    MERDATE,
+			    BANK,
+			    BANKNUMBER,
+			    MERNICK,
+			    STATUS, 
+			    MERIMGORIGINAL, 
+			    MERIMGRENAME, 
+			    MERIDCARD,
+			    CATE_NO,
+			    GREETING 
+		) VALUES(
+			SEQ_MERNO.NEXTVAL, 
+			#{merId},
+			#{merPassword},
+			#{merEmail},
+			#{merName},
+			#{merPhone},
+			#{merDate},
+			#{Bank},
+			#{bankNumber},
+			#{merNick},
+			DEFAULT,
+			#{merImgOriginal},
+			#{merImgRename},
+			#{merIDCARD},
+			DEFAULT,
+			#{greeting}
+		)
+ 	</insert>
+ </mapper>
