@@ -6,40 +6,40 @@
   
  <mapper namespace="com.kh.mvc.merchant.model.mapper.MerchantMemberMapper">
  	<sql id="selectMerchantMemberSql">
- 		SELECT  MERNO, 
-			    MERID, 
-			    MERPASSWORD, 
-			    MEREMAIL,
-			    MERNAME, 
-			    MERPHONE,
-			    MERDATE,
+ 		SELECT  MER_NO, 
+			    MER_ID, 
+			    MER_PASSWORD, 
+			    MER_EMAIL,
+			    MER_NAME, 
+			    MER_PHONE,
+			    MER_DATE,
 			    BANK,
-			    BANKNUMBER,
-			    MERNICK, 
+			    BANK_NUMBER,
+			    MER_NICK, 
 			    STATUS, 
-			    MERIMGORIGINAL, 
-			    MERIMGRENAME, 
-			    MERIDCARD,
+			    MER_IMG_ORIGINAL, 
+			    MER_IMG_RENAME, 
+			    MER_IDCARD,
 			    CATE_NO, 
 			    GREETING
 		FROM MERCHANT
  	</sql>
  
  	<resultMap type="MerchantMember" id="merchantmemberResultMap">
- 		<id property="merNo" column="MERNO"/>
- 		<result property="merId" column="MERID" />
- 		<result property="merPassword" column="MERPASSWORD"/>
- 		<result property="merEmail" column="MEREMAIL"/>
- 		<result property="merName" column="MERNAME"/>
- 		<result property="merPhone" column="MERPHONE"/>
- 		<result property="merDate" column="MERDATE"/>
+ 		<id property="merNo" column="MER_NO"/>
+ 		<result property="merId" column="MER_ID" />
+ 		<result property="merPassword" column="MER_PASSWORD"/>
+ 		<result property="merEmail" column="MER_EMAIL"/>
+ 		<result property="merName" column="MER_NAME"/>
+ 		<result property="merPhone" column="MER_PHONE"/>
+ 		<result property="merDate" column="MER_DATE"/>
  		<result property="Bank" column="BANK"/>
- 		<result property="bankNumber" column="BANKNUMBER"/>
- 		<result property="merNick" column="MERNICK"/>
+ 		<result property="bankNumber" column="BANK_NUMBER"/>
+ 		<result property="merNick" column="MER_NICK"/>
  		<result property="status" column="STATUS"/>
- 		<result property="merImgOriginal" column="MEMIMGORIGINAL"/>
- 		<result property="merImgRename" column="MEMIMGRENAME"/>
- 		<result property="merIDCARD" column="MERIDCARD"/>
+ 		<result property="merImgOriginal" column="MER_IMG_ORIGINAL"/>
+ 		<result property="merImgRename" column="MER_IMG_RENAME"/>
+ 		<result property="merIDCARD" column="MER_IDCARD"/>
  		<result property="cateNo" column="CATE_NO"/>
  		<result property="greeting" column="GREETING"/>
  		
@@ -47,27 +47,27 @@
  	
  	<select id="selectMerchantMember" parameterType="string" resultMap="merchantmemberResultMap">
  		<include refid="selectMerchantMemberSql" />
-		WHERE MERID = #{merId} AND STATUS ='N'
+		WHERE MER_ID = #{merId} AND STATUS ='Y'
  	</select>
  	
  	<insert id="insertMerchantMember" parameterType="MerchantMember"
- 		useGeneratedKeys="true" keyColumn="MERNO" keyProperty="merNo" >
+ 		useGeneratedKeys="true" keyColumn="MER_NO" keyProperty="merNo" >
 
 		INSERT INTO MERCHANT (
-			    MERNO, 
-			    MERID, 
-			    MERPASSWORD, 
-			    MEREMAIL,
-			    MERNAME, 
-			    MERPHONE,
-			    MERDATE,
+			    MER_NO, 
+			    MER_ID, 
+			    MER_PASSWORD, 
+			    MER_EMAIL,
+			    MER_NAME, 
+			    MER_PHONE,
+			    MER_DATE,
 			    BANK,
-			    BANKNUMBER,
-			    MERNICK,
+			    BANK_NUMBER,
+			    MER_NICK,
 			    STATUS, 
-			    MERIMGORIGINAL, 
-			    MERIMGRENAME, 
-			    MERIDCARD,
+			    MER_IMG_ORIGINAL, 
+			    MER_IMG_RENAME, 
+			    MER_IDCARD,
 			    CATE_NO,
 			    GREETING 
 		) VALUES(
