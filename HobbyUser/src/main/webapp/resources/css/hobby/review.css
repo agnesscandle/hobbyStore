@@ -261,3 +261,11 @@ span#noReview{
 	color: red;
 	margin-left:5px; 
 }
+
+.detail{
+    font-size : 30px;
+    font-weight : bolder;
+    flex-basis: 400px;
+    /* border : 1px solid black; */
+}
+
