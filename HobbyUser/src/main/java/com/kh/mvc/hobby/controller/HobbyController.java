@@ -98,6 +98,7 @@ public class HobbyController {
 	@GetMapping("/view/deleteReview")
 	public ModelAndView deleteReview(ModelAndView model,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("hbNo") int hbNo,
 			@RequestParam("rvNo") int rvNo) {
 
 		int memNo = loginMember.getMemNo();
@@ -105,10 +106,10 @@ public class HobbyController {
 		
 		if (result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		} else {
 			model.addObject("msg", "게시글이 삭제를 실패하였습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		}
 
 		model.setViewName("common/msg");
@@ -151,10 +152,10 @@ public class HobbyController {
 		
 		if (result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		} else {
 			model.addObject("msg", "게시글 등록에 실패하였습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		}
 
 		model.setViewName("common/msg");
@@ -195,10 +196,10 @@ public class HobbyController {
 		
 		if (result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		} else {
 			model.addObject("msg", "게시글 등록에 실패하였습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/hobby/view/reviewList?hbNo="+hbNo);
 		}
 
 		model.setViewName("common/msg");

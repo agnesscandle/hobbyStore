@@ -1,0 +1,178 @@
+/*section{
+    height: 100vh;
+}*/
+
+.container{
+    width : 90%;
+    height : max-content;
+    padding : 5%;
+    /* border : 1px solid black;  */
+}
+
+.top{
+    width : 100%;
+    height : 50%;
+    display : flex;
+    /* border : 10px solid black; */
+}
+
+#leftTop{
+    max-width : 60%;
+    max-height : 100%;
+    margin-left : 5%;
+    float : left;
+    padding : 3%;
+    /* box-sizing: border-box; */
+    /* background-color : green; */
+}
+
+#rightTop{
+    width : 40%;
+    height : 100%;
+    float : right;
+    padding : 3%;
+    padding-bottom: 2%;
+    margin-left : 5%;
+    box-sizing : border-box;
+    /* background-color : red; */
+}
+
+/* 상단 세부 */
+.imgContainer{
+    position : relative;
+    top : 2%;
+    left : -1%;
+    width : 100%;
+    height : 350px;
+    /* border : 5px solid black;  */
+}
+
+#price{
+   text-align : right;
+}
+
+.price {
+   text-align: right;
+   width: 90px;
+}
+
+.price span {
+   width: 17px;
+   height: 17px;
+   display: inline-block;
+   margin-right: 6px;
+   cursor: pointer;
+}
+
+.price .discount {
+   color: red;
+}
+
+.price del {
+   color: #d3d3d3;
+}
+
+.finalPrice{
+   font-size : 20px;
+}
+.hobbyImg{
+    max-width : 100%;
+    max-height : 100%;
+}
+
+.forBorder{
+    border : 1.5px solid  #616161;
+    border-radius: 10px;
+    padding : 25px;
+    max-height: 95%;
+}
+
+.btn{
+    margin-left : 10%;
+    padding : 5px 15px;
+    cursor : pointer;
+    border : none;
+    text-align : center;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+#btnPay, #btnMerchantInfo{
+    background-color: #0277bd;
+    width : 80%;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#btnLiked, #btnShare, #btnQuestion, #btnReport{
+    color : white;
+    background-color: #616161;
+    width : 38%;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+/*
+#btnLiked{
+    position : relative;
+    top : 5px;
+}
+
+#btnShare{
+    position : relative;
+    top : -48px;
+    left : 225px;
+}
+
+#btnQuestion{
+    position : relative;
+    top : -45px;
+}
+
+#btnReport{
+    position : relative;
+    top : -98px;
+    left : 225px;
+}*/
+
+
+/* 메뉴바(middle) */
+.middle{
+    padding : 15px;
+    /* border : 5px solid black;  */
+    display : flex;
+    justify-content : flex-start;
+}
+
+.menu{
+    font-size : 35px;
+    font-weight: bolder;
+    text-align: center;
+    flex-basis: 200px;
+}
+
+.menu:hover{
+    color : #616161;
+}
+
+/* 하단(bottom) : 취미 상세 내용 확인 가능한 영역 */
+.bottom{
+    border : 5px solid black;
+    margin-left : 20px;
+    padding : 20px;
+    display : flex;
+    flex-direction: column;
+}
+
+.detail{
+    font-size : 15px;
+    font-weight : bolder;
+    flex-basis: 400px;
+    /* border : 1px solid black; */
+}
+
+.detail #address{
+   font-size : 18px;
+   font-weight : bolder;
+}
