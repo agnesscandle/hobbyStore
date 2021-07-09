@@ -48,7 +48,7 @@
         <input class="enrollInput" type="text" name="memEmail" id="memEmail" placeholder="hobbyuser@market.com" required="required">
         <div class="email regex"></div>
         <span class="email_input_re_1"></span>
-		<span class="email_input_re_2"></span>
+		<span class="email_input_re_2"></span><br>
         
    		<!-- 관심분야 -->
    		<label class="memEnrollLabel">관심 분야 체크</label> 
@@ -262,11 +262,17 @@ $('#memId').on("propertychange change keyup paste input", function(){
     	        	  $('.email_input_re_1').hide();
     	        	  $('.email_input_re_2').html("이미 존재하는 이메일입니다.").css("display","inline-block");
     	        	  $('.email_input_re_1').css("display", "none");
-    	            } else {
-    	          	  $('.email_input_re_1').show();
-    	        	  $('.email_input_re_2').hide();
-    	        	  $('.email_input_re_1').html("사용 가능한 이메일입니다.").css("display","inline-block");
-    				  $('.email_input_re_2').css("display", "none");
+    	            } else{
+    	            	if(memEmail == ""){
+    	            		$('.email_input_re_1').hide();
+    	          	  		$('.email_input_re_1').css("display", "none");
+    	            	} else{
+    	          	  	$('.email_input_re_1').show();
+    	          		$('.email_input_re_2').hide();
+  	        	  		$('.email_input_re_1').html("사용 가능한 이메일입니다.").css("display","inline-block");
+  				 		 $('.email_input_re_2').css("display", "none");
+    	            	}
+    	        	  
     	            }
     	      },
     	      error: function(e){
