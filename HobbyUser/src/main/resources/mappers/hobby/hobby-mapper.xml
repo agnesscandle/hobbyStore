@@ -580,6 +580,12 @@
 		DEFAULT
 		)
 	</insert>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE
+		FROM REPLY
+		WHERE REPLY_NO = #{replyNo}
+	</delete>
 
 
 

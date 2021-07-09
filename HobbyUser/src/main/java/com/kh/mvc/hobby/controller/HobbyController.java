@@ -562,5 +562,27 @@ public class HobbyController {
     model.setViewName("common/msg");
     return model;
  }
+ 
+ @GetMapping("/replyDelete")
+ public ModelAndView replyDelete(ModelAndView model,
+	       //@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	       HttpServletRequest request,
+	       @ModelAttribute Hobby hobby, @ModelAttribute Reply reply) {
+	 
+	 	int result =0;
+	    
+	    result = service.deleteReply(reply);
+	    
+	    System.out.println(reply);
+	    if(result > 0) {
+	       model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+	    } else {
+	       model.addObject("msg", "게시글 수정을 실패하였습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+	    }
+	    model.setViewName("common/msg");
+	 return model;
+ }
 
 }

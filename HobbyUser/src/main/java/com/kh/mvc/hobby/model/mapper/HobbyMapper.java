@@ -85,6 +85,8 @@ public interface HobbyMapper {
 
 	int insertQna(Qna qna);
 
+	int deleteReply(Reply reply);
+
 	
 
 	

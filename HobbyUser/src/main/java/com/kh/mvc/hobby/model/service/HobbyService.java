@@ -79,4 +79,6 @@ public interface HobbyService {
 
 	int deleteQna(Qna qna);
 
+	int deleteReply(Reply reply);
+
 }

@@ -345,9 +345,13 @@ public class HobbyServiceImpl implements HobbyService {
 
 	   @Override
 	   public int deleteQna(Qna qna) {
-	      // TODO Auto-generated method stub
 	      return mapper.deleteQna(qna);
 	   }
+
+	@Override
+	public int deleteReply(Reply reply) {
+	      return mapper.deleteReply(reply);
+	}
 
 
 	
