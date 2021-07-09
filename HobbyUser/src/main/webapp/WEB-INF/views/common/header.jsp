@@ -32,7 +32,7 @@
             <div class="member">
                 <!-- 로그인이 되어있지 않은 경우  -->
                     <table class="container" align="center">
-                <c:if test="${ loginMember == null }">
+                <c:if test="${ loginMember == null && loginMerMember == null }">
                         <tr class="main">
                             <td class="btn login"><button type="button" onclick="location.href='${path}/member/login'">로그인</button></td>
                             <td class="btn join"><button type="button" onclick="location.href='${path}/member/enroll'">회원가입</button></td>
@@ -53,7 +53,15 @@
                             <td class="btn myPage"><button type="button" onclick="location.href='${path}/member/myInfo'">마이 페이지</button></td>
                         </tr>
                </c:if>
-
+				<c:if test="${ loginMerMember != null }">
+                        <tr class="main info">
+                            <td colspan="2" class="infoId">${ loginMerMember.merName } 님, 환영합니다</td>
+                        </tr>
+                        <tr>
+                            <td class="btn logout"><button type="button" onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
+                            <td class="btn myPage"><button type="button" onclick="location.href='${path}/merchantMember/merMain'">마이 페이지</button></td>
+                        </tr>
+               </c:if>
                     </table>
             </div>
             <nav>

@@ -9,8 +9,7 @@
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 <div class="mLoginWrapper">
-<form name="memberLoginFrm" id="loginForm"
-	action="${ path }/member/login" method="POST">
+<form name="memberLoginFrm" id="loginForm" method="post" name="form">
 	<div class="loginTitle">로그인</div>
 	<!-- 아이디 -->
 	<div class="loginGroup">
@@ -30,14 +29,18 @@
 	 <br><br>
 	<!-- 로그인 버튼 -->
 	<div id="mLoginBtn">
-	<input class="mloginInput_b" type="submit" id="mLoginSubmit" value="손님으로 로그인"/>
+	<input class="mloginInput_b" type="submit" id="mLoginSubmit" value="손님으로 로그인" 
+	onclick="javascript: form.action='${path}/member/login';"/>
 	<!-- 손님회원 가입하기 버튼 -->
 	<button type="button" class="mloginInput_b" id="mEnrollSubmit" onclick="location.href='${path}/member/enroll'">손님회원 가입하기</button>
 	</div>
 	<div id="EnrollBtn">
 	<!-- 상인회원 가입하기 버튼  -->
-	<input class="mloginInput_b" type="button" id="merLoginSumit"  onclick="" value="상인으로 로그인"/>
-	<button type="button" class="mloginInput_b" id="merEnrollSubmit">상인회원 가입하기</button>
+	<input class="mloginInput_b" type="submit" id="merLoginSumit" 
+	onclick="javascript: form.action='${path}/merchantMember/merlogin';"  value="상인으로 로그인"/>
+	
+	<button type="submit" class="mloginInput_b" id="merEnrollSubmit" 
+	onclick="location.href='${path}/merchantMember/enroll'" >상인회원 가입하기</button>
 	</div>
 	<br>
 </form>
