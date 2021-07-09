@@ -30,6 +30,81 @@
 		STATUS = 'Y'
 	</sql>
 
+	<sql id="cateListSql">
+		SELECT
+		CATE_NO,
+		CATE_NAME
+		FROM
+		CATEGORY
+	</sql>
+
+	<sql id="ReviewListSql">
+		SELECT R.RV_NO,
+		R.HB_NO,
+		R.MEM_NO,
+		M.MEM_NAME,
+		M.MEM_IMG_RENAME,
+		R.RV_SCORE,
+		R.RV_CONTENT,
+		R.RV_CREATEDATE,
+		R.RV_MODIFYDATE,
+		R.GOOD_REVIEW,
+		R.RV_ORIGINAL_FILENAME,
+		R.RV_RENAME_FILENAME
+		FROM REVIEW R
+		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
+		WHERE R.STATUS = 'Y'
+	</sql>
+
+	<sql id="MerchantListSql">
+       SELECT  
+       MER_NO, 
+       MER_ID, 
+       MER_PASSWORD, 
+       MER_EMAIL,
+       MER_NAME, 
+       MER_PHONE,
+       MER_DATE,
+       BANK,
+       MER_NICK, 
+       STATUS, 
+       MER_IMG_ORIGINAL, 
+       MER_IMG_RENAME, 
+       MER_IDCARD,
+       CATE_NO ,
+       GREETING
+      FROM MERCHANT
+      WHERE STATUS = 'Y'
+   </sql>
+	
+	<sql id="ReserveListSql">
+		SELECT 
+		RES_NO, 
+		HB_NO, 
+		MEM_NO, 
+		RES_NAME, 
+		RES_PHONE, 
+		RES_COUNT, 
+		RES_DATE, 
+		TAKE_DATE, 
+		PAY_FEE, 
+		RES_ATTEND, 
+		RES_STATUS, 
+		PAY_STATUS 
+		FROM RESERVE
+		WHERE RES_STATUS = 'Y'
+	</sql>
+
+	<select id="selectReserveCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM RESERVATION
+		WHERE HB_NO = ${hbNo}
+		AND
+		MEM_NO = ${memNo}
+	</select>
+
+
 	<resultMap type="Hobby" id="HobbyListResultMap">
 		<id property="hbNo" column="HB_NO" />
 		<result property="merNo" column="MER_NO" />
@@ -50,7 +125,83 @@
 		<result property="hbLocation" column="HB_LOCATION" />
 	</resultMap>
 
+
 	<!-- 취미 목록 검색 -->
+
+	<resultMap type="Review" id="ReviewListResultMap">
+		<id property="rvNo" column="RV_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="memName" column="MEM_NAME" />
+		<result property="memImgRename" column="MEM_IMG_RENAME" />
+		<result property="rvScore" column="RV_SCORE" />
+		<result property="rvContent" column="RV_CONTENT" />
+		<result property="rvCreateDate" column="RV_CREATEDATE" />
+		<result property="rvModifyDate" column="RV_MODIFYDATE" />
+		<result property="goodReview" column="GOOD_REVIEW" />
+		<result property="rvOriginalFilename"
+			column="RV_ORIGINAL_FILENAME" />
+		<result property="rvRenameFilename" column="RV_RENAME_FILENAME" />
+	</resultMap>
+
+	<resultMap type="Category" id="CateListResultMap">
+		<id property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+	</resultMap>
+
+
+	<resultMap type="Merchant" id="MerchantListResultMap">
+       <id property="merNo" column="MER_NO"/>
+       <result property="merId" column="MER_ID" />
+       <result property="merPassword" column="MER_PASSWORD"/>
+       <result property="merEmail" column="MER_EMAIL"/>
+       <result property="merName" column="MER_NAME"/>
+       <result property="merPhone" column="MER_PHONE"/>
+       <result property="merDate" column="MER_DATE"/>
+       <result property="Bank" column="BANK"/>
+       <result property="merNick" column="MER_NICK"/>
+       <result property="status" column="STATUS"/>
+       <result property="merImgOriginal" column="MEM_IMG_ORIGINAL"/>
+       <result property="merImgRename" column="MEM_IMG_RENAME"/>
+       <result property="merIDCARD" column="MER_IDCARD"/>
+       <result property="cateNo" column="CATE_NO"/>
+       <result property="greeting" column="GREETING"/>
+    </resultMap>
+	
+	<resultMap type="Reserve" id="ReserveListResultMap">
+		<id property="" column="RES_NO"/>
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resPhone" column="RES_PHONE" />
+		<result property="resCount" column="RES_COUNT" />
+		<result property="resDate" column="RES_DATE" />
+		<result property="takeDate" column="TAKE_DATE" />
+		<result property="payFee" column="PAY_FEE" />
+		<result property="resAttend" column="RES_ATTEND" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="payStatus" column="PAY_STATUS" />
+	</resultMap>
+	
+	
+	
+	<select id="selectCateList" parameterType="map"
+		resultMap="CateListResultMap">
+
+		<include refid="cateListSql" />
+
+		ORDER BY CATE_NO DESC
+	</select>
+
+	<select id="selectCateNameByNo" parameterType="_int"
+		resultType="String">
+			SELECT CATE_NAME
+			FROM CATEGORY
+			WHERE CATE_NO=#{cateNo}
+	</select>
+	
+	
+
 	<select id="selectHobbyList" parameterType="map"
 		resultMap="HobbyListResultMap">
 
@@ -186,27 +337,7 @@
 
 	<!-- 카테고리 시작 -->
 
-	<sql id="cateListSql">
-		SELECT
-		CATE_NO,
-		CATE_NAME
-		FROM
-		CATEGORY
-	</sql>
-
-	<resultMap type="Category" id="CateListResultMap">
-		<id property="cateNo" column="CATE_NO" />
-		<result property="cateName" column="CATE_NAME" />
-	</resultMap>
-
 	<!-- 카테고리 검색 -->
-	<select id="selectCateList" parameterType="map"
-		resultMap="CateListResultMap">
-
-		<include refid="cateListSql" />
-
-		ORDER BY CATE_NO DESC
-	</select>
 
 	<!-- 카테고리 끝 -->
 
@@ -217,51 +348,8 @@
 
 	<!-- 리뷰 시작 -->
 
-	<sql id="ReviewListSql">
-		SELECT R.RV_NO,
-		R.HB_NO,
-		R.MEM_NO,
-		M.MEM_NAME,
-		M.MEM_IMG_RENAME,
-		R.RV_SCORE,
-		R.RV_CONTENT,
-		R.RV_CREATEDATE,
-		R.RV_MODIFYDATE,
-		R.GOOD_REVIEW,
-		R.RV_ORIGINAL_FILENAME,
-		R.RV_RENAME_FILENAME
-		FROM REVIEW R
-		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
-		WHERE R.STATUS = 'Y'
-	</sql>
-
-
-	<resultMap type="Review" id="ReviewListResultMap">
-		<id property="rvNo" column="RV_NO" />
-		<result property="hbNo" column="HB_NO" />
-		<result property="memNo" column="MEM_NO" />
-		<result property="memName" column="MEM_NAME" />
-		<result property="memImgRename" column="MEM_IMG_RENAME" />
-		<result property="rvScore" column="RV_SCORE" />
-		<result property="rvContent" column="RV_CONTENT" />
-		<result property="rvCreateDate" column="RV_CREATEDATE" />
-		<result property="rvModifyDate" column="RV_MODIFYDATE" />
-		<result property="goodReview" column="GOOD_REVIEW" />
-		<result property="rvOriginalFilename"
-			column="RV_ORIGINAL_FILENAME" />
-		<result property="rvRenameFilename" column="RV_RENAME_FILENAME" />
-	</resultMap>
-
 
 	<!-- 예약 확인_후기 작성 시 필요[김예원] -->
-	<select id="selectReserveCount" parameterType="map"
-		resultType="_int">
-		SELECT COUNT(*)
-		FROM RESERVATION
-		WHERE HB_NO = ${hbNo}
-		AND
-		MEM_NO = ${memNo}
-	</select>
 
 	<!-- 리뷰 검색[김예원] -->
 	<select id="selectReviewByNo" parameterType="map"
@@ -582,5 +670,47 @@
 	</insert>
 
 
+
+	<!-- merInfo -->	
+	
+	<select id="selectMerInfoByNo" parameterType="_int" resultMap="MerchantListResultMap">
+		<include refid="MerchantListSql" />
+			AND MER_NO=#{merNo}
+	</select>
+	
+	
+	
+	<!-- Reserve & Pay -->
+	
+	<insert id="saveReserve" parameterType="map"
+		useGeneratedKeys="true" keyProperty="resNo" keyColumn="RES_NO">
+			INSERT INTO 
+			RESERVE(
+				RES_NO, 
+				HB_NO, 
+				MEM_NO, 
+				RES_NAME, 
+				RES_PHONE, 
+				RES_COUNT, 
+				RES_DATE, 
+				TAKE_DATE, 
+				PAY_FEE, 
+				RES_ATTEND, 
+				RES_STATUS
+			) VALUES (
+				SEQ_RESERVE_NO.NEXTVAL, 
+				#{hbNo}, 
+				#{memNo}, 
+				#{resName}, 
+				#{resPhone}, 
+				DEFAULT,
+				SYSDATE,
+				TO_DATE(#{takeDate},'YYYY-MM-DD'),
+				TO_NUMBER(#{payFee}),
+				DEFAULT, 
+				DEFAULT
+			)
+	</insert>
+	
 
 </mapper>

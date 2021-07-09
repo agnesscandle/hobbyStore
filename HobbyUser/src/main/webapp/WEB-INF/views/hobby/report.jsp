@@ -23,7 +23,8 @@
     </head>
 <body>
                <div class="container">
-                <form action="${path}/hobby/report" method="POST">
+               <h1> 신고하기 </h1>
+                <form id="reportForm" name="reportForm">
                     <table id="tblReport">
                         <tr>
                             <th class="tblHeader">취미명</th>
@@ -33,12 +34,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>작성자 아이디</th>
+                            <th>작성자</th>
                             <td><input  class="col1" id="rpWriterId" type="text" name="rpWriterId" value="${loginMember.memId}" readonly/></td>
                         </tr>
                         <tr>
                             <th>신고 제목</th>
-                            <td><input class="col1" id="rpTitle" type="text" placeholder="신고합니다." required/></td>
+                            <td><input class="col1" id="rpTitle" type="text" placeholder="신고합니다."/></td>
                         </tr>
                         <tr>
                             <th >신고 내용</th>
@@ -46,10 +47,11 @@
                                 <textarea class="col1" cols="70" rows="15" id="rpContent" name="rpContent" placeholder="신고하고 싶은 내용을 입력하세요." required></textarea>
                             </td>
                         </tr>
+                        <br><br>
                         <tr>
                             <th id="btnContainer" colspan="2">
-                                <input class="btn" id="btnReport" type="submit" value="신고하기">
-                                <input class="btn" id="btnCancle" type="reset" value="취소하기">
+                                <input class="btn" id="btnReport" type="button" value="신고하기">
+                                <input class="btn" id="btnCancle" type="button" value="취소하기">
                             </th>
                         </tr>
                </table>
@@ -57,11 +59,35 @@
             </div>
 </body>
 <script>
-$(document).ready(()=>{
-   // 취소하기 버튼 : 창 닫기
-   $("#btnCancle").on("click", (e)=>{
-         window.close();
-   });
+$(function(){ 
+    $('#btnReport').on("click",function () {
+
+    // 신고내용 입력하도록
+    if( $("#rpContent").val().length==0 ){
+    	alert("신고 내용을 입력해주세요.");
+    	$("#rpContent").focus();
+    	return false;
+    }   	
+    	
+    var reportData = $("#reportForm").serialize();
+    $.ajax({
+      type : "POST",
+      url : "${ path }/hobby/report",
+      data: reportData,
+      datatype: 'json',
+      success : function(data){ 
+         alert("신고글이 정상적으로 등록되었습니다.");
+         window.close()}
+   		});
+	});
 });
+
+$(function(){
+	// 취소하기 버튼 : 창 닫기
+	$("#btnCancle").on("click", (e)=>{
+	         window.close();
+	   });
+});
+
 </script>
 </html>
