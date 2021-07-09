@@ -98,7 +98,7 @@
 	<select id="selectReserveCount" parameterType="map"
 		resultType="_int">
 		SELECT COUNT(*)
-		FROM RESERVATION
+		FROM RESERVE
 		WHERE HB_NO = ${hbNo}
 		AND
 		MEM_NO = ${memNo}
