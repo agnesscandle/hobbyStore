@@ -67,7 +67,17 @@
 								onclick="merInfoPopup();">상인 정보보기</button>
 						</p>
 						<p class="btnSml1">
-							<button class="btn" id="btnLiked">좋아요</button>
+							<c:choose>
+								<c:when test="${ empty loginMember && empty loginMerchant}">
+									<button class="btn" id="btnLikedA">좋아요A</button>
+								</c:when>
+								<c:when test="${ !empty loginMember && empty loginMerchant }">
+									<button class="btn" id="btnLiked">좋아요</button>
+								</c:when>
+								<c:otherwise>
+									<button class="btn" id="btnLikedB">좋아요B</button>
+								</c:otherwise>
+							</c:choose>
 						</p>
 						<p class="btnSml1">
 							<button class="btn" id="btnShare">공유하기</button>
@@ -217,8 +227,18 @@ $(document).on("click", "#shareLink", function(e) {
                   }); //클립보드 복사
       
 
-//좋아요 버튼
+// 비회원용 좋아요 버튼
+$(function(){
+	$("#btnLikedA").click(function(){
+		alert("좋아요 기능은 로그인 후 사용할 수 있습니다.");
+		location.href="${path}/member/login";
+	});
+});
+                  
+                  
+
 $(document).ready(()=>{
+
 // 결제하기 버튼
 $("#btnPay").on("click", (e)=>{
 	location.href="${path}/hobby/reserve?hbNo=${hobby.hbNo}";

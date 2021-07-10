@@ -338,7 +338,9 @@ public class HobbyController {
 	@ResponseBody
 	@GetMapping("/liked")
 	public Map<String, String> liked(ModelAndView model,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @RequestParam("hbNo") int hbNo,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, 
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam("hbNo") int hbNo,
 			@ModelAttribute Liked liked) {
 
 		log.info("좋아요 요청");

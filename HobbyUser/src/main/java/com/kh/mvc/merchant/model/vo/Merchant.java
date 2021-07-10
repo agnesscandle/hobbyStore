@@ -26,6 +26,8 @@ public class Merchant {
    
    private String Bank;
    
+   private String bankNumber;
+   
    private String merNick;
    
    private String status;

@@ -104,13 +104,12 @@
     font-weight: bolder;
 }
 
-#btnLiked, #btnShare, #btnQuestion, #btnReport{
+#btnLiked, #btnLikedA, #btnLikedB, #btnShare, #btnQuestion, #btnReport{
     color : white;
     background-color: #616161;
     width : 38%;
-    font-size: 20px;
+    font-size: 50px;
     font-weight: bold;
-
 }
 
 /*
