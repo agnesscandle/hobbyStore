@@ -181,7 +181,7 @@
 		<result property="hbThumRename" column="HB_THUM_RENAME" />
 		<result property="hbInfo" column="HB_INFO" />
 		<result property="hbLocation" column="HB_LOCATION" />
-		
+	</resultMap>
 		
 		
 		
