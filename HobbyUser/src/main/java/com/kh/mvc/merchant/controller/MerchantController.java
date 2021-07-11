@@ -188,9 +188,5 @@ public class MerchantController {
 		return model;
 
 	}
-	
-	
-	
-	
->>>>>>> merchantDevelop
+
 }
