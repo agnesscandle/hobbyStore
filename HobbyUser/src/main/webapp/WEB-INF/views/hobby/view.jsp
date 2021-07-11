@@ -7,7 +7,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <%@ include file="../../views/common/header.jsp"%>
-<link rel="stylesheet" href="${path}/css/view.css">
+<link rel="stylesheet" href="${path}/css/hobby/view.css">
 
 
 <section>
@@ -16,16 +16,44 @@
 		<div class="top">
 			<div class="left" id="leftTop">
 				<div class="imgContainer">
-					<img class="hobbyImg" src="${ path }/images/신규 클래스2.jpg">
+					<img class="hobbyImg"
+						src="${ path }/upload/hobby/${hobby.hbThumRename}">
 				</div>
 			</div>
 			<div class="right" id="rightTop">
 				<div class="forBorder">
 					<div class="infoContainer">
-						<h4 id="cate">${hobby.cateNo}</h4>
-						<h2 id="title">${hobby.hbTitle}</h2>
-						<!-- 가격 오른쪽 정렬 + 단위 콤마 표시 -->
-						<h3 id="price">${hobby.hbFee}(원)</h3>
+					<input type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}"/>
+						<h4 id="cate"><c:out value="${hobby.cateName}" />
+						</h4>
+						<h2 id="title">
+							<c:out value="${hobby.hbTitle}" />
+						</h2>
+						<br>
+						<div id="price">
+							<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
+								<c:set var="disFee"
+									value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />
+								<fmt:formatNumber value="${disFee}" type="number"
+									var="discountFee" />
+								<fmt:formatNumber value="${hobby.hbFee}" type="number"
+									pattern="#,###" var="originalFee" />
+								<span class="price">
+									<div class="discount">
+										${ hobby.hbDiscountRate }% &nbsp;
+										<del>${originalFee}원 </del>
+									</div> <b class="finalPrice">${discountFee}원 </b>
+							</c:if>
+
+							<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
+								<fmt:formatNumber value="${hobby.hbFee}" type="number"
+									pattern="#,###" var="originalFee" />
+								<span class="price"> <b class="finalPrice">${ originalFee }원</b>
+							</c:if>
+							</span>
+
+
+						</div>
 					</div>
 					<br>
 					<hr>
@@ -35,7 +63,8 @@
 							<button class="btn" id="btnPay">결제하기</button>
 						</p>
 						<p>
-							<button class="btn" id="btnMerchantInfo">상인 정보보기</button>
+							<button class="btn" id="btnMerchantInfo"
+								onclick="merInfoPopup();">상인 정보보기</button>
 						</p>
 						<p class="btnSml1">
 							<button class="btn" id="btnLiked">좋아요</button>
@@ -95,9 +124,18 @@
 			</div>
 		</div>
 		<div class="detail" id="infoD">취미 소개 상세</div>
-		<div class="detail" id="locationD">위치 상세</div>
+		<div class="detail" id="locationD"> 위치 상세
+			<div>
+				<span id="address"><c:out value="${hobby.hbLocation}"/></span>
+				<div id="map" style="width:500px;height:350px;">
+			</div>
+			
+			
+			
+			</div>
+		</div>
 		<div class="detail" id="questionD">
-
+			
 			<div id="qnaList">
 				<c:forEach var="qna" items="${ qnaList }">
 					<div id="qna"></div>
@@ -116,6 +154,7 @@
 </section>
 
 <script>
+
 
 //공유하기 모달창
 $(function(){
@@ -180,22 +219,58 @@ $(document).on("click", "#shareLink", function(e) {
 
 //좋아요 버튼
 $(document).ready(()=>{
-   $("#btnLiked").on("click", (e)=>{
-      location.href="${path}/hobby/liked?no=${hobby.hbNo}";
+// 결제하기 버튼
+$("#btnPay").on("click", (e)=>{
+	location.href="${path}/hobby/reserve?hbNo=${hobby.hbNo}";
+});
+
+// 좋아요 버튼
+   $("#btnLiked").on("click", ()=>{
+	   var hbNo=$("#hbNo").val();
+	   
+   		$.ajax({
+   			type:"get",
+   			url:"${path}/hobby/liked",
+   			dataType:"json",
+   			data:{
+   				hbNo
+   			},
+   			success:function(data){
+   				console.log(data);
+   				
+   				if(data.status === 'Y'){
+   					alert("좋아요 취미에 등록되었습니다.");
+   					window.close()
+   				} else {
+   					alert("좋아요 취미에서 삭제되었습니다.");
+   					window.close()
+   				}
+   			},
+   			error : function(e){
+   				console.log(e);
+   			}
+   		});
    });
 });
 
-//신고하기 버튼
-function reportPopup(){
-   var hbNo =$("#hbNo").val();
-   console.log("취미번호 : " + hbNo);
+// 상인 정보보기 버튼 : 상인정보 팝업
+	function merInfoPopup(){
+			var url = "${path}/hobby/merInfo?hbNo=${hobby.hbNo}&merNo=${hobby.merNo}";
+			var name="merchantInfo";
+			var option = "width=610, height=540, left=400, top=150, location=no, resizable=no, scrollbars=no";
+		window.open(url, name, option);
+	}
 
-// 취미번호까지 제대로 찍힘 + 자식 창에서 부모 창의 값 가져오기
-   var url = "${path}/hobby/report?hbNo=${hobby.hbNo}&hbTitle=${hobby.hbTitle}";
-   var name = "report";
-   var option = "width=650, height=630, left=400, top=150, location=no, resizable=no, scrollbars=no";
-   window.open(url, name, option);
-}
+//신고하기 버튼 : 신고창 팝업
+	function reportPopup(){
+	   var hbNo =$("#hbNo").val();
+	   console.log("취미번호 : " + hbNo);
+	
+	   var url = "${path}/hobby/report?hbNo=${hobby.hbNo}&hbTitle=${hobby.hbTitle}";
+	   var name = "report";
+	   var option = "width=660, height=680, left=400, top=150, location=no, resizable=no, scrollbars=no";
+	   window.open(url, name, option);
+	}
 
 /* 
  // Get the modal
@@ -234,6 +309,59 @@ function reportPopup(){
 		    modal.style.display = "block";
 		}
 */
+</script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c42e9fa59c3e426319f693b117473bea&libraries=services"></script>
+<script>
+// 상인이 등록한 취미 주소를 가져오기
+function findLocation(){
+	var hbL =$("#address")[0].innerText;
+	var sLocation = hbL.split(",");
+	var location = sLocation[1];
+	
+	console.log(location);
+	return location;
+}
+
+// 카카오 지도 불러오기
+var mapContainer = document.getElementById('map'),
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3
+    };  
+
+// 지도를 생성
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 취미 주소 가져오기(테스트용)
+findLocation();
+
+// 주소로 좌표를 검색(상인 취미 주소)
+geocoder.addressSearch(findLocation(), function(result, status) {
+
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 취미 장소(위치)에 대한 설명
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">취미 클래스 위치</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킴
+        map.setCenter(coords);
+    } 
+});    
 </script>
 
 

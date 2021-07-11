@@ -159,7 +159,7 @@
                      	$('#delete').click(function() {
                      		var returnValue = confirm('게시글을 삭제하시겠습니까?');
                      		if(returnValue){
-                     			location.href='${path}/hobby/view/deleteReview?rvNo=${reviewByNo.rvNo}';
+                     			location.href='${path}/hobby/view/deleteReview?hbNo=${hobby.hbNo}&rvNo=${reviewByNo.rvNo}';
                      		}
                      		return;
                      	});

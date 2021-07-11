@@ -269,6 +269,29 @@ right
 										onclick="location.replace('${path}/hobby/replyDelete?replyNo=${ replyList.replyNo }')">
 										삭제</button>
 								<hr>
+								<script type="text/javascript">
+								function replyAjax(){
+									var replyData = $("#updateTextarea").serialize();
+									      var ajaxOption = {
+									        type : "POST",
+									        url : "${ path }/hobby/replyUpdate?replyNo=${replyList.replyNo}",
+									        async : true,
+									        data : replyData,
+									        dataType : 'html',
+									        error : function() {
+									          alert('통신실패!!');
+									        },
+									        cache: false
+									      };
+									      $.ajax(ajaxOption).done(function(data){
+									            // Contents 영역 삭제
+									            $('#updateTextarea').children().remove();
+									            // Contents 영역 교체
+									            $('#updateTextarea').html(data);
+									        });
+
+									    }
+								</script>
 							</c:forEach>
 						</div>
 						<form action="${ path }/hobby/qnaList" method="POST">
@@ -341,22 +364,7 @@ $(document).ready(() => {
 			}
 		});
 });
-		function replyAjax(){
-			var qnaData = $("#updateTextarea").serialize();
-			      $.ajax({
-			        type : "GET",
-			        url : "replyUpdate.jsp",
-			        data: qnaData,
-			        dataType : 'JSON',
-			        error : function() {
-			          alert('통신실패!!');
-			        },
-			        success : function(data) {
-			          $('#updateTextarea').html(data);
-			        }
-			 
-			      });
-			    }
+		
 </script>
 
 </body>

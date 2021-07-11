@@ -1,5 +1,8 @@
 package com.kh.mvc.hobby.model.mapper;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
@@ -10,10 +13,9 @@ import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
-
-import java.util.HashMap;
-import java.util.List;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 @Mapper
 public interface HobbyMapper {
@@ -91,8 +93,14 @@ public interface HobbyMapper {
 
 	
 
-	
+	Merchant selectMerInfoByNo(HashMap<String, Integer> hashMap);
 
-	
+	Merchant selectMerInfoByNo(int merNo);
+
+	String selectCateNameByNo(int cateNo);
+
+	int saveReserve(Reserve reserve);
+
+
 
 }

@@ -19,7 +19,9 @@ import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Report;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -348,6 +350,7 @@ public class HobbyServiceImpl implements HobbyService {
 	      return mapper.deleteQna(qna);
 	   }
 
+
 	@Override
 	public int deleteReply(Reply reply) {
 	      return mapper.deleteReply(reply);
@@ -359,5 +362,24 @@ public class HobbyServiceImpl implements HobbyService {
 	}
 
 
-	
+	   
+	@Override
+	public Merchant findMerInfoByNo(int merNo) {
+		
+		return mapper.selectMerInfoByNo(merNo);
+	}
+
+	@Override
+	public String findCateNameByNo(int cateNo) {
+		
+		return mapper.selectCateNameByNo(cateNo);
+	}
+
+	@Override
+	public int saveReserve(Reserve reserve) {
+		
+		return mapper.saveReserve(reserve);
+	}
+
+
 }
