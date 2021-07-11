@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.mvc.merchant.model.service.MerchantMemberService;
+import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.MerchantMember;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MerchantController {
 	
 	@Autowired
-	private MerchantMemberService service;
+	private MerchantService service;
 	
 	// 로그인
 	@RequestMapping(value = "/merchantMember/merlogin", method = {RequestMethod.POST})
@@ -102,4 +102,10 @@ public class MerchantController {
 		
 		return "merchantMember/merMain";
 	}
+	
+	/*
+	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");
+	 * 
+	 * return "/hobby/enroll"; }
+	 */
 }

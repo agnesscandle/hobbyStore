@@ -5,13 +5,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.mvc.merchant.model.mapper.MerchantMemberMapper;
+import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.MerchantMember;
 
 @Service
-public class MerchantMemberServiceImpl implements MerchantMemberService{
+public class MerchantServiceImpl implements MerchantService{
 	@Autowired
-	private MerchantMemberMapper mapper;
+	private MerchantMapper mapper;
 	
 	@Autowired 
 	private BCryptPasswordEncoder passwordEncoder;
