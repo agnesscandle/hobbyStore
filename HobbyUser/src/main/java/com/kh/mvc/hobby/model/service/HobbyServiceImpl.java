@@ -353,6 +353,11 @@ public class HobbyServiceImpl implements HobbyService {
 	      return mapper.deleteReply(reply);
 	}
 
+	@Override
+	public Reply findByReplyNo(int replyNo) {
+		return mapper.findByReplyNo(replyNo);
+	}
+
 
 	
 }

@@ -419,16 +419,20 @@ public class HobbyController {
           @ModelAttribute Qna qna) {
        
        Hobby hobby = service.question(hbNo);
-       System.out.println(hobby);
-       if(loginMember.getMemNo() == qna.getMemNo()) {
+       System.out.println(loginMember);
+       
+       if(loginMember == null) {
 
-       }else {
+    		model.addObject("msg", "로그인 이후 이용 가능합니다.");
+            model.addObject("location", "/");
+            model.setViewName("common/msg");
+    		
+    	} else {
           
-          model.addObject("msg", "잘못된 접근입니다");
-          model.addObject("location", "/");
+    	       model.addObject("hobby",hobby);
+    	       model.setViewName("/hobby/question");
        }
-       model.addObject("hobby",hobby);
-       model.setViewName("/hobby/question");
+
        
        return model;
     }
@@ -441,14 +445,10 @@ public class HobbyController {
        qna.setMemNo(loginMember.getMemNo());
        result = service.saveQna(qna);
       
-       if(result > 0) {
-          model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-          model.addObject("location", "/");
-       } else {
+  
           model.addObject("msg", "게시글이 등록을 실패하였습니다.");
           model.addObject("location", "/");
-       }
-       model.setViewName("common/msg");
+          model.setViewName("common/msg");
        
        return model;
     }
@@ -567,7 +567,7 @@ public class HobbyController {
  public ModelAndView replyDelete(ModelAndView model,
 	       //@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 	       HttpServletRequest request,
-	       @ModelAttribute Hobby hobby, @ModelAttribute Reply reply) {
+	       @ModelAttribute Hobby hobby,@ModelAttribute Qna qna, @ModelAttribute Reply reply) {
 	 
 	 	int result =0;
 	    
@@ -585,4 +585,25 @@ public class HobbyController {
 	 return model;
  }
 
+ @GetMapping("/replyUpdate")
+ public ModelAndView replyUpdate(ModelAndView model,
+		 @RequestParam("replyNo") int replyNo) {
+	 
+     Reply reply = service.findByReplyNo(replyNo);
+     
+     System.out.println(replyNo);
+       model.addObject("reply", reply);
+       model.setViewName("/hobby/replyUpdate");
+     
+     return model;
+ }
+ 
+ @PostMapping("/replyUpdate")
+ public ModelAndView replyUpdate(ModelAndView model, 
+//       @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+       HttpServletRequest request,
+       @ModelAttribute Qna qna, @ModelAttribute Hobby hobby, @ModelAttribute Reply reply) {
+	 
+	 return model;
+ }
 }

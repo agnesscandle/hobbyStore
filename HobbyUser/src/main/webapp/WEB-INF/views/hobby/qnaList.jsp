@@ -255,18 +255,18 @@ right
 						<div class="replyView">
 
 							<c:forEach var="replyList" items="${ qna.reply }">
-
+							<div id="updateTextarea">
 								<span id="replyContent"><c:out
 										value="${ replyList.replyContent }"></c:out></span>
 								<span class="replyRight"> <span id="replyDate"><c:out
 											value="${ replyList.replayDate }"></c:out></span> <span
 									id="replyMer"> 작성자아이디입력칸</span> <!-- 작성자 아이디추가해야댐 -->
 								</span>
-								<button type="button" id="replyUpdate"
-										onclick="location.replace('${path}/hobby/replyUpdate?replyNo=${ reply.replyNo }')">
+						</div>
+								<button type="button" id="replyUpdate" onclick="replyAjax()">
 										수정</button>
 										<button type="button" id="replyDelete"
-										onclick="location.replace('${path}/hobby/replyDelete?replyNo=${ reply.replyNo }')">
+										onclick="location.replace('${path}/hobby/replyDelete?replyNo=${ replyList.replyNo }')">
 										삭제</button>
 								<hr>
 							</c:forEach>
@@ -340,7 +340,23 @@ $(document).ready(() => {
 				location.replace("${path}/hobby/qnaList?hbNo=${hobby.hbNo}");
 			}
 		});
-	});
+});
+		function replyAjax(){
+			var qnaData = $("#updateTextarea").serialize();
+			      $.ajax({
+			        type : "GET",
+			        url : "replyUpdate.jsp",
+			        data: qnaData,
+			        dataType : 'JSON',
+			        error : function() {
+			          alert('통신실패!!');
+			        },
+			        success : function(data) {
+			          $('#updateTextarea').html(data);
+			        }
+			 
+			      });
+			    }
 </script>
 
 </body>

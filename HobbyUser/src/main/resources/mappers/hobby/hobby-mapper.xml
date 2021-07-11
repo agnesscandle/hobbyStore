@@ -587,6 +587,12 @@
 		WHERE REPLY_NO = #{replyNo}
 	</delete>
 
+<select id="selectReplyByNo" parameterType="_int"
+		resultMap="ReplyListResultMap">
+		<include refid="replyList" />
+		WHERE R.REPLY_NO=#{replyNo}
+
+	</select>
 
 
 </mapper>

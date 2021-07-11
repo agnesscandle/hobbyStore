@@ -81,4 +81,6 @@ public interface HobbyService {
 
 	int deleteReply(Reply reply);
 
+	Reply findByReplyNo(int replyNo);
+
 }

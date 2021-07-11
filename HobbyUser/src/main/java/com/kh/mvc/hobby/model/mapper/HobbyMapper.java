@@ -87,6 +87,8 @@ public interface HobbyMapper {
 
 	int deleteReply(Reply reply);
 
+	Reply findByReplyNo(int replyNo);
+
 	
 
 	
