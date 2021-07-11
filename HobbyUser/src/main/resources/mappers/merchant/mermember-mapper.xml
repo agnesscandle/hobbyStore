@@ -5,10 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.kh.mvc.merchant.model.mapper.MerchantMapper">
-<<<<<<< HEAD
-=======
- 
->>>>>>> merchantDevelop
+
  	<sql id="selectMerchantMemberSql">
  		SELECT  MER_NO, 
 			    MER_ID, 
