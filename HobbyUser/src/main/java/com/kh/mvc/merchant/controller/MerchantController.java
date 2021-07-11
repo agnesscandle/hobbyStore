@@ -188,5 +188,16 @@ public class MerchantController {
 		return model;
 
 	}
+	
+	/*취미 수정*/
+	@PostMapping("/merchantMember/updateEnroll")
+	public ModelAndView updateEnroll(ModelAndView model, @RequestParam("postcode") String postcode,
+			@RequestParam("exactAddress") String exactAddress, MultipartHttpServletRequest mtfRequest,
+			// @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			HttpServletRequest request, @ModelAttribute Hobby hobby) {
+	
+		
+		return model;
+	}
 
 }
