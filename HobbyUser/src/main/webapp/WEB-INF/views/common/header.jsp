@@ -31,9 +31,9 @@
                 <img src="${path}/images/search.png"/></button>
             </form>
 
-            <div class="member">
+            <span class="member" id="memberContainer">
                 <!-- 로그인이 되어있지 않은 경우  -->
-                    <table class="container" align="center">
+                    <table class="tbl" align="center">
                 <c:if test="${ loginMember == null && loginMerMember == null }">
                         <tr class="main">
                             <td class="btn login"><button type="button" onclick="location.href='${path}/member/login'">로그인</button></td>
@@ -65,7 +65,7 @@
                         </tr>
                </c:if>
                     </table>
-            </div>
+            </span>
             <nav>
                 <ul class="nav-links">
                     <li><a href="${ path }/hobby/list">전체 카테고리</a>

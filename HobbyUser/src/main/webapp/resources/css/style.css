@@ -5,6 +5,14 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+#memberContainer{
+    display : flex;
+    position : relative;
+    width : 500px;
+    margin : 1px;
+    left : 1450px;
+    top : -15px;
+}
 
 nav{
     margin : 20px;
@@ -16,12 +24,11 @@ nav{
     font-family : 'Noto Sans KR', sans-serif;
 }
 
-.member{
-    display : inline-flex;
+/* .member{
+    display : flex;
     position : relative;
-    left : 1000px;
-    top : -15px;
-}
+
+} */
 
 .main button{
     font-size : 15px;
@@ -58,9 +65,9 @@ nav{
     font-weight: bold;
 }
 
-.container td{
+.tbl td{
     height : 30px;
-    width : 100px;
+    width : 150px;
 }
 
 .btn_search{
@@ -68,6 +75,9 @@ nav{
     border : none;
 }
 
+.btn{
+    width : 100px;
+}
 button{
     background-color: white;
     border : none;
