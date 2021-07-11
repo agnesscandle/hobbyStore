@@ -18,11 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
-=======
+
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
->>>>>>> merchantDevelop
+
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.MerchantMember;
 
@@ -117,14 +116,13 @@ public class MerchantController {
 		
 		return "merchantMember/merMain";
 	}
-	
-<<<<<<< HEAD
+
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");
 	 * 
 	 * return "/hobby/enroll"; }
 	 */
-=======
+
 	/* 취미 등록페이지 요청 */
 	@GetMapping("/merchantMember/hobbyEnroll")
 	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) {
