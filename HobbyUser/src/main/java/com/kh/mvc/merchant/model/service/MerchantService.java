@@ -10,7 +10,7 @@ import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.merchant.model.vo.MerchantMember;
 
-public interface MerchantMemberService {
+public interface MerchantService {
 
 	MerchantMember login(String merId, String merPassword);
 	

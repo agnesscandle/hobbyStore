@@ -14,13 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-import com.kh.mvc.merchant.model.mapper.MerchantMemberMapper;
+import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.MerchantMember;
 
 @Service
-public class MerchantMemberServiceImpl implements MerchantMemberService{
+public class MerchantServiceImpl implements MerchantService{
 	@Autowired
-	private MerchantMemberMapper mapper;
+	private MerchantMapper mapper;
 	
 	@Autowired 
 	private BCryptPasswordEncoder passwordEncoder;
@@ -181,6 +181,7 @@ public class MerchantMemberServiceImpl implements MerchantMemberService{
 		hobby.setHbThumRename(thumRename);
 
 	}
+
 
 	
 	

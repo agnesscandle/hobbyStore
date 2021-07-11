@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-import com.kh.mvc.merchant.model.service.MerchantMemberService;
+import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.MerchantMember;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MerchantController {
 	
 	@Autowired
-	private MerchantMemberService service;
+	private MerchantService service;
 	
 	// 로그인
 	@RequestMapping(value = "/merchantMember/merlogin", method = {RequestMethod.POST})
@@ -123,7 +123,7 @@ public class MerchantController {
 		list = service.getCateList();
 
 		model.addObject("list", list);
-		model.setViewName("hobby/enroll");
+		model.setViewName("merchantMember/hobbyEnroll");
 
 		return model;
 	}

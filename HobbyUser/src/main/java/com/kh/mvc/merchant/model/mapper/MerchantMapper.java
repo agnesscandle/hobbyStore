@@ -12,7 +12,7 @@ import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.merchant.model.vo.MerchantMember;
 
 @Mapper
-public interface MerchantMemberMapper {
+public interface MerchantMapper {
 	MerchantMember selectMerchantMember(@Param("merId") String merId);
 
 	int insertMerchantMember(MerchantMember merchantMember);
