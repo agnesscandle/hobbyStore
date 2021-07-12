@@ -262,7 +262,7 @@ $('.next').click(function(){
             let reserveData = $("#reserveForm").serialize();
             
             // 성공시 : HobbyController에 데이터를 전달하여 DB에 입력
-                     $.ajax({
+           $.ajax({
                url : "${ path }/hobby/reserve",
                type : "post",
                data : reserveData,
@@ -271,6 +271,8 @@ $('.next').click(function(){
                   alert(msg);
             }
          });
+            alert("결제가 성공적으로 진행되었습니다. 상세 페이지로 이동합니다.");
+            location.href="${path}/hobby/view?hbNo=${hobby.hbNo}";
       } else {
                   var msg = '결제에 실패하였습니다.';
                   msg += '에러내용 : ' + rsp.error_msg;
