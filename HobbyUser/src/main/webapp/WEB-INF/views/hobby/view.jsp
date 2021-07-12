@@ -22,18 +22,15 @@
 				</div>
 				<div id="addedImgContainer">
 						<c:if test="${!empty hobby.hbImgsRename}">
-								<img class="addImg" id="image" src="${ path }/upload/hobby/${hobby.hbThumRename}">
+						<div class="addedImgDiv">
+								<img class="addImg" id="image" src="${ path }/upload/hobby/${hobby.hbThumRename}" onclick="change('${hobby.hbThumRename}')"></div>
 								<c:forTokens items="${hobby.hbImgsRename}" delims="," var="item" varStatus="status">
-									<c:out value="${status.end}"></c:out>
-									
+									<c:if test="${status.last}">
+										<c:set var="cnt" value="${status.index+1}"></c:set>
+									</c:if>
 									<div class="addedImgDiv">
-										<img class="addImg" id="image" src="${ path }/upload/hobby/${item}" onclick="change()">
-										<script>
-											// 이미지 변경
-											function change(){
-												document.getElementById("thumImg").src="${ path }/upload/hobby/${item}";
-											}
-										</script>
+										<img class="addImg img-${status.index}" id="image" 
+																						src="${ path }/upload/hobby/${item}" onclick="change('${item}')">
 									</div>
 								</c:forTokens>
 						</c:if>
@@ -189,6 +186,14 @@
 		</div>
 	</div>	
 </div>
+<script>
+// 이미지 변경
+function change(item){
+	document.getElementById("thumImg").src="${ path }/upload/hobby/"+item;
+}
+</script>
+
+
 <script>
 // 중간 메뉴바 이동
 $("#info").click(function(){
