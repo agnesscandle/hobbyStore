@@ -36,12 +36,12 @@
                     <table class="tbl" align="center">
                 <c:if test="${ loginMember == null && loginMerMember == null }">
                         <tr class="main">
-                            <td class="btn login"><button type="button" onclick="location.href='${path}/member/login'">로그인</button></td>
-                            <td class="btn join"><button type="button" onclick="location.href='${path}/member/enroll'">회원가입</button></td>
+                            <td class="butn login"><button type="button" onclick="location.href='${path}/member/login'">로그인</button></td>
+                            <td class="butn join"><button type="button" onclick="location.href='${path}/member/enroll'">회원가입</button></td>
                         </tr>
                         <tr class="find">
-                            <td class="btn findId"><button type="button" onclick="location.href='${path}'">아이디찾기</button></td>
-                            <td class="btn findPwd"><button type="button" onclick="location.href='${path}'">비밀번호찾기</button></td>
+                            <td class="butn findId"><button type="button" onclick="location.href='${path}'">아이디찾기</button></td>
+                            <td class="butn findPwd"><button type="button" onclick="location.href='${path}'">비밀번호찾기</button></td>
                         </tr>
                  </c:if>
                  
@@ -51,8 +51,8 @@
                             <td colspan="2" class="infoId">${ loginMember.memName } 님, 환영합니다</td>
                         </tr>
                         <tr>
-                            <td class="btn logout"><button type="button" onclick="location.replace('${path}/logout')">로그아웃</button></td>
-                            <td class="btn myPage"><button type="button" onclick="location.href='${path}/member/myInfo'">마이 페이지</button></td>
+                            <td class="butn logout"><button type="button" onclick="location.replace('${path}/logout')">로그아웃</button></td>
+                            <td class="butn myPage"><button type="button" onclick="location.href='${path}/member/myInfo'">마이 페이지</button></td>
                         </tr>
                </c:if>
 				<c:if test="${ loginMerMember != null }">
@@ -60,8 +60,8 @@
                             <td colspan="2" class="infoId">${ loginMerMember.merName } 님, 환영합니다</td>
                         </tr>
                         <tr>
-                            <td class="btn logout"><button type="button" onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
-                            <td class="btn myPage"><button type="button" onclick="location.href='${path}/merchantMember/merMain'">마이 페이지</button></td>
+                            <td class="butn logout"><button type="button" onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
+                            <td class="butn myPage"><button type="button" onclick="location.href='${path}/merchantMember/merMain'">마이 페이지</button></td>
                         </tr>
                </c:if>
                     </table>
