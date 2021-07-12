@@ -256,6 +256,7 @@ right
 
 							<c:forEach var="replyList" items="${ qna.reply }">
 							<div id="updateTextarea">
+								<input type="hidden" id="replyNo" name="replyNo" value="${replyList.replyNo }">
 								<span id="replyContent"><c:out
 										value="${ replyList.replyContent }"></c:out></span>
 								<span class="replyRight"> <span id="replyDate"><c:out

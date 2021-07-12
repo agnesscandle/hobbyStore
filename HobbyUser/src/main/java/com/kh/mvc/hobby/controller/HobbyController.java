@@ -609,7 +609,7 @@ public class HobbyController {
 	 return model;
  }
 
- @GetMapping("/replyUpdate")
+ @PostMapping("/replyUpdate")
  public ModelAndView replyUpdate(ModelAndView model,
 		 @RequestParam("replyNo") int replyNo) {
 	 
@@ -617,6 +617,7 @@ public class HobbyController {
      System.out.println(replyNo);
        model.addObject("reply", reply);
        model.setViewName("/hobby/replyUpdate");
+       
      
      return model;
  }
