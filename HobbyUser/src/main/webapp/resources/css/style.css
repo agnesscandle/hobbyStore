@@ -153,6 +153,9 @@ button{
     color :  #34486b;
 }
 
+.category li a:hover{
+    color: #eacc16;
+}
 
 /* 버거 영역 : 메뉴 모양 */
 .burger{
