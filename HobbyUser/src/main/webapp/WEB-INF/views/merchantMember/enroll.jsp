@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../../views/common/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<link rel="stylesheet" href="${path}/css/merchantMember_css/enroll.css">
 
 <!DOCTYPE html>
 <html>
@@ -16,83 +17,113 @@
 <body>
 	<h2>상인 회원 가입</h2>
 	
-	<div id="enroll-container">
+	<div class="memEnrollWrapper">
 		<form name="memberEnrollFrm" action="${ path }/merchantMember/enroll" method="POST">
+		<div class="memEnrollTitle">상인 회원 가입</div>
 			<table>
-				<tr>
-					<th>아이디</th>
-					<td>
-						<input type="text" name="merId" id="merId" placeholder="아이디(4글자이상)" required />
-						<input type="button" id="checkDuplicate" value="중복검사" />
-					</td>
-				</tr>
-				<tr>
-					<th>패스워드</th>
-					<td>
-						<input type="password" name="merPassword" id="merPassword" required /> 
-					</td>
-				</tr>
-				<tr>
-					<th>패스워드 확인</th>
-					<td>
-						<input type="password" id="pass2"/> 
-					</td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td>
-						<input type="text" name="merName" required />
-					</td>
-				</tr>
-				<tr>
-					<th>휴대폰</th>
-					<td>
-						<input type="tel" name="merPhone" maxlength="11" placeholder="(-없이)01012345678">
-					</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>
-						<input type="email" name="merEmail" placeholder="abc@abc.com" />
-					</td>
-				</tr>
-				<tr>
-					<th>은행명</th>
-					<td>
-						<input type="text" name="bank" />
-					</td>
-				</tr>
-					<tr>
-					<th>계좌 번호</th>
-					<td>
-						<input type="text" name="bankNumber" />
-					</td>
-				</tr>
-				<tr>
-					<th>닉네임</th>
-					<td>
-						<input type="text" name="merNick" />
-					</td>
-				</tr>
-				<th>자기소개</th>
-					<td>
-						<input type="text" name="greeting" />
-					</td>
-				<tr>
-					<th>취미</th>
-					<td>
-
-						<label><input type="checkbox" name="hobby" value="액티비티"/>액티비티</label>
-						<label><input type="checkbox" name="hobby" value="등산"/>등산</label>
-						<label><input type="checkbox" name="hobby" value="독서"/>독서</label>
-						<label><input type="checkbox" name="hobby" value="게임"/>게임</label>
-						<label><input type="checkbox" name="hobby" value="여행"/>여행</label>
-					</td>
-				</tr>
+				<!-- 아이디 -->
+		<label class="memEnrollLabel">아이디</label><br>
+		<input class="enrollInput" type="text" class="" id="merId" name="merId" placeholder="hobbystore7777" required="required"> 
+		<div class="id_validate"></div>
+		<span class="id_input_re_1"></span>
+		<span class="id_input_re_2"></span>
+		<div class="duplicate regex"></div>
+				
+			
+			<!-- 비밀번호 -->
+        <label class="memEnrollLabel">비밀번호</label><br>
+        <input class="enrollInput" type="password" id="merPassword" name="merPassword" placeholder="Password" required="required"/>
+   		<div class="p-alert pw-success" id="pw-success"></div>
+   		<div class="p-alert pw-success"id="pw-danger"></div>
+   		
+   		<!-- 비밀번호 확인 -->
+        <label class="memEnrollLabel pwCheck">비밀번호 확인</label><br>
+        <input class="enrollInput" type="password" id="merPassword2" required="required"/>
+   		
+   		<div class="alert alert-success" id="alert-success"></div>
+   		<div class="alert alert-danger" id="alert-danger"></div>
+			
+			
+			
+		<!-- 이름 -->
+		<label class="memEnrollLabel">이름</label><br> 
+		<input class="enrollInput" type="text" id="merName" name="merName" placeholder="홍길동" required="required" />
+		<div class="name regex"></div>
+				
+				
+		<!-- 전화번호 -->
+   		<label class="memEnrollLabel">전화번호</label><br>
+        <input class="enrollInput" type="text" name="merPhone" id="merPhone" placeholder="ex) 01012345678" required="required">
+        <div class="phone_input_re_1"></div>
+		<div class="phone_input_re_2"></div>
+        <div class="phone regex"></div>
+        		
+		
+		<!-- 이메일 -->
+   		<label class="memEnrollLabel">이메일</label><br>
+        <input class="enrollInput" type="text" name="merEmail" id="merEmail" placeholder="hobbyuser@market.com" required="required">
+        <div class="email_input_re_1"></div>
+		<div class="email_input_re_2"></div>
+        <div class="email regex"></div>
+		
+		
+		<!-- 은행명 -->
+   		<label class="memEnrollLabel">은행명</label><br>
+        <input class="enrollInput" type="text" name="bank" id="bank" placeholder="한국은행" required="required">
+        <div class="bank regex"></div>
+        
+        
+		<!-- 계좌번호 -->
+   		<label class="memEnrollLabel">계좌번호</label><br>
+        <input class="enrollInput" type="text" name="bankNumber" id="bankNumber" placeholder="ex) 1111-1234-1234"  required="required">
+        <div class="bankNumber regex"></div>
+		
+		<!-- 닉네임 -->
+   		<label class="memEnrollLabel">닉네임</label><br>
+        <input class="enrollInput" type="text" name="merNick" id="merNick" placeholder="요리천재39" required="required">
+        <div class="bank regex"></div>
+		
+		<!-- 간단한 소개 -->
+   		<label class="memEnrollLabel">간단한 소개말</label><br>
+        <input class="enrollInput" type="text" name="greeting" id="greeting" placeholder="ex) 요리천재입니다. 쉽고 빠른 요리 배워요." required="required">
+        <div class="bank regex"></div>
+		
+				
+		    <div class="col-md-4">
+		     <label for="inputState" name= cateNo class="memEnrollLabel">관심분야</label>
+		     <select id="enrollSubmit" name= cateNo class="memEnrollLabel">
+		      <option selected value="1">Choose...</option>
+		      <option value="1">여행</option>
+		      <option value="2">액티비티</option>
+		      <option value="3">공예</option>
+		      <option value="4">음악</option>
+		      <option value="5">미술</option>
+		      <option value="6">커리어</option>
+		      <option value="7">사진</option>
+		      <option value="8">요리</option>
+		      <option value="9">반려동물</option>
+		      <option value="10">건강</option>
+		      <option value="11">뷰티</option>
+		      <option value="12">모임</option>
+		      <option value="13">키즈</option>
+		    </select>
+		    </div>
+        
 			</table>
 			
-			<input type="submit" id="enrollSubmit" value="가입"/>
-			<input type="reset" value="취소"/>
+			<div class="agree_wrap">
+		<input type="checkbox" id="memAgree" name="memAgree" class="agree_chk">
+		<a href="${path}/merchant/registerPage_1" class="registerPage">이용약관</a>,
+		<a href="${path}/merchant/registerPage_2" class="registerPage">개인정보 수집 및 이용</a>
+		<a href="${path}/merchant/registerPage_3"class="registerPage">개인정보 제공</a> 내용을 확인하였고 동의합니다.
+	</div>
+	
+	<!-- 회원가입 버튼 -->
+	<div id="mSignup">
+		<button class="enrollInput subTitle" type="submit" id="enrollSubmit">동의하고 가입하기</button>
+	
+   </div>
+			
 		</form>
 	</div>
 
@@ -305,7 +336,7 @@ $('#merId').on("propertychange change keyup paste input", function(){
    });
    
    $("#enrollSubmit").click(function(){
-	   if($("input:checkbox[name='cateNo']").is(":checked")==false){
+	   if($("select:select[name='cateNo']").is(":selected")==false){
 			  alert('1개 이상의 관심분야를 선택하세요.');
 			  return false;
 		  } else{
