@@ -1,6 +1,7 @@
 package com.kh.mvc.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -25,6 +26,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.mvc.common.util.PageInfo;
+import com.kh.mvc.hobby.model.vo.Category;
+import com.kh.mvc.hobby.model.vo.Liked;
+import com.kh.mvc.hobby.model.vo.Reserve;
+import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.member.model.service.MemberService;
 import com.kh.mvc.member.model.vo.Member;
 
@@ -78,10 +84,16 @@ public class MemberController {
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/member/enroll")
-	public String enrollView() { 
+	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) { 
 		log.info("회원가입 페이지 요청");
 		
-		return "member/enroll";
+		List<Category> list = null;
+		list = service.getCateList();
+		
+		model.addObject("list", list);
+		model.setViewName("member/enroll");
+		
+		return model;
 	}
 	
 	// 회원가입 이용약관 페이지 이동
@@ -203,14 +215,100 @@ public class MemberController {
 	}
 	
 	// 마이페이지 이동
-		@GetMapping("/member/myInfo")
-		public String myInfoView() { 
-			log.info("회원정보 페이지 요청");
+    @GetMapping("/member/myInfo")
+    public ModelAndView myInfoView(ModelAndView model, 
+          @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+          @RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
+       log.info("회원정보 페이지 요청");
+       
+       List<Liked> likedList = null;
+       List<Reserve> rsList = null;
+       List<Hobby> hobbyList = null;
+       List<Hobby> hobbyList_ = null;
+       
+       PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 3);
+       
+       int memNo = 0;
+       memNo = loginMember.getMemNo();
+       
+       likedList = service.getLikedList();
+       rsList = service.getRsList();
+       hobbyList = service.getHobbyRsList(memNo, pageInfo);
+       hobbyList_ = service.getHobbyLikedList(memNo, pageInfo);
+       
+       model.addObject("likedList", likedList);
+       model.addObject("rsList", rsList);
+       model.addObject("hobbyList", hobbyList);
+       model.addObject("hobbyList_", hobbyList_);
+       model.addObject("pageInfo", pageInfo);
+       
+       model.setViewName("/member/myInfo");
+       
+		System.out.println("예약취미 : " + hobbyList);
+		System.out.println("좋아요취미: " + hobbyList_);
+		// System.out.println(rsList);
+		// System.out.println(likedList);
+		
+       return model;
+    }
+		
+	// 좋아요관리 페이지 이동
+		@GetMapping("/member/likedHobby")
+		public ModelAndView likedHobbyView(ModelAndView model, 
+				@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
 			
-			return "member/myInfo";
+			log.info("좋아요관리 페이지 요청");
+			
+			List<Liked> likedList = null;
+			List<Hobby> hobbyList = null;
+			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			int memNo = 0;
+			memNo = loginMember.getMemNo();
+			
+			likedList = service.getLikedList();
+			hobbyList = service.getHobbyLikedList(memNo, pageInfo);
+			
+			model.addObject("likedList", likedList);
+			model.addObject("hobbyList", hobbyList);
+			model.addObject("pageInfo", pageInfo);
+			
+			
+			model.setViewName("/member/likedHobby");
+			
+			return model;
 		}
 		
-	// 마이페이지 이동
+	// 예약관리 페이지 이동
+		@GetMapping("/member/reservedHobby")
+		public ModelAndView reservedHobbyView(ModelAndView model, 
+				@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
+			
+			log.info("예약관리 페이지 요청");
+			
+			List<Reserve> rsList = null;
+			List<Hobby> hobbyList = null;
+			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			
+			int memNo = 0;
+			memNo = loginMember.getMemNo();
+			
+			rsList = service.getRsList();
+			hobbyList = service.getHobbyRsList(memNo, pageInfo);
+			
+			model.addObject("likedList", rsList);
+			model.addObject("hobbyList", hobbyList);
+			model.addObject("pageInfo", pageInfo);
+			
+			
+			model.setViewName("/member/reservedHobby");
+			
+			return model;
+		}
+	
+		
+	// 마이페이지 수정페이지 이동
 		@GetMapping("/member/updateMyInfo")
 		public String updateMyInfoView() { 
 			log.info("회원정보 수정 페이지 요청");

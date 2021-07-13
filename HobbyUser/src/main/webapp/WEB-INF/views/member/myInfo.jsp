@@ -5,110 +5,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%@ include file="../../views/common/header.jsp"%>
+
+
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
+<link rel="stylesheet" href="${path}/css/member_css/myInfo.css">
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
 <style>
-body { min-height: 100vh; /* 최소 높이를 지정 */ display: flex; flex-direction: column; }
-
-footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나가도록 설정 */ }
-
-
-.profilePic-wrapper{
-   height: 150px;
-   width: 150px;
-   position: relative;
-   margin-bottom: 10px;
-   overflow: hideen;
-}
-
-.adjustImage {
-   height: 150px;
-   width: 150px;
-   border: 2px solid rgb(32, 51, 84);
-   border-radius: 50%;
-}
-
-.memInfo_side{
-   float: left;
-   padding: 2% 2% 10% 4%;
-}
-
-.memInfo{
-   margin-bottom: 50%;
-}
-
-.infoMemName{
-   display: inline-block;
-   text-align: right;
-   font-size: 23px;
-   color: rgb(32, 51, 84);
-   font-weight: 600;
-}
-
-.infoMemId, .infoMemEmail{
-   display: inline-block;
-   text-align: right;
-   font-size: 18px;
-   color: rgb(119, 134, 145);
-   font-weight: 600;
-}
-
-.organizeInfo{
-   color: rgb(32, 51, 84);
-   display: inline-block;
-   text-align: right;
-   font-size: 24px;
-   font-weight: 600;
-}
-
-.Info_update_Mem{
-   font-size: 18px;
-   color: rgb(32, 51, 84);
-   font-weight: 600;
-   padding: 10px 0px 0px 0px; 
-   cursor: pointer;
-}
-
-*{margin:0; padding:0;}
-
-li {list-style: none;}
-
-.slide-wrapper{
-   position: relative;
-   width: 1100px;
-   margin: 0 auto;
-   height: 250px;
-   overflow: hidden;
-}
-
-.slides{
-   position: absolute;
-   left:0; top:0;
-   transition: left 0.5s ease-out;
-}
-
-.slides li:not(:last-child){
-   float: left;
-   margin-right: 30px;
-}
-
-.controls{
-   text-align: center;
-   margin-top: 30px;
-}
-
-.controls span{
-   background:#333;
-   color: #fff;
-   padding: 10px 20px;
-   margin:0 10px;
-}
-
-
 
 </style>
 
@@ -138,8 +45,9 @@ li {list-style: none;}
 <div id="updateInfo_btn" class="Info_update_Mem">프로필 수정</div>
 <div id="changePw_btn" class="Info_update_Mem">비밀번호 변경</div>
 <div id="deleteInfo_btn" class="Info_update_Mem">회원 탈퇴</div>
-<div class="Info_update_Mem">예약 관리</div>
-<div class="Info_update_Mem">좋아요 관리</div>
+<div id="rsHb_btn" class="Info_update_Mem">예약 관리</div>
+<div id="likedHb_btn" class="Info_update_Mem">좋아요 관리</div>
+
 </div>
 </div>
 
@@ -147,6 +55,124 @@ li {list-style: none;}
 
 <h2>예약한 취미</h2>
 <br><br>
+<div class="main">
+  <div class="slider slider-for">
+    <div>
+    <c:if test="${ hobbyList != null }">
+			<c:forEach var="hobby" items="${ hobbyList }">
+					<div class="item_h">
+						<!-- 썸네일 이미지 -->
+						<img id="thumImg_h"
+							src="${path}/resources/upload/hobby/${hobby.hbThumRename}">
+						<div class="detail_h">
+							<div class="title_h">
+
+								<!-- 제목 -->
+								<h2>
+									${hobby.cateName}<em>${hobby.hbTitle}</em>
+								</h2>
+
+								<!-- 금액(할인 적용 시) -->
+								<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
+									<c:set var="disFee"
+										value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />
+									<fmt:formatNumber value="${disFee}" type="number"
+										var="discountFee" />
+									<fmt:formatNumber value="${hobby.hbFee}" type="number"
+										var="originalFee" />
+									<span class="price_h">
+										<div class="discount_h">
+											${ hobby.hbDiscountRate }% &nbsp;
+											<del>${originalFee}원</del>
+										</div> <b>${discountFee}원 </b>
+									</span>
+								</c:if>
+
+								<!-- 금액(할인 미적용 시) -->
+								<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
+									<fmt:formatNumber value="${hobby.hbFee}" type="number"
+										var="originalFee" />
+									<span class="price"> <b>${ originalFee }원</b>
+									</span>
+								</c:if>
+
+							</div>
+
+							<!-- 상세 내용 -->
+							<div class="info_h">
+								<div class="size_h">
+									<label><b>Details</b></label>
+									<c:out value="${hobby.hbSummary}"></c:out>
+								</div>
+							</div>
+							<button
+								onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
+								class="add-cart_h">자세히 보기</button>
+						</div>
+					</div>
+			</c:forEach>
+		</c:if>
+    </div>
+  </div>
+  </div>
+
+<!--  
+<div class="divList_h">
+	<div class="containerList_h">
+		<c:if test="${ hobbyList != null }">
+			<c:forEach var="hobby" items="${ hobbyList }">
+					<div class="item_h">
+						<img id="thumImg_h"
+							src="${path}/resources/upload/hobby/${hobby.hbThumRename}">
+						<div class="detail_h">
+							<div class="title_h">
+
+								<h2>
+									${hobby.cateName}<em>${hobby.hbTitle}</em>
+								</h2>
+
+								<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
+									<c:set var="disFee"
+										value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />
+									<fmt:formatNumber value="${disFee}" type="number"
+										var="discountFee" />
+									<fmt:formatNumber value="${hobby.hbFee}" type="number"
+										var="originalFee" />
+									<span class="price_h">
+										<div class="discount_h">
+											${ hobby.hbDiscountRate }% &nbsp;
+											<del>${originalFee}원</del>
+										</div> <b>${discountFee}원 </b>
+									</span>
+								</c:if>
+
+								<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
+									<fmt:formatNumber value="${hobby.hbFee}" type="number"
+										var="originalFee" />
+									<span class="price"> <b>${ originalFee }원</b>
+									</span>
+								</c:if>
+
+							</div>
+
+							<div class="info_h">
+								<div class="size_h">
+									<label><b>Details</b></label>
+									<c:out value="${hobby.hbSummary}"></c:out>
+								</div>
+							</div>
+							<button
+								onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
+								class="add-cart_h">자세히 보기</button>
+						</div>
+					</div>
+			</c:forEach>
+		</c:if>
+	</div>
+</div>
+-->		
+
+<!--  
 <div class="slide-wrapper">
    <ul class="slides">
    <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
@@ -184,7 +210,7 @@ li {list-style: none;}
       <span class="prev">prev</span>
       <span class="next">next</span>
    </p>
-   
+ -->  
 </main>
 
 <script>
@@ -209,7 +235,21 @@ $(function(){
    })
 })
 
-<!--  slide -->
+<!-- 좋아요 관리 페이지 이동 -->
+$(function(){
+   $("#likedHb_btn").click(function(){
+      location.href='${ path }/member/likedHobby';
+   })
+})
+
+<!-- 예약 관리 페이지 이동 -->
+$(function(){
+   $("#rsHb_btn").click(function(){
+      location.href='${ path }/member/reservedHobby';
+   })
+})
+
+<!--  slide 
 var slides = document.querySelector('.slides'),
    slide = document.querySelectorAll('.slides li'),
    currentIdx = 0,
@@ -246,6 +286,17 @@ var slides = document.querySelector('.slides'),
 	      }
 	         
 	      });
+   -->
+
+   $('.slider-for').slick({
+	   slidesToShow: 3,
+	   slidesToScroll: 1,
+	   arrows: true,
+	   dots: true,
+	   fade: true,
+	   focusOnSelect: true
+	 });
+	
 </script>
 
    <%@ include file="../../views/common/footer.jsp"%>
