@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 
@@ -29,14 +29,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/merchantMember")
 @SessionAttributes("loginMerMember")
 public class MerchantController {
+	
 	
 	@Autowired
 	private MerchantService service;
 	
 	// 로그인
-	@RequestMapping(value = "/merchantMember/merlogin", method = {RequestMethod.POST})
+	@RequestMapping(value = "/merlogin", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model,
 			@RequestParam("memId")String merId, @RequestParam("memPassword")String merPassword) {
 		
@@ -46,7 +48,8 @@ public class MerchantController {
 		
 		if(loginMerchantMember != null) {
 			model.addObject("loginMerMember", loginMerchantMember);
-			model.setViewName("/merchantMember/merMain");
+			/* model.addObject("location", "/hobby/list"); */
+			model.setViewName("merchantMember/merMain");
 		} else {
 			model.addObject("msg", "아이디나 패스워드가 일치하지 않습니다.");
 			model.addObject("location", "/member/login");
@@ -57,11 +60,27 @@ public class MerchantController {
 	}
 	
 	
-	
+	/* 취미 목록페이지 요청 */
+	@GetMapping("/list")
+	public ModelAndView list(ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+          System.out.println("리스트호출");
+		List<Hobby> list = null;
+
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+		list = service.getHobbyList(pageInfo);
+
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("hobby/list");
+
+		return model;
+
+	}	
 	
 	// 로그아웃
 	@RequestMapping("/merlogout")
-	public String merlogout(SessionStatus status) {
+	public String logout(SessionStatus status) {
 		
 		log.info("status.isComplete() : " + status.isComplete());
 
@@ -74,7 +93,7 @@ public class MerchantController {
 	}	
 	
 	// 회원가입 페이지 이동
-	@GetMapping("/merchantMember/enroll")
+	@GetMapping("/enroll")
 	public String enrollView() { 
 		log.info("회원가입 페이지 요청");
 		
@@ -82,7 +101,7 @@ public class MerchantController {
 	}
 	
 	// 회원가입 처리
-	@RequestMapping(value = "/merchantMember/enroll", method = {RequestMethod.POST})
+	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute MerchantMember merchantmember) {
 		System.out.println(merchantmember);
 		
@@ -108,14 +127,6 @@ public class MerchantController {
 //		
 //		return "merchantMember/login";
 //	}
-		
-	// 상인 멤버 로그인 후 상인 메인페이지 이동
-	@GetMapping("/merchantMember/merMain")
-	public String loginView() { 
-		log.info("상인 메인 페이지 요청");
-		
-		return "merchantMember/merMain";
-	}
 
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");
@@ -124,7 +135,7 @@ public class MerchantController {
 	 */
 
 	/* 취미 등록페이지 요청 */
-	@GetMapping("/merchantMember/hobbyEnroll")
+	@GetMapping("/hobbyEnroll")
 	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) {
 
 		List<Category> list = null;
@@ -137,7 +148,7 @@ public class MerchantController {
 	}
 
 	/* 취미 등록 */
-	@PostMapping("/merchantMember/hobbyEnroll")
+	@PostMapping("/hobbyEnroll")
 	public ModelAndView enroll(ModelAndView model, @RequestParam("postcode") String postcode,
 			@RequestParam("exactAddress") String exactAddress, MultipartHttpServletRequest mtfRequest,
 			// @SessionAttribute(name = "loginMember", required = false) Member loginMember,
