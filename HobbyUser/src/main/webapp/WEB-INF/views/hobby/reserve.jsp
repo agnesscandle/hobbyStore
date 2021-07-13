@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+<fmt:formatDate value="${hobby.hbEndDate}" pattern="20yy-MM-dd" var="endDate"/>
 
 
 <div class="divReserve">
@@ -63,7 +64,7 @@
         <section>
            <div class="title">
               <span>취미 예약일 선택</span> 
-              <input type="date" id="takeDate" name="takeDate" min="${today}" max="" class="req"/> 
+              <input type="date" id="takeDate" name="takeDate" min="${today}" max="${endDate}" class="req"/> 
               
 
               <div class="btn">
