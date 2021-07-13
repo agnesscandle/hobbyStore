@@ -81,19 +81,19 @@
                 </div>
             </nav>
             <div id="cate" class="category">
-                <li> 여행 </li>
-                <li> 액티비티 </li>
-                <li> 공예(DIY) </li>
-                <li> 음악 </li>
-                <li> 미술 </li>
-                <li> 커리어 </li>
-                <li> 사진 </li>
-                <li> 요리 </li>
-                <li> 반려동물 </li>
-                <li> 건강 </li>
-                <li> 뷰티 </li>
-                <li> 모임 </li>
-                <li> KIDS </li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=1">여행</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=2">액티비티</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=3">공예(DIY)</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=4">음악</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=5">미술</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=6">커리어</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=7">사진</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=8">요리</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=9">반려동물</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=10">건강</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=11">뷰티</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=12">모임</a></li>
+                <li> <a href="${path}/hobby/list/cate?cateNo=13">KIDS</a></li>
             </div>
         </header>
         

@@ -249,6 +249,24 @@ public class HobbyController {
 
 	}
 
+	
+	@GetMapping("/list/cate")
+	public ModelAndView listByCateNo(ModelAndView model, @RequestParam("cateNo") int cateNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		
+		List<Hobby> list = null;
+		
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCountByCateNo(cateNo), 8);
+		list = service.getHobbyListByCateNo(pageInfo, cateNo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("hobby/list");
+		
+		return model;
+	}
+	
+	
 	/* 취미 등록페이지 요청 */
 	@GetMapping("/enroll")
 	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) {

@@ -40,7 +40,7 @@ nav{
 .logo{
     display : inline;
     padding-left : 20px; 
-    color : navy;
+    color :  #34486b;
     text-transform: uppercase;
     letter-spacing: 5px;
     font-size: 35px;
@@ -118,7 +118,7 @@ button{
 }
 
 .nav-links a{
-    color : navy;
+    color :  #34486b;
     text-decoration : none;
     letter-spacing : 3px;
     font-weight: bold;
@@ -137,7 +137,6 @@ button{
     display : none;
     position : relative;
     left : 40px;
-    background-color: lightgray;
 }
 
 .category li{
@@ -147,6 +146,11 @@ button{
     padding : 12px;
     font-size : 18px;
     font-weight : bold;
+}
+
+.category li a {
+    text-decoration : none;
+    color :  #34486b;
 }
 
 
@@ -160,7 +164,7 @@ button{
 .burger div{
     width : 25px;
     height : 4px;
-    background-color : navy;
+    background-color :  #34486b;
     margin : 5px;
     transition : all 0.3s ease;
 }
@@ -276,7 +280,7 @@ footer{
 
 .rightFooter a{
     text-decoration: none;
-    color : black;
+    color : #34486b;
 }
 
 /* 페이지바 */

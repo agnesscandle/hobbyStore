@@ -37,5 +37,5 @@ $('#search').click(function(){
 
 // 카테고리
 $("#btnCate").on("mouseover", function(){
-    $(".category").toggle();
+    $(".category").slideToggle();
 });

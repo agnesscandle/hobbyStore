@@ -95,4 +95,8 @@ public interface HobbyMapper {
 
 	int saveReserve(Reserve reserve);
 
+	int selectHobbyCountByCateNo(int cateNo);
+
+	List<Hobby> getHobbyListByCateNo(RowBounds rowBounds, int cateNo);
+
 }
