@@ -34,5 +34,8 @@ $('#search').click(function(){
     
     $('#searchForm').submit();
  });
- 
- 
+
+// 카테고리
+$("#btnCate").on("mouseover", function(){
+    $(".category").toggle();
+});

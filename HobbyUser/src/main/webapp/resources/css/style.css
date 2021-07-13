@@ -16,7 +16,9 @@
 
 nav{
     margin : 20px;
+    margin-bottom : 0px;
     padding : 20px; 
+    padding-bottom : 0px;
     display : flex;
     justify-content : flex-start;
     align-items : center;
@@ -126,6 +128,25 @@ button{
 .nav-links a:hover{
     /* 밑줄 데코 너무 구린 듯.. => 추후 변경 
     text-decoration : underline; */
+}
+
+/* 카테고리 */
+.category{
+    margin-left : 20px;
+    padding-left : 22px; 
+    display : none;
+    position : relative;
+    left : 40px;
+    background-color: lightgray;
+}
+
+.category li{
+    list-style: none;
+    display : block;
+    float : left;
+    padding : 12px;
+    font-size : 18px;
+    font-weight : bold;
 }
 
 

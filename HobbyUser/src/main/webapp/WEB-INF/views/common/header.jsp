@@ -68,8 +68,7 @@
             </span>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="${ path }/hobby/list">전체 카테고리</a>
-                        <span> </span>
+                    <li id="btnCate"><a href="${ path }/hobby/list">전체 카테고리</a>
                     </li>
                     <li><a href="#">이벤트</a></li>
                     <li><a href="#">오픈 예정</a></li>
@@ -81,6 +80,21 @@
                     <div class="line3"></div>
                 </div>
             </nav>
+            <div id="cate" class="category">
+                <li> 여행 </li>
+                <li> 액티비티 </li>
+                <li> 공예(DIY) </li>
+                <li> 음악 </li>
+                <li> 미술 </li>
+                <li> 커리어 </li>
+                <li> 사진 </li>
+                <li> 요리 </li>
+                <li> 반려동물 </li>
+                <li> 건강 </li>
+                <li> 뷰티 </li>
+                <li> 모임 </li>
+                <li> KIDS </li>
+            </div>
         </header>
         
    <script type="text/javascript" src="${ path }/js/header.js"></script>
