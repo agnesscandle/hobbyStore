@@ -10,36 +10,37 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Merchant {
-   private int merNo;
-   
-   private String merId;
-   
-   private String merPassword;
-   
-   private String merEmail;
-   
-   private String merName;
-   
-   private String merPhone;
-   
-   private Date merDate;
-   
-   private String Bank;
-   
-   private String merNick;
-   
-   private String status;
-   
-   private String merImgOriginal;
-   
-   private String merImgRename;
-   
-   private String merIDCARD;
-   
-   private int cateNo;
-   
-   private String greeting;
-   
+	private int merNo;
+	
+	private String merId;
+	
+	private String merPassword;
+	
+	private String merEmail;
+	
+	private String merName;
+	
+	private String merPhone;
+	
+	private Date merDate;
+	
+	private String Bank; 
+	
+	private String bankNumber;
+	
+	private String merNick;
+	
+	private String status;
+	
+	private String merImgOriginal;
+	
+	private String merImgRename;
+	
+	private String merIDCARD;
+	
+	private int cateNo;
+	
+	private String greeting;
 
    
 }
