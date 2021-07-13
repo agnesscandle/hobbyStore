@@ -40,12 +40,12 @@ public class HomeController {
 			) {
 		
 		List<Hobby> list = null;
-
 		list = service.getHobbyList();
+		
 		model.addObject("list", list);
-
+		
 		model.setViewName("home");
-		//System.out.println(list);
+		 System.out.println(list);
 		return model;
 		
 		

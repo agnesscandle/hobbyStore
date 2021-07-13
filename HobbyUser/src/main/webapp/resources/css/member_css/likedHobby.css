@@ -62,7 +62,8 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
 .mainLabel{
 	display: inline-block;
 	position: relative;
-	margin: 2% 0% 0% 7%;
+	padding: 3% 2% 0% 7%;
+	margin-bottom: -1%;
 	
 }
 
@@ -74,7 +75,7 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    justify-content: center;
    align-items: center;
    margin: auto;
-   padding: 60px 50px 40px 0px;
+   padding: 60px 130px 50px 0px;
 }
 
 .containerList_h {

@@ -226,7 +226,7 @@ public class MemberController {
        List<Hobby> hobbyList = null;
        List<Hobby> hobbyList_ = null;
        
-       PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 3);
+       PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
        
        int memNo = 0;
        memNo = loginMember.getMemNo();
