@@ -72,13 +72,14 @@ public class MerchantController {
 	/* 취미 목록페이지 요청 */
 	@GetMapping("/list")
 	public ModelAndView list(ModelAndView model,
+			@RequestParam(value="adNo") int adNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
           System.out.println("리스트호출");
 		List<Hobby> list = null;
 
 		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
-		list = service.getHobbyList(pageInfo);
-
+		list = service.getHobbyList(pageInfo, adNo);
+		System.out.println(list+"맵퍼 확인");
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("hobby/list");

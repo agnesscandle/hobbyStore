@@ -56,7 +56,7 @@
 					</tr>
 					<tr>
 						<td class="btn logout"><button type="button"
-								onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
+								onclick="location.replace('${path}/merchantMember/merlogout')">로그아웃</button></td>
 					</tr>
 				</c:if>
 			</table>
@@ -75,7 +75,7 @@
                 <div id="hobbyEnroll" class="hobbyEnroll">취미만들기</div>
                   <!--  <a href="/hobbyEnroll">취미만들기</a> -->
                
-                 <div id="asd">
+                 <div id="hobbylist" class="hobbylist">
                     취미관리
                 </div>
                     
@@ -155,8 +155,12 @@ $(function(){
       location.href='${ path }/merchantMember/hobbyEnroll';
    })
 })
-
-
+<!--취미리스트 페이지 이동-->
+$(function(){
+   $("#hobbylist").click(function(){
+      location.href='${ path }/merchantMember/list?adNo=${loginMerMember.merNo}';
+   })
+})
 
 $(document).on('mouseover', '.topMenu2 span', function () {
     $('.dept02').slideDown(700);

@@ -38,7 +38,7 @@
 	<div id="EnrollBtn">
 	<!-- 상인회원 가입하기 버튼  -->
 	<input class="mloginInput_b" type="submit" id="merLoginSumit" 
-	onclick="javascript: form.action='${path}/merchantMember/merlogin';"  value="상인으로 로그인"/>
+	onclick="javascript: form.action='${path}/merchantMember/merlogin';"  value="상인으로 로그인" formtarget="_blank"/>
 	
 	<button type="submit" class="mloginInput_b" id="merEnrollSubmit" 
 	onclick="location.href='${path}/merchantMember/enroll'" >상인회원 가입하기</button>

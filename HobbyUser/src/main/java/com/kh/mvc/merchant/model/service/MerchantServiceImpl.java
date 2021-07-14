@@ -173,6 +173,14 @@ public class MerchantServiceImpl implements MerchantService{
 
 	}
 
+	@Override
+	public List<Hobby> getHobbyList(PageInfo pageInfo, int adNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+
+		return mapper.selectHobbyMerList(rowBounds,adNo);
+	}
+
 	
 	
 	

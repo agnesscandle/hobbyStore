@@ -22,7 +22,7 @@ public interface MerchantService {
 	/* 취미 등록 */
 	int getHobbyCount();
 
-	List<Hobby> getHobbyList(PageInfo pageInfo);
+	List<Hobby> getHobbyList(PageInfo pageInfo,int adNo);
 
 	int save(Hobby hobby);
 
@@ -34,4 +34,6 @@ public interface MerchantService {
 	
 	
 	boolean validate(String merid);
+
+	List<Hobby> getHobbyList(PageInfo pageInfo);
 }

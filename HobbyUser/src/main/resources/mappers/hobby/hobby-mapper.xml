@@ -700,4 +700,41 @@
 	
 	<!--  결제 끝 -->
 
+
+
+
+
+
+
+	<sql id="CalculationListSql">
+		SELECT
+			CAL_NO,
+			STATUS,
+			PAY_NO,
+			MER_NO
+		FROM CALCULATION
+		
+	</sql>
+
+	<select id="selectHobbyfeeSum" parameterType="map" resultType="_int">
+	SELECT
+		SUM(PAY_FEE)
+	FROM RESERVE
+	WHERE HB_NO= #{hb_no}
+	AND
+	CAL_STATUS='N'
+	
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

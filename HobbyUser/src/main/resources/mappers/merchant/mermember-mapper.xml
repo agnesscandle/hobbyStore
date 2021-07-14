@@ -194,6 +194,35 @@
 		ORDER BY
 		H.HB_NO DESC
 	</select>
+	
+		<select id="selectHobbyMerList" parameterType="map"
+		resultMap="HobbyListResultMap">
+
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.STATUS = 'Y' 
+		AND H.MER_NO = #{adNo} 
+
+		ORDER BY
+		H.HB_NO DESC
+	</select>
 		<select id="selectHobbyCount" parameterType="map"
 		resultType="_int">
 		SELECT COUNT(*)

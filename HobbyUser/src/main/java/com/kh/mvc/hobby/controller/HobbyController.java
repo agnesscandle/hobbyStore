@@ -646,6 +646,33 @@ public class HobbyController {
 		model.setViewName("common/msg");
 		return model;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int sumFee() {
+		
+		return 0;
+	}
+	
 
 
 }

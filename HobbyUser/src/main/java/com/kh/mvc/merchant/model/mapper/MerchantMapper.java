@@ -26,5 +26,7 @@ public interface MerchantMapper {
 
 	List<Category> selectCateList();
 
+	List<Hobby> selectHobbyMerList(RowBounds rowBounds, int adNo);
+
 
 }
