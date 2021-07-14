@@ -17,10 +17,15 @@ public interface HomeMapper {
 
 	public List<Category> selectCateList();
 
-
 	public String selectCateNameByNo(int cateNo);
 
 	public List<Hobby> selectHobbyList();
+
+	public List<Hobby> selectSHobbyList(RowBounds rowBounds);
+
+	public List<Hobby> selectDHobbyList(RowBounds rowBounds);
+
+	public List<Hobby> selectPHobbyList(RowBounds rowBounds);
 	
 
 }

@@ -8,12 +8,17 @@ import com.kh.mvc.hobby.model.vo.Hobby;
 
 public interface HomeService {
 
-	 int getHobbyCount();
-
+	int getHobbyCount();
 
 	String findCateNameByNo(int cateNo);
 
-	List<Hobby> getHobbyList();
+	List<Hobby> getSHobbyList(PageInfo pageInfo);
+
+	List<Hobby> getDHobbyList(PageInfo pageInfo);
+
+	List<Hobby> getPHobbyList(PageInfo pageInfo);
+
+
 
 
 }

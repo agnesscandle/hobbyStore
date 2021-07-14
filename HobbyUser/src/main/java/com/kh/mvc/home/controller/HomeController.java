@@ -36,16 +36,32 @@ public class HomeController {
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView home(ModelAndView model
-			) {
+	public ModelAndView home(ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page	) {
 		
-		List<Hobby> list = null;
-		list = service.getHobbyList();
+		// category가 커리어 취미
+		List<Hobby> listS = null; 
+		// 지금 할인중인 취미
+		List<Hobby> listD = null;
+		// 인기있는 신규 취미
+		List<Hobby> listP = null;
 		
-		model.addObject("list", list);
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
+		
+		listD = service.getDHobbyList(pageInfo);
+		listS = service.getSHobbyList(pageInfo);
+		listP = service.getPHobbyList(pageInfo);
+		
+		model.addObject("listD", listD);
+		model.addObject("listS", listS);
+		model.addObject("listP", listP);
+		
+		model.addObject("pageInfo", pageInfo);
 		
 		model.setViewName("home");
-		 System.out.println(list);
+		
+		 System.out.println(listP);
+		 
 		return model;
 		
 		
