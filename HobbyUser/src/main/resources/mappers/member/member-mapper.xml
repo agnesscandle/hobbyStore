@@ -331,7 +331,7 @@
         AND R.RES_STATUS = 'Y'
 
 		ORDER BY
-		H.HB_NO DESC
+		R.RES_DATE DESC
 	</select>	
 	
 	<!-- 취미 수 검색 -->

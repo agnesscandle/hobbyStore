@@ -18,7 +18,7 @@ public interface HomeService {
 	/* 할인중인 취미 */
 	List<Hobby> getDHobbyList(PageInfo pageInfo);
 	
-	// 인기있는 취미
+	/* 인기있는 취미 */ 
 	List<Hobby> getPHobbyList(PageInfo pageInfo);
 	
 	/* 오픈예정 취미*/
