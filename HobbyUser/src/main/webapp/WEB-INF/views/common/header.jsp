@@ -72,7 +72,7 @@
                         <span> </span>
                     </li>
                     <li><a href="${ path }/main/event">이벤트</a></li>
-                    <li><a href="#">오픈 예정</a></li>
+                    <li><a href="${ path }/main/grandOpening">오픈 예정</a></li>
                     <li><a href="#">베스트</a></li>
                 </ul>
                 <div class="burger">

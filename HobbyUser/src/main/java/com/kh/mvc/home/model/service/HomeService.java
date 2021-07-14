@@ -12,11 +12,17 @@ public interface HomeService {
 
 	String findCateNameByNo(int cateNo);
 
+	/* category가 커리어 취미 */
 	List<Hobby> getSHobbyList(PageInfo pageInfo);
-
+	
+	/* 할인중인 취미 */
 	List<Hobby> getDHobbyList(PageInfo pageInfo);
-
+	
+	// 인기있는 취미
 	List<Hobby> getPHobbyList(PageInfo pageInfo);
+	
+	/* 오픈예정 취미*/
+	List<Hobby> getOpenHobbyList(PageInfo pageInfo);
 
 
 

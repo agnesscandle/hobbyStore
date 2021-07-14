@@ -5,24 +5,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../../views/common/header.jsp"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
-<link rel="stylesheet" href="${path}/css/main/event.css">
+<link rel="stylesheet" href="${path}/css/main/open.css">
 
 
-<div class="discountE">
-<img class="eventImg" src="${path}/images/할인이벤트.png">
-</div>
-<div class="eventTitle"><h2>⚡ 할인 특가!! ⚡</h2></div>
-<div class="divList_e">
-	<div class="containerList_e">
-		<c:if test="${ listD != null}">
-			<c:forEach var="hobby" items="${ listD }">
-				<div class="item">
+
+<div class="openTitle"><h2>오픈 예정 취미💙</h2></div>
+<div class="divList_open">
+	<div class="containerList_open">
+		<c:if test="${ list != null}">
+			<c:forEach var="hobby" items="${ list }">
+				<div class="item_open">
 
 					<!-- 썸네일 이미지 -->
-					<img id="thumImg"
+					<img id="thumImg_open"
 						src="${path}/resources/upload/hobby/${hobby.hbThumRename}">
-					<div class="detail">
-						<div class="title">
+					<div class="detail_open">
+						<div class="title_open">
 
 							<!-- 제목 -->
 							<h2>
@@ -37,8 +35,8 @@
 									var="discountFee" />
 								<fmt:formatNumber value="${hobby.hbFee}" type="number"
 									var="originalFee" />
-								<span class="price">
-									<div class="discount">
+								<span class="price_open">
+									<div class="discount_open">
 										${ hobby.hbDiscountRate }% &nbsp;
 										<del>${originalFee}원</del>
 									</div> <b>${discountFee}원 </b>
@@ -49,22 +47,22 @@
 							<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
 								<fmt:formatNumber value="${hobby.hbFee}" type="number"
 									var="originalFee" />
-								<span class="price"> <b>${ originalFee }원</b>
+								<span class="price_open"> <b>${ originalFee }원</b>
 								</span>
 							</c:if>
 
 						</div>
 
 						<!-- 상세 내용 -->
-						<div class="info">
-							<div class="size">
+						<div class="info_open">
+							<div class="size_open">
 								<label><b>Details</b></label>
 								<c:out value="${hobby.hbSummary}"></c:out>
 							</div>
 						</div>
 						<button
 							onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
-							class="add-cart">자세히 보기</button>
+							class="add-cart-o">자세히 보기</button>
 					</div>
 				</div>
 			</c:forEach>
@@ -73,11 +71,11 @@
 </div>
 <div id="pageBar">
    <!-- 맨 처음으로 -->
-   <button onclick="location.href='${path}/main/event?page=1'">&lt;&lt;</button>
+   <button onclick="location.href='${path}/main/grandOpening?page=1'">&lt;&lt;</button>
 
    <!-- 이전 페이지로 -->
    <button
-      onclick="location.href='${path}/main/event?page=${ pageInfo.prvePage }'">&lt;</button>
+      onclick="location.href='${path}/main/grandOpening?page=${ pageInfo.prvePage }'">&lt;</button>
 
    <!--  10개 페이지 목록 -->
 
@@ -90,18 +88,18 @@
       </c:if>
       <c:if test="${pageInfo.currentPage != status.current }">
          <button
-            onclick="location.href='${path}/main/event?page=${status.current}'">
+            onclick="location.href='${path}/main/grandOpening?page=${status.current}'">
             <c:out value="${status.current}" />
          </button>
       </c:if>
    </c:forEach>
    <!-- 다음 페이지로 -->
    <button
-      onclick="location.href='${path}/main/event?page=${pageInfo.nextPage}'">&gt;</button>
+      onclick="location.href='${path}/main/grandOpening?page=${pageInfo.nextPage}'">&gt;</button>
 
    <!-- 맨 끝으로 -->
    <button
-      onclick="location.href='${path}/main/event?page=${pageInfo.maxPage}'">&gt;&gt;</button>
+      onclick="location.href='${path}/main/grandOpening?page=${pageInfo.maxPage}'">&gt;&gt;</button>
 </div>
 
 <script>

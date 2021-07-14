@@ -208,6 +208,33 @@
 		WHERE L.STATUS = 'Y' AND H.STATUS = 'Y'
 	</select>
 	
+	<select id="selectOpenHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+		SELECT
+        H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION,
+        TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_DATE(HB_STARTDATE)
+        FROM HOBBY H
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+        <![CDATA[WHERE TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_DATE(HB_STARTDATE) < 0]]>
+        AND H.STATUS = 'Y'
+	</select>
+	
 	<!-- 취미 수 검색 -->
 	<select id="selectHobbyCount" parameterType="map"
 		resultType="_int">

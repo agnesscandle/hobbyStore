@@ -6,7 +6,7 @@
 
 <%@ include file="../views/common/header.jsp"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
-<link rel="stylesheet" href="${path}/css/main.css">
+<link rel="stylesheet" href="${path}/css/main/main.css">
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link rel="stylesheet" type="text/css"
