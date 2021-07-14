@@ -40,7 +40,8 @@ public class MerchantController {
 	// 로그인
 	@RequestMapping(value = "/merlogin", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model,
-			@RequestParam("memId")String merId, @RequestParam("memPassword")String merPassword) {
+			@RequestParam("memId")String merId, @RequestParam("memPassword")String merPassword
+			, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		
 		log.info("{}, {}", merId, merPassword);		
 
@@ -49,7 +50,15 @@ public class MerchantController {
 		if(loginMerchantMember != null) {
 			model.addObject("loginMerMember", loginMerchantMember);
 			/* model.addObject("location", "/hobby/list"); */
-			model.setViewName("merchantMember/merMain");
+//			model.setViewName("merchantMember/merMain");
+			List<Hobby> list = null;
+
+			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			list = service.getHobbyList(pageInfo);
+
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("merchant/list");
 		} else {
 			model.addObject("msg", "아이디나 패스워드가 일치하지 않습니다.");
 			model.addObject("location", "/member/login");

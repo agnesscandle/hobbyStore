@@ -4,101 +4,129 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!-- 잠깐 테스트 -->
 <html>
-<%-- <head>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="widh=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
+<%-- <link rel="stylesheet" href="${path}/css/merchantMember_css/test.css">	 --%>
 <link rel="stylesheet" href="${path}/css/style.css">
 <link rel="shortcut icon" type="imae/x-icon"
 	href="${path}/images/logo.png" />
 
-<script src="${ path }/js/jquery-3.6.0.min.js"></script> --%>
+<script src="${ path }/js/jquery-3.6.0.min.js"></script>
 
 <title>취미상점</title>
+<!-- <style>
+.topMenu1{
+    margin : 5px;
+    padding : 5px;
+    font: 20px; 
+    color: blak;
+    justify-content : flex-start;
+    align-items : center;
+    min-height : 8vh;
+    font-family : 'Noto Sans KR', sans-serif;
+}
+ -->
 
+</style>
 
 </head>
 
-<%-- 
+
 	<header>
 		<div class="logo" onclick="location.href='${path}'">
 			<img class="logoImg" src="${ path }/images/logo.png">
 			<h4>취미상점 상인</h4>
 		</div>
 
-	</header> --%>
+		<div class="member">
+			<table class="container" align="center">
+				
+				<!-- 로그인 되어있는 경우 -->
+				<c:if test="${ loginMerMember != null }">
+					<tr class="main info">
+				<td colspan="3" class="infoId">${ loginMerMember.merName }님,환영합니다</td>
+					</tr>
+					<tr>
+						<td class="btn logout"><button type="button"
+								onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
+					</tr>
+				</c:if>
+			</table>
+		</div>
+	</header>
 
 
 <nav>
 
 <div class="topMenu1">
     <ul class="dept01"></ul>
-        <li>
-            <span>취미관리</span>
+        
+            <span style="color:navy; font-size:30px; font-weight:bold">취미관리</span>
             <ul class="dept01">
                
-                <li id="hobbyEnroll" class="hobbyEnroll">취미만들기</li>
+                <div id="hobbyEnroll" class="hobbyEnroll">취미만들기</div>
                   <!--  <a href="/hobbyEnroll">취미만들기</a> -->
                
-                 <li id="asd">
+                 <div id="asd">
                     취미관리
-                </li>
+                </div>
                     
                     
             </ul>
-        </li>
+        
 </div>
 </nav>
 
 <nav>
 <div class="topMenu2">        
-        <li>
-            <span>손님관리</span>
+        
+            <span style="color:navy; font-size:30px; font-weight:bold">손님관리</span>
             <ul class="dept02">
                 
-                 <li id="hobbyEnroll" class="hobbyEnroll">출석</li>
-                  <li id="hobbyEnroll" class="hobbyEnroll">예약</li>
-                  <li id="qnaList" class="qnaList">문의</li>
-                 <li id="hobbyEnroll" class="hobbyEnroll">후기</li>
+                 <div id="hobbyEnroll" class="hobbyEnroll">출석</div>
+                  <div id="hobbyEnroll" class="hobbyEnroll">예약</div>
+                  <div id="qnaList" class="qnaList">문의</div>
+                 <div id="hobbyEnroll" class="hobbyEnroll">후기</div>
                     
                     
             </ul>        
-        </li>
+        
  </div>       
 </nav>
 
 <nav>
 <div class="topMenu3">        
-        <li>
-            <span>정산</span>
+      
+            <span style="color:navy; font-size:30px; font-weight:bold">정산</span>
             <ul class="dept03">
-                 <li id="hobbyEnroll" class="hobbyEnroll">정산관리</li>
-                  <li id="hobbyEnroll" class="hobbyEnroll">정산요청</li>
+                 <div id="hobbyEnroll" class="hobbyEnroll">정산관리</div>
+                  <div id="hobbyEnroll" class="hobbyEnroll">정산요청</div>
             </ul>        
-        </li>
+      
  
 </div>
 </nav>
 
 <nav>
 <div class="topMenu4"> 		
- 		<li>
-            <span>지원센터</span>
+ 		
+            <span style="color:navy; font-size:30px; font-weight:bold">지원센터</span>
             <ul class="dept04">
-                 <li id="hobbyEnroll" class="hobbyEnroll">공지사항</li>
-                 <li id="hobbyEnroll" class="hobbyEnroll">운영메뉴얼</li>
-                 <li id="hobbyEnroll" class="hobbyEnroll">자주 묻는 질문</li>
-                 <li id="hobbyEnroll" class="hobbyEnroll">후기</li>
+                 <div id="hobbyEnroll" class="hobbyEnroll">공지사항</div>
+                 <div id="hobbyEnroll" class="hobbyEnroll">운영메뉴얼</div>
+                 <div id="hobbyEnroll" class="hobbyEnroll">자주 묻는 질문</div>
+                 <div id="hobbyEnroll" class="hobbyEnroll">후기</div>
                    
             </ul>        
-        </li>
+        
            
 </div>   
   
