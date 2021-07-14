@@ -51,7 +51,7 @@
 </div>
 
 
-<span class="mainLabel"><h2>예약한 취미</h2></span><button class="expand_btn" onclick="location.replace('${path}/member/reservedHobby')">전체보기</button>
+<span class="mainLabel_Info"><h2>예약한 취미</h2></span><button class="expand_btn" onclick="location.replace('${path}/member/reservedHobby')">전체보기</button>
 
 
 <div class="divList_h">
@@ -108,7 +108,7 @@
 	</div>
 </div>
 
-<span class="mainLabel"><h2>좋아요 취미</h2></span><button class="expand_btn" onclick="location.replace('${path}/member/likedHobby')">전체보기</button>
+<span class="mainLabel_Info"><h2>좋아요 취미</h2></span><button class="expand_btn" onclick="location.replace('${path}/member/likedHobby')">전체보기</button>
 <div class="divList_h">
 	<div class="containerList_h">
 		<c:if test="${ hobbyList_ != null }">
@@ -162,45 +162,6 @@
 		</c:if>
 	</div>
 </div>
-<!--  
-<div class="slide-wrapper">
-   <ul class="slides">
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   </ul>
-</div>
-
-   <p class="controls">
-      <span class="prev">prev</span>
-      <span class="next">next</span>
-   </p>
-   
-<h2>좋아요 취미</h2>
-<br><br>
-<div class="slide-wrapper">
-   <ul class="slides">
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   <li><img src="${ path }/images/testImage.png" style="width:250px; height:250px;" alt=""></li>
-   </ul>
-</div>
-
-   <p class="controls">
-      <span class="prev">prev</span>
-      <span class="next">next</span>
-   </p>
- -->  
 </main>
 
 <script>
@@ -239,59 +200,6 @@ $(function(){
    })
 })
 
-<!--  slide 
-var slides = document.querySelector('.slides'),
-   slide = document.querySelectorAll('.slides li'),
-   currentIdx = 0,
-   slideCount = slide.length,
-   prevBtn = document.querySelector('.prev'),
-   slideWidth = 250,
-   slideMargin = 30,
-   nextBtn = document.querySelector('.next');
-   
-   slides.style.width = (slideWidth + slideMargin)*slideCount - slideMargin + 'px';
-   
-   function moveSlide(num){
-      slides.style.left =  -num * 280 + 'px';
-      currentIdx = num;
-  	  console.log(slideCount);
-   }
-   
-   
-   nextBtn.addEventListener('click', function(){
-      if(currentIdx < slideCount - 3){
-         moveSlide(currentIdx + 1);
-         console.log(slideCount);
-      }else{
-         moveSlide(0);
-      }
-         
-      });
-   
-   prevBtn.addEventListener('click', function(){
-	      if(currentIdx > 0){
-	         moveSlide(currentIdx - 1);
-	      }else{
-	         moveSlide(slideCount - 3);
-	      }
-	         
-	      });
-   -->
-
-   $('.slider-for').slick({
-	   slidesToShow: 3,
-	   slidesToScroll: 1,
-	   arrows: true,
-	   dots: true,
-	   fade: true,
-	   focusOnSelect: true
-	 });
-	
-   $('a[data-slide]').click(function(e) {
-	   e.preventDefault();
-	   var slideno = $(this).data('slide');
-	   $('.slider-nav').slick('slickGoTo', slideno - 1);
-	 });
 </script>
 
    <%@ include file="../../views/common/footer.jsp"%>

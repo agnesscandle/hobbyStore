@@ -71,7 +71,7 @@
                     <li><a href="${ path }/hobby/list">전체 카테고리</a>
                         <span> </span>
                     </li>
-                    <li><a href="#">이벤트</a></li>
+                    <li><a href="${ path }/main/event">이벤트</a></li>
                     <li><a href="#">오픈 예정</a></li>
                     <li><a href="#">베스트</a></li>
                 </ul>

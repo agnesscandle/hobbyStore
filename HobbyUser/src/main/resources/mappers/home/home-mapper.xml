@@ -155,6 +155,8 @@
 		FROM HOBBY H
 		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
 		WHERE H.HB_DISCOUNT_STATUS = 'Y' AND H.STATUS = 'Y'
+		ORDER BY
+		H.HB_DISCOUNT_RATE DESC
 	</select>
 	
 	<select id="selectSHobbyList" parameterType="map"

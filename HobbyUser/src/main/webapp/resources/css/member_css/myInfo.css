@@ -61,11 +61,11 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    cursor: pointer;
 }
 
-.mainLabel{
+.mainLabel_Info{
 	display: inline-block;
 	position: relative;
-	padding: 2% 2% 0% 7%;
-	margin-bottom: -3%;
+	padding: 3% 2% 0% 7%;
+	margin-bottom: -1%;
 }
 
 .expand_btn {
