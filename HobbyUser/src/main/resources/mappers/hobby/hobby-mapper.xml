@@ -672,7 +672,8 @@
 				TAKE_DATE, 
 				PAY_FEE, 
 				RES_ATTEND, 
-				RES_STATUS
+				RES_STATUS,
+				CAL_STATUS
 			) VALUES (
 				SEQ_RESERVE_NO.NEXTVAL, 
 				#{hbNo}, 
@@ -684,6 +685,7 @@
 				TO_DATE(#{takeDate},'YYYY-MM-DD'),
 				TO_NUMBER(#{payFee}),
 				DEFAULT, 
+				DEFAULT,
 				DEFAULT
 			)
 	</insert>
