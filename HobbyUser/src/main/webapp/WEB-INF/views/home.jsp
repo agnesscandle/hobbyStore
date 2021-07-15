@@ -24,7 +24,7 @@
 			onclick="location.href='${ path }/hobby/list/search?searchDate=주식';">
 		</div>
 		<div class="photo"
-			style="background-image: url('${path}/images/메인배너3.png');"></div>
+			style="background-image: url('${path}/images/타로배너.png');"></div>
 	</div>
 </section>
 

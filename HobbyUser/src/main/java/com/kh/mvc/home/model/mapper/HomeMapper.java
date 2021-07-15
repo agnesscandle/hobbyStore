@@ -28,6 +28,8 @@ public interface HomeMapper {
 	public List<Hobby> selectPHobbyList(RowBounds rowBounds);
 
 	public List<Hobby> selectOpenHobbyList(RowBounds rowBounds);
+
+	public List<Hobby> selectBestHobbyList();
 	
 
 }

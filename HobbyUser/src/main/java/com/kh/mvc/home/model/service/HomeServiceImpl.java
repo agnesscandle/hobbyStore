@@ -66,6 +66,11 @@ public class HomeServiceImpl implements HomeService {
 		
 		return mapper.selectOpenHobbyList(rowBounds);
 	}
+
+	@Override
+	public List<Hobby> getBestHobbyList() {
+		return mapper.selectBestHobbyList();
+	}
 	
 
 

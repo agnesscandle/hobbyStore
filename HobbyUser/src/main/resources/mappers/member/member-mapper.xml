@@ -334,6 +334,7 @@
 		R.RES_DATE DESC
 	</select>	
 	
+	
 	<!-- 취미 수 검색 -->
 	<select id="selectHobbyCount" parameterType="map"
 		resultType="_int">

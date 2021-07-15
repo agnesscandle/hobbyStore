@@ -101,4 +101,18 @@ public class HomeController {
 			
 			return model;
 		}
+		
+		// 베스트 페이지 이동
+				@GetMapping("/main/best")
+				public ModelAndView bestView(ModelAndView model) { 
+					log.info("베스트 페이지 요청");
+					
+					List<Hobby> list = null;
+					list = service.getBestHobbyList();
+					
+					model.addObject("list", list);
+					model.setViewName("main/best");
+					
+					return model;
+				}
 }

@@ -24,6 +24,9 @@ public interface HomeService {
 	/* 오픈예정 취미*/
 	List<Hobby> getOpenHobbyList(PageInfo pageInfo);
 
+	/* 베스트 취미 */
+	List<Hobby> getBestHobbyList();
+
 
 
 

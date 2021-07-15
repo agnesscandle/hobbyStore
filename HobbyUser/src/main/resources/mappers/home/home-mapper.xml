@@ -235,6 +235,38 @@
         AND H.STATUS = 'Y'
 	</select>
 	
+	<!-- 베스트 취미 가져오기 -->
+	<select id="selectBestHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+	SELECT DISTINCT 
+        H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+        C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H 
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN RESERVE R ON(H.HB_NO = R.HB_NO)
+        WHERE (H.HB_NO) IN (
+        SELECT HB_NO FROM
+        (SELECT DISTINCT HB_NO, COUNT(*)OVER(PARTITION BY HB_NO)AS 예약횟수 FROM RESERVE ORDER BY 예약횟수 DESC)
+        <![CDATA[WHERE ROWNUM <= 20)]]>
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'	
+	</select>
+	
 	<!-- 취미 수 검색 -->
 	<select id="selectHobbyCount" parameterType="map"
 		resultType="_int">
