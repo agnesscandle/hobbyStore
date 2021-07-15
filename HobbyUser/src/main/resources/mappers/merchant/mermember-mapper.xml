@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.kh.mvc.merchant.model.mapper.MerchantMapper">
+
+ 	<sql id="selectMerchantMemberSql">
+ 		SELECT  MER_NO, 
+			    MER_ID, 
+			    MER_PASSWORD, 
+			    MER_EMAIL,
+			    MER_NAME, 
+			    MER_PHONE,
+			    MER_DATE,
+			    BANK,
+			    BANK_NUMBER,
+			    MER_NICK, 
+			    STATUS, 
+			    MER_IMG_ORIGINAL, 
+			    MER_IMG_RENAME, 
+			    MER_IDCARD,
+			    CATE_NO, 
+			    GREETING
+		FROM MERCHANT
+ 	</sql>
+ 
+ 	<resultMap type="MerchantMember" id="merchantmemberResultMap">
+ 		<id property="merNo" column="MER_NO"/>
+ 		<result property="merId" column="MER_ID" />
+ 		<result property="merPassword" column="MER_PASSWORD"/>
+ 		<result property="merEmail" column="MER_EMAIL"/>
+ 		<result property="merName" column="MER_NAME"/>
+ 		<result property="merPhone" column="MER_PHONE"/>
+ 		<result property="merDate" column="MER_DATE"/>
+ 		<result property="Bank" column="BANK"/>
+ 		<result property="bankNumber" column="BANK_NUMBER"/>
+ 		<result property="merNick" column="MER_NICK"/>
+ 		<result property="status" column="STATUS"/>
+ 		<result property="merImgOriginal" column="MER_IMG_ORIGINAL"/>
+ 		<result property="merImgRename" column="MER_IMG_RENAME"/>
+ 		<result property="merIDCARD" column="MER_IDCARD"/>
+ 		<result property="cateNo" column="CATE_NO"/>
+ 		<result property="greeting" column="GREETING"/>
+ 		
+ 	</resultMap>
+ 	
+ 	<select id="selectMerchantMember" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
+		WHERE MER_ID = #{merId} AND STATUS ='Y'
+ 	</select>
+ 	
+ 	<insert id="insertMerchantMember" parameterType="MerchantMember"
+ 		useGeneratedKeys="true" keyColumn="MER_NO" keyProperty="merNo" >
+
+		INSERT INTO MERCHANT (
+			    MER_NO, 
+			    MER_ID, 
+			    MER_PASSWORD, 
+			    MER_EMAIL,
+			    MER_NAME, 
+			    MER_PHONE,
+			    MER_DATE,
+			    BANK,
+			    BANK_NUMBER,
+			    MER_NICK,
+			    STATUS, 
+			    MER_IMG_ORIGINAL, 
+			    MER_IMG_RENAME, 
+			    MER_IDCARD,
+			    CATE_NO,
+			    GREETING 
+		) VALUES(
+			SEQ_MERNO.NEXTVAL, 
+			#{merId},
+			#{merPassword},
+			#{merEmail},
+			#{merName},
+			#{merPhone},
+			#{merDate},
+			#{Bank},
+			#{bankNumber},
+			#{merNick},
+			DEFAULT,
+			#{merImgOriginal},
+			#{merImgRename},
+			#{merIDCARD},
+			DEFAULT,
+			#{greeting}
+		)
+ 	</insert>
+ 	
+ 	<sql id="HobbyListSql">
+		SELECT HB_NO,
+		MER_NO,
+		CATE_NO,
+		HB_TITLE,
+		HB_SUMMARY,
+		HB_STARTDATE,
+		HB_FEE,
+		HB_DISCOUNT_RATE,
+		HB_DISCOUNT_STATUS,
+		HB_ENDDATE,
+		HB_IMGS_ORI,
+		HB_IMGS_RENAME,
+		HB_THUM_ORI,
+		HB_THUM_RENAME,
+		HB_INFO,
+		HB_LOCATION
+		FROM HOBBY
+		WHERE
+		STATUS = 'Y'
+	</sql>
+
+	<sql id="cateListSql">
+		SELECT
+		CATE_NO,
+		CATE_NAME
+		FROM
+		CATEGORY
+	</sql>
+	
+	
+	
+	<resultMap type="Hobby" id="HobbyListResultMap">
+		<id property="hbNo" column="HB_NO" />
+		<result property="merNo" column="MER_NO" />
+		<result property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+		<result property="hbTitle" column="HB_TITLE" />
+		<result property="hbSummary" column="HB_SUMMARY" />
+		<result property="hbFee" column="HB_FEE" />
+		<result property="hbDiscountRate" column="HB_DISCOUNT_RATE" />
+		<result property="hbDiscountStatus" column="HB_DISCOUNT_STATUS" />
+		<result property="hbStartDate" column="HB_STARTDATE" />
+		<result property="hbEndDate" column="HB_ENDDATE" />
+		<result property="hbImgsOri" column="HB_IMGS_ORI" />
+		<result property="hbImgsRename" column="HB_IMGS_RENAME" />
+		<result property="hbThumOri" column="HB_THUM_ORI" />
+		<result property="hbThumRename" column="HB_THUM_RENAME" />
+		<result property="hbInfo" column="HB_INFO" />
+		<result property="hbLocation" column="HB_LOCATION" />
+	</resultMap>
+		
+		
+	<resultMap type="Category" id="CateListResultMap">
+		<id property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+	</resultMap>
+		
+		
+	<select id="selectCateList" parameterType="map"
+		resultMap="CateListResultMap">
+
+		<include refid="cateListSql" />
+
+		ORDER BY CATE_NO DESC
+	</select>
+
+	<select id="selectCateNameByNo" parameterType="_int"
+		resultType="String">
+			SELECT CATE_NAME
+			FROM CATEGORY
+			WHERE CATE_NO=#{cateNo}
+	</select>
+	
+	
+
+	<select id="selectHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.STATUS = 'Y'
+
+		ORDER BY
+		H.HB_NO DESC
+	</select>
+		<select id="selectHobbyCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM HOBBY
+		WHERE STATUS='Y'
+	</select>
+
+	<!-- 취미 검색 -->
+	<select id="selectHobbyByNo" parameterType="_int"
+		resultMap="HobbyListResultMap">
+		<include refid="HobbyListSql" />
+		AND HB_NO=#{hbNo}
+	</select>
+
+	<!-- 취미 등록 -->
+	<insert id="insertHobby" parameterType="map"
+		useGeneratedKeys="true" keyProperty="hbNo" keyColumn="HB_NO">
+		INSERT INTO
+		HOBBY(
+		HB_NO,
+		MER_NO,
+		CATE_NO,
+		HB_TITLE,
+		HB_FEE,
+		HB_DISCOUNT_RATE,
+		HB_DISCOUNT_STATUS,
+		HB_SUMMARY,
+		HB_STARTDATE,
+		HB_ENDDATE,
+		HB_IMGS_ORI,
+		HB_IMGS_RENAME,
+		HB_THUM_ORI,
+		HB_THUM_RENAME,
+		HB_INFO,
+		HB_LOCATION,
+		STATUS
+		)
+		VALUES(
+		SEQ_HOBBY_NO.NEXTVAL,
+		1,
+		#{cateNo},
+		#{hbTitle},
+		TO_NUMBER(#{hbFee}),
+		TO_NUMBER(#{hbDiscountRate}),
+		#{hbDiscountStatus},
+		#{hbSummary},
+		TO_DATE(#{hbStartDate},'YYYY-MM-DD'),
+		TO_DATE(#{hbEndDate},'YYYY-MM-DD'),
+		#{hbImgsOri},
+		#{hbImgsRename},
+		#{hbThumOri},
+		#{hbThumRename},
+		#{hbInfo},
+		#{hbLocation},
+		'Y'
+		)
+	</insert>
+ </mapper>

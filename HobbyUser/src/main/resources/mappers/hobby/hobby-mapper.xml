@@ -94,16 +94,36 @@
 		FROM RESERVE
 		WHERE RES_STATUS = 'Y'
 	</sql>
+	
+	<sql id="qnaListSql">
+		SELECT
+		Q.QNA_NO,
+		Q.HB_NO,
+		H.HB_TITLE,
+		Q.MEM_NO,
+		M.MEM_ID,
+		Q.QNA_TITLE,
+		Q.QNA_CONTENT,
+		Q.STATUS,
+		Q.QNA_DATE,
+		Q.QNA_SECURE
+		FROM QNA Q
+		JOIN HOBBY H ON(Q.HB_NO = H.HB_NO)
+		JOIN MEMBER M ON(Q.MEM_NO = M.MEM_NO)
+	</sql>
+	
+	<sql id="replyList">
+		SELECT
+		R.REPLY_NO,
+		R.QNA_NO,
+		R.MER_NO,
+		R.REPLY_CONTENT,
+		R.REPLAY_DATE
+		FROM REPLY R
+		JOIN MERCHANT M ON(R.MER_NO = M.MER_NO)
+	</sql>
 
-	<select id="selectReserveCount" parameterType="map"
-		resultType="_int">
-		SELECT COUNT(*)
-		FROM RESERVE
-		WHERE HB_NO = ${hbNo}
-		AND
-		MEM_NO = ${memNo}
-	</select>
-
+	<!--  resultMap -->
 
 	<resultMap type="Hobby" id="HobbyListResultMap">
 		<id property="hbNo" column="HB_NO" />
@@ -183,6 +203,26 @@
 		<result property="payStatus" column="PAY_STATUS" />
 	</resultMap>
 	
+	<resultMap type="Reply" id="ReplyListResultMap">
+		<id property="replyNo" column="REPLY_NO" />
+		<result property="qnaNo" column="QNA_NO" />
+		<result property="merNo" column="MER_NO" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="replayDate" column="REPLAY_DATE" />
+	</resultMap>
+	
+	<resultMap type="Qna" id="qnaListResultMap">
+		<id property="qnaNo" column="QNA_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="hbTitle" column="HB_TITLE" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="memId" column="MEM_ID" />
+		<result property="qnaTitle" column="QNA_TITLE" />
+		<result property="qnaContent" column="QNA_CONTENT" />
+		<result property="status" column="STATUS" />
+		<result property="qnaDate" column="QNA_DATE" />
+		<result property="qnaSecure" column="QNA_SECURE" />
+	</resultMap>
 	
 	
 	<select id="selectCateList" parameterType="map"
@@ -333,24 +373,6 @@
 	<!-- 취미 끝 -->
 
 
-
-
-	<!-- 카테고리 시작 -->
-
-	<!-- 카테고리 검색 -->
-
-	<!-- 카테고리 끝 -->
-
-
-
-
-
-
-	<!-- 리뷰 시작 -->
-
-
-	<!-- 예약 확인_후기 작성 시 필요[김예원] -->
-
 	<!-- 리뷰 검색[김예원] -->
 	<select id="selectReviewByNo" parameterType="map"
 		resultMap="ReviewListResultMap">
@@ -476,8 +498,13 @@
 		STATUS='N'
 		WHERE HB_NO = #{hbNo} AND MEM_NO = #{memNo}
 	</update>
+	<!--  좋아요 끝 -->
 
-	<!-- 신고하기 -->
+
+
+
+	<!-- 신고하기 시작 -->
+	<!--  신고하기 글 등록 -->
 	<insert id="saveReport" parameterType="map"
 		useGeneratedKeys="true" keyProperty="rpNo" keyColumn="RP_NO">
 		INSERT INTO
@@ -512,36 +539,6 @@
 	<!-- 문의 및 답글 -->
 
 	<!-- Qna -->
-	<sql id="qnaListSql">
-		SELECT
-		Q.QNA_NO,
-		Q.HB_NO,
-		H.HB_TITLE,
-		Q.MEM_NO,
-		M.MEM_ID,
-		Q.QNA_TITLE,
-		Q.QNA_CONTENT,
-		Q.STATUS,
-		Q.QNA_DATE,
-		Q.QNA_SECURE
-		FROM QNA Q
-		JOIN HOBBY H ON(Q.HB_NO = H.HB_NO)
-		JOIN MEMBER M ON(Q.MEM_NO = M.MEM_NO)
-
-	</sql>
-
-	<resultMap type="Qna" id="qnaListResultMap">
-		<id property="qnaNo" column="QNA_NO" />
-		<result property="hbNo" column="HB_NO" />
-		<result property="hbTitle" column="HB_TITLE" />
-		<result property="memNo" column="MEM_NO" />
-		<result property="memId" column="MEM_ID" />
-		<result property="qnaTitle" column="QNA_TITLE" />
-		<result property="qnaContent" column="QNA_CONTENT" />
-		<result property="status" column="STATUS" />
-		<result property="qnaDate" column="QNA_DATE" />
-		<result property="qnaSecure" column="QNA_SECURE" />
-	</resultMap>
 
 	<insert id="insertQna" parameterType="map"
 		useGeneratedKeys="true" keyProperty="qnaNo" keyColumn="QNA_NO">
@@ -614,27 +611,8 @@
 	</update>
 
 
+
 	<!-- Reply -->
-
-	<sql id="replyList">
-		SELECT
-		R.REPLY_NO,
-		R.QNA_NO,
-		R.MER_NO,
-		R.REPLY_CONTENT,
-		R.REPLAY_DATE
-		FROM REPLY R
-		JOIN MERCHANT M ON(R.MER_NO = M.MER_NO)
-	</sql>
-
-	<resultMap type="Reply" id="ReplyListResultMap">
-		<id property="replyNo" column="REPLY_NO" />
-		<result property="qnaNo" column="QNA_NO" />
-		<result property="merNo" column="MER_NO" />
-		<result property="replyContent" column="REPLY_CONTENT" />
-		<result property="replayDate" column="REPLAY_DATE" />
-	</resultMap>
-
 	<select id="selectReplyCount" parameterType="_int">
 		SELECT COUNT(*)
 		FROM
@@ -648,8 +626,6 @@
 		WHERE R.QNA_NO = #{qnaNo}
 		ORDER BY R.QNA_NO DESC
 	</select>
-
-
 
 	<insert id="saveReply" parameterType="map"
 		useGeneratedKeys="true" keyProperty="replyNo" keyColumn="REPLY_NO">
@@ -701,7 +677,7 @@
 	</select>
  -->
 	<!-- merInfo -->	
-	
+	<!--  상인 정보보기 -->
 	<select id="selectMerInfoByNo" parameterType="_int" resultMap="MerchantListResultMap">
 		<include refid="MerchantListSql" />
 			AND MER_NO=#{merNo}
@@ -710,7 +686,7 @@
 	
 	
 	<!-- Reserve & Pay -->
-	
+	<!--  결제하기 -->
 	<insert id="saveReserve" parameterType="map"
 		useGeneratedKeys="true" keyProperty="resNo" keyColumn="RES_NO">
 			INSERT INTO 
@@ -741,5 +717,16 @@
 			)
 	</insert>
 	
+	<!--  결제 개수 세기 -->
+	<select id="selectReserveCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM RESERVE
+		WHERE HB_NO = ${hbNo}
+		AND
+		MEM_NO = ${memNo}
+	</select>
+	
+	<!--  결제 끝 -->
 
 </mapper>

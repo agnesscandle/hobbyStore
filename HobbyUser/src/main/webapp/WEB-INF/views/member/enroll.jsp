@@ -4,11 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../../views/common/header.jsp"%>
-
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/css/member_css/enroll.css">
 
-<section class="memEnrollWrapper">
+
+<div class="memEnrollWrapper">
 <form name="memberEnrollFrm" id="signform"
 	action="${ path }/member/enroll" method="POST">
 		<div class="memEnrollTitle">회원 가입</div>
@@ -33,58 +33,55 @@
    		<div class="p-alert pw-success"id="pw-danger"></div>
    		
    		<!-- 비밀번호 확인 -->
-        <label class="memEnrollLabel">비밀번호 확인</label><br>
+        <label class="memEnrollLabel pwCheck">비밀번호 확인</label><br>
         <input class="enrollInput" type="password" id="memPassword2" required="required"/>
-   		<div class="repw regex"></div>
    		
    		<div class="alert alert-success" id="alert-success"></div>
    		<div class="alert alert-danger" id="alert-danger"></div>
    		<!-- 전화번호 -->
    		<label class="memEnrollLabel">전화번호</label><br>
         <input class="enrollInput" type="text" name="memPhone" id="memPhone" placeholder="ex) 01012345678" required="required">
+        <div class="phone_input_re_1"></div>
+		<div class="phone_input_re_2"></div>
         <div class="phone regex"></div>
         
    		<!-- 이메일 -->
    		<label class="memEnrollLabel">이메일</label><br>
         <input class="enrollInput" type="text" name="memEmail" id="memEmail" placeholder="hobbyuser@market.com" required="required">
+        <div class="email_input_re_1"></div>
+		<div class="email_input_re_2"></div>
         <div class="email regex"></div>
         
    		<!-- 관심분야 -->
-   		<label class="memEnrollLabel">관심 분야 체크</label><label> (관심 분야를 1개 이상 체크해주세요.)</label><br>
+   		<label class="memEnrollLabel">관심 분야 체크</label> 
+   		<span class="memEnrollLabel_1">(관심 분야를 1개 이상 체크해주세요.)</span><br>
    		
-   		<input  type="checkbox" name="hobby" value="여행"/>여행
-        <input  type="checkbox" name="hobby" value="액티비티"/>액티비티
-        <input  type="checkbox" name="hobby" value="공예(DIY)"/>공예(DIY)
-        <input  type="checkbox" name="hobby" value="음악"/>음악
-        <input  type="checkbox" name="hobby" value="미술"/>미술<br>
-        <input  type="checkbox" name="hobby" value="커리어"/>커리어
-        <input  type="checkbox" name="hobby" value="사진"/>사진
-        <input  type="checkbox" name="hobby" value="요리"/>요리
-        <input  type="checkbox" name="hobby" value="반려동물"/>반려동물
-        <input  type="checkbox" name="hobby" value="건강"/>건강<br>
-        <input  type="checkbox" name="hobby" value="뷰티"/>뷰티
-        <input  type="checkbox" name="hobby" value="모임"/>모임
-        <input  type="checkbox" name="hobby" value="키즈"/>키즈
-	
-	<br><br><br>
-	<hr>
+		<c:forEach var="category" items="${ list }">
+		<label class="cateLabel"><input type="checkbox" name="cateNo" value="${ category.cateNo }">
+		<c:out value="${ category.cateName }"/></label>	
+		</c:forEach>
+   		
 	<br><br>
+	<hr>
+	<br>
 	<div class="agree_wrap">
 		<input type="checkbox" id="memAgree" name="memAgree" class="agree_chk">
-		<label for="memAgree">이용 약관 및 개인정보 수집 및 이용에 대한 내용을 확인하였고 동의합니다.</label>
+		<a href="${path}/member/registerPage_1" class="registerPage">이용약관</a>,
+		<a href="${path}/member/registerPage_2" class="registerPage">개인정보 수집 및 이용</a>
+		<a href="${path}/member/registerPage_3"class="registerPage">개인정보 제공</a> 내용을 확인하였고 동의합니다.
 	</div>
 	
 	<!-- 회원가입 버튼 -->
 	<div id="mSignup">
-      <br><input class="enrollInput" type="submit" id="enrollSubmit" value="가입하기"/>
-      <br><input class="enrollInput" type="submit" id="kakaoSubmit" value="카카오로 가입하기" style="background-image:url('${path}/images/kakaosymbol.png')"/>
+		<button class="enrollInput subTitle" type="submit" id="enrollSubmit">동의하고 가입하기</button>
+		<button class="enrollInput subTitle" type="submit" id="kakaoSubmit" style="background-image:url('${path}/images/kakaosymbol.png')">카카오로 가입하기</button>
    </div>
 </form>
 
 <form name="checkIdForm">
    <input type="hidden" name="userId" id="checkid">
 </form>
-</section>
+</div>
 
 <script>
 
@@ -115,7 +112,7 @@ $("#memName").on("input",function(){
        });
 
 //아이디 중복검사
-$('.enrollInput').on("propertychange change keyup paste input", function(){
+$('#memId').on("propertychange change keyup paste input", function(){
 
    var memId = $("#memId").val();  
    
@@ -124,8 +121,6 @@ $('.enrollInput').on("propertychange change keyup paste input", function(){
 		
 		return;
 	}
-   
-   
    
    $.ajax({
       type : "get",
@@ -157,7 +152,7 @@ $('.enrollInput').on("propertychange change keyup paste input", function(){
    }); 
 });
 
-//비밀번호 유효성 검사
+// 비밀번호 유효성 검사
  $(function() {
 	$("#pw-success").hide();
 	$("#pw-danger").hide();
@@ -183,7 +178,7 @@ $('.enrollInput').on("propertychange change keyup paste input", function(){
 		} else if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
 			$("#pw-danger").show(); 
 			$("#pw-success").hide();
-			$("#pw-danger").html("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+			$("#pw-danger").html("영문,숫자,특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
 		} else {
 			 $("#pw-success").show();
 			 $("#pw-danger").hide();
@@ -216,7 +211,7 @@ $('.enrollInput').on("propertychange change keyup paste input", function(){
 		});
 	});
 	
-	//전화번호 유효성검사
+	// 전화번호 유효성검사
     $("#memPhone").on("input",function(){
          var regex = /^01\d\d{3,4}\d{4}$/;
          var result = regex.exec($("#memPhone").val());
@@ -230,19 +225,81 @@ $('.enrollInput').on("propertychange change keyup paste input", function(){
         
     });
 	
-	//email유효성 검사
+	//email 유효성 검사
     $("#memEmail").on("input",function(){
          var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
          var result = regex.exec($("#memEmail").val());
-        
+         var memEmail = $("#memEmail").val();
         if(result != null){
            $(".email.regex").html("");  
+        		
         }else{
+        	if(memEmail != ""){
             $(".email.regex").html("올바른 이메일이 아닙니다");
+        	}
         }
     });
 	
-  
+ // 이메일 중복 검사
+    $('#memEmail').on("input", function(){
+    	var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        var result = regex.exec($("#memEmail").val());
+    	var memEmail = $("#memEmail").val(); 
+    	   
+    	  
+    	
+    	$.ajax({
+    	      type : "get",
+    	      url : "${path}/member/memberEmailChk",
+    	      dataType : "json",
+    	      data: {
+    	         memEmail
+    	      },
+    	      success : function(data){
+    	    	  $('.email_input_re_2').hide();
+    	    	  $('.email_input_re_1').hide();
+    	    	  
+    	    	   if(data.result === true) {
+    	        	  $('.email_input_re_2').show();
+    	        	  $('.email_input_re_1').hide();
+    	        	  $('.email_input_re_2').html("이미 존재하는 이메일입니다.").css("display","inline-block");
+    	        	  $('.email_input_re_1').css("display", "none");
+    	            } else{
+    	            	if(memEmail == ""){
+    	            		$('.email_input_re_1').hide();
+    	          	  		$('.email_input_re_1').css("display", "none");
+    	            	} else{
+    	          		$('.email_input_re_2').hide();
+  				 		 $('.email_input_re_2').css("display", "none");
+    	            	}
+    	        	  
+    	            }
+    	      },
+    	      error: function(e){
+    	         console.log(e);
+    	      }
+    	   }); 
+    });
+ 
+   // 약관동의 체크 했는지 검사
+   $("#enrollSubmit").click(function(){
+	  if($("input:checkbox[name='memAgree']").is(":checked")==false){
+		  alert('약관에 동의해주세요.');
+		  return false;
+	  } else{
+		  return true;
+	  }
+   });
+   
+   $("#enrollSubmit").click(function(){
+	   if($("input:checkbox[name='cateNo']").is(":checked")==false){
+			  alert('1개 이상의 관심분야를 선택하세요.');
+			  return false;
+		  } else{
+			  return true;
+		  }
+   });
+   
 </script>
 
 

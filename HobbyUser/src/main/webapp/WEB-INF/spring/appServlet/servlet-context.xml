@@ -16,6 +16,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/upload/**" location="/resources/upload/" />
+	<resources mapping="/profile/**" location="/resources/upload/profile/" />
 
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -33,10 +34,19 @@
 		<mapping path="/hobby/**"/>
 		
 		<exclude-mapping path="/member/enroll"/>
+		<exclude-mapping path="/member/registerPage_1"/>
+		<exclude-mapping path="/member/registerPage_2"/>
+		<exclude-mapping path="/member/registerPage_3"/>
 		<exclude-mapping path="/member/login"/>
+		<exclude-mapping path="/member/checkSMS"/>
+		<exclude-mapping path="/member/sendNewPw"/>
 		<exclude-mapping path="/member/memberIdChk"/>
+		<exclude-mapping path="/member/memberEmailChk"/>
+		<exclude-mapping path="/member/memberPhChk"/>
 		<exclude-mapping path="/member/memberIdSearch"/>
 		<exclude-mapping path="/member/memberPwSearch"/>
+		<exclude-mapping path="/member/memberPwSearch2"/>
+		<exclude-mapping path="/member/memberPwSearch3"/>
 		
 		
 		<exclude-mapping path="/hobby/qnaList"/>
