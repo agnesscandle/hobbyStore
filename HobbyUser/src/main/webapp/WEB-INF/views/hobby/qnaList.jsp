@@ -6,130 +6,172 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <%@ include file="../../views/common/header.jsp"%>
+
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 <style>
-.container{
-	height : max-content;
+body{
+	align-content: center;
+}
+.container {
+	height: max-content;
+	width : 1400px;
+	margin: 30px;
+	padding : 30px;
+	text-align: center;
 }
 
-#qnaItem  {
-border: 3px solid black;
-border-bottom : none;
-	font-size : 24px;
+
+#qnaItem {
+	border: 3px solid black;
+	border-bottom: none;
+	font-size: 15px;
 	width: max;
-	height : 3em;
+	height: 3em;
 	background-color: #eee;
 	font-weight: bold;
-   display: block;
-   margin-top : auto;
+	display: block;	
+}
+#userInfo {
+	
+	float: left;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.date{
+	font-size: 11px;
+	color: gray;
+	
 }
 
-.title{
-text-align:center;
-	
-	}
+.id{
+	font-weight: bolder;
+	font-size: 15px;
 
-#replyView{
-	margin: 20px;
+}
+.title {
+	text-align: center;
+}
+
+#statusAnswer {
+	display: inline-block;
+	float: right;
+	font-weight: normal;
+	padding-right: 20px;
+}
+
+#replyMerDate{
+	width: auto;
+	float: left;
+	margin: 30px;
+
+}
+#replyDate{
+	font-size: 11px;
+	color: gray;
+	
+}
+
+#replyMer{
+	font-weight: bolder;
+	font-size: 15px;
+}
+#replyView {
+width: inherit;
+}
+.qnaContent {
+	
+	width: max;	
+	background-color: #bbdefb;
+	height: max-content;
+	font-weight: bold;
+	display: block;
+	padding : 20px;
+	text-align: center;
+}
+#replyContent {
+	text-align : center;
+	background-color: rgba(255, 0, 0, 0);
+	border: none;
+	text-align: center;
+	height :inherit;
+	font-weight: bold;
+
 }
 
 #slideToggle {
 	display: none;
-	height : max-content;
-	background-color: #bbdefb;
-	text-align: center;
+	
+
 	width: max;
-	line-height: 30px;
-}
-.qnaContent{
-	height :max-content;
-	font-weight: bold;
-   display: block;
-   margin-top: 2em;
-   margin-bottom : 2em;
-	background-color: white;
-}
-.inputContent{
-	height : max-content;
-   margin-top: 2em;
-   margin-bottom : 2em;
-   display: block;
-   margin-top: 20px;
-  
-}
-#replyContent{
-height : max-content;
-	background-color: rgba(255, 0, 0, 0);
-	border: none;
-	text-align: center;
-	width: 70%;
-	margin-left: 20px;
+	margin-bottom: 5%;
+	
 	
 }
-.buttonReply{
 
-    font-size : 18px;
-    font-weight : bold;
-    color : white;
-    background-color: #0277bd;
-    border : none;
-    width : 150px;
-    height : 33px;
-    border-radius : 5px;
-        margin-bottom : 2em;
+.buttons {
+	float: right;
+	margin-right: 30px;
+	margin-bottom: 2em;
+	cursor: pointer;
+	height: 24px;
+	width: 90px;
+	border: 1px solid #333;
+
+	text-align: center;
+	font-weight: bold;
+	font-size: 10px;
 }
-.replyList{
-height : max-content;
+#replyUpdate{
+	cursor: pointer;
+	height: 24px;
+	width: 90px;
+	border: 1px solid #333;
+
+	text-align: center;
+	font-weight: bold;
+	font-size: 10px;
+	position: relative;
+
+
 }
-#statusAnswer{
-display: inline-block;
-float: right;
-font-weight: normal;
-padding-right: 20px;
-}
-#userInfo{
-display: inline-block;
-float: left;
-font-weight: normal;
-font-size : 20px;
-padding-left: 20px;
-margin-top: 20px;
-}
+
 #qnaUpdate{
-float: right;
-margin-right: 30px;
-margin-bottom : 2em;
-cursor: pointer;
-    height: 24px;
-    width: 90px;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
+ position: relative;
+ top : -5px;
+    
 }
 
-#replyRight{
-
+#replyContent{
+width:500px; 
+	height:100px; 
+    resize:none;
 }
-display: inline-block;
-float: right;
+#replyUpdate{
+ position: absolute;
+    right: 30px;
 }
-#replyMer{
-
+.inputContent {
+	height: max-content;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	display: block;
+	margin-top: 20px;
 }
 </style>
 <body>
-<h1>문의 하기 _<c:out value=" ${qna.hbTitle }"></c:out></h1>
-	
-		<div class="container">
-			<c:if test="${ qnaList != null }">
+	<h1>
+		문의 하기 _
 		
-				<c:forEach var="qna" items="${ qnaList }" varStatus="status">
-				 <c:if test="${ qna.status eq 'Y' }">
+	</h1>
 
-					
-	<script>
+	<div class="container">
+		<c:if test="${ qnaList != null }">
+
+			<c:forEach var="qna" items="${ qnaList }" varStatus="status">
+				<c:if test="${ qna.status eq 'Y' }">
+
+
+					<script>
 		$(function(){
 				 $( '.qnaItem${status.index}' ).on("click",function(e){
 					$('.slideToggle${ status.index }').slideToggle();
@@ -139,63 +181,183 @@ float: right;
          });
 
 	</script>
-					<div class="qnaItem${ status.index }"  id="qnaItem" >
-					<div id="userInfo">
-						<span class="id"><c:out value=" ${ qna.memId } "></c:out></span>
-						<span class="date"><c:out value=" ${ qna.qnaDate } "></c:out></span>
-<!-- 						<span class="no"><c:out value=" ${ qna.qnaNo } "></c:out></span> -->
+
+
+					<div class="qnaItem${ status.index }" id="qnaItem">
+						<div id="userInfo">
+							<span class="id"><c:out value=" ${ qna.memId } "></c:out></span><br>
+							<span class="date"><c:out value=" ${ qna.qnaDate } "></c:out></span>
+							<!-- 						<span class="no"><c:out value=" ${ qna.qnaNo } "></c:out></span> -->
 						</div>
-						<div class="title"><c:out value=" ${ qna.qnaTitle } "></c:out></div>
-						
+						<div class="title">
+							<c:out value=" ${ qna.qnaTitle } "></c:out>
+						</div>
+
 
 						<div id="statusAnswer">
-						<c:if test="${not empty qna.reply  }">
-						<span id="success">답변완료</span></c:if>
-						<c:if test="${ empty qna.reply }">
-						<span id="waiting">미완료</span></c:if>
-						
+							<c:if test="${not empty qna.reply  }">
+								<span id="success">답변완료</span>
+							</c:if>
+							<c:if test="${ empty qna.reply }">
+								<span id="waiting">미완료</span>
+							</c:if>
+
 						</div>
 					</div>
-
-					<div class="slideToggle${ status.index }" id="slideToggle" index="${ status.index }">
-						<div class="qnaContent">
-							
-							<c:out value=" ${ qna.qnaContent } "/> 
-							<c:if test="${ !empty loginMember && (loginMember.memId == qna.memId) }"> 
-							<button type="button" id="qnaUpdate" onclick="location.replace('${path}/hobby/qnaUpdate?qnaNo=${ qna.qnaNo }')">
-							수정</button></c:if>
-							<br>
+<br>
+					<div class="slideToggle${ status.index }" id="slideToggle"
+						index="${ status.index }">
+						<div class="qnaContentList">
+							<c:if test="${ qna.qnaSecure eq'Y'}">
+								<c:choose>
+								<c:when test="${ (loginMember.memNo == qna.memNo) }">
+									<div class="qnaContent">
+								<c:out value=" ${ qna.qnaContent } " />
+								<c:if
+									test="${ !empty loginMember && (loginMember.memId == qna.memId) }">
+									<button type="button" id="qnaUpdate"
+										onclick="location.replace('${path}/hobby/qnaUpdate?qnaNo=${ qna.qnaNo }')">
+										수정</button>
+								</c:if>
+								<br>
 						</div>
 						<div class="replyView">
-							
-							<c:forEach var="replyList" items="${ qna.reply }" >
-						
-							<span id="replyContent"><c:out value="${ replyList.replyContent }"></c:out></span>
-							<span class="replyRight"> 
-							<span id="replyDate"><c:out value="${ replyList.replayDate }"></c:out></span>
-							<span id="replyMer"> 작성자아이디입력칸</span>	<!-- 작성자 아이디추가해야댐 -->
-						
-							</span>
-							<hr>
+
+							<c:forEach var="replyList" items="${ qna.reply }">
+
+								<span id="replyContent"><c:out
+										value="${ replyList.replyContent }"></c:out></span>
+								<span class="replyRight"> <span id="replyDate"><c:out
+											value="${ replyList.replayDate }"></c:out></span> <span
+									id="replyMer"> 작성자아이디입력칸</span> <!-- 작성자 아이디추가해야댐 -->
+
+								</span>
+								<hr>
 							</c:forEach>
 						</div>
 						<form action="${ path }/hobby/qnaList" method="POST">
-						<div class="inputContent">
-						<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
-						<input type="hidden" id="qnaNo" name="qnaNo"
-							value="${ qna.qnaNo }" />
-						<textarea rows="5" cols="50" id="replyContent" name="replyContent"
-							placeholder="답변을 입력하세요."style="resize: none;"></textarea><br>
-						<input type="submit" value="등록하기" class="buttonReply">
-						</div>
+							<div class="inputContent">
+								<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
+								<input type="hidden" id="qnaNo" name="qnaNo"
+									value="${ qna.qnaNo }" />
+								<textarea rows="5" cols="50" id="replyContent"
+									name="replyContent" placeholder="답변을 입력하세요."
+									style="resize: none;"></textarea>
+								<br> <input type="submit" value="등록하기" class="buttonReply">
+							</div>
 						</form>
-					</div>
-					</div>
-					</c:if>
-				</c:forEach>
-			</c:if>
-		</div>
-	
+								</c:when>
+								<c:otherwise>
+									<p>비밀글입니다.</p>
+								</c:otherwise>
+								</c:choose>
+								
+							</c:if>
+							</div>
+							<c:if
+								test="${ qna.qnaSecure eq'N'}">
+								<div class="qnaContent">
+								<c:out value=" ${ qna.qnaContent } " />
+								
+								<br>
+								<c:if
+									test="${ !empty loginMember && (loginMember.memId == qna.memId) }">
+									<button type="button" class="buttons" id="qnaUpdate"
+										onclick="location.replace('${path}/hobby/qnaUpdate?qnaNo=${ qna.qnaNo }')">
+										수정</button>
+								</c:if>
+								</div>
+								<br>
+						<div class="replyView">
+
+							<c:forEach var="replyList" items="${ qna.reply }">
+							<div id="updateHide${replyList.replyNo }">
+						
+								<fmt:formatDate var="formatRegDate" value="${ replyList.replayDate }" pattern="yyyy.MM.dd"/>
+								<div id="replyMerDate">
+									<div id="replyMer"> 작성자아이디입력칸</div> <!-- 작성자 아이디추가해야댐 -->
+									<div id="replyDate">${formatRegDate}</div>
+									<br>
+									<button type="button" id="replyUpdateText${replyList.replyNo }" class="buttons">
+									수정</button>
+									<button type="button" id="replyDelete" class="buttons"
+										onclick="location.replace('${path}/hobby/replyDelete?replyNo=${ replyList.replyNo }')">
+										삭제</button>
+									</div><br>
+										<span id="replyContent${replyList.replyNo }">
+										<c:out value="${ replyList.replyContent }"></c:out></span> 
+									
+								
+							<input type="hidden" id="replyNo" name="replyNo" value="${replyList.replyNo }">			
+								<br>
+
+						</div>
+						<form id="updateTextarea${replyList.replyNo }" name="updateTextarea" class="updateTextarea">
+						<input type="hidden" id="replyNo" name="replyNo" value="${replyList.replyNo }">
+						<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
+						</form>
+								
+										
+								<hr>
+								<script>
+								$(function(){
+									$("#replyUpdateText${replyList.replyNo }").click(function(){
+
+											var textarea = document.createElement('textarea');
+											var replyContent = $("#replyContent${replyList.replyNo }").text();
+											var text = document.createTextNode(replyContent);
+											textarea.id = 'replyContent';
+											textarea.name = 'replyContent';
+											textarea.appendChild(text);
+											
+											var updateButton = '<input type="submit" id="replyUpdate" class="replyUpdate" name="replyUpdate" value="수정하기">';
+											
+											$('#updateTextarea${replyList.replyNo }').append(textarea).show();
+											$('#updateTextarea${replyList.replyNo }').append(updateButton).show();
+											
+											
+											
+											$('#replyUpdate').on("click", function(){
+												 var replyData = $("#updateTextarea${replyList.replyNo }").serialize();
+												   $.ajax({
+												      type : "POST",
+												      url : "${ path }/hobby/replyUpdate",
+												      data: replyData,
+												      datatype: 'json',
+												      success : function(data){
+												    	  alert("답변수정완료");
+												      }
+													
+												});
+											});
+											
+											$('#updateHide${replyList.replyNo }').hide();
+										});
+								 });
+								</script>
+							</c:forEach>
+						</div>
+
+						<form action="${ path }/hobby/qnaList" method="POST">
+							<div class="inputContent">
+								<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
+								<input type="hidden" id="qnaNo" name="qnaNo"
+									value="${ qna.qnaNo }" />
+								<textarea rows="5" cols="50" id="replyContent"
+									name="replyContent" placeholder="답변을 입력하세요."
+									style="resize: none;"></textarea>
+								<br> <input type="submit" value="등록하기" class="buttons" id="buttonReply">
+							</div>
+						</form>
+
+				</c:if>
+				</div>
+		</c:if>
+
+	</c:forEach>
+	</c:if>
+	</div>
+
 
 	<div id="pageBar">
 		<!-- 맨 처음으로 -->
@@ -234,7 +396,7 @@ float: right;
 
 	</div>
 
-<script>
+	<script>
 
 
 $(document).ready(() => {
@@ -246,7 +408,8 @@ $(document).ready(() => {
 				location.replace("${path}/hobby/qnaList?hbNo=${hobby.hbNo}");
 			}
 		});
-	});
+});
+		
 </script>
 
 </body>

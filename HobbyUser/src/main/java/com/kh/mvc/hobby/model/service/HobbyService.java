@@ -88,4 +88,10 @@ public interface HobbyService {
 
 	int deleteQna(Qna qna);
 
+	int deleteReply(Reply reply);
+
+	Reply findByReplyNo(int replyNo);
+
+	int getReplyCount(int qnaNo, int merNo);
+
 }

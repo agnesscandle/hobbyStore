@@ -443,16 +443,20 @@ public class HobbyController {
           @ModelAttribute Qna qna) {
        
        Hobby hobby = service.question(hbNo);
-       System.out.println(hobby);
-       if(loginMember.getMemNo() == qna.getMemNo()) {
+       System.out.println(loginMember);
+       
+       if(loginMember == null) {
 
-       }else {
+    		model.addObject("msg", "로그인 이후 이용 가능합니다.");
+            model.addObject("location", "/");
+            model.setViewName("common/msg");
+    		
+    	} else {
           
-          model.addObject("msg", "잘못된 접근입니다");
-          model.addObject("location", "/");
+    	       model.addObject("hobby",hobby);
+    	       model.setViewName("/hobby/question");
        }
-       model.addObject("hobby",hobby);
-       model.setViewName("/hobby/question");
+
        
        return model;
     }
@@ -465,29 +469,28 @@ public class HobbyController {
        qna.setMemNo(loginMember.getMemNo());
        result = service.saveQna(qna);
       
-       if(result > 0) {
-          model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-          model.addObject("location", "/");
-       } else {
+  
           model.addObject("msg", "게시글이 등록을 실패하였습니다.");
           model.addObject("location", "/");
-       }
-       model.setViewName("common/msg");
+          model.setViewName("common/msg");
        
        return model;
     }
 
  @GetMapping("/qnaList")
  public ModelAndView qnaList(ModelAndView model,
+        @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
        @RequestParam("hbNo") int hbNo) {
 
+	 //Qna리스트 불러오기
     List<Qna> qnaList = null;
 
     PageInfo pageInfo = new PageInfo(page, 10, service.getQnaCount(hbNo), 10);
     int listCount = pageInfo.getListCount();
     qnaList = service.getQnaList(pageInfo, hbNo);
 
+    //리플리스트 불러오기
     List<Reply> replyList = null;
     for (int i = 0; i < qnaList.size(); i++) {
        int qnaNo = qnaList.get(i).getQnaNo();
@@ -497,6 +500,12 @@ public class HobbyController {
        qnaList.get(i).setReply(replyList);
        
     }
+    
+    //리플 한번만 작성 가능 검사
+  
+//    int merNo = loginMerchant.getMerNo();
+//    int replyCount = service.getReplyCount(qnaNo,merNo);
+//    model.addObject("replyCount", replyCount);
     
     model.addObject("qnaList", qnaList);
     model.addObject("pageInfo", pageInfo);
@@ -586,7 +595,52 @@ public class HobbyController {
     model.setViewName("common/msg");
     return model;
  }
+ 
+ @GetMapping("/replyDelete")
+ public ModelAndView replyDelete(ModelAndView model,
+	       //@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	       HttpServletRequest request,
+	       @ModelAttribute Hobby hobby,@ModelAttribute Qna qna, @ModelAttribute Reply reply) {
+	 
+	 	int result =0;
+	    
+	    result = service.deleteReply(reply);
+	    
+	    System.out.println(reply);
+	    if(result > 0) {
+	       model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+	    } else {
+	       model.addObject("msg", "게시글 수정을 실패하였습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+	    }
+	    model.setViewName("common/msg");
+	 return model;
+ }
 
+ 
+ 
+ @PostMapping("/replyUpdate")
+ public ModelAndView replyUpdate(ModelAndView model, 
+//       @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+       HttpServletRequest request,
+       @ModelAttribute Qna qna,  @RequestParam("hbNo") int hbNo, @ModelAttribute Reply reply) {
+	 int result = 0;
+	    
+	    result = service.saveReply(reply);
+	   System.out.println(hbNo);
+	    
+	    if(result > 0) {
+	       model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hbNo);
+	    } else {
+	       model.addObject("msg", "게시글 수정을 실패하였습니다.");
+	       model.addObject("location", "/hobby/replyUpdate?replyNo=" + reply.getReplyNo());
+	    }
+	    
+	    model.setViewName("common/msg");
+	    return model;
+ }
 
 	
 
@@ -646,6 +700,5 @@ public class HobbyController {
 		model.setViewName("common/msg");
 		return model;
 	}
-
 
 }

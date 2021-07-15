@@ -644,9 +644,38 @@
 		DEFAULT
 		)
 	</insert>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE
+		FROM REPLY
+		WHERE REPLY_NO = #{replyNo}
+	</delete>
 
+<select id="selectReplyByNo" parameterType="_int"
+		resultMap="ReplyListResultMap">
+		<include refid="replyList" />
+		WHERE R.REPLY_NO=#{replyNo}
 
-
+	</select>
+	
+	<update id="updateReply" parameterType="map">
+		UPDATE REPLY
+		SET
+		REPLY_CONTENT=#{replyContent},
+		REPLAY_DATE=SYSDATE
+		WHERE
+		REPLY_NO = #{replyNo}
+	</update>
+<!-- 
+	<select id="selectReplyCount" parameterType="map"
+			resultType="_int">
+			SELECT COUNT(*)
+			FROM REPLY
+			WHERE QNA_NO = ${qnaNo}
+			AND
+			MER_NO = ${merNo}
+	</select>
+ -->
 	<!-- merInfo -->	
 	<!--  상인 정보보기 -->
 	<select id="selectMerInfoByNo" parameterType="_int" resultMap="MerchantListResultMap">

@@ -87,6 +87,12 @@ public interface HobbyMapper {
 
 	int insertQna(Qna qna);
 
+	int deleteReply(Reply reply);
+
+	Reply findByReplyNo(int replyNo);
+
+	
+
 	Merchant selectMerInfoByNo(HashMap<String, Integer> hashMap);
 
 	Merchant selectMerInfoByNo(int merNo);
@@ -94,5 +100,11 @@ public interface HobbyMapper {
 	String selectCateNameByNo(int cateNo);
 
 	int saveReserve(Reserve reserve);
+
+	int updateReply(Reply reply);
+
+	int selectReplyCount(int qnaNo, int merNo);
+
+
 
 }

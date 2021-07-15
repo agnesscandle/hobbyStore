@@ -333,7 +333,7 @@ public class HobbyServiceImpl implements HobbyService {
 	   int result = 0;
 	         
 	         if(reply.getReplyNo() !=0) {
-	            //업데이트
+	            result = mapper.updateReply(reply);
 	         } else {
 	            result= mapper.saveReply(reply);
 	         }
@@ -347,9 +347,20 @@ public class HobbyServiceImpl implements HobbyService {
 
 	   @Override
 	   public int deleteQna(Qna qna) {
-	      // TODO Auto-generated method stub
 	      return mapper.deleteQna(qna);
 	   }
+
+
+	@Override
+	public int deleteReply(Reply reply) {
+	      return mapper.deleteReply(reply);
+	}
+
+	@Override
+	public Reply findByReplyNo(int replyNo) {
+		return mapper.findByReplyNo(replyNo);
+	}
+
 
 	   
 	@Override
@@ -369,5 +380,11 @@ public class HobbyServiceImpl implements HobbyService {
 		
 		return mapper.saveReserve(reserve);
 	}
+
+	@Override
+	public int getReplyCount(int qnaNo, int merNo) {
+		return mapper.selectReplyCount(qnaNo, merNo);
+	}
+
 
 }
