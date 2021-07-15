@@ -333,7 +333,7 @@ public class HobbyServiceImpl implements HobbyService {
 	   int result = 0;
 	         
 	         if(reply.getReplyNo() !=0) {
-	            //업데이트
+	            result = mapper.updateReply(reply);
 	         } else {
 	            result= mapper.saveReply(reply);
 	         }
@@ -379,6 +379,11 @@ public class HobbyServiceImpl implements HobbyService {
 	public int saveReserve(Reserve reserve) {
 		
 		return mapper.saveReserve(reserve);
+	}
+
+	@Override
+	public int getReplyCount(int qnaNo, int merNo) {
+		return mapper.selectReplyCount(qnaNo, merNo);
 	}
 
 

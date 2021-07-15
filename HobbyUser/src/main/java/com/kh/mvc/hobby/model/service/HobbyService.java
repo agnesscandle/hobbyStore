@@ -92,4 +92,6 @@ public interface HobbyService {
 
 	Reply findByReplyNo(int replyNo);
 
+	int getReplyCount(int qnaNo, int merNo);
+
 }

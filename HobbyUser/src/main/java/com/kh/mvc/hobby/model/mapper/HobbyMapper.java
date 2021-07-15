@@ -101,6 +101,10 @@ public interface HobbyMapper {
 
 	int saveReserve(Reserve reserve);
 
+	int updateReply(Reply reply);
+
+	int selectReplyCount(int qnaNo, int merNo);
+
 
 
 }
