@@ -7,7 +7,7 @@
 <%@ include file="../../views/common/header.jsp"%>
 
 <div class="UseofTerms_Container">
-	<h2 class="titleOfTerms">취미 상점 이용약관</h2>
+	<h2 class="titleOfTerms">취미 상점 이용약관.</h2>
 
 	<br>
 	<br>

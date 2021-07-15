@@ -75,7 +75,7 @@
 
 <div class="changePwPage">
 <form id="merChangePwFrm" action="${ path }/merchantMember/changePw" method="POST">
-<div class="merPw_Change_Title">비밀번호 변경</div>
+<div class="merPw_Change_Title">비밀번호 변경하기</div>
 
 <div class="merPw_Change_step">Step 1) 현재 사용하고 있는 비밀번호를 입력해주세요.</div>
 

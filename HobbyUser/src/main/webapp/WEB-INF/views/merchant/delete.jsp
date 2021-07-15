@@ -30,7 +30,7 @@ a {
 }
 
 .delMemInput {
-	font-size: 16px;
+	font-size: 17px;
 	font-weight: normal;
 	line-height: 20px;
 	letter-spacing: -0.15px;

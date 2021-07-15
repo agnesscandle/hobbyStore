@@ -17,7 +17,7 @@
 	box-sizing: border-box;
 }
 .profile-wrapper{
-	height: 150px;
+	height: 151px;
 	width: 150px;
 	position: relative;
 	border: 2px solid rgb(32, 51, 84);

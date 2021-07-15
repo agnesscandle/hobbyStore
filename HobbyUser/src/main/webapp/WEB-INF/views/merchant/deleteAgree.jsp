@@ -23,7 +23,7 @@ strong {
 }
 
 #mDeleteFrm {
-	padding: 0% 21% 5% 21%;
+	padding: 0% 21% 6% 21%;
 }
 
 .info_user {

@@ -20,7 +20,7 @@
 
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 
-<title>취미상점</title>
+<title>취미상점test</title>
 </head>
 
 

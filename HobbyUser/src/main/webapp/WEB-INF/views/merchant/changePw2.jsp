@@ -9,7 +9,7 @@
 
 <style>
 .changePwPage {
-	padding: 7% 33% 8% 33%;
+	padding: 8% 33% 8% 33%;
 }
 
 .merPw_Change_Title {

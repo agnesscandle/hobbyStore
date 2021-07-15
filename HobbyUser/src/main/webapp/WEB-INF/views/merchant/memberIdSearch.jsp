@@ -37,7 +37,7 @@
 
 <style>
 .findIdPage {
-	padding: 7% 40% 10% 40%;
+	padding: 8% 40% 10% 40%;
 }
 
 .mId_Search_Title {

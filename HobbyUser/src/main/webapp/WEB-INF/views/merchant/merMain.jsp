@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<!-- 잠깐 테스트 -->
+<!-- 잠깐 테스트. -->
 <html>
 <head>
 <%@ include file="../../views/merchant/list.jsp"%>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>로그아웃 처리</title>
+    <title>로그아웃 처리test</title>
 </head>
 <body>
     <%

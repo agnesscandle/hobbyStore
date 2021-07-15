@@ -28,7 +28,7 @@
                        ${hobby.cateName}<em>${hobby.hbTitle}</em>
                     </h2>
 
-					<!-- 금액(할인 적용 시) -->
+					<!-- 금액(할인 적용시) -->
                      <c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
                         <c:set var="disFee"
                            value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />

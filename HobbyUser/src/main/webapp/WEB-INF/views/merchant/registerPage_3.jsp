@@ -11,7 +11,7 @@
 		<div class="PrivacyPolicyProvide__Container-sc-6go70a-0 iksGra">
 			<div class="PrivacyPolicyProvide__Content-sc-6go70a-1 dpACjN">
 				<h2 class="BaseTypography__TextElement-sc-1mdjjd2-0 hVpkWJ">개인정보
-					제3자 제공</h2>
+					제3자 제공.</h2>
 				<br>
 				<div class="BaseTypography__TextElement-sc-1mdjjd2-0 gdfVvi">
 					<br>① 회사는 『4. 개인정보 수집 및 이용목적』에서 고지한 범위 내에서만 개인정보를 이용하며, 원칙적으로

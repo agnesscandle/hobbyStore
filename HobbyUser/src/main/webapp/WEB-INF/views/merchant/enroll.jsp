@@ -173,7 +173,7 @@ $('#merId').on("propertychange change keyup paste input", function(){
    var memId = $("#merId").val();  
    
    if(memId.length < 6){
-	   $(".id_validate").html("아이디는 최소 6글자 이상 입력하세요.");
+	   $(".id_validate").html("아이디는 최소 6글자 이상 입력하세요..");
 		
 		return;
 	}

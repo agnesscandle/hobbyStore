@@ -11,7 +11,7 @@
 		<div class="PrivacyPolicyCollect__Container-sc-1svom9t-0 dSLftU">
 			<div class="PrivacyPolicyCollect__Content-sc-1svom9t-1 gNwALr">
 				<h2 class="BaseTypography__TextElement-sc-1mdjjd2-0 hVpkWJ">개인정보
-					수집항목 및 이용 목적</h2>
+					수집항목 및 이용 목적.</h2>
 				<br>
 				<div class="BaseTypography__TextElement-sc-1mdjjd2-0 gdfVvi">
 					<br>① 회사는 서비스 제공을 위한 최소한의 범위 내에서 이용자의 동의 하에 개인정보를 수집하며, 이용자가
