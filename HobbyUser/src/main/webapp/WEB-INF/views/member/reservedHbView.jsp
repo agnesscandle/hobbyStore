@@ -50,7 +50,11 @@
 </div>
 </div>
 
+<div class="reserved-wrap">
 <h2>예약 상세</h2>
+
+
+</div>
 
 </main>
 

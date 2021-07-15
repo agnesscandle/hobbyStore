@@ -12,15 +12,22 @@
 body{
 	align-content: center;
 }
-.container {
+.qnaL_container {
 	height: max-content;
 	width : 1400px;
-	margin: 30px;
+	margin: auto;
 	padding : 30px;
 	text-align: center;
 }
 
+.qnaL_title{
+	text-align: left;
+	padding-bottom: 20px;
+}
 
+.hidden_Qbox{
+	margin-bottom: 60px;
+}
 #qnaItem {
 	border: 3px solid black;
 	border-bottom: none;
@@ -61,8 +68,8 @@ body{
 
 #replyMerDate{
 	width: auto;
-	float: left;
-	margin: 30px;
+	float: right;
+	margin: auto;
 
 }
 #replyDate{
@@ -122,23 +129,22 @@ width: inherit;
 	font-size: 10px;
 }
 #replyUpdate{
+	float: right;
+	margin: 110px 30px 0px 0px;
 	cursor: pointer;
 	height: 24px;
 	width: 90px;
 	border: 1px solid #333;
-
 	text-align: center;
 	font-weight: bold;
 	font-size: 10px;
 	position: relative;
-
-
 }
 
 #qnaUpdate{
  position: relative;
  top : -5px;
-    
+ left: 20px;
 }
 
 #replyContent{
@@ -146,10 +152,7 @@ width:500px;
 	height:100px; 
     resize:none;
 }
-#replyUpdate{
- position: absolute;
-    right: 30px;
-}
+
 .inputContent {
 	height: max-content;
 	margin-top: 2em;
@@ -159,12 +162,10 @@ width:500px;
 }
 </style>
 <body>
-	<h1>
-		문의 하기 _
-		
-	</h1>
 
-	<div class="container">
+
+	<div class="qnaL_container">
+	<div class="qnaL_title"><h1>문의 하기 _</h1></div>
 		<c:if test="${ qnaList != null }">
 
 			<c:forEach var="qna" items="${ qnaList }" varStatus="status">
@@ -278,12 +279,14 @@ width:500px;
 									<div id="replyMer"> 작성자아이디입력칸</div> <!-- 작성자 아이디추가해야댐 -->
 									<div id="replyDate">${formatRegDate}</div>
 									<br>
+									
 									<button type="button" id="replyUpdateText${replyList.replyNo }" class="buttons">
 									수정</button>
 									<button type="button" id="replyDelete" class="buttons"
 										onclick="location.replace('${path}/hobby/replyDelete?replyNo=${ replyList.replyNo }')">
 										삭제</button>
-									</div><br>
+									
+								</div><br>
 										<span id="replyContent${replyList.replyNo }">
 										<c:out value="${ replyList.replyContent }"></c:out></span> 
 									
@@ -296,8 +299,9 @@ width:500px;
 						<input type="hidden" id="replyNo" name="replyNo" value="${replyList.replyNo }">
 						<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
 						</form>
+						<div class="hidden_Qbox"></div>	
 								
-										
+								
 								<hr>
 								<script>
 								$(function(){
