@@ -29,8 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/merchantMember")
-@SessionAttributes("loginMerMember")
+@RequestMapping("/merchant")
+@SessionAttributes("loginMerchant")
 public class MerchantController {
 	
 	
@@ -107,7 +107,7 @@ public class MerchantController {
 	public String enrollView() { 
 		log.info("회원가입 페이지 요청");
 		
-		return "/merchantMember/enroll";
+		return "/merchant/enroll";
 	}
 	
 	// 회원가입 처리
@@ -219,6 +219,15 @@ public class MerchantController {
 	
 		
 		return model;
+	}
+	
+	/* 예약 현황(목록) 보기 */
+	@GetMapping("/resList")
+	public String reserveList() {
+		
+		log.info("예약 목록 페이지 요청");
+		
+		return "merchant/resList";
 	}
 
 }
