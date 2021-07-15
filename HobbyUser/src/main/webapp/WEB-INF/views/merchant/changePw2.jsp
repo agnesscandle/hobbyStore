@@ -12,7 +12,7 @@
 	padding: 7% 33% 8% 33%;
 }
 
-.mPw_Change_Title {
+.merPw_Change_Title {
 	text-align: left;
 	font-size: 30px;
 	font-weight: bold;
@@ -20,7 +20,7 @@
 	margin: 0px 0px 10px 0px;
 }
 
-.mPw_Change_step {
+.merPw_Change_step {
 	margin-bottom: 5%;;
 	font-size: 22px;
 	font-weight: bold;
@@ -68,21 +68,21 @@
 </style>
 
 <div class="changePwPage">
-<form id="mChangePwFrm_2" action="${ path }/member/changePw2" method="POST">
-<div class="mPw_Change_Title">비밀번호 변경</div>
-<div class="mPw_Change_step">step 2) 새로운 비밀번호를 입력하세요.</div>
+<form id="merChangePwFrm_2" action="${ path }/merchantMember/changePw2" method="POST">
+<div class="merPw_Change_Title">비밀번호 변경</div>
+<div class="merPw_Change_step">step 2) 새로운 비밀번호를 입력하세요.</div>
 
 <div class="change_box">
-	<input type="hidden" name="memId" value="${ loginMember.memId }" readonly/>
+	<input type="hidden" name="merId" value="${ loginMerMember.merId }" readonly/>
 	<label class="labelMPw">새 비밀번호</label><br>
-	<input type="password" class="pwChangeInput newPw" id="memPassword" name="memPassword" required />
+	<input type="password" class="pwChangeInput newPw" id="merPassword" name="merPassword" required />
 	<div id="pw-success"></div>
 	<div id="pw-danger"></div>
 </div>
 
 <div class="change_box">
 	<label class="labelMPw">새 비밀번호 확인</label><br>
-	<input type="password" class="pwChangeInput newPw" id="memPassword2" required />
+	<input type="password" class="pwChangeInput newPw" id="merPassword2" required />
 		<div id="alert-success"></div>
 		<div id="alert-danger"></div>
 </div>
@@ -96,11 +96,11 @@
 
 
 <script>
-$("#memPassword").on("input",function(){
+$("#merPassword").on("input",function(){
 	$("#pw-success").hide();
 	$("#pw-danger").hide();
 	
-	var pw = $("#memPassword").val();
+	var pw = $("#merPassword").val();
 	var num = pw.search(/[0-9]/g);
 	var eng = pw.search(/[a-z]/ig);
 	var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);

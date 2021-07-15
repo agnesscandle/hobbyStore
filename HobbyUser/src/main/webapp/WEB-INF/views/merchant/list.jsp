@@ -3,10 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ include file="../../views/common/Merchantheader.jsp"%>
+<%-- <%@ include file="../../views/common/Merchantheader.jsp"%> --%>
 
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <link rel="stylesheet" href="${path}/css/hobby/list.css">
+
+<body>
+
+<c:import url="../../views/common/Merchantheader.jsp"/>
 
 <div class="divList">
    <div class="containerList">
@@ -99,6 +103,7 @@
       onclick="location.href='${path}/hobby/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
 </div>
 
+</body>
 <script>
    $('.size span, .color span').click(function() {
       $(this).addClass('active')

@@ -107,7 +107,7 @@ public class MerchantController {
 	public String enrollView() { 
 		log.info("회원가입 페이지 요청");
 		
-		return "/merchantMember/enroll";
+		return "/merchant/enroll";
 	}
 	
 	// 회원가입 처리
@@ -152,7 +152,7 @@ public class MerchantController {
 		list = service.getCateList();
 
 		model.addObject("list", list);
-		model.setViewName("merchantMember/hobbyEnroll");
+		model.setViewName("merchant/hobbyEnroll");
 
 		return model;
 	}

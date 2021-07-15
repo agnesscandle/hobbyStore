@@ -11,14 +11,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>HTML input tag - type="image"</title>
 
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<h2>상인 회원 가입</h2>
+	
 	
 	<div class="memEnrollWrapper">
-		<form name="memberEnrollFrm" action="${ path }/merchantMember/enroll" method="POST">
+		<form name="memberEnrollFrm" action="${ path }/merchant/enroll" method="POST">
 		<div class="memEnrollTitle">상인 회원 가입</div>
 			<table>
 				<!-- 아이디 -->
@@ -50,6 +51,17 @@
 		<input class="enrollInput" type="text" id="merName" name="merName" placeholder="홍길동" required="required" />
 		<div class="name regex"></div>
 				
+		
+
+
+ <!-- 	  <span>대표 이미지</span>
+	   <div class="file-upload preview-image">
+	   <input type="text" class="upload-name" value="파일선택" disabled="disabled"> 
+	   <label for="input-file">업로드</label> 
+	   <input type="file" id="input-file" name="merImgOriginal" class="upload-hidden">
+	   </div> -->
+    
+		
 				
 		<!-- 전화번호 -->
    		<label class="memEnrollLabel">전화번호</label><br>
@@ -168,10 +180,10 @@ $('#merId').on("propertychange change keyup paste input", function(){
    
    $.ajax({
       type : "get",
-      url : "${path}/merchantMember/merrmemberIdChk",
+      url : "${path}/merchant/memberIdChk",
       dataType : "json",
       data: {
-         memId
+         merId
       },
       success : function(data){
     	  $('.id_input_re_2').hide();
@@ -202,7 +214,7 @@ $('#merId').on("propertychange change keyup paste input", function(){
 	$("#pw-danger").hide();
 	
 	$("input").keyup(function() {
-		var pw = $("#memPassword").val();
+		var pw = $("#merPassword").val();
 		var num = pw.search(/[0-9]/g);
 		var eng = pw.search(/[a-z]/ig);
 		var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
@@ -237,8 +249,8 @@ $('#merId').on("propertychange change keyup paste input", function(){
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
 		$("input").keyup(function() {
-			var memPassword = $("#memPassword").val();
-			var memPassword2 = $("#memPassword2").val();
+			var memPassword = $("#merPassword").val();
+			var memPassword2 = $("#merPassword2").val();
 			if (memPassword != "" || memPassword2 != "") {
 				if (memPassword == memPassword2) {
 					$("#alert-success").show();
@@ -256,9 +268,9 @@ $('#merId').on("propertychange change keyup paste input", function(){
 	});
 	
 	// 전화번호 유효성검사
-    $("#memPhone").on("input",function(){
+    $("#merPhone").on("input",function(){
          var regex = /^01\d\d{3,4}\d{4}$/;
-         var result = regex.exec($("#memPhone").val());
+         var result = regex.exec($("#merPhone").val());
         
         if(result != null){
            $(".phone.regex").html("");  
@@ -270,10 +282,10 @@ $('#merId').on("propertychange change keyup paste input", function(){
     });
 	
 	//email 유효성 검사
-    $("#memEmail").on("input",function(){
+    $("#merEmail").on("input",function(){
          var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-         var result = regex.exec($("#memEmail").val());
-         var memEmail = $("#memEmail").val();
+         var result = regex.exec($("#merEmail").val());
+         var memEmail = $("#merEmail").val();
         if(result != null){
            $(".email.regex").html("");  
         		
@@ -285,16 +297,16 @@ $('#merId').on("propertychange change keyup paste input", function(){
     });
 	
  // 이메일 중복 검사
-    $('#memEmail').on("input", function(){
+    $('#merEmail').on("input", function(){
     	var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        var result = regex.exec($("#memEmail").val());
-    	var memEmail = $("#memEmail").val(); 
+        var result = regex.exec($("#merEmail").val());
+    	var memEmail = $("#merEmail").val(); 
     	   
     	  
     	
     	$.ajax({
     	      type : "get",
-    	      url : "${path}/member/memberEmailChk",
+    	      url : "${path}/merchant/memberEmailChk",
     	      dataType : "json",
     	      data: {
     	         memEmail
@@ -327,7 +339,7 @@ $('#merId').on("propertychange change keyup paste input", function(){
  
    // 약관동의 체크 했는지 검사
    $("#enrollSubmit").click(function(){
-	  if($("input:checkbox[name='memAgree']").is(":checked")==false){
+	  if($("input:checkbox[name='merAgree']").is(":checked")==false){
 		  alert('약관에 동의해주세요.');
 		  return false;
 	  } else{

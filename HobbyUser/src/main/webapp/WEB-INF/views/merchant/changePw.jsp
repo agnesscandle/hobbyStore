@@ -12,7 +12,7 @@
 	padding: 7% 33% 8% 33%;
 }
 
-.mPw_Change_Title {
+.merPw_Change_Title {
 	text-align: left;
 	font-size: 30px;
 	font-weight: bold;
@@ -20,7 +20,7 @@
 	margin: 0px 0px 10px 0px;
 }
 
-.mPw_Change_step {
+.merPw_Change_step {
 	margin-bottom: 5%;;
 	font-size: 22px;
 	font-weight: bold;
@@ -74,15 +74,15 @@
 </style>
 
 <div class="changePwPage">
-<form id="mChangePwFrm" action="${ path }/member/changePw" method="POST">
-<div class="mPw_Change_Title">비밀번호 변경</div>
+<form id="merChangePwFrm" action="${ path }/merchantMember/changePw" method="POST">
+<div class="merPw_Change_Title">비밀번호 변경</div>
 
-<div class="mPw_Change_step">Step 1) 현재 사용하고 있는 비밀번호를 입력해주세요.</div>
+<div class="merPw_Change_step">Step 1) 현재 사용하고 있는 비밀번호를 입력해주세요.</div>
 
 	<div class="change_box">
-	<input type="hidden" name="memId" value="${ loginMember.memId }" readonly/>
+	<input type="hidden" name="merId" value="${ loginMerMember.merId }" readonly/>
 	<label class="labelMPw">현재 비밀번호</label><br>
-	<input type="password" class="pwChangeInput curPw" id="memPassword" name="memPassword" required/>
+	<input type="password" class="pwChangeInput curPw" id="merPassword" name="merPassword" required/>
 	</div>
 
 	<p>
@@ -99,7 +99,7 @@
 <script>
 $(function(){
 	$("#find_mPw_btn").click(function(){
-		location.href='${ path }/member/memberPwSearch';
+		location.href='${ path }/merchantMember/memberPwSearch';
 	})
 })
 

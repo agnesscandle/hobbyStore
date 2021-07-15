@@ -14,14 +14,15 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-<%-- <link rel="stylesheet" href="${path}/css/merchantMember_css/test.css">	 --%>
-<link rel="stylesheet" href="${path}/css/style.css">
+<link rel="stylesheet" href="${path}/css/merchantMember_css/test.css">
+<%-- <link rel="stylesheet" href="${path}/css/style.css"> --%>
 <link rel="shortcut icon" type="imae/x-icon"
 	href="${path}/images/logo.png" />
 
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 
 <title>취미상점</title>
+</head>
 <!-- <style>
 .topMenu1{
     margin : 5px;
@@ -33,12 +34,7 @@
     min-height : 8vh;
     font-family : 'Noto Sans KR', sans-serif;
 }
- -->
-
-</style>
-
-</head>
-
+</style> -->
 
 	<header>
 		<div class="logo" onclick="location.href='${path}'">
@@ -62,7 +58,7 @@
 			</table>
 		</div>
 	</header>
-
+<div style="width:200px; float:left;">
 
 <nav>
 
@@ -103,7 +99,7 @@
 </nav>
 
 <nav>
-<div class="topMenu3">        
+<div  class="topMenu3">        
       
             <span style="color:navy; font-size:30px; font-weight:bold">정산</span>
             <ul class="dept03">
@@ -120,10 +116,10 @@
  		
             <span style="color:navy; font-size:30px; font-weight:bold">지원센터</span>
             <ul class="dept04">
-                 <div id="hobbyEnroll" class="hobbyEnroll">공지사항</div>
-                 <div id="hobbyEnroll" class="hobbyEnroll">운영메뉴얼</div>
-                 <div id="hobbyEnroll" class="hobbyEnroll">자주 묻는 질문</div>
-                 <div id="hobbyEnroll" class="hobbyEnroll">후기</div>
+                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">공지사항</a></div>
+                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">운영메뉴얼</a></div>
+                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">자주 묻는 질문</a></div>
+                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">후기</a></div>
                    
             </ul>        
         
@@ -131,7 +127,8 @@
 </div>   
   
 </nav>
-
+</div>
+</body>
 
 
 
@@ -139,7 +136,6 @@
 
 
 <script>
-
 $(document).on('mouseover', '.topMenu1 span', function () {
     $('.dept01').slideDown(700);
 });
@@ -148,20 +144,18 @@ $(document).on('mouseover', 'div', function () {
         $('.dept01').slideUp(700);
     }
 });
-
 <!-- 취미만들기 페이지 이동 -->
 $(function(){
    $("#hobbyEnroll").click(function(){
-      location.href='${ path }/merchantMember/hobbyEnroll';
+      location.href='${ path }/merchant/hobbyEnroll';
    })
 })
 <!--취미리스트 페이지 이동-->
 $(function(){
    $("#hobbylist").click(function(){
-      location.href='${ path }/merchantMember/list?adNo=${loginMerMember.merNo}';
+      location.href='${ path }/merchant/list?adNo=${loginMerMember.merNo}';
    })
 })
-
 $(document).on('mouseover', '.topMenu2 span', function () {
     $('.dept02').slideDown(700);
 });
@@ -176,7 +170,6 @@ $(function(){
       location.href='${ path }/hobby/qnaList';
    })
 })
-
 $(document).on('mouseover', '.topMenu3 span', function () {
     $('.dept03').slideDown(700);
 });
@@ -185,7 +178,6 @@ $(document).on('mouseover', 'div', function () {
         $('.dept03').slideUp(700);
     }
 });
-
 $(document).on('mouseover', '.topMenu4 span', function () {
     $('.dept04').slideDown(700);
 });
