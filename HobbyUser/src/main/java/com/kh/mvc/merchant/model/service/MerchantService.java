@@ -8,15 +8,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-import com.kh.mvc.merchant.model.vo.MerchantMember;
+import com.kh.mvc.merchant.model.vo.Merchant;
+
 
 public interface MerchantService {
 
-	MerchantMember login(String merId, String merPassword);
+	Merchant login(String merId, String merPassword);
 	
-	int save(MerchantMember merchantMember);
+	int save(Merchant merchantMember);
 
-	MerchantMember findById(String merId);
+	Merchant findById(String merId);
 
 	
 	/* 취미 등록 */

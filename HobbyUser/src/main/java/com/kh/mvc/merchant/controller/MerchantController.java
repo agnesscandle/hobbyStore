@@ -23,7 +23,7 @@ import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 
 import com.kh.mvc.merchant.model.service.MerchantService;
-import com.kh.mvc.merchant.model.vo.MerchantMember;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +45,7 @@ public class MerchantController {
 		
 		log.info("{}, {}", merId, merPassword);		
 
-       MerchantMember loginMerchantMember =  service.login(merId, merPassword);
+       Merchant loginMerchantMember =  service.login(merId, merPassword);
 		
 		if(loginMerchantMember != null) {
 			model.addObject("loginMerMember", loginMerchantMember);
@@ -112,7 +112,7 @@ public class MerchantController {
 	
 	// 회원가입 처리
 	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute MerchantMember merchantmember) {
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember) {
 		System.out.println(merchantmember);
 		
 		int result = service.save(merchantmember);
@@ -211,13 +211,10 @@ public class MerchantController {
 	}
 	
 	/*취미 수정*/
-	@PostMapping("/merchantMember/updateEnroll")
-	public ModelAndView updateEnroll(ModelAndView model, @RequestParam("postcode") String postcode,
-			@RequestParam("exactAddress") String exactAddress, MultipartHttpServletRequest mtfRequest,
-			// @SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			HttpServletRequest request, @ModelAttribute Hobby hobby) {
+	@GetMapping("/Reviewmanagement")
+	public ModelAndView updateEnroll(ModelAndView model) {
 	
-		
+		model.setViewName("merchant/Reviewmanagement");
 		return model;
 	}
 

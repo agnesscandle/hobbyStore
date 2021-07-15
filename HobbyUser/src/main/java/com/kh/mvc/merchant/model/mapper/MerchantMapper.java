@@ -9,13 +9,14 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-import com.kh.mvc.merchant.model.vo.MerchantMember;
+import com.kh.mvc.merchant.model.vo.Merchant;
+
 
 @Mapper
 public interface MerchantMapper {
-	MerchantMember selectMerchantMember(@Param("merId") String merId);
+	Merchant selectMerchantMember(@Param("merId") String merId);
 
-	int insertMerchantMember(MerchantMember merchantMember);
+	int insertMerchantMember(Merchant merchantMember);
 	
 	/* 취미 등록 */
 	int selectHobbyCount();

@@ -26,7 +26,7 @@
 		FROM MERCHANT
  	</sql>
  
- 	<resultMap type="MerchantMember" id="merchantmemberResultMap">
+ 	<resultMap type="Merchant" id="merchantmemberResultMap">
  		<id property="merNo" column="MER_NO"/>
  		<result property="merId" column="MER_ID" />
  		<result property="merPassword" column="MER_PASSWORD"/>
@@ -51,7 +51,7 @@
 		WHERE MER_ID = #{merId} AND STATUS ='Y'
  	</select>
  	
- 	<insert id="insertMerchantMember" parameterType="MerchantMember"
+ 	<insert id="insertMerchantMember" parameterType="Merchant"
  		useGeneratedKeys="true" keyColumn="MER_NO" keyProperty="merNo" >
 
 		INSERT INTO MERCHANT (
