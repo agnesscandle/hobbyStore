@@ -516,9 +516,13 @@ public class HobbyController {
  }
    @PostMapping("/qnaList")
     public ModelAndView qnaReply(ModelAndView model,
-//          ,@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant)
-          HttpServletRequest request,
+         @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+          HttpServletRequest request, @ModelAttribute Hobby hobby,
           @ModelAttribute Reply reply,  @RequestParam("hbNo") int hbNo) {
+	   if(loginMerchant.getMerNo() == hobby.getMerNo() ) {
+		   
+	
+	   
        int result = service.saveReply(reply);
        
        if(result > 0) {
@@ -528,6 +532,10 @@ public class HobbyController {
           model.addObject("msg", "게시글이 등록을 실패하였습니다.");
           model.addObject("location", "/hobby/qnaList");
        }
+	   } else {
+		   model.addObject("msg", "잘못된 접근입니다");
+			model.addObject("location", "/");
+	   }
        model.setViewName("common/msg");
        return model;
     }

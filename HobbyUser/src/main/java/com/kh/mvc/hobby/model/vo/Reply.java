@@ -16,6 +16,8 @@ public class Reply {
    
    private int merNo;
    
+   private String merId;
+   
    private String replyContent;
    
    private Date replayDate;

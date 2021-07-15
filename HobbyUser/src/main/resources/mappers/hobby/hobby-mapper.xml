@@ -117,6 +117,7 @@
 		R.REPLY_NO,
 		R.QNA_NO,
 		R.MER_NO,
+		M.MER_ID,
 		R.REPLY_CONTENT,
 		R.REPLAY_DATE
 		FROM REPLY R
@@ -207,6 +208,7 @@
 		<id property="replyNo" column="REPLY_NO" />
 		<result property="qnaNo" column="QNA_NO" />
 		<result property="merNo" column="MER_NO" />
+		<result property="merId" column="MER_ID" />
 		<result property="replyContent" column="REPLY_CONTENT" />
 		<result property="replayDate" column="REPLAY_DATE" />
 	</resultMap>
@@ -639,7 +641,7 @@
 		)VALUES(
 		SEQ_REPLY_NO.NEXTVAL,
 		#{qnaNo},
-		1,
+		#{merNo},
 		#{replyContent},
 		DEFAULT
 		)

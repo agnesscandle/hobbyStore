@@ -160,7 +160,7 @@ width:500px;
 </style>
 <body>
 	<h1>
-		문의 하기 _
+		문의 하기
 		
 	</h1>
 
@@ -168,7 +168,7 @@ width:500px;
 		<c:if test="${ qnaList != null }">
 
 			<c:forEach var="qna" items="${ qnaList }" varStatus="status">
-				<c:if test="${ qna.status eq 'Y' }">
+
 
 
 					<script>
@@ -224,17 +224,73 @@ width:500px;
 						<div class="replyView">
 
 							<c:forEach var="replyList" items="${ qna.reply }">
+							<div id="updateHide${replyList.replyNo }">
+						
+								<fmt:formatDate var="formatRegDate" value="${ replyList.replayDate }" pattern="yyyy.MM.dd"/>
+								<div id="replyMerDate">
+									<div id="replyMer"> 작성자아이디입력칸</div> <!-- 작성자 아이디추가해야댐 -->
+									<div id="replyDate">${formatRegDate}</div>
+									<br>
+									<button type="button" id="replyUpdateText${replyList.replyNo }" class="buttons">
+									수정</button>
+									<button type="button" id="replyDelete" class="buttons"
+										onclick="location.replace('${path}/hobby/replyDelete?replyNo=${ replyList.replyNo }')">
+										삭제</button>
+									</div><br>
+										<span id="replyContent${replyList.replyNo }">
+										<c:out value="${ replyList.replyContent }"></c:out></span> 
+									
+								
+							<input type="hidden" id="replyNo" name="replyNo" value="${replyList.replyNo }">			
+								<br>
 
-								<span id="replyContent"><c:out
-										value="${ replyList.replyContent }"></c:out></span>
-								<span class="replyRight"> <span id="replyDate"><c:out
-											value="${ replyList.replayDate }"></c:out></span> <span
-									id="replyMer"> 작성자아이디입력칸</span> <!-- 작성자 아이디추가해야댐 -->
-
-								</span>
+						</div>
+						<form id="updateTextarea${replyList.replyNo }" name="updateTextarea" class="updateTextarea">
+						<input type="hidden" id="replyNo" name="replyNo" value="${replyList.replyNo }">
+						<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
+						</form>
+								
+										
 								<hr>
+								<script>
+								$(function(){
+									$("#replyUpdateText${replyList.replyNo }").click(function(){
+
+											var textarea = document.createElement('textarea');
+											var replyContent = $("#replyContent${replyList.replyNo }").text();
+											var text = document.createTextNode(replyContent);
+											textarea.id = 'replyContent';
+											textarea.name = 'replyContent';
+											textarea.appendChild(text);
+											
+											var updateButton = '<input type="submit" id="replyUpdate" class="replyUpdate" name="replyUpdate" value="수정하기">';
+											
+											$('#updateTextarea${replyList.replyNo }').append(textarea).show();
+											$('#updateTextarea${replyList.replyNo }').append(updateButton).show();
+											
+											
+											
+											$('#replyUpdate').on("click", function(){
+												 var replyData = $("#updateTextarea${replyList.replyNo }").serialize();
+												   $.ajax({
+												      type : "POST",
+												      url : "${ path }/hobby/replyUpdate",
+												      data: replyData,
+												      datatype: 'json',
+												      success : function(data){
+												    	  alert("답변수정완료");
+												      }
+													
+												});
+											});
+											
+											$('#updateHide${replyList.replyNo }').hide();
+										});
+								 });
+								</script>
 							</c:forEach>
 						</div>
+
 						<form action="${ path }/hobby/qnaList" method="POST">
 							<div class="inputContent">
 								<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
@@ -243,9 +299,10 @@ width:500px;
 								<textarea rows="5" cols="50" id="replyContent"
 									name="replyContent" placeholder="답변을 입력하세요."
 									style="resize: none;"></textarea>
-								<br> <input type="submit" value="등록하기" class="buttonReply">
+								<br> <input type="submit" value="등록하기" class="buttons" id="buttonReply">
 							</div>
 						</form>
+
 								</c:when>
 								<c:otherwise>
 									<p>비밀글입니다.</p>
@@ -352,7 +409,7 @@ width:500px;
 
 				</c:if>
 				</div>
-		</c:if>
+
 
 	</c:forEach>
 	</c:if>
