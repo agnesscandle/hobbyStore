@@ -214,7 +214,7 @@ public class MerchantController {
 	@GetMapping("/Reviewmanagement")
 	public ModelAndView updateEnroll(ModelAndView model) {
 	
-		model.setViewName("merchant/Reviewmanagement");
+		model.setViewName("/merchant/Reviewmanagement");
 		return model;
 	}
 
