@@ -99,7 +99,7 @@
 								</div>
 							</div>
 							<button
-								onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
+								onclick="location.replace('${path}/member/reservedHbView?hbNo=${hobby.hbNo}')"
 								class="add-cart_h">자세히 보기</button>
 						</div>
 					</div>

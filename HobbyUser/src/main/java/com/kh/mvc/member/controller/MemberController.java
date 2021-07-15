@@ -535,6 +535,14 @@ public class MemberController {
 		        return numStr;
 			}
 			
+		// 취미 예약 상세페이지
+			@GetMapping("/member/reservedHbView")
+			public String reservedHbView() { 
+				log.info("예약 상세 페이지 요청");
+				
+				return "member/reservedHbView";
+			}
+			
 			
 
 }	
