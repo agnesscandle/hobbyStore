@@ -537,10 +537,20 @@ public class MemberController {
 			
 		// 취미 예약 상세페이지
 			@GetMapping("/member/reservedHbView")
-			public String reservedHbView() { 
+			public ModelAndView reservedHbView(ModelAndView model,
+					@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+					@RequestParam("hbNo") int hbNo) { 
 				log.info("예약 상세 페이지 요청");
 				
-				return "member/reservedHbView";
+				int memNo = 0;
+				memNo = loginMember.getMemNo();
+				
+				Reserve reserve = service.findReserveByNo(memNo, hbNo);
+				
+				model.addObject("reserve", reserve);
+				model.setViewName("member/reservedHbView");
+				
+				return model;
 			}
 			
 			

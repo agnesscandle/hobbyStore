@@ -45,6 +45,8 @@ public interface MemberMapper {
 
 	List<Reserve> selectRsList();
 
+	Reserve selectRsByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo);
+
 
 
 

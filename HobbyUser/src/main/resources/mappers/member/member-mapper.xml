@@ -334,6 +334,28 @@
 		R.RES_DATE DESC
 	</select>	
 	
+	<!-- 예약 상세 가져오기 -->
+	<select id="selectRsByNo" parameterType="map"
+		resultMap="ReserveListResultMap">
+		SELECT 
+        R.RES_NO,
+        R.RES_DATE,
+        R.HB_NO,
+        H.HB_THUM_RENAME,
+        H.HB_TITLE,
+        R.RES_NAME,
+        R.RES_PHONE,
+        R.RES_COUNT,
+        R.TAKE_DATE,
+        R.PAY_FEE,
+        R.RES_STATUS
+        FROM RESERVE R 
+        JOIN HOBBY H ON(H.HB_NO = R.HB_NO)
+        WHERE R.MEM_NO = #{memNo}
+        AND H.HB_NO = #{hbNo}
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'
+	</select>
 	
 	<!-- 취미 수 검색 -->
 	<select id="selectHobbyCount" parameterType="map"

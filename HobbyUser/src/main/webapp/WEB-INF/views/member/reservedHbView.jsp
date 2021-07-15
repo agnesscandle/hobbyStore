@@ -52,7 +52,8 @@
 
 <div class="reserved-wrap">
 <h2>예약 상세</h2>
-
+<input type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}"/>
+<c:out value="${reserve.resDate}" />주문 주문번호<c:out value="${reserve.resNo}" /> 
 
 </div>
 
