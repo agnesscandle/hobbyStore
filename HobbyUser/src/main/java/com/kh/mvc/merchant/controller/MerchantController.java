@@ -229,5 +229,14 @@ public class MerchantController {
 		
 		return "merchant/resList";
 	}
+	
+	/* 지원센터 메뉴얼 보기 */
+	@GetMapping("/manual")
+	public String manual() {
+		
+		log.info("메뉴얼 페이지 요청");
+		
+		return "merchant/manual";
+	}
 
 }
