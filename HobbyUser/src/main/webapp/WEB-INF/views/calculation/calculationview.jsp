@@ -59,7 +59,7 @@ $(function(){
    var calform = $("#calform").serialize();
    $.ajax({
       type :"post",
-      url : "${path}/merchantMember/calculateapply",
+      url : "${path}/merchant/calculateapply",
       data: calform,
       datatype: 'json',
       success : function(data){ 

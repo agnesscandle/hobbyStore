@@ -55,7 +55,7 @@
  		<result property="merName" column="MER_NAME"/>
  		<result property="merPhone" column="MER_PHONE"/>
  		<result property="merDate" column="MER_DATE"/>
- 		<result property="Bank" column="BANK"/>
+ 		<result property="bank" column="BANK"/>
  		<result property="bankNumber" column="BANK_NUMBER"/>
  		<result property="merNick" column="MER_NICK"/>
  		<result property="status" column="STATUS"/>
@@ -115,7 +115,7 @@
 			#{merName},
 			#{merPhone},
 			#{merDate},
-			#{Bank},
+			#{bank},
 			#{bankNumber},
 			#{merNick},
 			DEFAULT,

@@ -29,8 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/merchantMember")
-@SessionAttributes("loginMerMember")
+@RequestMapping("/merchant")
+@SessionAttributes("loginMerchant")
 public class MerchantController {
 	
 	
@@ -48,7 +48,7 @@ public class MerchantController {
        Merchant loginMerchantMember =  service.login(merId, merPassword);
 		
 		if(loginMerchantMember != null) {
-			model.addObject("loginMerMember", loginMerchantMember);
+			model.addObject("loginMerchant", loginMerchantMember);
 			/* model.addObject("location", "/hobby/list"); */
 //			model.setViewName("merchantMember/merMain");
 			List<Hobby> list = null;
@@ -122,7 +122,7 @@ public class MerchantController {
 			model.addObject("location", "/member/login");
 		} else {
 			model.addObject("msg", "회원가입을 실패하였습니다.");
-			model.addObject("location", "/merchantMember/enroll");
+			model.addObject("location", "/merchant/enroll");
 		}
 		
 		model.setViewName("common/msg");
