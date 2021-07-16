@@ -24,7 +24,7 @@ public class Merchant {
 	
 	private Date merDate;
 	
-	private String bank; 
+	private String Bank; 
 	
 	private String bankNumber;
 	
