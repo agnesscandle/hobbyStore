@@ -249,6 +249,24 @@ public class HobbyController {
 
 	}
 
+	
+	@GetMapping("/list/cate")
+	public ModelAndView listByCateNo(ModelAndView model, @RequestParam("cateNo") int cateNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		
+		List<Hobby> list = null;
+		
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCountByCateNo(cateNo), 8);
+		list = service.getHobbyListByCateNo(pageInfo, cateNo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("hobby/list");
+		
+		return model;
+	}
+	
+	
 	/* 취미 등록페이지 요청 */
 	@GetMapping("/enroll")
 	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) {
@@ -338,7 +356,9 @@ public class HobbyController {
 	@ResponseBody
 	@GetMapping("/liked")
 	public Map<String, String> liked(ModelAndView model,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @RequestParam("hbNo") int hbNo,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, 
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam("hbNo") int hbNo,
 			@ModelAttribute Liked liked) {
 
 		log.info("좋아요 요청");
@@ -443,16 +463,20 @@ public class HobbyController {
           @ModelAttribute Qna qna) {
        
        Hobby hobby = service.question(hbNo);
-       System.out.println(hobby);
-       if(loginMember.getMemNo() == qna.getMemNo()) {
+       System.out.println(loginMember);
+       
+       if(loginMember == null) {
 
-       }else {
+    		model.addObject("msg", "로그인 이후 이용 가능합니다.");
+            model.addObject("location", "/");
+            model.setViewName("common/msg");
+    		
+    	} else {
           
-          model.addObject("msg", "잘못된 접근입니다");
-          model.addObject("location", "/");
+    	       model.addObject("hobby",hobby);
+    	       model.setViewName("/hobby/question");
        }
-       model.addObject("hobby",hobby);
-       model.setViewName("/hobby/question");
+
        
        return model;
     }
@@ -465,29 +489,28 @@ public class HobbyController {
        qna.setMemNo(loginMember.getMemNo());
        result = service.saveQna(qna);
       
-       if(result > 0) {
-          model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-          model.addObject("location", "/");
-       } else {
+  
           model.addObject("msg", "게시글이 등록을 실패하였습니다.");
           model.addObject("location", "/");
-       }
-       model.setViewName("common/msg");
+          model.setViewName("common/msg");
        
        return model;
     }
 
  @GetMapping("/qnaList")
  public ModelAndView qnaList(ModelAndView model,
+        @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-       @RequestParam("hbNo") int hbNo) {
+       @RequestParam("hbNo") int hbNo, @ModelAttribute Hobby hobby) {
 
+	 //Qna리스트 불러오기
     List<Qna> qnaList = null;
 
     PageInfo pageInfo = new PageInfo(page, 10, service.getQnaCount(hbNo), 10);
     int listCount = pageInfo.getListCount();
     qnaList = service.getQnaList(pageInfo, hbNo);
 
+    //리플리스트 불러오기
     List<Reply> replyList = null;
     for (int i = 0; i < qnaList.size(); i++) {
        int qnaNo = qnaList.get(i).getQnaNo();
@@ -498,6 +521,11 @@ public class HobbyController {
        
     }
     
+//    //리플 작성가능검사 : 상인로그인상태 취미등록한상인과 로그인상인 id가 같고, 리플을 한번도 작성하지 않은 상태
+//    if(loginMerchant.getMerId().equals(hobby.getMerNo()) && service.replyFindByNo(qnaNo,loginMerchant.getMerNo()) == null ) {
+//    	
+//    }
+//    
     model.addObject("qnaList", qnaList);
     model.addObject("pageInfo", pageInfo);
     model.addObject("listCount", listCount);
@@ -507,9 +535,15 @@ public class HobbyController {
  }
    @PostMapping("/qnaList")
     public ModelAndView qnaReply(ModelAndView model,
-//          ,@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant)
-          HttpServletRequest request,
-          @ModelAttribute Reply reply,  @RequestParam("hbNo") int hbNo) {
+          HttpServletRequest request, 
+          @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+          @ModelAttribute Qna qna, @ModelAttribute Reply reply, @RequestParam("hbNo") int hbNo) {
+	   log.info("댓글 작성 요청");
+	   System.out.println(reply);
+	   if(loginMerchant.getMerId().equals(reply.getMerId()) ) {
+		   reply.setMerNo(loginMerchant.getMerNo());
+	
+	 
        int result = service.saveReply(reply);
        
        if(result > 0) {
@@ -519,6 +553,10 @@ public class HobbyController {
           model.addObject("msg", "게시글이 등록을 실패하였습니다.");
           model.addObject("location", "/hobby/qnaList");
        }
+	   } else {
+		   model.addObject("msg", "잘못된 접근입니다");
+			model.addObject("location", "/");
+	   }
        model.setViewName("common/msg");
        return model;
     }
@@ -526,20 +564,9 @@ public class HobbyController {
    
   @GetMapping("/qnaUpdate")
   public ModelAndView qnaUpdateView(ModelAndView model,
-    //    @SessionAttribute(name = "loginMember", required = false) Member loginMember,
         @RequestParam("qnaNo") int qnaNo) {
-     
+	 
      Qna qna = service.findByQnaNo(qnaNo);
-     
-//       if(loginMember.getNo() == board.getWriterNo()) {
-//          model.addObject("board", board);
-//          model.setViewName("/board/update");
-//       }else {
-//          model.addObject("msg", "잘못된 접근입니다");
-//          model.addObject("location", "/board/list");
-//          model.setViewName("common/msg");
-//       }
-     System.out.println(qnaNo);
        model.addObject("qna", qna);
        model.setViewName("/hobby/qnaUpdate");
      
@@ -547,20 +574,26 @@ public class HobbyController {
   }
  @PostMapping("/qnaUpdate")
  public ModelAndView qnaUpdate(ModelAndView model,
-//       @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+       @SessionAttribute(name = "loginMember", required = false) Member loginMember,
        HttpServletRequest request,
-       @ModelAttribute Qna qna, @ModelAttribute Hobby hobby) {
+       @ModelAttribute Qna qna, @ModelAttribute Hobby hobby) { //hobby못불러옴 , requestParam으로는 오류나서 일단 대기
     int result = 0;
+    System.out.println(qna);
+    if(loginMember.getMemId().equals(qna.getMemId())) {
+    	result = service.saveQna(qna);
     
-    result = service.saveQna(qna);
-    
-    if(result > 0) {
-       model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
-       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
-    } else {
-       model.addObject("msg", "게시글 수정을 실패하였습니다.");
-       model.addObject("location", "/hobby/qnaUpdate?qnaNo=" + qna.getQnaNo());
+    	if(result > 0) {
+    		model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
+    		model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+    	} else {
+    		model.addObject("msg", "게시글 수정을 실패하였습니다.");
+    		model.addObject("location", "/hobby/qnaUpdate?qnaNo=" + qna.getQnaNo());
+    	}
+    }else {
+		model.addObject("msg", "잘못된 접근입니다");
+		model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
     }
+    
     
     model.setViewName("common/msg");
     return model;
@@ -568,25 +601,72 @@ public class HobbyController {
 
  @GetMapping("/qnaDelete")
  public ModelAndView qnaDelete(ModelAndView model,
-       //@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+       @SessionAttribute(name = "loginMember", required = false) Member loginMember,
        HttpServletRequest request,
-       @ModelAttribute Qna qna, @ModelAttribute Hobby hobby) {
-    
+       @RequestParam("qnaNo") int qnaNo,  @ModelAttribute Hobby hobby) {
+	 log.info("qna 삭제 요청");
     int result =0;
-    
-    result = service.deleteQna(qna);
+    System.out.println(qnaNo);
+    int memNo = loginMember.getMemNo();
+    result = service.deleteQna(qnaNo);
     
     if(result > 0) {
        model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
        model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
     } else {
        model.addObject("msg", "게시글 수정을 실패하였습니다.");
-       model.addObject("location", "/hobby/qnaList?qnaNo=" + qna.getQnaNo());
+       model.addObject("location", "/hobby/qnaList?qnaNo=" + qnaNo);
     }
+
     model.setViewName("common/msg");
     return model;
  }
+ 
+ @GetMapping("/replyDelete")
+ public ModelAndView replyDelete(ModelAndView model,
+	       //@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	       HttpServletRequest request,
+	       @ModelAttribute Hobby hobby,@ModelAttribute Qna qna, @ModelAttribute Reply reply) {
+	 
+	 	int result =0;
+	    
+	    result = service.deleteReply(reply);
+	    
+	    System.out.println(reply);
+	    if(result > 0) {
+	       model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+	    } else {
+	       model.addObject("msg", "게시글 수정을 실패하였습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
+	    }
+	    model.setViewName("common/msg");
+	 return model;
+ }
 
+ 
+ 
+ @PostMapping("/replyUpdate")
+ public ModelAndView replyUpdate(ModelAndView model, 
+//       @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+       HttpServletRequest request,
+       @ModelAttribute Qna qna,  @RequestParam("hbNo") int hbNo, @ModelAttribute Reply reply) {
+	 int result = 0;
+	    
+	    result = service.saveReply(reply);
+	   System.out.println(hbNo);
+	    
+	    if(result > 0) {
+	       model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
+	       model.addObject("location", "/hobby/qnaList?hbNo=" + hbNo);
+	    } else {
+	       model.addObject("msg", "게시글 수정을 실패하였습니다.");
+	       model.addObject("location", "/hobby/replyUpdate?replyNo=" + reply.getReplyNo());
+	    }
+	    
+	    model.setViewName("common/msg");
+	    return model;
+ }
 
 	
 
@@ -646,6 +726,5 @@ public class HobbyController {
 		model.setViewName("common/msg");
 		return model;
 	}
-
 
 }

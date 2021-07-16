@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+<fmt:formatDate value="${hobby.hbEndDate}" pattern="20yy-MM-dd" var="endDate"/>
 
 
 <div class="divReserve">
@@ -63,7 +64,7 @@
         <section>
            <div class="title">
               <span>취미 예약일 선택</span> 
-              <input type="date" id="takeDate" name="takeDate" min="${today}" max="" class="req"/> 
+              <input type="date" id="takeDate" name="takeDate" min="${today}" max="${endDate}" class="req"/> 
               
 
               <div class="btn">
@@ -262,7 +263,7 @@ $('.next').click(function(){
             let reserveData = $("#reserveForm").serialize();
             
             // 성공시 : HobbyController에 데이터를 전달하여 DB에 입력
-                     $.ajax({
+           $.ajax({
                url : "${ path }/hobby/reserve",
                type : "post",
                data : reserveData,
@@ -271,6 +272,8 @@ $('.next').click(function(){
                   alert(msg);
             }
          });
+            alert("결제가 성공적으로 진행되었습니다. 상세 페이지로 이동합니다.");
+            location.href="${path}/hobby/view?hbNo=${hobby.hbNo}";
       } else {
                   var msg = '결제에 실패하였습니다.';
                   msg += '에러내용 : ' + rsp.error_msg;

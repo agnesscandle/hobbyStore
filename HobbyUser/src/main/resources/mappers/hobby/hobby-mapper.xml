@@ -117,6 +117,7 @@
 		R.REPLY_NO,
 		R.QNA_NO,
 		R.MER_NO,
+		M.MER_ID,
 		R.REPLY_CONTENT,
 		R.REPLAY_DATE
 		FROM REPLY R
@@ -207,6 +208,7 @@
 		<id property="replyNo" column="REPLY_NO" />
 		<result property="qnaNo" column="QNA_NO" />
 		<result property="merNo" column="MER_NO" />
+		<result property="merId" column="MER_ID" />
 		<result property="replyContent" column="REPLY_CONTENT" />
 		<result property="replayDate" column="REPLAY_DATE" />
 	</resultMap>
@@ -574,6 +576,7 @@
 	<select id="selectQnaList" resultMap="qnaListResultMap">
 		<include refid="qnaListSql"></include>
 		WHERE Q.HB_NO = #{hbNo}
+		AND Q.STATUS = 'Y'
 		ORDER BY Q.QNA_NO DESC
 	</select>
 
@@ -639,14 +642,43 @@
 		)VALUES(
 		SEQ_REPLY_NO.NEXTVAL,
 		#{qnaNo},
-		1,
+		#{merNo},
 		#{replyContent},
 		DEFAULT
 		)
 	</insert>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE
+		FROM REPLY
+		WHERE REPLY_NO = #{replyNo}
+	</delete>
 
+<select id="selectReplyByNo" parameterType="_int"
+		resultMap="ReplyListResultMap">
+		<include refid="replyList" />
+		WHERE R.REPLY_NO=#{replyNo}
 
-
+	</select>
+	
+	<update id="updateReply" parameterType="map">
+		UPDATE REPLY
+		SET
+		REPLY_CONTENT=#{replyContent},
+		REPLAY_DATE=SYSDATE
+		WHERE
+		REPLY_NO = #{replyNo}
+	</update>
+<!-- 
+	<select id="selectReplyCount" parameterType="map"
+			resultType="_int">
+			SELECT COUNT(*)
+			FROM REPLY
+			WHERE QNA_NO = ${qnaNo}
+			AND
+			MER_NO = ${merNo}
+	</select>
+ -->
 	<!-- merInfo -->	
 	<!--  상인 정보보기 -->
 	<select id="selectMerInfoByNo" parameterType="_int" resultMap="MerchantListResultMap">
@@ -672,7 +704,8 @@
 				TAKE_DATE, 
 				PAY_FEE, 
 				RES_ATTEND, 
-				RES_STATUS
+				RES_STATUS,
+				CAL_STATUS
 			) VALUES (
 				SEQ_RESERVE_NO.NEXTVAL, 
 				#{hbNo}, 
@@ -684,6 +717,7 @@
 				TO_DATE(#{takeDate},'YYYY-MM-DD'),
 				TO_NUMBER(#{payFee}),
 				DEFAULT, 
+				DEFAULT,
 				DEFAULT
 			)
 	</insert>
@@ -700,4 +734,42 @@
 	
 	<!--  결제 끝 -->
 
+	<!--  네비 : 카테고리  -->
+	<!--  카테고리 번호에 해당하는 취미 개수 -->
+		<select id="selectHobbyCountByCateNo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM HOBBY
+		WHERE STATUS = 'Y'
+		AND CATE_NO = #{cateNo}
+	</select>
+	
+	<!--  카테고리 번호에 해당하는 취미 목록 -->
+	<select id="getHobbyListByCateNo" parameterType="map" resultMap="HobbyListResultMap">
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.STATUS = 'Y'
+		AND
+		H.CATE_NO = #{cateNo}
+
+		ORDER BY H.HB_NO DESC
+	</select>
+	
+	
 </mapper>

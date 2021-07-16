@@ -31,6 +31,7 @@
 		<interceptor>
 		
 		<mapping path="/member/**"/>
+		<mapping path="/hobby/**"/>
 		
 		<exclude-mapping path="/member/enroll"/>
 		<exclude-mapping path="/member/registerPage_1"/>
@@ -48,6 +49,9 @@
 		<exclude-mapping path="/member/memberPwSearch3"/>
 		
 		
+		<exclude-mapping path="/hobby/qnaList"/>
+		<exclude-mapping path="/hobby/view"/>
+		<exclude-mapping path="/hobby/list"/>
 		
 		<beans:bean id="loginCheckInterceptor" class="com.kh.mvc.common.Interceptor.LoginCheckIntercaptor" />
 		</interceptor>	

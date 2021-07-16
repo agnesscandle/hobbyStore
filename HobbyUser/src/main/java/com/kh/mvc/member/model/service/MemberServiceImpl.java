@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.mvc.common.util.PageInfo;
+import com.kh.mvc.hobby.model.vo.Category;
+import com.kh.mvc.hobby.model.vo.Hobby;
+import com.kh.mvc.hobby.model.vo.Liked;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.member.model.mapper.MemberMapper;
 import com.kh.mvc.member.model.vo.Member;
 
@@ -216,10 +223,57 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 
+	/* 카테고리 */
+	@Override
+	public List<Category> getCateList() {
+		return mapper.selectCateList();
+	}
+
+	/* 좋아요 */
+	@Override
+	public List<Liked> getLikedList() {
+		return mapper.selectLikedList();
+	}
 	
+	/* 취미 */
+	@Override
+	public List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectHobbyLikedList(memNo, rowBounds);
+	}
+
+	@Override
+	public int getHobbyCount() {
+		return mapper.selectHobbyCount();
+	}
 
 	
+
+	/* 예약 */
+	@Override
+	public List<Reserve> getRsList() {
+		return mapper.selectRsList();
+	}
+
+	@Override
+	public List<Hobby> getHobbyRsList(int memNo, PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		
+		return mapper.selectHobbyRsList(memNo, rowBounds);
+	}
+
+	@Override
+	public Reserve findReserveByNo(int memNo, int hbNo) {
+		return mapper.selectRsByNo(memNo, hbNo);
+	}
+
+	@Override
+	public Hobby findByNo(int hbNo) {
+		return mapper.selectHobbyByNo(hbNo);
+	}
 		
 		
 	

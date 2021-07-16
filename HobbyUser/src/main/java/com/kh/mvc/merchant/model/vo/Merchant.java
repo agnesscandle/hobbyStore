@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Merchant {
+	
 	private int merNo;
 	
 	private String merId;
@@ -41,6 +42,5 @@ public class Merchant {
 	private int cateNo;
 	
 	private String greeting;
-
    
 }

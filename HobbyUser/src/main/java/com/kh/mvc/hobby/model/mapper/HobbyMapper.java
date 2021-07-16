@@ -79,13 +79,19 @@ public interface HobbyMapper {
 
 	Qna selectQnaByNo(int qnaNo);
 
-	int deleteQna(Qna qna);
+	int deleteQna(int qnaNo);
 
 	Hobby selectHobbyByNoQna(int hbNo);
 
 	int updateQna(Qna qna);
 
 	int insertQna(Qna qna);
+
+	int deleteReply(Reply reply);
+
+	Reply findByReplyNo(int replyNo);
+
+	
 
 	Merchant selectMerInfoByNo(HashMap<String, Integer> hashMap);
 
@@ -94,5 +100,13 @@ public interface HobbyMapper {
 	String selectCateNameByNo(int cateNo);
 
 	int saveReserve(Reserve reserve);
+
+	int updateReply(Reply reply);
+
+	int selectReplyCount(int qnaNo, int merNo);
+
+	int selectHobbyCountByCateNo(int cateNo);
+
+	List<Hobby> getHobbyListByCateNo(RowBounds rowBounds, int cateNo);
 
 }

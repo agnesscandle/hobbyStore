@@ -4,9 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../../views/common/header.jsp"%>
-
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/css/member_css/enroll.css">
+
 
 <div class="memEnrollWrapper">
 <form name="memberEnrollFrm" id="signform"
@@ -55,19 +55,12 @@
    		<!-- 관심분야 -->
    		<label class="memEnrollLabel">관심 분야 체크</label> 
    		<span class="memEnrollLabel_1">(관심 분야를 1개 이상 체크해주세요.)</span><br>
-   		<label class="cateLabel"><input  type="checkbox" name="cateNo" value="1"/>여행</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="2"/>액티비티</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="3"/>공예(DIY)</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="4"/>음악</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="5"/>미술</label><br>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="6"/>커리어</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="7"/>사진</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="8"/>요리</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="9"/>반려동물</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="10"/>건강</label><br>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="11"/>뷰티</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="12"/>모임</label>
-        <label class="cateLabel"><input  type="checkbox" name="cateNo" value="13"/>키즈</label>
+   		
+		<c:forEach var="category" items="${ list }">
+		<label class="cateLabel"><input type="checkbox" name="cateNo" value="${ category.cateNo }">
+		<c:out value="${ category.cateName }"/></label>	
+		</c:forEach>
+   		
 	<br><br>
 	<hr>
 	<br>

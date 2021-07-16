@@ -3,8 +3,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
-  <mapper namespace="com.kh.mvc.member.model.mapper.MemberMapper">
+  
+ <mapper namespace="com.kh.mvc.member.model.mapper.MemberMapper">
  	<sql id="selectMemberSql">
  		SELECT  MEM_NO, 
 			    MEM_ID, 
@@ -20,6 +20,64 @@
 		FROM MEMBER
  	</sql>
  
+ 	<sql id="cateListSql">
+		SELECT
+		CATE_NO,
+		CATE_NAME
+		FROM
+		CATEGORY
+	</sql>
+	
+	<sql id="LikedListSql">
+		SELECT
+		LIKE_NO,
+		HB_NO,
+		MEM_NO,
+		STATUS
+		FROM
+		LIKED
+	</sql>
+	
+	<sql id="HobbyListSql">
+		SELECT HB_NO,
+		MER_NO,
+		CATE_NO,
+		HB_TITLE,
+		HB_SUMMARY,
+		HB_STARTDATE,
+		HB_FEE,
+		HB_DISCOUNT_RATE,
+		HB_DISCOUNT_STATUS,
+		HB_ENDDATE,
+		HB_IMGS_ORI,
+		HB_IMGS_RENAME,
+		HB_THUM_ORI,
+		HB_THUM_RENAME,
+		HB_INFO,
+		HB_LOCATION
+		FROM HOBBY
+		WHERE
+		STATUS = 'Y'
+	</sql>
+	
+	<sql id="ReserveListSql">
+		SELECT 
+		RES_NO, 
+		HB_NO, 
+		MEM_NO, 
+		RES_NAME, 
+		RES_PHONE, 
+		RES_COUNT, 
+		RES_DATE, 
+		TAKE_DATE, 
+		PAY_FEE, 
+		RES_ATTEND, 
+		RES_STATUS
+		FROM RESERVE
+		WHERE RES_STATUS = 'Y'
+	</sql>
+	<!--  resultMap -->
+	
  	<resultMap type="Member" id="memberResultMap">
  		<id property="memNo" column="MEM_NO"/>
  		<result property="memId" column="MEM_ID" />
@@ -35,6 +93,55 @@
  		<result property="cateNo" column="CATE_NO"/>
  	</resultMap>
  	
+ 	<resultMap type="Category" id="CateListResultMap">
+		<id property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+	</resultMap>
+	
+	
+	<resultMap type="Liked" id="LikedListResultMap">
+		<id property="likedNo" column="LIKE_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="likedStatus" column="STATUS" />
+	</resultMap>
+	
+	
+	<resultMap type="Hobby" id="HobbyListResultMap">
+		<id property="hbNo" column="HB_NO" />
+		<result property="merNo" column="MER_NO" />
+		<result property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+		<result property="hbTitle" column="HB_TITLE" />
+		<result property="hbSummary" column="HB_SUMMARY" />
+		<result property="hbFee" column="HB_FEE" />
+		<result property="hbDiscountRate" column="HB_DISCOUNT_RATE" />
+		<result property="hbDiscountStatus" column="HB_DISCOUNT_STATUS" />
+		<result property="hbStartDate" column="HB_STARTDATE" />
+		<result property="hbEndDate" column="HB_ENDDATE" />
+		<result property="hbImgsOri" column="HB_IMGS_ORI" />
+		<result property="hbImgsRename" column="HB_IMGS_RENAME" />
+		<result property="hbThumOri" column="HB_THUM_ORI" />
+		<result property="hbThumRename" column="HB_THUM_RENAME" />
+		<result property="hbInfo" column="HB_INFO" />
+		<result property="hbLocation" column="HB_LOCATION" />
+	</resultMap>
+	
+	<resultMap type="Reserve" id="ReserveListResultMap">
+		<id property="resNo" column="RES_NO"/>
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resPhone" column="RES_PHONE" />
+		<result property="resCount" column="RES_COUNT" />
+		<result property="resDate" column="RES_DATE" />
+		<result property="takeDate" column="TAKE_DATE" />
+		<result property="payFee" column="PAY_FEE" />
+		<result property="resAttend" column="RES_ATTEND" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="payStatus" column="PAY_STATUS" />
+	</resultMap>
+	
  	<select id="selectMember" parameterType="string" resultMap="memberResultMap">
  		<include refid="selectMemberSql" />
 		WHERE MEM_ID = #{memId} AND STATUS ='Y'
@@ -123,15 +230,148 @@
  			MEM_NO = #{memNo}
  	</update>
  	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
-		
- 	
+ 	<!-- 카테고리  -->
+ 	<select id="selectCateList" parameterType="map"
+		resultMap="CateListResultMap">
+		<include refid="cateListSql" />
+		ORDER BY CATE_NO ASC
+	</select>
+	
+	
+	<!-- 좋아요  -->
+	<select id="selectLikedList" parameterType="map"
+		resultMap="LikedListResultMap">
+		<include refid="LikedListSql" />
+	</select>
+	
+	<!--  취미 -->
+	<select id="selectHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.STATUS = 'Y'
+
+		ORDER BY
+		H.HB_NO DESC
+	</select>
+	
+	<select id="selectHobbyByNo" parameterType="_int"
+		resultMap="HobbyListResultMap">
+		<include refid="HobbyListSql" />
+		AND HB_NO=#{hbNo}
+	</select>
+	
+	<!-- 좋아요한 취미 가져오기 -->
+	<select id="selectHobbyLikedList" parameterType="map"
+		resultMap="HobbyListResultMap">
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+        C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN LIKED L ON(H.HB_NO = L.HB_NO)
+		WHERE L.MEM_NO = #{memNo}
+        AND H.STATUS = 'Y'
+
+		ORDER BY
+		H.HB_NO DESC
+	</select>	
+	
+	<!-- 예약한 취미 가져오기 -->
+	<select id="selectHobbyRsList" parameterType="map"
+		resultMap="HobbyListResultMap">
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+        C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN RESERVE R ON(H.HB_NO = R.HB_NO)
+		WHERE R.MEM_NO = #{memNo}
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'
+
+		ORDER BY
+		R.RES_DATE DESC
+	</select>	
+	
+	<!-- 예약 상세 가져오기 -->
+	<select id="selectRsByNo" parameterType="map"
+		resultMap="ReserveListResultMap">
+		SELECT 
+        R.RES_NO,
+        R.RES_DATE,
+        R.HB_NO,
+        H.HB_THUM_RENAME,
+        H.HB_TITLE,
+        R.RES_NAME,
+        R.RES_PHONE,
+        R.RES_COUNT,
+        R.TAKE_DATE,
+        R.PAY_FEE,
+        R.RES_STATUS
+        FROM RESERVE R 
+        JOIN HOBBY H ON(H.HB_NO = R.HB_NO)
+        WHERE R.MEM_NO = #{memNo}
+        AND H.HB_NO = #{hbNo}
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'
+	</select>
+	
+	<!-- 취미 수 검색 -->
+	<select id="selectHobbyCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM HOBBY
+		WHERE STATUS='Y'
+	</select>
+	
+	<select id="selectRsList" parameterType="map" resultMap="ReserveListResultMap">
+		<include refid="ReserveListSql" />
+	</select>
  </mapper>
