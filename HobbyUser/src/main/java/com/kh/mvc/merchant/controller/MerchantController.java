@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/merchant")
+@RequestMapping("/merchantMember")
 @SessionAttributes("loginMerMember")
 public class MerchantController {
 	
@@ -45,12 +45,12 @@ public class MerchantController {
 		
 		log.info("{}, {}", merId, merPassword);		
 
-       Merchant loginmerchant =  service.login(merId, merPassword);
+       Merchant loginMerchantMember =  service.login(merId, merPassword);
 		
-		if(loginmerchant != null) {
-			model.addObject("loginMerMember", loginmerchant);
+		if(loginMerchantMember != null) {
+			model.addObject("loginMerMember", loginMerchantMember);
 			/* model.addObject("location", "/hobby/list"); */
-//			model.setViewName("merchant/merMain");
+//			model.setViewName("merchantMember/merMain");
 			List<Hobby> list = null;
 
 			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
@@ -112,17 +112,17 @@ public class MerchantController {
 	
 	// 회원가입 처리
 	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchant) {
-		System.out.println(merchant);
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember) {
+		System.out.println(merchantmember);
 		
-		int result = service.save(merchant);
+		int result = service.save(merchantmember);
 		
 		if(result > 0) {
 			model.addObject("msg", "회원가입이 정상적으로 완료되었습니다.");
 			model.addObject("location", "/member/login");
 		} else {
 			model.addObject("msg", "회원가입을 실패하였습니다.");
-			model.addObject("location", "/merchant/enroll");
+			model.addObject("location", "/merchantMember/enroll");
 		}
 		
 		model.setViewName("common/msg");
@@ -131,11 +131,11 @@ public class MerchantController {
 	}
 	
 	//로그인 페이지 이동
-//	@GetMapping("/merchant/login")
+//	@GetMapping("/merchantMember/login")
 //	public String loginView() { 
 //		log.info("로그인 페이지 요청");
 //		
-//		return "merchant/login";
+//		return "merchantMember/login";
 //	}
 
 	/*
@@ -282,7 +282,7 @@ public class MerchantController {
 		System.out.println(result);
 		/*
 		if (result > 0) {
-			model.addObject("location", "merchant/calculateview");
+			model.addObject("location", "merchantMember/calculateview");
 			model.setViewName("calculation/calculationview");
 			
 		} else {
@@ -313,22 +313,7 @@ public class MerchantController {
 		return model;
 	}	
 	
-	
-	/*
-	 * // 마이페이지 이동
-	 * 
-	 * @GetMapping("/member/myInfo") public String myInfoView() {
-	 * log.info("회원정보 페이지 요청");
-	 * 
-	 * return "member/myInfo"; }
-	 * 
-	 * // 마이페이지 이동
-	 * 
-	 * @GetMapping("/member/updateMyInfo") public String updateMyInfoView() {
-	 * log.info("회원정보 수정 페이지 요청");
-	 * 
-	 * return "member/updateMyInfo"; }
-	 */
+
 
 
 }

@@ -6,7 +6,7 @@
   
  <mapper namespace="com.kh.mvc.merchant.model.mapper.MerchantMapper">
 
- 	<sql id="selectmerchantSql">
+ 	<sql id="selectMerchantMemberSql">
  		SELECT  MER_NO, 
 			    MER_ID, 
 			    MER_PASSWORD, 
@@ -47,7 +47,7 @@
 		AND HB_NO = #{hbNo}
 	</sql>
 	
- 	<resultMap type="Merchant" id="merchantResultMap">
+ 	<resultMap type="Merchant" id="merchantmemberResultMap">
  		<id property="merNo" column="MER_NO"/>
  		<result property="merId" column="MER_ID" />
  		<result property="merPassword" column="MER_PASSWORD"/>
@@ -55,7 +55,7 @@
  		<result property="merName" column="MER_NAME"/>
  		<result property="merPhone" column="MER_PHONE"/>
  		<result property="merDate" column="MER_DATE"/>
- 		<result property="bank" column="BANK"/>
+ 		<result property="Bank" column="BANK"/>
  		<result property="bankNumber" column="BANK_NUMBER"/>
  		<result property="merNick" column="MER_NICK"/>
  		<result property="status" column="STATUS"/>
@@ -82,12 +82,12 @@
 		<result property="calStatus" column="CAL_STATUS" />
 	</resultMap>
 	
- 	<select id="selectmerchant" parameterType="string" resultMap="merchantResultMap">
- 		<include refid="selectmerchantSql" />
+ 	<select id="selectMerchantMember" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
 		WHERE MER_ID = #{merId} AND STATUS ='Y'
  	</select>
  	
- 	<insert id="insertmerchant" parameterType="Merchant"
+ 	<insert id="insertMerchantMember" parameterType="Merchant"
  		useGeneratedKeys="true" keyColumn="MER_NO" keyProperty="merNo" >
 
 		INSERT INTO MERCHANT (
@@ -115,7 +115,7 @@
 			#{merName},
 			#{merPhone},
 			#{merDate},
-			#{bank},
+			#{Bank},
 			#{bankNumber},
 			#{merNick},
 			DEFAULT,

@@ -19,7 +19,7 @@ public interface MerchantService {
 
 	Merchant login(String merId, String merPassword);
 	
-	int save(Merchant merchant);
+	int save(Merchant merchantMember);
 
 	Merchant findById(String merId);
 
