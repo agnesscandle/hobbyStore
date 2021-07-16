@@ -26,6 +26,27 @@
 		FROM MERCHANT
  	</sql>
  
+
+
+ 	<sql id="ReservListSql">
+		SELECT 
+		RES_NO, 
+		HB_NO, 
+		MEM_NO, 
+		RES_NAME, 
+		RES_PHONE, 
+		RES_COUNT, 
+		RES_DATE, 
+		TAKE_DATE, 
+		PAY_FEE, 
+		RES_ATTEND, 
+		RES_STATUS, 
+		CAL_STATUS 
+		FROM RESERVE
+		WHERE RES_STATUS = 'Y'
+		AND HB_NO = #{hbNo}
+	</sql>
+	
  	<resultMap type="Merchant" id="merchantmemberResultMap">
  		<id property="merNo" column="MER_NO"/>
  		<result property="merId" column="MER_ID" />
@@ -43,9 +64,24 @@
  		<result property="merIDCARD" column="MER_IDCARD"/>
  		<result property="cateNo" column="CATE_NO"/>
  		<result property="greeting" column="GREETING"/>
- 		
  	</resultMap>
  	
+ 	<resultMap type="Reserve" id="ReservListResultMap">
+		<id property="resNo" column="RES_NO"/>
+		<result property="hbNo" column="HB_NO" />
+		<result property="merNo" column="MER_NO"/>
+		<result property="memNo" column="MEM_NO" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resPhone" column="RES_PHONE" />
+		<result property="resCount" column="RES_COUNT" />
+		<result property="resDate" column="RES_DATE" />
+		<result property="takeDate" column="TAKE_DATE" />
+		<result property="payFee" column="PAY_FEE" />
+		<result property="resAttend" column="RES_ATTEND" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="calStatus" column="CAL_STATUS" />
+	</resultMap>
+	
  	<select id="selectMerchantMember" parameterType="string" resultMap="merchantmemberResultMap">
  		<include refid="selectMerchantMemberSql" />
 		WHERE MER_ID = #{merId} AND STATUS ='Y'
@@ -141,6 +177,7 @@
 		<result property="hbThumRename" column="HB_THUM_RENAME" />
 		<result property="hbInfo" column="HB_INFO" />
 		<result property="hbLocation" column="HB_LOCATION" />
+		<result property="hbTotalFee" column="HB_TOTALFEE"/>
 	</resultMap>
 		
 		
@@ -164,7 +201,6 @@
 			FROM CATEGORY
 			WHERE CATE_NO=#{cateNo}
 	</select>
-	
 	
 
 	<select id="selectHobbyList" parameterType="map"
@@ -195,7 +231,7 @@
 		H.HB_NO DESC
 	</select>
 	
-		<select id="selectHobbyMerList" parameterType="map"
+	<select id="selectHobbyMerList" parameterType="map"
 		resultMap="HobbyListResultMap">
 
 		SELECT H.HB_NO,
@@ -223,12 +259,55 @@
 		ORDER BY
 		H.HB_NO DESC
 	</select>
-		<select id="selectHobbyCount" parameterType="map"
+	
+	<select id="selectHobbyCount" parameterType="map"
 		resultType="_int">
 		SELECT COUNT(*)
 		FROM HOBBY
 		WHERE STATUS='Y'
 	</select>
+	
+	<select id="selectReserveCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM RESERVE
+		WHERE HB_NO=#{hbNo}
+	</select>
+	
+	
+	<select id="selectHobbyCalList" parameterType="map"
+		resultMap="HobbyListResultMap">
+
+	SELECT
+		H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION,
+	(SELECT SUM(PAY_FEE) AS HB_TOTALFEE FROM RESERVE WHERE HB_NO=H.HB_NO AND CAL_STATUS='N') AS HB_TOTALFEE
+	
+	FROM HOBBY H
+	JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+	WHERE H.STATUS = 'Y' 
+	AND H.MER_NO = #{merNo}
+	
+	ORDER BY
+	H.HB_NO DESC
+	</select>
+	
+
 
 	<!-- 취미 검색 -->
 	<select id="selectHobbyByNo" parameterType="_int"
@@ -236,6 +315,7 @@
 		<include refid="HobbyListSql" />
 		AND HB_NO=#{hbNo}
 	</select>
+	
 
 	<!-- 취미 등록 -->
 	<insert id="insertHobby" parameterType="map"
@@ -280,4 +360,50 @@
 		'Y'
 		)
 	</insert>
+	
+	
+	
+	
+	<select id="selectReserveList" parameterType="map"
+		resultMap="ReservListResultMap">
+		SELECT 
+		R.RES_NO, 
+		R.HB_NO,
+		H.MER_NO,
+		R.MEM_NO, 
+		R.RES_NAME, 
+		R.RES_PHONE, 
+		R.RES_COUNT, 
+		R.RES_DATE, 
+		R.TAKE_DATE, 
+		R.PAY_FEE, 
+		R.RES_ATTEND, 
+		R.RES_STATUS, 
+		R.CAL_STATUS 
+		FROM RESERVE R
+		JOIN HOBBY H ON(R.HB_NO=H.HB_NO)
+		WHERE RES_STATUS = 'Y'
+		AND RES_ATTEND = 'Y' 
+		AND R.HB_NO = #{hbNo}
+		ORDER BY
+		R.RES_DATE DESC
+	</select>
+	
+	<insert id="insertCalApply" parameterType="map">
+		INSERT INTO
+		CALCULATION(
+		CAL_NO,
+		STATUS,
+		PAY_NO,
+		MER_NO
+		)
+		VALUES(
+		SEQ_CAL_NO.NEXTVAL,
+		DEFAULT,
+		#{resNo},
+		#{merNo}
+		)
+	</insert>
+	
+	
  </mapper>

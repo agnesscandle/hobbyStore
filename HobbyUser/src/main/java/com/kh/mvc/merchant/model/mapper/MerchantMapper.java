@@ -9,8 +9,11 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+
 import com.kh.mvc.merchant.model.vo.Merchant;
 
+
+import com.kh.mvc.hobby.model.vo.Reserve;
 
 @Mapper
 public interface MerchantMapper {
@@ -28,6 +31,14 @@ public interface MerchantMapper {
 	List<Category> selectCateList();
 
 	List<Hobby> selectHobbyMerList(RowBounds rowBounds, int adNo);
+
+	List<Hobby> selectHobbyCalList(RowBounds rowBounds, int merNo);
+
+	int insertCalApply(Reserve reserve);
+
+	int selectReserveCount(int hbNo);
+
+	List<Reserve> selectReserveList(int hbNo);
 
 
 }

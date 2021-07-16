@@ -8,7 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+
 import com.kh.mvc.merchant.model.vo.Merchant;
+
+
+import com.kh.mvc.hobby.model.vo.Reserve;
 
 
 public interface MerchantService {
@@ -37,4 +41,15 @@ public interface MerchantService {
 	boolean validate(String merid);
 
 	List<Hobby> getHobbyList(PageInfo pageInfo);
+
+	List<Hobby> getHobbycalList(PageInfo pageInfo, int merNo);
+
+	int calculateApply(Reserve reserve);
+
+	int getReserveCount(int merNo);
+
+	List<Reserve> getReserveList(int hbNo);
+
+
+
 }

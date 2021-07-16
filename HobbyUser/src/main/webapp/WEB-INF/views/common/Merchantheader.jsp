@@ -103,7 +103,7 @@
       
             <span style="color:navy; font-size:30px; font-weight:bold">정산</span>
             <ul class="dept03">
-                 <div id="hobbyEnroll" class="hobbyEnroll">정산관리</div>
+                 <div id="hobbyCalculate" class="hobbyCalculate">정산관리</div>
                   <div id="hobbyEnroll" class="hobbyEnroll">정산요청</div>
             </ul>        
       
@@ -156,6 +156,15 @@ $(function(){
       location.href='${ path }/merchant/list?adNo=${loginMerMember.merNo}';
    })
 })
+
+<!--정산리스트 페이지 이동-->
+$(function(){
+   $("#hobbyCalculate").click(function(){
+      location.href='${ path }/merchantMember/calculatelist?merNo=${loginMerMember.merNo}';
+   })
+})
+
+
 $(document).on('mouseover', '.topMenu2 span', function () {
     $('.dept02').slideDown(700);
 });
@@ -164,6 +173,7 @@ $(document).on('mouseover', 'div', function () {
         $('.dept02').slideUp(700);
     }
 });
+
 <!-- qna 페이지 이동 -->
 $(function(){
    $("#qnaList").click(function(){
