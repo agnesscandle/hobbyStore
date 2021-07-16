@@ -46,9 +46,9 @@
 			<table class="container" align="center">
 				
 				<!-- 로그인 되어있는 경우 -->
-				<c:if test="${ loginMerMember != null }">
+				<c:if test="${ loginMerchant != null }">
 					<tr class="main info">
-				<td colspan="3" class="infoId">${ loginMerMember.merName }님,환영합니다</td>
+				<td colspan="3" class="infoId">${ loginMerchant.merName }님,환영합니다</td>
 					</tr>
 					<tr>
 						<td class="btn logout"><button type="button"
@@ -153,14 +153,14 @@ $(function(){
 <!--취미리스트 페이지 이동-->
 $(function(){
    $("#hobbylist").click(function(){
-      location.href='${ path }/merchant/list?adNo=${loginMerMember.merNo}';
+      location.href='${ path }/merchant/list?adNo=${loginMerchant.merNo}';
    })
 })
 
 <!--정산리스트 페이지 이동-->
 $(function(){
    $("#hobbyCalculate").click(function(){
-      location.href='${ path }/merchantMember/calculatelist?merNo=${loginMerMember.merNo}';
+      location.href='${ path }/merchant/calculatelist?merNo=${loginMerchant.merNo}';
    })
 })
 

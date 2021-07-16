@@ -68,7 +68,7 @@
                         <c:out value="${hobby.hbSummary}"></c:out>
                      </div>
                   </div>
-					<button id="applyBtn" onclick="location.href='${path}/merchantMember/calculateview?hbNo=${hobby.hbNo}'" class="add-cart">정산 신청</button>
+					<button id="applyBtn" onclick="location.href='${path}/merchant/calculateview?hbNo=${hobby.hbNo}'" class="add-cart">정산 신청</button>
                   </div>
 
               <!--      <button id="applyBtn" onclick="location.href='${path}/merchantMember/calculateview?hbNo=${hobby.hbNo}'"

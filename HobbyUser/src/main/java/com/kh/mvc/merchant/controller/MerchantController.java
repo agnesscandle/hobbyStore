@@ -1,8 +1,6 @@
 package com.kh.mvc.merchant.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +22,6 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Reserve;
-import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -49,12 +45,12 @@ public class MerchantController {
 		
 		log.info("{}, {}", merId, merPassword);		
 
-       Merchant loginmerchant =  service.login(merId, merPassword);
+       Merchant loginMerchantMember =  service.login(merId, merPassword);
 		
-		if(loginmerchant != null) {
-			model.addObject("loginMerMember", loginmerchant);
+		if(loginMerchantMember != null) {
+			model.addObject("loginMerchant", loginMerchantMember);
 			/* model.addObject("location", "/hobby/list"); */
-//			model.setViewName("merchant/merMain");
+//			model.setViewName("merchantMember/merMain");
 			List<Hobby> list = null;
 
 			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
@@ -116,10 +112,10 @@ public class MerchantController {
 	
 	// 회원가입 처리
 	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchant) {
-		System.out.println(merchant);
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember) {
+		System.out.println(merchantmember);
 		
-		int result = service.save(merchant);
+		int result = service.save(merchantmember);
 		
 		if(result > 0) {
 			model.addObject("msg", "회원가입이 정상적으로 완료되었습니다.");
@@ -135,11 +131,11 @@ public class MerchantController {
 	}
 	
 	//로그인 페이지 이동
-//	@GetMapping("/merchant/login")
+//	@GetMapping("/merchantMember/login")
 //	public String loginView() { 
 //		log.info("로그인 페이지 요청");
 //		
-//		return "merchant/login";
+//		return "merchantMember/login";
 //	}
 
 	/*
@@ -286,7 +282,7 @@ public class MerchantController {
 		System.out.println(result);
 		/*
 		if (result > 0) {
-			model.addObject("location", "merchant/calculateview");
+			model.addObject("location", "merchantMember/calculateview");
 			model.setViewName("calculation/calculationview");
 			
 		} else {
@@ -305,7 +301,6 @@ public class MerchantController {
 		System.out.println("apply 실행");
 		int result = service.calculateApply(reserve);
 
-
 		System.out.println(result+ " 칼큘 인서트 결과 !! ");
 		
 		if(result >0)
@@ -314,94 +309,11 @@ public class MerchantController {
 			service.reserveUpdateStatus(reserve);
 		}
 
-
 		
 		return model;
 	}	
 	
 
-	// 아이디 중복검사 
-		@GetMapping("/merchant/memberIdChk")
-		@ResponseBody
-		public Map<String, Object> memberIdChk(@RequestParam("merId") String merId) {
-			log.info("User ID : {}", merId);
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			map.put("validate", service.validate(merId));
-			
-			return map;
-		}
-		
-		// 이메일 중복검사 
-		@GetMapping("/merchant/memberEmailChk")
-		@ResponseBody
-			public Map<String, Object> memberEmailChk(@RequestParam("merEmail") String merEmail) {
-				log.info("User Email : {}", merEmail);
-				
-				Map<String, Object> map = new HashMap<>();
-				
-				map.put("result", service.result(merEmail));
-				
-				return map;
-			}
-		
-		// 아이디 찾기 페이지 이동
-		@GetMapping("/merchant/memberIdSearch")
-		public String idSearchView() { 
-			log.info("아이디 찾기 페이지 요청");
-			
-			return "merchant/memberIdSearch";
-		}
-		
-		// 아이디 찾기 실행
-		@RequestMapping(value="/merchant/memberIdSearch", method = {RequestMethod.POST})
-		public ModelAndView findId(ModelAndView model, @ModelAttribute Member member,
-				@RequestParam("merName")String merName, @RequestParam("merEmail")String merEmail) {
-	
-			
-//			테스트 로그
-//			log.info("{}, {}", memName, memEmail);
-			
-			Member result = service.findByIdAndName(merName, merEmail);
-			
-			if(result == null) {
-				model.addObject("msg", "일치하는 회원이 없습니다.");
-				model.addObject("location", "/member/memberIdSearch");
-			} else {
-				model.addObject("msg", "아이디는 " + result.getMemId() + " 입니다.");
-				model.addObject("location", "/member/login");
-			}
-			model.setViewName("common/msg");
-			
-			return model;
-			
-		}
-		
 
-		// 비밀번호 찾기 페이지 이동
-		@GetMapping("/merchant/memberPwSearch")
-		public String pwSearchView() { 
-			log.info("비밀번호 찾기 페이지 요청");
-			
-			return "merchant/memberPwSearch";
-		}
-		
-		// 마이페이지 이동
-			@GetMapping("/merchant/merMain")
-			public String merMainView() { 
-				log.info("회원정보 페이지 요청");
-				
-				return "merchant/merMain";
-			}
-			
-		// 마이페이지 이동
-			@GetMapping("/merchant/updateMyInfo")
-			public String updateMyInfoView() { 
-				log.info("회원정보 수정 페이지 요청");
-				
-				return "merchant/updateMyInfo";
-			}
-		
 
 }
