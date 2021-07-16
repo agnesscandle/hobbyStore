@@ -733,10 +733,9 @@
 	</select>
 	
 	<!--  결제 끝 -->
-
 	<!--  네비 : 카테고리  -->
 	<!--  카테고리 번호에 해당하는 취미 개수 -->
-		<select id="selectHobbyCountByCateNo" parameterType="_int" resultType="_int">
+	<select id="selectHobbyCountByCateNo" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM HOBBY
 		WHERE STATUS = 'Y'
@@ -772,4 +771,14 @@
 	</select>
 	
 	
+
+
+	<select id="selectReserveList" parameterType="map"
+		resultMap="ReserveListResultMap">
+		<include refid="ReserveListSql" /> 
+		ORDER BY
+		RES_DATE DESC
+	</select>
+
+
 </mapper>

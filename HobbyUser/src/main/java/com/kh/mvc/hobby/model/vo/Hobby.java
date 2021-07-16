@@ -50,4 +50,6 @@ public class Hobby {
    private String hbLocation;
    
    private String status;
+   
+   private int hbTotalFee;
 }

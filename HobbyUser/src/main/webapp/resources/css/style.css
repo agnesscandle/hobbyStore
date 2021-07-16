@@ -109,7 +109,7 @@ button{
 .nav-links{
     display : flex;
     justify-content: space-around;
-    width: 50%; /* nav 메뉴 글자간격(flexible)*/
+    width: 50%; /* nav 硫붾돱 湲��옄媛꾧꺽(flexible)*/
 }
 .nav-links li{
     list-style: none;
@@ -124,7 +124,7 @@ button{
 }
 
 .nav-links a:hover{
-    /* 밑줄 데코 너무 구린 듯.. => 추후 변경 
+    /* 諛묒쨪 �뜲肄� �꼫臾� 援щ┛ �벏.. => 異뷀썑 蹂�寃� 
     text-decoration : underline; */
 }
 
@@ -156,7 +156,7 @@ button{
     color: #eacc16;
 }
 
-/* 버거 영역 : 메뉴 모양 */
+/* 踰꾧굅 �쁺�뿭 : 硫붾돱 紐⑥뼇 */
 .burger{
     display : none;
     margin : 10px;
@@ -285,10 +285,8 @@ footer{
     color : #34486b;
 }
 
-/* 페이지바 */
+/* �럹�씠吏�諛� */
 #pageBar {
    text-align: center;
    margin-top: 30px;
 }
-
-
