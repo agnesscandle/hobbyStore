@@ -37,11 +37,11 @@
 						<td align="center"><c:out value="${ reserve.resDate }"/></td>
 						<td align="center"><c:out value="${ reserve.payFee }"/></td>
 						<td align="center">
-						<form id="calform" name="calform" method="POST">
+						<form id="calform" name="calform" method="POST" action="calculateapply">
 							<input type="hidden" name="resNo" value= "${reserve.resNo}"/>
 							<input type="hidden" name="merNo" value="${reserve.merNo}"/>
 							<input type="hidden" name="hbNo" value="${reserve.hbNo}"/>
-						<input type="button" value="정산신청" id="submitCal"/>
+						<input type="submit" value="정산 신청"/>
 						</form></td>
 					<!-- 	<button onclick="location.href='${path}/merchantMember/calculateapply?resNo=${reserve.resNo}&&merNo=${reserve.merNo}'">정산신청</button> -->
 					</tr>				
@@ -50,30 +50,7 @@
 			</c:if>
 		</table>
 		
-<script>
 
-
-$(function(){ 
-    $('#submitCal').on("click",() => {
-
-   var calform = $("#calform").serialize();
-   $.ajax({
-      type :"post",
-      url : "${path}/merchant/calculateapply",
-      data: calform,
-      datatype: 'json',
-      success : function(data){ 
-         alert("정산 요청이 정상적으로 처리 되었습니다.");
-         
-      }
-      
-   });
-});
-});
-
-
-</script>
-			
 
 
 <%@ include file="../../views/common/footer.jsp"%>

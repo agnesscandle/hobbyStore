@@ -250,7 +250,7 @@ public class MerchantController {
 
 	}
 	
-	@GetMapping("/calculateview")
+	@RequestMapping(value="/calculateview",method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView calculateview(ModelAndView model,
 			@RequestParam(value="hbNo") int hbNo) {
           System.out.println("리스트호출");
@@ -294,8 +294,8 @@ public class MerchantController {
 		return model;
 	}*/
 	
-	@PostMapping(value="/calculateapply")
-	public ModelAndView calculateApply(ModelAndView model,
+	@PostMapping("/calculateapply")
+	public String calculateApply(ModelAndView model,
 			@ModelAttribute Reserve reserve,
 			HttpServletRequest request) {
 		System.out.println("apply 실행");
@@ -308,9 +308,9 @@ public class MerchantController {
 			System.out.println("리절브 실행");
 			service.reserveUpdateStatus(reserve);
 		}
-
+		String url = "forward:/merchant/calculateview?hbNo="+reserve.getHbNo();
 		
-		return model;
+		return url;
 	}	
 	
 
