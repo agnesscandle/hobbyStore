@@ -79,7 +79,7 @@ public interface HobbyMapper {
 
 	Qna selectQnaByNo(int qnaNo);
 
-	int deleteQna(Qna qna);
+	int deleteQna(int qnaNo);
 
 	Hobby selectHobbyByNoQna(int hbNo);
 

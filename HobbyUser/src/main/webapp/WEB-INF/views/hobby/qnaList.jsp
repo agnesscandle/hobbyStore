@@ -163,16 +163,12 @@ width:500px;
 </style>
 <body>
 
-	<h1>
-		문의 하기
-		
-	</h1>
-
+<div> <c:out value="${loginMerchant.merId }"></c:out> </div>
 
 	<div class="qnaL_container">
 	<div class="qnaL_title"><h1>문의 하기 _</h1></div>
 		<c:if test="${ qnaList != null }">
-
+			
 			<c:forEach var="qna" items="${ qnaList }" varStatus="status">
 
 
@@ -187,7 +183,7 @@ width:500px;
          });
 
 	</script>
-
+				
 
 					<div class="qnaItem${ status.index }" id="qnaItem">
 						<div id="userInfo">
@@ -421,7 +417,8 @@ width:500px;
 
 
 	</c:forEach>
-	</c:if>
+		</c:if>
+
 	</div>
 
 

@@ -53,7 +53,7 @@ font-size: 22px;
     background-color: #333;
     color: #fff;
 }
-#update{
+.update{
     padding : 5px 15px;
     cursor : pointer;
     border : none;
@@ -61,7 +61,7 @@ font-size: 22px;
     text-decoration: none;
     border-radius: 10px;
 }
-#delete{
+.delete{
     margin-left : 10%;
     padding : 5px 15px;
     cursor : pointer;
@@ -73,13 +73,16 @@ font-size: 22px;
 </style>
 </head>
 <body>
-
-<h1 class="title">문의하기</h1>
-<form action="${ path }/hobby/qnaUpdate" method="POST" enctype="multipart/form-data">
 <div>
+<h1 class="title">문의하기</h1>
+
+<form action="${ path }/hobby/qnaUpdate" method="POST" enctype="multipart/form-data">
+
 <!-- <input type="hidden" id="memNo" value="${ member.memNo }"> -->
 <input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
 <input type="hidden" id="qnaNo" name="qnaNo" value="${qna.qnaNo }">
+<input type="hidden" id="memNo" name="memNo" value="${ loginMember.memNo }">
+<input type="hidden" id="memId" name="memId" value="${ loginMember.memId }">
 <input type="text" id="qnaTitle" name="qnaTitle" value="${ qna.qnaTitle }"/><br>
 <textarea id="qnaContent" name="qnaContent" cols="67" rows="15" style="resize: none;">
    <c:out value="${qna.qnaContent }"></c:out>
@@ -94,9 +97,11 @@ font-size: 22px;
 <hr>
 <br>
 <br>
-<input type="submit" id="update" value="수정하기"  />
-<input type="button" id="delete" onclick="location.replace('${path}/hobby/qnaDelete?qnaNo=${qna.qnaNo}')" value="삭제" id="qnaDelete"/>
-</div>
+<input type="submit" class="update" value="수정하기"  />
+
+<input type="button" class="delete" onclick="location.replace('${path}/hobby/qnaDelete?qnaNo=${qna.qnaNo}')" value="삭제" id="qnaDelete"/>
 </div>
 </form>
+</div>
+
 <%@ include file="../../views/common/footer.jsp"%>

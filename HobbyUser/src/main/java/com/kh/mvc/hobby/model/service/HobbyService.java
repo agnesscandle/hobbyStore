@@ -86,7 +86,7 @@ public interface HobbyService {
 
    int saveReserve(Reserve reserve);
 
-	int deleteQna(Qna qna);
+	int deleteQna(int qnaNo);
 
 	int deleteReply(Reply reply);
 

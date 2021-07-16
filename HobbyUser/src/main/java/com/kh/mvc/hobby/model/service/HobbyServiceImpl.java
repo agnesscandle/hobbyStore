@@ -346,8 +346,8 @@ public class HobbyServiceImpl implements HobbyService {
 	   }
 
 	   @Override
-	   public int deleteQna(Qna qna) {
-	      return mapper.deleteQna(qna);
+	   public int deleteQna(int qnaNo) {
+	      return mapper.deleteQna(qnaNo);
 	   }
 
 
@@ -385,6 +385,8 @@ public class HobbyServiceImpl implements HobbyService {
 	public int getReplyCount(int qnaNo, int merNo) {
 		return mapper.selectReplyCount(qnaNo, merNo);
 	}
+
+
 
 
 }
