@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -217,5 +217,103 @@ public class MerchantController {
 		model.setViewName("/merchant/Reviewmanagement");
 		return model;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/calculatelist")
+	public ModelAndView calculatelist(ModelAndView model,
+			@RequestParam(value="merNo") int merNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+          System.out.println("리스트호출");
+  		
+          
+        List<Hobby> list = null;
+
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+		list = service.getHobbycalList(pageInfo, merNo);
+		
+		
+		
+		System.out.println(list+"맵퍼 확인");
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("calculation/calculationlist");
+
+		return model;
+
+	}
+	
+	@GetMapping("/calculateview")
+	public ModelAndView calculateview(ModelAndView model,
+			@RequestParam(value="hbNo") int hbNo) {
+          System.out.println("리스트호출");
+  		
+          
+        List<Reserve> list = null;
+		
+		list = service.getReserveList(hbNo);
+		
+		
+		
+		System.out.println(list+"맵퍼 확인");
+		model.addObject("list", list);
+
+		model.setViewName("calculation/calculationview");
+
+		return model;
+
+	}
+
+	
+	/*
+	@PostMapping("calculateapply")
+	public ModelAndView calculateApply(ModelAndView model,
+			@RequestParam("resNo")int resNo,
+			@RequestParam("merNo")int merNo) {
+		System.out.println(resNo + "                " + merNo);
+		int result = service.calculateApply(resNo, merNo);
+		System.out.println(result);
+		/*
+		if (result > 0) {
+			model.addObject("location", "merchantMember/calculateview");
+			model.setViewName("calculation/calculationview");
+			
+		} else {
+			model.addObject("msg", "정산 요청을 실패하였습니다.");
+			model.addObject("location", "/");
+		}
+
+		
+		return model;
+	}*/
+	@PostMapping("calculateapply")
+	public ModelAndView calculateApply(ModelAndView model,
+			@ModelAttribute Reserve reserve) {
+
+		int result = service.calculateApply(reserve);
+		//System.out.println(result);
+
+		//if (result > 0) {
+			model.addObject("location", "merchantMember/calculateview");
+			model.setViewName("calculation/calculationview");
+			
+		//} else {
+			model.addObject("msg", "정산 요청을 실패하였습니다.");
+			model.addObject("location", "/");
+	//	}
+
+		
+		return model;
+	}	
+	
+
+
 
 }

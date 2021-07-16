@@ -649,30 +649,6 @@ public class HobbyController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public int sumFee() {
-		
-		return 0;
-	}
-	
 
 
 }

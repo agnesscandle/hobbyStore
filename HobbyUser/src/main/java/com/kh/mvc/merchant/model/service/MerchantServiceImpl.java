@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -181,6 +182,34 @@ public class MerchantServiceImpl implements MerchantService{
 
 		return mapper.selectHobbyMerList(rowBounds,adNo);
 	}
+
+	@Override
+	public List<Hobby> getHobbycalList(PageInfo pageInfo, int merNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+
+		return mapper.selectHobbyCalList(rowBounds,merNo);
+	}
+
+	@Override
+	public int calculateApply(Reserve reserve) {
+		return mapper.insertCalApply(reserve);
+		
+	}
+
+
+
+	@Override
+	public int getReserveCount(int hbNo) {
+		return mapper.selectReserveCount(hbNo);
+	}
+
+	@Override
+	public List<Reserve> getReserveList(int hbNo) {
+
+		return mapper.selectReserveList(hbNo);
+	}
+
 
 	
 	
