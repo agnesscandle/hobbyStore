@@ -269,6 +269,11 @@ public class MemberServiceImpl implements MemberService{
 	public Reserve findReserveByNo(int memNo, int hbNo) {
 		return mapper.selectRsByNo(memNo, hbNo);
 	}
+
+	@Override
+	public Hobby findByNo(int hbNo) {
+		return mapper.selectHobbyByNo(hbNo);
+	}
 		
 		
 	

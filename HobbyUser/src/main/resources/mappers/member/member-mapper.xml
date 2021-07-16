@@ -273,6 +273,12 @@
 		H.HB_NO DESC
 	</select>
 	
+	<select id="selectHobbyByNo" parameterType="_int"
+		resultMap="HobbyListResultMap">
+		<include refid="HobbyListSql" />
+		AND HB_NO=#{hbNo}
+	</select>
+	
 	<!-- 좋아요한 취미 가져오기 -->
 	<select id="selectHobbyLikedList" parameterType="map"
 		resultMap="HobbyListResultMap">

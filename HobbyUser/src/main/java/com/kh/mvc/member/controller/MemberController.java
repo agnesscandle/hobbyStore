@@ -546,8 +546,12 @@ public class MemberController {
 				memNo = loginMember.getMemNo();
 				
 				Reserve reserve = service.findReserveByNo(memNo, hbNo);
+				Hobby hobby = service.findByNo(hbNo);
+				
 				
 				model.addObject("reserve", reserve);
+				model.addObject("hobby", hobby);
+				
 				model.setViewName("member/reservedHbView");
 				
 				return model;

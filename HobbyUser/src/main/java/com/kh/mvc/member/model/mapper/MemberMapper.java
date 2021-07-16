@@ -47,6 +47,8 @@ public interface MemberMapper {
 
 	Reserve selectRsByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo);
 
+	Hobby selectHobbyByNo(int hbNo);
+
 
 
 

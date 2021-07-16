@@ -56,6 +56,8 @@ public interface MemberService {
 
 	Reserve findReserveByNo(int memNo, int hbNo);
 
+	Hobby findByNo(int hbNo);
+
 
 
 
