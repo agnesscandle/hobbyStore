@@ -15,7 +15,6 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Reserve;
-import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -215,18 +214,6 @@ public class MerchantServiceImpl implements MerchantService{
 	public int reserveUpdateStatus(Reserve reserve) {
 		
 		return mapper.reserveUpdateStatus(reserve);
-	}
-
-	@Override
-	public Object result(String merEmail) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Member findByIdAndName(String merName, String merEmail) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 
