@@ -516,13 +516,15 @@ public class HobbyController {
  }
    @PostMapping("/qnaList")
     public ModelAndView qnaReply(ModelAndView model,
-         @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
-          HttpServletRequest request, @ModelAttribute Hobby hobby,
-          @ModelAttribute Reply reply,  @RequestParam("hbNo") int hbNo) {
-	   if(loginMerchant.getMerNo() == hobby.getMerNo() ) {
-		   
+          HttpServletRequest request, 
+          @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+          @ModelAttribute Qna qna, @ModelAttribute Reply reply, @RequestParam("hbNo") int hbNo) {
+	   log.info("댓글 작성 요청");
+	   System.out.println(reply);
+	   if(loginMerchant.getMerId().equals(reply.getMerId()) ) {
+		   reply.setMerNo(loginMerchant.getMerNo());
 	
-	   
+	 
        int result = service.saveReply(reply);
        
        if(result > 0) {
