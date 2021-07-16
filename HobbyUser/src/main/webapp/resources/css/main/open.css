@@ -1,113 +1,47 @@
-body { min-height: 100vh; /* 최소 높이를 지정 */ display: flex; flex-direction: column; }
-
-footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나가도록 설정 */ }
-
-
-.profilePic-wrapper{
-   height: 150px;
-   width: 150px;
-   position: relative;
-   margin-bottom: 10px;
-   overflow: hideen;
+.openTitle{
+	margin: 60px 0px -60px 290px;
 }
 
-.adjustImage {
-   height: 150px;
-   width: 150px;
-   border: 2px solid rgb(32, 51, 84);
-   border-radius: 50%;
-}
-
-.memInfo_side{
-   float: left;
-   padding: 2% 2% 10% 4%;
-}
-
-.memInfo{
-   margin-bottom: 50%;
-}
-
-.infoMemName{
-   display: inline-block;
-   text-align: right;
-   font-size: 23px;
-   color: rgb(32, 51, 84);
-   font-weight: 600;
-}
-
-.infoMemId, .infoMemEmail{
-   display: inline-block;
-   text-align: right;
-   font-size: 18px;
-   color: rgb(119, 134, 145);
-   font-weight: 600;
-}
-
-.organizeInfo{
-   color: rgb(32, 51, 84);
-   display: inline-block;
-   text-align: right;
-   font-size: 24px;
-   font-weight: 600;
-}
-
-.Info_update_Mem{
-   font-size: 18px;
-   color: rgb(32, 51, 84);
-   font-weight: 600;
-   padding: 10px 0px 0px 0px; 
-   cursor: pointer;
-}
-
-.mainLabel{
-	display: inline-block;
-	position: relative;
-	padding: 3% 2% 0% 4.5%;
-	margin-bottom: -1%;
-	
-}
-
-/* 이미지 불러오는 부분 */
-.divList_h {
+.divList_open {
    width: 1400px;
    display: flex;
-   flex-wrap: nowrap;
    justify-content: center;
    align-items: center;
    margin: auto;
-   padding: 60px 130px 50px 0px;
+   padding-top: 100px;
+   padding-bottom: 40px;
 }
 
-.containerList_h {
+.containerList_open {
    display: grid;
    grid-column-gap: 30px;
-   grid-row-gap: 30px;
-   grid-template-rows: 280px 280px ;
-   grid-template-columns: 310px 310px 310px 310px;
+   grid-row-gap: 50px;
+   grid-template-rows: 280px 280px 280px;
+   grid-template-columns: 310px 310px 310px 310px ;
 }
 
 @media ( max-width : 1023px) {
-   .containerList_h {
+   .containerList_open {
       display: grid;
       grid-column-gap: 30px;
       grid-row-gap: 30px;
-      grid-template-rows: 280px 280px 280px 280px ;
-      grid-template-columns: 310px 310px ;
+      grid-template-rows: 280px 280px 280px 280px;
+      grid-template-columns: 310px 310px;
    }
 }
 
 @media ( max-width : 767px ) {
-   .containerList_h {
+   .containerList_open {
       display: grid;
       grid-column-gap: 30px;
       grid-row-gap: 30px;
-      grid-template-rows: 280px 280px 280px 280px 280px ;
+      grid-template-rows: 280px 280px 280px 280px 280px;
       grid-template-columns: 310px;
    }
 }
 
 /* item */
-.item_h {
+.item_open {
    border-radius: 5px;
    overflow: hidden;
    position: relative;
@@ -115,11 +49,11 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.164);*/
 }
 
-.item_h img {
+.item_open img {
    transition: 0.5s;
 }
 
-.detail_h {
+.detail_open {
    background-color: #f8f8f8;
    position: absolute;
    width: 100%;
@@ -131,17 +65,17 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    box-sizing: border-box;
 }
 
-.item_h:hover .detail_h {
+.item_open:hover .detail {
    bottom: 0;
 }
 
-.item_h:hover img {
+.item_open:hover img {
    filter: blur(2px)
 }
 
 
 /* title */
-.title_h {
+.title_open {
    padding-top: 15px;
    padding-bottom: 20px;
    border-bottom: 1px solid #ddd;
@@ -150,7 +84,7 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    height: 70px;
 }
 
-.title_h h2 {
+.title_open h2 {
    width: 175px;
    font-size: 12px;
    color: #888;
@@ -158,7 +92,7 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    float: left;
 }
 
-.title_h h2 em {
+.title_open h2 em {
    font-style: normal;
    display: block;
    margin-bottom: 5px;
@@ -167,24 +101,24 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    font-size: 14px;
 }
 
-.title_h .price_h {
+.title_open .price_open {
    float: right;
    font-size: 12px;
    color: #000;
 }
 
-.info_h {
+.info_open {
    position: relative;
 }
 
-#thumImg_h {
+#thumImg_open {
    width: 100%;
    height: 100%;
 }
 
 
 /* Size */
-.size_h {
+.size_open {
    font-size: 12px;
    width: 230px;
    height: 70px;
@@ -193,19 +127,19 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    box-sizing: border-box;
 }
 
-.size_h label {
+.size_open label {
    display: block;
    margin-bottom: 5px;
    font-size: 14px;
 }
 
 /* price */
-.price_h {
+.price_open {
    text-align: right;
    width: 90px;
 }
 
-.price_h span {
+.price_open span {
    width: 17px;
    height: 17px;
    display: inline-block;
@@ -213,17 +147,17 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    cursor: pointer;
 }
 
-.price_h .discount_h {
+.price_open .discount_open {
    color: red;
 }
 
-.price_h del {
+.price_open del {
    color: #d3d3d3;
 }
 
 
 /* add-cart */
-.add-cart_h {
+.add-cart-o {
    border: 1px solid #ddd;
    border-radius: 10px;
    width: 100%;
@@ -235,7 +169,7 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    outline: none;
 }
 
-.add-cart_h:hover {
+.add-cart-o:hover {
    background-color: #0E0C32;
    color: #fff;
 }

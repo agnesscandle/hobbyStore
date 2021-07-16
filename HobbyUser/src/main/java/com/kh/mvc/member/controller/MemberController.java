@@ -226,7 +226,7 @@ public class MemberController {
        List<Hobby> hobbyList = null;
        List<Hobby> hobbyList_ = null;
        
-       PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 3);
+       PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
        
        int memNo = 0;
        memNo = loginMember.getMemNo();
@@ -533,6 +533,14 @@ public class MemberController {
 //		        service.sendNewPwNumber(memPhone,numStr);
 		        service.setNewPw(memPhone, numStr);
 		        return numStr;
+			}
+			
+		// 취미 예약 상세페이지
+			@GetMapping("/member/reservedHbView")
+			public String reservedHbView() { 
+				log.info("예약 상세 페이지 요청");
+				
+				return "member/reservedHbView";
 			}
 			
 			

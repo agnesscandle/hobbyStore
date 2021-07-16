@@ -29,18 +29,47 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<Hobby> getHobbyList() {
-		
-
-		return mapper.selectHobbyList();
-	}
-
-	
-
-	@Override
 	public String findCateNameByNo(int cateNo) {
 		
 		return mapper.selectCateNameByNo(cateNo);
+	}
+
+	@Override
+	public List<Hobby> getSHobbyList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectSHobbyList(rowBounds);
+	}
+
+	@Override
+	public List<Hobby> getDHobbyList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectDHobbyList(rowBounds);
+	}
+
+	@Override
+	public List<Hobby> getPHobbyList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectPHobbyList(rowBounds);
+	}
+
+
+	@Override
+	public List<Hobby> getOpenHobbyList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectOpenHobbyList(rowBounds);
+	}
+
+	@Override
+	public List<Hobby> getBestHobbyList() {
+		return mapper.selectBestHobbyList();
 	}
 	
 

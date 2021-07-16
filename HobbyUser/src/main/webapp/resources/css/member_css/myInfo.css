@@ -20,7 +20,8 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
 
 .memInfo_side{
    float: left;
-   padding: 2% 2% 10% 4%;
+   padding: 3% 2% 10% 4%;
+   margin-left: 20px;
 }
 
 .memInfo{
@@ -49,6 +50,7 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    text-align: right;
    font-size: 24px;
    font-weight: 600;
+   margin-bottom: 20px;
 }
 
 .Info_update_Mem{
@@ -59,15 +61,57 @@ footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나�
    cursor: pointer;
 }
 
-
-/*slick*/
-.main {
-  font-family:Arial;
-  width:300px;
-  display:inline-block;
-  margin:0 auto;
-  position: relative;
+.mainLabel_Info{
+	display: inline-block;
+	position: relative;
+	padding: 3% 2% 0% 4%;
+	margin-bottom: -1%;
 }
+
+.expand_btn {
+	cursor: pointer;
+	font-size: 16px;	
+}
+
+/* 이미지 불러오는 부분 */
+.divList_h {
+   width: 1400px;
+   display: flex;
+   flex-wrap: nowrap;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+   padding: 35px 130px 80px 0px;
+}
+
+.containerList_h {
+   display: grid;
+   grid-column-gap: 30px;
+   grid-row-gap: 30px;
+   grid-template-rows: 280px;
+   grid-template-columns: 310px 310px 310px 310px;
+}
+
+@media ( max-width : 1023px) {
+   .containerList_h {
+      display: grid;
+      grid-column-gap: 30px;
+      grid-row-gap: 30px;
+      grid-template-rows: 280px;
+      grid-template-columns: 310px 310px 310px 310px;
+   }
+}
+
+@media ( max-width : 767px ) {
+   .containerList_h {
+      display: grid;
+      grid-column-gap: 30px;
+      grid-row-gap: 30px;
+      grid-template-rows: 280px;
+      grid-template-columns: 310px 310px 310px 310px;
+   }
+}
+
 
 /* item */
 .item_h {
