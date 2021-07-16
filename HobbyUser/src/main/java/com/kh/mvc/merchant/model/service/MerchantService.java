@@ -50,6 +50,8 @@ public interface MerchantService {
 
 	List<Reserve> getReserveList(int hbNo);
 
+	int reserveUpdateStatus(Reserve reserve);
+
 
 
 }

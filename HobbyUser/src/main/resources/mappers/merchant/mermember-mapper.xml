@@ -385,10 +385,20 @@
 		WHERE RES_STATUS = 'Y'
 		AND RES_ATTEND = 'Y' 
 		AND R.HB_NO = #{hbNo}
+		AND R.CAL_STATUS='N'
 		ORDER BY
 		R.RES_DATE DESC
 	</select>
 	
+	 <update id="reserveUpdateStatus" parameterType="Reserve">
+ 		UPDATE RESERVE
+ 		SET
+ 			CAL_STATUS = 'Y'
+		WHERE RES_NO = #{resNo}
+		
+	</update>
+ 			
+ 			
 	<insert id="insertCalApply" parameterType="map">
 		INSERT INTO
 		CALCULATION(

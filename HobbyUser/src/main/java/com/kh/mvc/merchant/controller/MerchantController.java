@@ -293,21 +293,21 @@ public class MerchantController {
 		
 		return model;
 	}*/
-	@PostMapping("calculateapply")
+	
+	@PostMapping(value="/calculateapply")
 	public ModelAndView calculateApply(ModelAndView model,
-			@ModelAttribute Reserve reserve) {
-
+			@ModelAttribute Reserve reserve,
+			HttpServletRequest request) {
+		System.out.println("apply 실행");
 		int result = service.calculateApply(reserve);
-		//System.out.println(result);
 
-		//if (result > 0) {
-			model.addObject("location", "merchantMember/calculateview");
-			model.setViewName("calculation/calculationview");
-			
-		//} else {
-			model.addObject("msg", "정산 요청을 실패하였습니다.");
-			model.addObject("location", "/");
-	//	}
+		System.out.println(result+ " 칼큘 인서트 결과 !! ");
+		
+		if(result >0)
+		{
+			System.out.println("리절브 실행");
+			service.reserveUpdateStatus(reserve);
+		}
 
 		
 		return model;

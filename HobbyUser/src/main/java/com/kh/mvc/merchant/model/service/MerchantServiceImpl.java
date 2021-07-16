@@ -210,6 +210,12 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.selectReserveList(hbNo);
 	}
 
+	@Override
+	public int reserveUpdateStatus(Reserve reserve) {
+		
+		return mapper.reserveUpdateStatus(reserve);
+	}
+
 
 	
 	

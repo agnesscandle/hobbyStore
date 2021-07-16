@@ -40,5 +40,7 @@ public interface MerchantMapper {
 
 	List<Reserve> selectReserveList(int hbNo);
 
+	int reserveUpdateStatus(Reserve reserve);
+
 
 }
