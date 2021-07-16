@@ -264,6 +264,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.selectHobbyRsList(memNo, rowBounds);
 	}
+
+	@Override
+	public Reserve findReserveByNo(int memNo, int hbNo) {
+		return mapper.selectRsByNo(memNo, hbNo);
+	}
+
+	@Override
+	public Hobby findByNo(int hbNo) {
+		return mapper.selectHobbyByNo(hbNo);
+	}
 		
 		
 	

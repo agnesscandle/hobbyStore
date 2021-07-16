@@ -54,6 +54,10 @@ public interface MemberService {
 
 	List<Hobby> getHobbyRsList(int memNo, PageInfo pageInfo);
 
+	Reserve findReserveByNo(int memNo, int hbNo);
+
+	Hobby findByNo(int hbNo);
+
 
 
 

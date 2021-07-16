@@ -28,8 +28,8 @@
 	</div>
 </section>
 
-
-<span class="mainLabel"><h2>스킬 up!</h2></span>
+<div class="mainentire-box">
+<span class="mainLabel_s"><h2>스킬 up!</h2></span><span>전체보기</span>
 <div class="divList_h">
 	<div class="containerList_h">
 		<c:if test="${ listS != null }">
@@ -88,7 +88,7 @@
 		</c:if>
 	</div>
 </div>
-<span class="mainLabel_s"><h2>지금 할인중인 취미!</h2></span>
+<span class="mainLabel_s"><h2>지금 할인중인 취미!</h2></span><span>전체보기</span>
 <div class="divList_h">
 	<div class="containerList_h">
 		<c:if test="${ listD != null}">
@@ -149,7 +149,7 @@
 		</c:if>
 	</div>
 </div>
-<span class="mainLabel_s"><h2>인기 UP!</h2></span>
+<span class="mainLabel_s"><h2>인기 UP!</h2></span><span>전체보기</span>
 <div class="divList_h">
 	<div class="containerList_h">
 		<c:if test="${ listP != null}">
@@ -208,7 +208,7 @@
 		</c:if>
 	</div>
 </div>
-
+</div>
 
 <script>
 	$(document).ready(
