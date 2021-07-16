@@ -1,0 +1,402 @@
+body { min-height: 100vh; /* 최소 높이를 지정 */ display: flex; flex-direction: column; }
+
+footer { margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나가도록 설정 */ }
+
+
+.profilePic-wrapper{
+   height: 150px;
+   width: 150px;
+   position: relative;
+   margin-bottom: 10px;
+   overflow: hideen;
+}
+
+.adjustImage {
+   height: 150px;
+   width: 150px;
+   border: 2px solid rgb(32, 51, 84);
+   border-radius: 50%;
+}
+
+.memInfo_side{
+   float: left;
+   padding: 3% 2% 10% 4%;
+   margin-left: 20px;
+}
+
+.memInfo{
+   margin-bottom: 50%;
+}
+
+.infoMemName{
+   display: inline-block;
+   text-align: right;
+   font-size: 23px;
+   color: rgb(32, 51, 84);
+   font-weight: 600;
+}
+
+.infoMemId, .infoMemEmail{
+   display: inline-block;
+   text-align: right;
+   font-size: 18px;
+   color: rgb(119, 134, 145);
+   font-weight: 600;
+}
+
+.organizeInfo{
+   color: rgb(32, 51, 84);
+   display: inline-block;
+   text-align: right;
+   font-size: 24px;
+   font-weight: 600;
+   margin-bottom: 20px;
+}
+
+.Info_update_Mem{
+   font-size: 18px;
+   color: rgb(32, 51, 84);
+   font-weight: 600;
+   padding: 10px 0px 0px 0px; 
+   cursor: pointer;
+}
+
+.mainLabel_Info{
+	display: inline-block;
+	position: relative;
+	padding: 3% 2% 0% 4%;
+	margin-bottom: -1%;
+}
+
+.expand_btn {
+	cursor: pointer;
+	font-size: 16px;	
+}
+
+/* 이미지 불러오는 부분 */
+.divList_h {
+   width: 1400px;
+   display: flex;
+   flex-wrap: nowrap;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+   padding: 35px 130px 80px 0px;
+}
+
+.containerList_h {
+   display: grid;
+   grid-column-gap: 30px;
+   grid-row-gap: 30px;
+   grid-template-rows: 280px;
+   grid-template-columns: 310px 310px 310px 310px;
+}
+
+@media ( max-width : 1023px) {
+   .containerList_h {
+      display: grid;
+      grid-column-gap: 30px;
+      grid-row-gap: 30px;
+      grid-template-rows: 280px;
+      grid-template-columns: 310px 310px 310px 310px;
+   }
+}
+
+@media ( max-width : 767px ) {
+   .containerList_h {
+      display: grid;
+      grid-column-gap: 30px;
+      grid-row-gap: 30px;
+      grid-template-rows: 280px;
+      grid-template-columns: 310px 310px 310px 310px;
+   }
+}
+
+
+/* item */
+.item_h {
+   border-radius: 5px;
+   overflow: hidden;
+   position: relative;
+   margin: 5px;
+   /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.164);*/
+}
+
+.item_h img {
+   transition: 0.5s;
+}
+
+.detail_h {
+   background-color: #f8f8f8;
+   position: absolute;
+   width: 100%;
+   bottom: -177px;
+   left: 0;
+   height: 250px;
+   transition: 0.5s;
+   padding: 5px 15px 5px 20px;
+   box-sizing: border-box;
+}
+
+.item_h:hover .detail_h {
+   bottom: 0;
+}
+
+.item_h:hover img {
+   filter: blur(2px)
+}
+
+
+/* title */
+.title_h {
+   padding-top: 15px;
+   padding-bottom: 20px;
+   border-bottom: 1px solid #ddd;
+   overflow: hidden;
+   margin-bottom: 15px;
+   height: 70px;
+}
+
+.title_h h2 {
+   width: 175px;
+   font-size: 12px;
+   color: #888;
+   line-height: 1.2em;
+   float: left;
+}
+
+.title_h h2 em {
+   font-style: normal;
+   display: block;
+   margin-bottom: 5px;
+   padding-top: 5px;
+   color: #000;
+   font-size: 14px;
+}
+
+.title_h .price_h {
+   float: right;
+   font-size: 12px;
+   color: #000;
+}
+
+.info_h {
+   position: relative;
+}
+
+#thumImg_h {
+   width: 100%;
+   height: 100%;
+}
+
+
+/* Size */
+.size_h {
+   font-size: 12px;
+   width: 230px;
+   height: 70px;
+   padding-top: 10px;
+   margin-bottom: 10px;
+   box-sizing: border-box;
+}
+
+.size_h label {
+   display: block;
+   margin-bottom: 5px;
+   font-size: 14px;
+}
+
+/* price */
+.price_h {
+   text-align: right;
+   width: 90px;
+}
+
+.price_h span {
+   width: 17px;
+   height: 17px;
+   display: inline-block;
+   margin-right: 6px;
+   cursor: pointer;
+}
+
+.price_h .discount_h {
+   color: red;
+}
+
+.price_h del {
+   color: #d3d3d3;
+}
+
+
+/* add-cart */
+.add-cart_h {
+   border: 1px solid #ddd;
+   border-radius: 10px;
+   width: 100%;
+   padding: 7px;
+   background-color: #fff;
+   color: #0E0C32;
+   cursor: pointer;
+   margin-top: 10px;
+   outline: none;
+}
+
+.add-cart_h:hover {
+   background-color: #0E0C32;
+   color: #fff;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	color: black;
+}
+
+.reserved-wrap {
+	width: 50%;
+	margin: 3% 0% 0% 30%;
+}
+
+.rsTitle {
+	color: rgb(32, 51, 84);
+}
+
+.table-wrap {
+	border-radius: 8px;
+	border: 1px solid rgb(25, 40, 125);
+	background-color: rgb(255, 255, 255);
+	margin-top: 30px;
+}
+
+.tb_reserve {
+	margin-top: 30px;
+}
+
+.td_reserve {
+	border: inherit;
+}
+
+.title_date {
+	font-weight: bolder;
+	color: rgb(32, 51, 84);
+}
+
+.title_number {
+	color: rgb(32, 51, 84);
+	font-size: 14px;
+	font-weight: bolder;
+}
+
+.tb_box {
+	margin: 10px 0px 40px 40px;
+}
+
+
+.tb_r1{
+	padding: 20px;
+}
+
+.tb_label {
+	font-weight: bolder;
+	font-size: 25px;
+	padding: 0px 0px 15px 10px;
+	color: rgb(32, 51, 84);
+}
+
+.btnTb_G {
+	display: flex;
+	flex-flow: column wrap;
+	height: 100%;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+	padding: 22px;
+	margin-bottom: -40px;
+	margin-left: -40px;
+}
+
+.tb_btn {
+	min-height: 2.25rem;
+	font-size: 0.875rem;
+	width: 160px;
+	margin: 5px 70px;
+}
+
+.rst{
+	color: rgb(32, 51, 84);
+	font-weight: bolder;
+	font-size: 22px;
+}
+.rsf {
+	color: rgb(32, 51, 84);
+	padding-top: 40px;
+	margin-bottom: -10px;
+	font-size: 18px;
+	font-weight: bolder;
+}
+
+
+
+
+
+
+.dqbXKL {
+	display: inline-flex;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-bottom: 8px;
+	user-select: none;
+	cursor: pointer;
+	text-decoration: none;
+	outline: none;
+	appearance: none;
+	height: 2.25rem;
+	width: 100%;
+	border-radius: 4px;
+	color: rgb(25, 40, 125);
+	background-color: rgb(255, 255, 255);
+	border: 1.5px solid rgb(25, 40, 125);
+	-webkit-tap-highlight-color: rgba(52, 106, 255, 0.1);
+	font-size: 18px;
+}
+
+
+
+
+.mRsInfo {
+	color: rgb(32, 51, 84);
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.mRsInfo_t {
+	font-size: 28px;
+}
+
+.line_rsm {
+	margin-top: 25px;
+	font-weight: bolder;
+	background: rgb(32, 51, 84);
+}
+
+.location_rs{
+	color: rgb(32, 51, 84);
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+
+.mRsInfo_tb{
+	color: rgb(32, 51, 84);
+	font-size: 17px;
+	font-weight: bolder;
+}
+

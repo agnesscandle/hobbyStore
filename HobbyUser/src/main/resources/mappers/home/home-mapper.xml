@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.mvc.home.model.mapper.HomeMapper">
+
+	<sql id="HobbyListSql">
+		SELECT HB_NO,
+		MER_NO,
+		CATE_NO,
+		HB_TITLE,
+		HB_SUMMARY,
+		HB_STARTDATE,
+		HB_FEE,
+		HB_DISCOUNT_RATE,
+		HB_DISCOUNT_STATUS,
+		HB_ENDDATE,
+		HB_IMGS_ORI,
+		HB_IMGS_RENAME,
+		HB_THUM_ORI,
+		HB_THUM_RENAME,
+		HB_INFO,
+		HB_LOCATION
+		FROM HOBBY
+		WHERE
+		STATUS = 'Y'
+	</sql>
+
+	<sql id="cateListSql">
+		SELECT
+		CATE_NO,
+		CATE_NAME
+		FROM
+		CATEGORY
+	</sql>
+
+	<sql id="MerchantListSql">
+       SELECT  
+       MER_NO, 
+       MER_ID, 
+       MER_PASSWORD, 
+       MER_EMAIL,
+       MER_NAME, 
+       MER_PHONE,
+       MER_DATE,
+       BANK,
+       MER_NICK, 
+       STATUS, 
+       MER_IMG_ORIGINAL, 
+       MER_IMG_RENAME, 
+       MER_IDCARD,
+       CATE_NO ,
+       GREETING
+      FROM MERCHANT
+      WHERE STATUS = 'Y'
+   </sql>
+
+	<!--  resultMap -->
+
+	<resultMap type="Hobby" id="HobbyListResultMap">
+		<id property="hbNo" column="HB_NO" />
+		<result property="merNo" column="MER_NO" />
+		<result property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+		<result property="hbTitle" column="HB_TITLE" />
+		<result property="hbSummary" column="HB_SUMMARY" />
+		<result property="hbFee" column="HB_FEE" />
+		<result property="hbDiscountRate" column="HB_DISCOUNT_RATE" />
+		<result property="hbDiscountStatus" column="HB_DISCOUNT_STATUS" />
+		<result property="hbStartDate" column="HB_STARTDATE" />
+		<result property="hbEndDate" column="HB_ENDDATE" />
+		<result property="hbImgsOri" column="HB_IMGS_ORI" />
+		<result property="hbImgsRename" column="HB_IMGS_RENAME" />
+		<result property="hbThumOri" column="HB_THUM_ORI" />
+		<result property="hbThumRename" column="HB_THUM_RENAME" />
+		<result property="hbInfo" column="HB_INFO" />
+		<result property="hbLocation" column="HB_LOCATION" />
+	</resultMap>
+	
+	<resultMap type="Category" id="CateListResultMap">
+		<id property="cateNo" column="CATE_NO" />
+		<result property="cateName" column="CATE_NAME" />
+	</resultMap>
+	
+	<resultMap type="Liked" id="LikedListResultMap">
+		<id property="likedNo" column="LIKE_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="likedStatus" column="STATUS" />
+	</resultMap>
+	
+	<resultMap type="Merchant" id="MerchantListResultMap">
+       <id property="merNo" column="MER_NO"/>
+       <result property="merId" column="MER_ID" />
+       <result property="merPassword" column="MER_PASSWORD"/>
+       <result property="merEmail" column="MER_EMAIL"/>
+       <result property="merName" column="MER_NAME"/>
+       <result property="merPhone" column="MER_PHONE"/>
+       <result property="merDate" column="MER_DATE"/>
+       <result property="Bank" column="BANK"/>
+       <result property="merNick" column="MER_NICK"/>
+       <result property="status" column="STATUS"/>
+       <result property="merImgOriginal" column="MEM_IMG_ORIGINAL"/>
+       <result property="merImgRename" column="MEM_IMG_RENAME"/>
+       <result property="merIDCARD" column="MER_IDCARD"/>
+       <result property="cateNo" column="CATE_NO"/>
+       <result property="greeting" column="GREETING"/>
+    </resultMap>
+    
+    <select id="selectHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.STATUS = 'Y'
+	</select>
+    
+    <select id="selectDHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.HB_DISCOUNT_STATUS = 'Y' AND H.STATUS = 'Y'
+		ORDER BY
+		H.HB_DISCOUNT_RATE DESC
+	</select>
+	
+	<select id="selectSHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.CATE_NO = 6 AND H.STATUS = 'Y'
+	</select>
+	
+	<select id="selectPHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN LIKED L ON(H.HB_NO = L.HB_NO)
+		WHERE L.STATUS = 'Y' AND H.STATUS = 'Y'
+	</select>
+	
+	<select id="selectOpenHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+		SELECT
+        H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION,
+        TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_DATE(HB_STARTDATE)
+        FROM HOBBY H
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+        <![CDATA[WHERE TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_DATE(HB_STARTDATE) < 0]]>
+        AND H.STATUS = 'Y'
+	</select>
+	
+	<!-- 베스트 취미 가져오기 -->
+	<select id="selectBestHobbyList" parameterType="map"
+		resultMap="HobbyListResultMap">
+	SELECT DISTINCT 
+        H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+        C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H 
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN RESERVE R ON(H.HB_NO = R.HB_NO)
+        WHERE (H.HB_NO) IN (
+        SELECT HB_NO FROM
+        (SELECT DISTINCT HB_NO, COUNT(*)OVER(PARTITION BY HB_NO)AS 예약횟수 FROM RESERVE ORDER BY 예약횟수 DESC)
+        <![CDATA[WHERE ROWNUM <= 20)]]>
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'	
+	</select>
+	
+	<!-- 취미 수 검색 -->
+	<select id="selectHobbyCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM HOBBY
+		WHERE STATUS='Y'
+	</select>
+
+	<!-- 카테고리  -->
+ 	<select id="selectCateList" parameterType="map"
+		resultMap="CateListResultMap">
+		<include refid="cateListSql" />
+		ORDER BY CATE_NO ASC
+	</select>
+	
+	<!--  카테고리 -->
+	<select id="selectCateNameByNo" parameterType="_int"
+		resultType="String">
+			SELECT CATE_NAME
+			FROM CATEGORY
+			WHERE CATE_NO=#{cateNo}
+	</select>
+
+
+
+</mapper>
