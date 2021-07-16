@@ -376,6 +376,9 @@
 	
 }
 
+.mainentire-box {
+	margin-top: -100px;
+}
 /* 이미지 불러오는 부분 */
 .divList_h {
    width: 1400px;

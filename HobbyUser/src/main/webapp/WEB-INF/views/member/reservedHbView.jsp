@@ -93,10 +93,10 @@
 					
 					<td class="td_reserve3">
 						<div class="btnTb_G">
-							<button class=" dqbXKL" id="btnMerchantInfo"
+							<button class="btnh1 dqbXKL" id="btnMerchantInfo"
 								onclick="merInfoPopup();">상인 정보보기</button>
 
-							<button class=" kVrNwn" id="btnQuestion"
+							<button class="btnh2 dqbXKL" id="btnQuestion"
 								onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기',
                         'width=500, height=450, left=100, top=50')">
 								상인에게 문의하기</button>

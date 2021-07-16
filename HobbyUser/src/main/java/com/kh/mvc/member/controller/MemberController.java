@@ -221,8 +221,6 @@ public class MemberController {
           @RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
        log.info("회원정보 페이지 요청");
        
-       List<Liked> likedList = null;
-       List<Reserve> rsList = null;
        List<Hobby> hobbyList = null;
        List<Hobby> hobbyList_ = null;
        
@@ -231,13 +229,9 @@ public class MemberController {
        int memNo = 0;
        memNo = loginMember.getMemNo();
        
-       likedList = service.getLikedList();
-       rsList = service.getRsList();
        hobbyList = service.getHobbyRsList(memNo, pageInfo);
        hobbyList_ = service.getHobbyLikedList(memNo, pageInfo);
        
-       model.addObject("likedList", likedList);
-       model.addObject("rsList", rsList);
        model.addObject("hobbyList", hobbyList);
        model.addObject("hobbyList_", hobbyList_);
        model.addObject("pageInfo", pageInfo);
@@ -260,20 +254,17 @@ public class MemberController {
 			
 			log.info("좋아요관리 페이지 요청");
 			
-			List<Liked> likedList = null;
 			List<Hobby> hobbyList = null;
 			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
 			
-			likedList = service.getLikedList();
 			hobbyList = service.getHobbyLikedList(memNo, pageInfo);
 			
-			model.addObject("likedList", likedList);
 			model.addObject("hobbyList", hobbyList);
 			model.addObject("pageInfo", pageInfo);
 			
-			
+			System.out.println(hobbyList);
 			model.setViewName("/member/likedHobby");
 			
 			return model;
@@ -287,17 +278,14 @@ public class MemberController {
 			
 			log.info("예약관리 페이지 요청");
 			
-			List<Reserve> rsList = null;
 			List<Hobby> hobbyList = null;
 			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
 			
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
 			
-			rsList = service.getRsList();
 			hobbyList = service.getHobbyRsList(memNo, pageInfo);
 			
-			model.addObject("likedList", rsList);
 			model.addObject("hobbyList", hobbyList);
 			model.addObject("pageInfo", pageInfo);
 			
