@@ -54,9 +54,6 @@ public interface MerchantService {
 
 	int reserveUpdateStatus(Reserve reserve);
 
-	Object result(String merEmail);
-
-	Member findByIdAndName(String merName, String merEmail);
 
 
 

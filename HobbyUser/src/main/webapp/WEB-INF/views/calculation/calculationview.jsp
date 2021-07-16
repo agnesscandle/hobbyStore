@@ -51,6 +51,8 @@
 		</table>
 		
 <script>
+
+
 $(function(){ 
     $('#submitCal').on("click",() => {
 
