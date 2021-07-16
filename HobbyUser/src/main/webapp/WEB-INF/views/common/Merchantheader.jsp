@@ -52,7 +52,7 @@
 					</tr>
 					<tr>
 						<td class="btn logout"><button type="button"
-								onclick="location.replace('${path}/merchantMember/merlogout')">로그아웃</button></td>
+								onclick="location.replace('${path}/merchant/merlogout')">로그아웃</button></td>
 					</tr>
 				</c:if>
 			</table>
@@ -160,7 +160,7 @@ $(function(){
 <!--정산리스트 페이지 이동-->
 $(function(){
    $("#hobbyCalculate").click(function(){
-      location.href='${ path }/merchantMember/calculatelist?merNo=${loginMerMember.merNo}';
+      location.href='${ path }/merchant/calculatelist?merNo=${loginMerMember.merNo}';
    })
 })
 
