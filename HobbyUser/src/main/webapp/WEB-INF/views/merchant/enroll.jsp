@@ -137,6 +137,10 @@
    </div>
 			
 		</form>
+		
+		<form name="checkIdForm">
+   <input type="hidden" name="userId" id="checkid">
+</form>
 	</div>
 
 <script>

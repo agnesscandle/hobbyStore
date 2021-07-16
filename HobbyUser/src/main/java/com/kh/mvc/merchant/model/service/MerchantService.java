@@ -13,13 +13,14 @@ import com.kh.mvc.merchant.model.vo.Merchant;
 
 
 import com.kh.mvc.hobby.model.vo.Reserve;
+import com.kh.mvc.member.model.vo.Member;
 
 
 public interface MerchantService {
 
 	Merchant login(String merId, String merPassword);
 	
-	int save(Merchant merchantMember);
+	int save(Merchant merchant);
 
 	Merchant findById(String merId);
 
@@ -50,7 +51,13 @@ public interface MerchantService {
 
 	List<Reserve> getReserveList(int hbNo);
 
+
 	int reserveUpdateStatus(Reserve reserve);
+
+	Object result(String merEmail);
+
+	Member findByIdAndName(String merName, String merEmail);
+
 
 
 

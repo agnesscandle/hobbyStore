@@ -31,27 +31,27 @@ public class MerchantServiceImpl implements MerchantService{
 	public Merchant login(String merId, String merPassword) {
 		
 		
-		Merchant merchantmember = this.findById(merId);
+		Merchant merchant = this.findById(merId);
 		
 		// 암호화된 비밀번호와 맞는지 확인
-		// System.out.println(passwordEncoder.matches(merPassword, merchantmember.getMerPassword()));
+		// System.out.println(passwordEncoder.matches(merPassword, merchant.getMerPassword()));
 		
-		return merchantmember != null && 
-				passwordEncoder.matches(merPassword, merchantmember.getMerPassword()) ? merchantmember : null;
+		return merchant != null && 
+				passwordEncoder.matches(merPassword, merchant.getMerPassword()) ? merchant : null;
 	}
 
 	@Override
 	@Transactional 
-	public int save(Merchant merchantMember) {
+	public int save(Merchant merchant) {
 		int result = 0;
 		
-		if(merchantMember.getMerNo() != 0) {
+		if(merchant.getMerNo() != 0) {
 			// update
 //			result = mapper.updateMember(member);
 		} else {
-			merchantMember.setMerPassword(passwordEncoder.encode(merchantMember.getMerPassword()));
+			merchant.setMerPassword(passwordEncoder.encode(merchant.getMerPassword()));
 			
-			result = mapper.insertMerchantMember(merchantMember);
+			result = mapper.insertmerchant(merchant);
 		}
 		
 		return result;
@@ -59,10 +59,10 @@ public class MerchantServiceImpl implements MerchantService{
 	
 	@Override
 	public Merchant findById(String merId) {
-		Merchant a = mapper.selectMerchantMember(merId);
+		Merchant a = mapper.selectmerchant(merId);
        System.out.println(a);
 
-		return mapper.selectMerchantMember(merId);
+		return mapper.selectmerchant(merId);
 	}
 	
 	

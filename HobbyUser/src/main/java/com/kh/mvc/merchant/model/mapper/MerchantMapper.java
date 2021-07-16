@@ -17,9 +17,9 @@ import com.kh.mvc.hobby.model.vo.Reserve;
 
 @Mapper
 public interface MerchantMapper {
-	Merchant selectMerchantMember(@Param("merId") String merId);
+	Merchant selectmerchant(@Param("merId") String merId);
 
-	int insertMerchantMember(Merchant merchantMember);
+	int insertmerchant(Merchant merchant);
 	
 	/* 취미 등록 */
 	int selectHobbyCount();
