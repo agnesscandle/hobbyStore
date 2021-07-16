@@ -73,6 +73,7 @@
                     <li><a href="#">이벤트</a></li>
                     <li><a href="#">오픈 예정</a></li>
                     <li><a href="#">베스트</a></li>
+                    <li><a href="${path}/member/support">지원센터</a></li>
                 </ul>
                 <div class="burger">
                     <div class="line1"></div>
@@ -81,7 +82,8 @@
                 </div>
             </nav>
             <div id="cate" class="category">
-                <li> <a href="${path}/hobby/list/cate?cateNo=1">여행</a></li>
+            <ul>
+            	<li> <a href="${path}/hobby/list/cate?cateNo=1">여행</a></li>
                 <li> <a href="${path}/hobby/list/cate?cateNo=2">액티비티</a></li>
                 <li> <a href="${path}/hobby/list/cate?cateNo=3">공예(DIY)</a></li>
                 <li> <a href="${path}/hobby/list/cate?cateNo=4">음악</a></li>
@@ -94,6 +96,7 @@
                 <li> <a href="${path}/hobby/list/cate?cateNo=11">뷰티</a></li>
                 <li> <a href="${path}/hobby/list/cate?cateNo=12">모임</a></li>
                 <li> <a href="${path}/hobby/list/cate?cateNo=13">KIDS</a></li>
+            </ul>
             </div>
         </header>
         
