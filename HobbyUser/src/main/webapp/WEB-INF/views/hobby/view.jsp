@@ -7,72 +7,75 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <%@ include file="../../views/common/header.jsp"%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <link rel="stylesheet" href="${path}/css/hobby/view.css">
 
 
-<section>
+
 	<div class="container">
-		<!-- 상단 : 취미 intro -->
+		<!-- 상단 영역 : 이미지, 취미설명-->
 		<div class="top">
-			<div class="left" id="leftTop">
-				<div class="imgContainer">
-					<img class="hobbyImg"
-						src="${ path }/upload/hobby/${hobby.hbThumRename}">
+			<!-- 상단 영역(왼) : 이미지-->
+			<div id="leftTop" class="imgContainer">
+				<div id="thumImgContainer">
+						<img class="hobbyImg" id="thumImg" src="${ path }/upload/hobby/${hobby.hbThumRename}">	
+				</div>
+				<div id="addedImgContainer">
+						<c:if test="${!empty hobby.hbImgsRename}">
+						<div class="addedImgDiv">
+								<img class="addImg" id="image" src="${ path }/upload/hobby/${hobby.hbThumRename}" onclick="change('${hobby.hbThumRename}')"></div>
+								<c:forTokens items="${hobby.hbImgsRename}" delims="," var="item" varStatus="status">
+									<c:if test="${status.last}">
+										<c:set var="cnt" value="${status.index+1}"></c:set>
+									</c:if>
+									<div class="addedImgDiv">
+										<img class="addImg img-${status.index}" id="image" 
+																						src="${ path }/upload/hobby/${item}" onclick="change('${item}')">
+									</div>
+								</c:forTokens>
+						</c:if>
 				</div>
 			</div>
-			<div class="right" id="rightTop">
-				<div class="forBorder">
-					<div class="infoContainer">
-					<input type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}"/>
-						<h4 id="cate"><c:out value="${hobby.cateName}" />
-						</h4>
-						<h2 id="title">
-							<c:out value="${hobby.hbTitle}" />
-						</h2>
-						<br>
-						<div id="price">
-							<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
-								<c:set var="disFee"
-									value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />
-								<fmt:formatNumber value="${disFee}" type="number"
-									var="discountFee" />
-								<fmt:formatNumber value="${hobby.hbFee}" type="number"
-									pattern="#,###" var="originalFee" />
-								<span class="price">
-									<div class="discount">
-										${ hobby.hbDiscountRate }% &nbsp;
-										<del>${originalFee}원 </del>
-									</div> <b class="finalPrice">${discountFee}원 </b>
-							</c:if>
-
-							<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
-								<fmt:formatNumber value="${hobby.hbFee}" type="number"
-									pattern="#,###" var="originalFee" />
-								<span class="price"> <b class="finalPrice">${ originalFee }원</b>
-							</c:if>
-							</span>
-
-
-						</div>
-					</div>
-					<br>
-					<hr>
-					<br>
-					<div class="btnContainer">
-						<p>
-							<button class="btn" id="btnPay">결제하기</button>
-						</p>
-						<p>
-							<button class="btn" id="btnMerchantInfo"
-								onclick="merInfoPopup();">상인 정보보기</button>
-						</p>
-						<p class="btnSml1">
-							<button class="btn" id="btnLiked">좋아요</button>
-						</p>
-						<p class="btnSml1">
-							<button class="btn" id="btnShare">공유하기</button>
-						</p>
-
+			
+		<!-- 상단 영역(오) : 취미설명 -->
+		<div id="rightTop">
+			<div class="forBorder" id="infoContainer">
+				<input type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}"/>
+					<h4 id="cate"><c:out value="${hobby.cateName}" /></h4>
+					<h2 id="title"><c:out value="${hobby.hbTitle}" /></h2><br>
+					<div id="price">
+					<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
+							<c:set var="disFee"
+								value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />
+							<fmt:formatNumber value="${disFee}" type="number"
+								var="discountFee" />
+							<fmt:formatNumber value="${hobby.hbFee}" type="number"
+								pattern="#,###" var="originalFee" />
+							<span class="price">
+								<div class="discount">
+									${ hobby.hbDiscountRate }% &nbsp;
+									<del>${originalFee}원 </del>
+								</div> <b class="finalPrice">${discountFee}원 </b></span>
+					</c:if>
+					<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
+							<fmt:formatNumber value="${hobby.hbFee}" type="number"
+								pattern="#,###" var="originalFee" />
+							<span class="price"> <b class="finalPrice">${ originalFee }원</b></span>
+					</c:if>
+			</div>
+			<br><hr><br>
+					
+			<div class="btnContainer">
+			<p>
+				<button class="btn" id="btnPay">결제하기</button>
+			</p>
+			<p>
+				<button class="btn" id="btnMerchantInfo" onclick="merInfoPopup();">상인 정보보기</button>
+			</p>
+			<p class="btnSml1">
+					<button class="btn" id="btnLiked">좋아요</button>
+					<button class="btn" id="btnShare">공유하기</button>	
+			</p>
 						<div class="modal">
 							<div class="modal_share" title="클릭하면 창이 닫힙니다.">
 								<div class="modal_share_content">
@@ -87,11 +90,8 @@
 						</div>
 						<p class="btnSml2">
 							<button class="btn" id="btnQuestion"
-								onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기',
-                        'width=500, height=450, left=100, top=50')">
+									onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기','width=500, height=450, left=100, top=50')">
 								문의하기</button>
-						</p>
-						<p class="btnSml2">
 							<button class="btn" id="btnReport" onclick="reportPopup();">신고하기</button>
 						</p>
 					</div>
@@ -101,61 +101,139 @@
 		</div>
 		<br> <br> <br> <br>
 
-		<!-- 중간 : 메뉴 -->
+		<!-- 중간 영역 : 메뉴바 -->
 		<div class="middle menuBar">
-			<div class="menu" id="review">후기</div>
-			<div class="menu" id="info">취미소개</div>
-			<div class="menu" id="location">위치</div>
-			<div class="menu" id="question">문의하기</div>
-			<div class="menu" id="policy">환불정책</div>
+			<div class="menu" id="info"><span>취미소개</span></div>
+			<div class="menu" id="location"><span>위치</span></div>
+			<div class="menu" id="review"><span>후기</span></div>
+			<div class="menu" id="question"><span>문의하기</span></div>
+			<div class="menu" id="ask"><span>FAQ</span></div>
+			<div class="menu" id="policy"><span>환불정책</span></div>
 		</div>
+		<!-- 하단 영역 : 상세 내용(후기, 취미소개, 위치, 문의하기, 환불정책) -->
 		<div class="bottom">
-			<div class="detail" id="reviewArea">
-				<!-- 
-				<div id="reviewList">
-					<c:forEach var="review" items="${ reviewList }">
-						<div id="review"></div>
-					</c:forEach>
-				</div>
-			-->
-				<button
-					onclick="location.replace('${path}/hobby/view/reviewList?hbNo=${hobby.hbNo}')"
-					class="add-cart">더보기</button>
-			</div>
+			<span class="bottomMenu" id="infoM"> 취미소개 </span>
+			<span class="detail" id="infoD"></span>
+			<br><hr><br>
+			<span class="bottomMenu" id="locationM"> 위치 </span>
+			<span class="detail address" id="locationD">
+				<span>
+					<span id="address"><c:out value="${hobby.hbLocation}"/></span>
+					<div id="map"></div>
+				</span>
+			</span>
+			<hr><br>
+			<span class="bottomMenu" id="reviewM"> 후기 </span>
+				<span class="detail toggle" id="reviewArea">
+					<!-- 
+					<div id="reviewList">
+						<c:forEach var="review" items="${ reviewList }">
+							<div id="review"></div>
+						</c:forEach>
+					</div>
+				-->
+					<button
+						onclick="location.replace('${path}/hobby/view/reviewList?hbNo=${hobby.hbNo}')"
+						class="add-cart">더보기</button>
+				</span>
+			<br><hr><br>
+			<span class="bottomMenu" id="questionM"> 문의하기 </span>
+				<span class="detail" id="questionD">
+					<span id="qnaList">
+						<c:forEach var="qna" items="${ qnaList }">
+							<div id="qna"></div>
+						</c:forEach>
+					</span>
+					<button
+						onclick="location.replace('${path}/hobby/qnaList?hbNo=${hobby.hbNo}')"
+						class="add-cart">더보기</button>
+				</span>
+			<br><hr><br>
+			<span class="bottomMenu" id="faq-toggle" onclick="openAnswer()"> - FAQ [자주 묻는 질문]</span>
+				<span class="answer" id="askD">
+					<p>
+						<b> Q. 예약한 취미 내역은 어디서 확인하나요?</b><br>
+						<b>A.</b> [마이페이지]의 [예약한 취미 목록] 탭에서 신청하신 취미 클래스를 확인하실 수 있습니다. <br>
+					</p><br>
+					<p>
+						<b> Q. 예약 취소 및 환불 처리는 어떻게 되나요?</b><br>
+						<b>A.</b> 구매 후 14일 이내에는 예약 취소 및 환불이 가능합니다. 다만, 14일이 지나지 않았더라도 이미 상인님과
+						일정 확정 후 출석체크가 완료되었다면 환불이 불가합니다. <br>
+					</p><br>
+					<p>
+						<b> Q. 예약을 하고 싶은데, 상인님의 연락처는 어떻게 알 수 있나요?</b><br>
+						<b>A.</b> 상단 우측에 위치한 [ 상인 정보보기 ] 버튼을 통해 상인님과 소통이 가능한 이메일 주소를 제공하고 있습니다.<br>
+						개인 정보 보호로 인하여 개인 연락처는 제공하지 않습니다.
+					</p><br>
+					
+				</span>
+			<br><hr><br>
+			<span class="bottomMenu" id="pol-toggle" onclick="openPolicy()"> - 환불정책 </span>
+				<span class="answer" id="policyD">
+					<p>
+						취미 결제 후 2주 이내 : 100% 환불 <br>
+						취미 결제 후 2주 후 : 환불 불가
+					</p> <br>
+					<p>
+						<b>[환불 신청 방법]</b><br>
+						1. 해당 취미를 결제한 계정으로 로그인 <br>
+						2. 마이 페이지 - 예약한 취미 내역 <br>
+						3. 취소를 원하는 취미 상세 정보 버튼 - 취소 <br>
+						4. 또는, '문의하기'를 통해 상인에게 문의 후 취소 가능 <br>
+						* 결제 수단에 따라 예금주, 은행명, 계좌번호 입력 필
+					</p>
+				</span>
 		</div>
-		<div class="detail" id="infoD">취미 소개 상세</div>
-		<div class="detail" id="locationD"> 위치 상세
-			<div>
-				<span id="address"><c:out value="${hobby.hbLocation}"/></span>
-				<div id="map" style="width:500px;height:350px;">
-			</div>
-			
-			
-			
-			</div>
-		</div>
-		<div class="detail" id="questionD">
-			
-			<div id="qnaList">
-				<c:forEach var="qna" items="${ qnaList }">
-					<div id="qna"></div>
-				</c:forEach>
-			</div>
-			<button
-				onclick="location.replace('${path}/hobby/qnaList?hbNo=${hobby.hbNo}')"
-				class="add-cart">더보기</button>
+	</div>	
+</div>
+<script>
+// 이미지 변경
+function change(item){
+	document.getElementById("thumImg").src="${ path }/upload/hobby/"+item;
+}
+</script>
 
-		</div>
-	</div>
-	<div class="detail" id="policyD">환불 정책 상세</div>
-	</div>
-	</div>
-
-</section>
 
 <script>
+// 중간 메뉴바 이동
+$("#info").click(function(){
+	$('html, body').animate({
+		scrollTop:$("#infoM").offset().top
+	}, 1000);
+});
 
+$("#location").click(function(){
+	$('html, body').animate({
+		scrollTop:$("#locationM").offset().top
+	}, 1000);
+});
 
+$("#review").click(function(){
+	$('html, body').animate({
+		scrollTop:$("#reviewM").offset().top
+	}, 1000);
+});
+
+$("#question").click(function(){
+	$('html, body').animate({
+		scrollTop:$("#questionM").offset().top
+	}, 1000);
+});
+
+$("#ask").click(function(){
+	$('html, body').animate({
+		scrollTop:$("#faq-toggle").offset().top
+	}, 1000);
+});
+
+$("#policy").click(function(){
+	$('html, body').animate({
+		scrollTop:$("#pol-toggle").offset().top
+	}, 1000);
+});
+
+</script>
+<script>
 //공유하기 모달창
 $(function(){
    $("#btnShare").click(function(){
@@ -215,10 +293,11 @@ $(document).on("click", "#shareLink", function(e) {
                      } 
                      
                   }); //클립보드 복사
-      
+                  
+                  
 
-//좋아요 버튼
 $(document).ready(()=>{
+
 // 결제하기 버튼
 $("#btnPay").on("click", (e)=>{
 	location.href="${path}/hobby/reserve?hbNo=${hobby.hbNo}";
@@ -327,7 +406,7 @@ function findLocation(){
 var mapContainer = document.getElementById('map'),
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3
+        level: 1
     };  
 
 // 지도를 생성
@@ -363,6 +442,26 @@ geocoder.addressSearch(findLocation(), function(result, status) {
     } 
 });    
 </script>
+<script>
+	function openAnswer(){
+		if(document.getElementById('askD').style.display === 'block'){
+			document.getElementById('askD').style.display = 'none';
+			document.getElementById('faq-toggle').textContent = '+ FAQ [자주 묻는 질문]';
+		} else {
+			document.getElementById('askD').style.display = 'block';
+			document.getElementById('faq-toggle').textContent = '- FAQ [자주 묻는 질문]';
+		}
+	}
 
+	function openPolicy(){
+		if(document.getElementById('policyD').style.display === 'block'){
+			document.getElementById('policyD').style.display = 'none';
+			document.getElementById('pol-toggle').textContent = '+ 환불정책';
+		} else {
+			document.getElementById('policyD').style.display = 'block';
+			document.getElementById('pol-toggle').textContent = '- 환불정책';
+		}
+	}
+</script>
 
 <%@ include file="../../views/common/footer.jsp"%>

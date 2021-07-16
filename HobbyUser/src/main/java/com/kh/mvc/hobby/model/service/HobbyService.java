@@ -94,4 +94,9 @@ public interface HobbyService {
 
 	int getReplyCount(int qnaNo, int merNo);
 
+	/* 카테고리에 해당하는 취미 목록 */
+	int getHobbyCountByCateNo(int cateNo);
+
+	List<Hobby> getHobbyListByCateNo(PageInfo pageInfo, int cateNo);
+
 }
