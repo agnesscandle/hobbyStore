@@ -12,7 +12,7 @@
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<link rel="stylesheet" href="${path}/css/member_css/myInfo.css">
+<link rel="stylesheet" href="${path}/css/member_css/hbView.css">
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
@@ -57,11 +57,16 @@
 			type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}" /> <span
 			class="title_date"><c:out value="${reserve.resDate}" />&nbsp예약&nbsp&nbsp</span>
 		<span class="title_number">No <c:out value="${reserve.resNo}" /></span>
-
+		
+		
+		
+		
+		
 		<div class="table-wrap">
 			<table class="tb_reserve">
 				<colgroup>
-					<col width="600">
+					<col width="200">
+					<col width="500">
 					<col width="250">
 				</colgroup>
 				<tr>
@@ -70,23 +75,28 @@
 							<c:if test="${ reserve.resStatus eq 'Y' }">
 								<div class="tb_label">결제완료</div>
 							</c:if>
-							<div class="wrap_pt">
-								<a href="${path}/hobby/view?hbNo=${hobby.hbNo}"> <img
-									class="hobbyImg_rs" style="width: 120px; height: 120px;"
-									src="${ path }/upload/hobby/${hobby.hbThumRename}"></a> <a
-									href="${path}/hobby/view?hbNo=${hobby.hbNo}"> <span
-									class="tb_box2"><c:out value="${hobby.hbTitle}" /></span>
-								</a> <span class="tb_box3">결제금액 &nbsp <c:out
-										value="${reserve.payFee}" /></span>
-							</div>
+								<a href="${path}/hobby/view?hbNo=${hobby.hbNo}"> 
+								<img class="hobbyImg_rs" style="width: 120px; height: 120px;"
+									src="${ path }/upload/hobby/${hobby.hbThumRename}">
+								</a> 
 						</div>
 					</td>
-					<td class="td_reserve">
+					<td>
+								<div >
+								<a class="rst" href="${path}/hobby/view?hbNo=${hobby.hbNo}"> 
+								<c:out value="${hobby.hbTitle}" />
+								</a> 
+								<div class="rsf">결제금액&nbsp 
+								<c:out value="${reserve.payFee}" /></div>
+								</div>
+					</td>	
+					
+					<td class="td_reserve3">
 						<div class="btnTb_G">
-							<button class="tb_btn dqbXKL" id="btnMerchantInfo"
+							<button class=" dqbXKL" id="btnMerchantInfo"
 								onclick="merInfoPopup();">상인 정보보기</button>
 
-							<button class="tb_btn kVrNwn" id="btnQuestion"
+							<button class=" kVrNwn" id="btnQuestion"
 								onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기',
                         'width=500, height=450, left=100, top=50')">
 								상인에게 문의하기</button>
@@ -141,174 +151,8 @@
 		</div>
 	</div>
 </main>
-<br><br><br><br><br><br><br><br><br>
-<style>
-a {
-	text-decoration: none;
-}
+<br><br><br><br><br><br>
 
-a:link {
-	color: black;
-}
-
-.reserved-wrap {
-	width: 50%;
-	margin: 3% 0% 0% 30%;
-}
-
-.rsTitle {
-	color: rgb(32, 51, 84);
-}
-
-.table-wrap {
-	border-radius: 8px;
-	border: 1px solid rgb(25, 40, 125);
-	background-color: rgb(255, 255, 255);
-	margin-top: 30px;
-	width:
-}
-
-.tb_reserve {
-	margin-top: 30px;
-}
-
-.td_reserve {
-	border: inherit;
-}
-
-.title_date {
-	font-weight: bolder;
-	color: rgb(32, 51, 84);
-}
-
-.title_number {
-	color: rgb(32, 51, 84);
-	font-size: 14px;
-}
-
-.tb_box {
-	margin: 10px 0px 40px 40px;
-}
-
-
-.tb_box2 {
-	position: relative;
-	bottom: 80px;
-	left: 30px;
-	color: rgb(32, 51, 84);
-	font-size: 20px;
-	font-weight: bolder;
-	height: 300px;
-	width:100%;
-}
-
-.tb_box3 {
-	bottom: 20px;
-	font-weight: bolder;
-	font-size: 18px;
-	color: rgb(32, 51, 84);
-	
-}
-
-.tb_label {
-	font-weight: bolder;
-	font-size: 25px;
-	padding: 0px 0px 15px 10px;
-	color: rgb(32, 51, 84);
-}
-
-.btnTb_G {
-	display: flex;
-	flex-flow: column wrap;
-	height: 100%;
-	-webkit-box-align: center;
-	align-items: center;
-	-webkit-box-pack: justify;
-	justify-content: space-between;
-	padding: 22px;
-	margin-bottom: -40px;
-	margin-left: -40px;
-}
-
-.tb_btn {
-	min-height: 2.25rem;
-	font-size: 0.875rem;
-	width: 160px;
-	margin: 5px 70px;
-}
-
-.dqbXKL {
-	display: inline-flex;
-	-webkit-box-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	align-items: center;
-	padding-left: 12px;
-	padding-right: 12px;
-	margin-bottom: 8px;
-	user-select: none;
-	cursor: pointer;
-	text-decoration: none;
-	outline: none;
-	appearance: none;
-	height: 2.25rem;
-	width: 100%;
-	border-radius: 4px;
-	color: rgb(25, 40, 125);
-	background-color: rgb(255, 255, 255);
-	border: 1.5px solid rgb(25, 40, 125);
-	-webkit-tap-highlight-color: rgba(52, 106, 255, 0.1);
-	font-size: 18px;
-}
-
-.kVrNwn {
-	display: inline-flex;
-	-webkit-box-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	align-items: center;
-	padding-left: 12px;
-	padding-right: 12px;
-	user-select: none;
-	cursor: pointer;
-	text-decoration: none;
-	outline: none;
-	appearance: none;
-	height: 2.25rem;
-	width: 100%;
-	border-radius: 4px;
-	color: rgb(235, 221, 70);
-	background-color: rgb(255, 255, 255);
-	border: 1px solid rgb(235, 221, 70);
-	-webkit-tap-highlight-color: rgba(52, 106, 255, 0.1);
-	font-size: 18px;
-}
-
-.mRsInfo {
-	color: rgb(32, 51, 84);
-	font-size: 20px;
-	font-weight: bolder;
-}
-
-.mRsInfo_t {
-	font-size: 28px;
-}
-
-.line_rsm {
-	margin-top: 25px;
-	font-weight: bolder;
-	background: rgb(32, 51, 84);
-}
-
-.location_rs{
-	color: rgb(32, 51, 84);
-	font-size: 18px;
-}
-.mRsInfo_tb{
-	color: rgb(32, 51, 84);
-	font-size: 20px;
-}
-</style>
 
 
 <script>
