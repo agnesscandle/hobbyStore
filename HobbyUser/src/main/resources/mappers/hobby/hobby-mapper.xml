@@ -129,7 +129,6 @@
 	<resultMap type="Hobby" id="HobbyListResultMap">
 		<id property="hbNo" column="HB_NO" />
 		<result property="merNo" column="MER_NO" />
-		<result property="merId" column="MER_ID" />
 		<result property="cateNo" column="CATE_NO" />
 		<result property="cateName" column="CATE_NAME" />
 		<result property="hbTitle" column="HB_TITLE" />

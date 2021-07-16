@@ -93,7 +93,7 @@ width: inherit;
 	font-weight: bold;
 	display: block;
 	padding : 20px;
-	text-align: center;
+	text-align: left;
 }
 #replyContent {
 	text-align : center;
