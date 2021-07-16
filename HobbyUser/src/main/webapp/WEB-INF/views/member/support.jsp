@@ -138,6 +138,10 @@
     #mc2{
         height : 430px;
     }
+    
+   	#mc4{
+   		height : 380px;
+   	}
 
     .modal_content{
     width:800px; height:550px;
@@ -158,7 +162,7 @@
 	<div class="ul">
       <ul class="supMenu">
          <li class="sup sup-1 active"><span>운영 메뉴얼</span></li>
-         <li class="sup sup-2"><span>자주 묻는 질문</span></li>
+         <li class="sup sup-2" id="btnFaq"><span>자주 묻는 질문</span></li>
       </ul>
    </div>
    
@@ -198,7 +202,8 @@
             <div class="manual" id="ma4">
                 <button class="btnManual" id="btnM4"> 4</button><br>
                 <div class="manuQue">
-                    
+                     취미는 어떻게 <br>
+                    참여할 수 있나요?
                 </div>
                 <img class="icon" src="${path}/images/boy.png">  
             </div>
@@ -271,17 +276,21 @@
 
     <div class="modal" id="m4">
         <div class="modal_content" id="mc4" title="클릭하면 창이 닫힙니다.">
-            <h2> 정산은 어떻게 진행되나요? </h2>
+            <h2> 취미는 어떻게 참여할 수 있나요? </h2><br>
             <p>
-                취미상점은 재능상인과 손님간의 원활한 취미 소통을 위해 <b>"중간정산 방식"</b>으로 진행됩니다. <br>
-                따라서 손님이 상인에게 직접 지불하는 방식이 아니라 <b>취미상점의 관리자</b>를 통해 정산됩니다. <br><br>
-        
-                정산 신청은 [ 상인 페이지 ] 의 <b>[ 정산 신청 ]</b> 을 통해 언제든지 관리자에게 요청할 수 있으며, <br>
-                신청을 하지 않아도 매주 수요일마다 기간 단위로 환산하여 입금처리 됩니다. <br>
+                취미를 이용하고자 하는 손님은 [ 취미 상세 페이지 ]의 <b>[ 결제하기 ]</b> 탭을 이용하여 <br>
+                해당 취미를 조회하고 참여할 수 있게 됩니다. <br><br>
+                손님은 재능상인이 사전에 오픈한 취미 날짜 내에서 원하는 날짜를 택하여 예약할 수 있으며, <br>
+                간단한 본인 확인용 정보를 기입한 후에 예약하실 수 있습니다. <br><br>
+                
+                <b> * 단, 취미를 예약하기 위해서 반드시 결제까지 진행되어야 합니다. </b><br>
+                * 예약 후 자세한 사항 및 변경 사항은 재능상인을 통해 안내 받을 수 있습니다. 
             </p>
         </div>
     </div>
    
+   <!--  자주 묻는 질문 -->
+
    
 </div>
 <script>
