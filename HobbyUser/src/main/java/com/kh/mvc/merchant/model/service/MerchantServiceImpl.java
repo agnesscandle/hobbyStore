@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mvc.common.util.PageInfo;
+import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Reserve;
@@ -214,6 +215,18 @@ public class MerchantServiceImpl implements MerchantService{
 	public int reserveUpdateStatus(Reserve reserve) {
 		
 		return mapper.reserveUpdateStatus(reserve);
+	}
+
+	@Override
+	public List<Calculation> getCalculateList(int merNo) {
+		
+		return mapper.selectCalWaitList(merNo);
+	}
+
+	@Override
+	public List<Calculation> getCalFinishList(int merNo) {
+		
+		return mapper.selectCalFinishList(merNo);
 	}
 
 

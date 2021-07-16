@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mvc.common.util.PageInfo;
+import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 
@@ -51,6 +52,10 @@ public interface MerchantService {
 	List<Reserve> getReserveList(int hbNo);
 
 	int reserveUpdateStatus(Reserve reserve);
+
+	List<Calculation> getCalculateList(int merNo);
+
+	List<Calculation> getCalFinishList(int merNo);
 
 
 

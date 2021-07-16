@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 
@@ -41,6 +42,10 @@ public interface MerchantMapper {
 	List<Reserve> selectReserveList(int hbNo);
 
 	int reserveUpdateStatus(Reserve reserve);
+
+	List<Calculation> selectCalWaitList(int merNo);
+
+	List<Calculation> selectCalFinishList(int merNo);
 
 
 }

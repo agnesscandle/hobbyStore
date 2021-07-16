@@ -3,17 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ include file="../../views/common/header.jsp"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
-
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <link rel="stylesheet" href="${path}/css/hobby/list.css">
-
+<h1 style="display:block;">정산관리</h1><br>
 <div class="divList">
    <div class="containerList">
       <c:if test="${ list != null}">
          <c:forEach var="hobby" items="${ list }">
             <div class="item">
-            
+   
             	<!-- 썸네일 이미지 -->
                	<img id="thumImg" src="${path}/resources/upload/hobby/${hobby.hbThumRename}">
                	<div class="detail">
@@ -24,7 +23,7 @@
                        ${hobby.cateName}<em>${hobby.hbTitle}</em>
                     </h2>
 					<!-- 금액(할인 적용 시) -->
-					<span class="price"><b>쌓인 금액</b></span>
+					<span class="price"><b>미정산 금액</b></span>
                         <fmt:formatNumber value="${hobby.hbTotalFee}" type="number"
                            var="originalFee" />
                         <span class="price">
@@ -138,4 +137,3 @@
         }
     });
 }); -->
-<%@ include file="../../views/common/footer.jsp"%>

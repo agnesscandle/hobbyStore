@@ -104,7 +104,8 @@
             <span style="color:navy; font-size:30px; font-weight:bold">정산</span>
             <ul class="dept03">
                  <div id="hobbyCalculate" class="hobbyCalculate">정산관리</div>
-                  <div id="hobbyEnroll" class="hobbyEnroll">정산요청</div>
+                  <div id="calculatehistory" class="calculatehistory">정산대기</div>
+                  <div id="calculatefinish" class="calculatefinish">정산완료</div>
             </ul>        
       
  
@@ -161,6 +162,18 @@ $(function(){
 $(function(){
    $("#hobbyCalculate").click(function(){
       location.href='${ path }/merchant/calculatelist?merNo=${loginMerchant.merNo}';
+   })
+})
+
+$(function(){
+   $("#calculatehistory").click(function(){
+      location.href='${ path }/merchant/calculateWait?merNo=${loginMerchant.merNo}';
+   })
+})
+
+$(function(){
+   $("#calculatefinish").click(function(){
+      location.href='${ path }/merchant/calculateFinish?merNo=${loginMerchant.merNo}';
    })
 })
 

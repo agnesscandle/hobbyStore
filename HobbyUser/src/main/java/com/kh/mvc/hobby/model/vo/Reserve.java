@@ -40,4 +40,6 @@ public class Reserve {
 	
 	private String calStatus;
 	
+	private String calFinish;
+	
 }
