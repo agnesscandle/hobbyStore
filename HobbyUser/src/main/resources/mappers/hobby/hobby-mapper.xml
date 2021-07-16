@@ -179,7 +179,7 @@
        <result property="merName" column="MER_NAME"/>
        <result property="merPhone" column="MER_PHONE"/>
        <result property="merDate" column="MER_DATE"/>
-       <result property="Bank" column="BANK"/>
+       <result property="bank" column="BANK"/>
        <result property="merNick" column="MER_NICK"/>
        <result property="status" column="STATUS"/>
        <result property="merImgOriginal" column="MEM_IMG_ORIGINAL"/>
