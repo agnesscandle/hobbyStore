@@ -52,7 +52,7 @@
 					</tr>
 					<tr>
 						<td class="btn logout"><button type="button"
-								onclick="location.replace('${path}/merchant/merlogout')">로그아웃</button></td>
+								onclick="location.replace('${path}/merchantMember/merlogout')">로그아웃</button></td>
 					</tr>
 				</c:if>
 			</table>
