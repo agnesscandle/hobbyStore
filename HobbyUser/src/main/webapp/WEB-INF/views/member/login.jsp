@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%@ include file="../../views/common/header.jsp"%>
-
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
@@ -38,10 +37,10 @@
 	<div id="EnrollBtn">
 	<!-- 상인회원 가입하기 버튼  -->
 	<input class="mloginInput_b" type="submit" id="merLoginSumit" 
-	onclick="javascript: form.action='${path}/merchant/merlogin';"  value="상인으로 로그인" formtarget="_blank"/>
+	onclick="javascript: form.action='${path}/merchantMember/merlogin';"  value="상인으로 로그인"/>
 	
 	<button type="submit" class="mloginInput_b" id="merEnrollSubmit" 
-	onclick="location.href='${path}/merchant/enroll'" >상인회원 가입하기</button>
+	onclick="location.href='${path}/merchantMember/enroll'" >상인회원 가입하기</button>
 	</div>
 	<br>
 </form>
