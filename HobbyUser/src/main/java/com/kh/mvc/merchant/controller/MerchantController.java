@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Reserve;
+import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -218,20 +220,7 @@ public class MerchantController {
 		return model;
 	}
 	
-	
-	
-	@GetMapping("/resHbList")
-	public String resHbList() {
-		
-		log.info("예약 목록 페이지 요청");
-		
-		return "/merchant/resHbList";
-	}
-	
-	
-	
-	
-	
+
 	
 	@GetMapping("/calculatelist")
 	public ModelAndView calculatelist(ModelAndView model,
@@ -320,6 +309,26 @@ public class MerchantController {
 	}	
 	
 
-
+	/* 예약 관리 - 상인이 개설한 취미 목록 가져오기 (지영) */
+	@GetMapping("/resHbList")
+	public ModelAndView resHbList(ModelAndView model,
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam(value="merNo") int merNo) {
+		
+		log.info("상인이 개설한 취미 목록 페이지 요청");
+		
+		List<Hobby> list = null;
+		
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCountByMerNo(merNo), 8);
+		list = service.getHobbyListByMerNo(pageInfo, merNo);
+		
+		model.addObject("loginMerchant", loginMerchant);
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("merchant/resHbList");
+		
+		return model;
+	}
 
 }

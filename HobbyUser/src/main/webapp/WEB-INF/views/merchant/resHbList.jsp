@@ -10,7 +10,7 @@
     .reserveListTitle{
         width : 1000px;
         position : relative;
-        top : 100px;
+        top : 70px;
         left : 170px;
     }
 
@@ -24,7 +24,7 @@
 
 <div class="reserveListContainer">
     <div class="reserveListTitle">
-        <h3> [상인 닉네임]님이 개설하신 취미 리스트입니다. <br> 어떤 취미의 예약을 관리하고 싶으신가요? </h3>
+    	<h2> * <c:out value="${loginMerchant.merNick}"/> *님이 개설하신 취미 리스트입니다. <br> 어떤 취미의 예약을 관리하고 싶으신가요? </h2>
     </div>
     <div class="divList">
         <div class="containerList">

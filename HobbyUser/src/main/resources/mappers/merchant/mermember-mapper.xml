@@ -415,5 +415,23 @@
 		)
 	</insert>
 
+
+	<!--  상인이 개설한 취미의 개수(지영) -->
+	<select id="selectHobbyCountByMerNo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM HOBBY
+		WHERE STATUS = 'Y'
+		AND MER_NO = #{merNo}
+	</select>
+	
+	<!-- 상인이 개설한 취미 목록 조회(지영)-->
+	<select id="getHobbyListByMerNo" parameterType="_int"
+		resultMap="HobbyListResultMap">
+		<include refid="HobbyListSql" />
+		AND MER_NO=#{merNo}
+		
+		ORDER BY HB_NO DESC
+	</select>
+
 	
  </mapper>

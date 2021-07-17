@@ -216,6 +216,21 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.reserveUpdateStatus(reserve);
 	}
 
+	@Override
+	public int getHobbyCountByMerNo(int merNo) {
+		
+		return mapper.selectHobbyCountByMerNo(merNo);
+	}
+
+	@Override
+	public List<Hobby> getHobbyListByMerNo(PageInfo pageInfo, int merNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.getHobbyListByMerNo(rowBounds, merNo);
+	}
+
+
 
 	
 	

@@ -52,6 +52,10 @@ public interface MerchantService {
 
 	int reserveUpdateStatus(Reserve reserve);
 
+	int getHobbyCountByMerNo(int merNo);
+
+	List<Hobby> getHobbyListByMerNo(PageInfo pageInfo, int merNo);
+
 
 
 }

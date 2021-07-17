@@ -42,5 +42,10 @@ public interface MerchantMapper {
 
 	int reserveUpdateStatus(Reserve reserve);
 
+	/* 예약 관리 (지영) */
+	int selectHobbyCountByMerNo(int merNo);
+
+	List<Hobby> getHobbyListByMerNo(RowBounds rowBounds, int merNo);
+
 
 }
