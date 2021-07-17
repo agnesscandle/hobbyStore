@@ -8,7 +8,6 @@
 <!-- 잠깐 테스트. -->
 <html>
 <head>
-<%@ include file="../../views/merchant/list.jsp"%>
 
 
 <meta charset="UTF-8">
@@ -25,9 +24,4 @@
 
 <title>취미상점 상인</title>
 
-
-
-
-
-<%@ include file="../../views/common/footer.jsp"%>
 

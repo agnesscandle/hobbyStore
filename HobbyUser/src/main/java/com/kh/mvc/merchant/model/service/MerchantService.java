@@ -9,6 +9,8 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 
+import com.kh.mvc.hobby.model.vo.Review;
+
 import com.kh.mvc.merchant.model.vo.Merchant;
 
 
@@ -40,7 +42,11 @@ public interface MerchantService {
 	
 	boolean validate(String merid);
 
+	
+	
+	
 	List<Hobby> getHobbyList(PageInfo pageInfo);
+
 
 	List<Hobby> getHobbycalList(PageInfo pageInfo, int merNo);
 
@@ -52,6 +58,12 @@ public interface MerchantService {
 
 	int reserveUpdateStatus(Reserve reserve);
 
+	
+	/* 후기 */
+	
+	int getReviewCount(int hbNo);
 
+	List<Review> getReviewList(PageInfo pageInfo, int hbNo);
 
+	
 }

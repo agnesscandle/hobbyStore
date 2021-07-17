@@ -3,60 +3,90 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="widh=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="${path}/css/style.css">
 <link rel="shortcut icon" type="imae/x-icon"
 	href="${path}/images/logo.png" />
-
-<script src="${ path }/js/jquery-3.6.0.min.js"></script>
-
-<title>취미상점test</title>
-</head>
+<link rel="stylesheet"
+	href="${path}/css/merchantMember_css/reviewList.css">
 
 
-	<header>
-		<div class="logo" onclick="location.href='${path}'">
-			<img class="logoImg" src="${ path }/images/logo.png">
-			<h4>취미상점</h4>
+
+<div>
+	<div class="divList">
+		<div class="containerList">
+
+			<c:if test="${ list != null}">
+				<c:forEach var="hobby" items="${ list }">
+					<div class="item">
+
+						<!-- 썸네일 이미지 -->
+						<img id="thumImg"
+							src="${path}/resources/upload/hobby/${hobby.hbThumRename}" onclick="location.href='${path}/merchant/Review?hbNo=${hobby.hbNo}'">
+							
+						
+						<div class="detail">
+							<div class="title">
+
+								<!-- 제목 -->
+								<h2>
+									${hobby.cateName}<em>${hobby.hbTitle}</em>
+								</h2>
+								<span id="reviewView"> 후기보기 </span>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
 		</div>
+	</div>
+</div>
 
-		<div class="member">
-			<table class="container" align="center">
-				
-				<!-- 로그인 되어있는 경우 -->
-				<c:if test="${ loginMerMember != null }">
-					<tr class="main info">
-						<td colspan="2" class="infoId">${ loginMerMember.merName }님,
-							환영합니다</td>
-					</tr>
-					<tr>
-						<td class="btn logout"><button type="button"
-								onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
-					</tr>
-				</c:if>
-			</table>
-		</div>
-	</header>
-	
-	
-	
+<div id="pageBar">
+	<!-- 맨 처음으로 -->
+	<button onclick="location.href='${path}/hobby/list?page=1'">&lt;&lt;</button>
 
+	<!-- 이전 페이지로 -->
+	<button
+		onclick="location.href='${path}/hobby/list?page=${ pageInfo.prvePage }'">&lt;</button>
+
+	<!--  10개 페이지 목록 -->
+
+	<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}"
+		step="1" varStatus="status">
+		<c:if test="${pageInfo.currentPage == status.current }">
+			<button disabled>
+				<c:out value="${status.current}" />
+			</button>
+		</c:if>
+		<c:if test="${pageInfo.currentPage != status.current }">
+			<button
+				onclick="location.href='${path}/hobby/list?page=${status.current}'">
+				<c:out value="${status.current}" />
+			</button>
+		</c:if>
+	</c:forEach>
+	<!-- 다음 페이지로 -->
+	<button
+		onclick="location.href='${path}/hobby/list?page=${pageInfo.nextPage}'">&gt;</button>
+
+	<!-- 맨 끝으로 -->
+	<button
+		onclick="location.href='${path}/hobby/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
+</div>
+
+<script>
+	$('.size span, .color span').click(function() {
+		$(this).addClass('active')
+		$(this).siblings().removeClass('active')
+	})
+	$('.like').click(function() {
+		$(this).toggleClass('active')
+	})
 	
 	
-	
-	
-	
-	
-	
-	
-	
+</script>

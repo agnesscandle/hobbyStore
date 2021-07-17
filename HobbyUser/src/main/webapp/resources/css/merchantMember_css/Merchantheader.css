@@ -1,18 +1,47 @@
+/* 사이드바 수정 [김예원] */
+
 *{
     padding : 0px;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
+    
+}
+header{
+	border-bottom: 1px solid #ddd;
+
+	
 }
 
-
+.sideBar{
+	/* 
+	padding: 10px;
+	 */
+	 border-right: 1px solid #ddd;
+	 height: 100%
+}
+.menu{
+	padding-left: 20px;
+	padding-top: 10px;
+}
+.menu span{
+	font-size:24px;
+	font-weight:bold;
+	color:navy;
+}
+.hide{
+		display: none;
+	}
+ .hide div{
+ 	font-size:20px;
+ 	padding: 0 0 10px 5px;
+ }
 nav{
-  
-   /*  padding : 20px; */
-    width: 30%;
-    align-items : center;
-    min-height : 8vh;
-    font-family : 'Noto Sans KR', sans-serif;
+
+    border-bottom: 1px solid #ddd;
+
 }
+
+/* 사이드바 수정 - 끝 [김예원] */
 
 .member{
     display : inline-flex;
@@ -288,7 +317,7 @@ footer{
 			width: 150px;
 			margin-top: 10px;
 			
-			margin-bottom: 30px;
+			margin-bottom: 20px;
 		
 		} 
  

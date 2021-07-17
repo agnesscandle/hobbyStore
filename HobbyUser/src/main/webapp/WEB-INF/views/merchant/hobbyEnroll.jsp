@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<%@ include file="../../views/common/header.jsp"%>
 <link rel="stylesheet" href="${path}/css/hobby/enroll.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <jsp:useBean id="now" class="java.util.Date" />
@@ -474,5 +474,3 @@ imgTarget.on('change', function(){
 }
 </script>
 
-
-<%@ include file="../../views/common/footer.jsp"%>
