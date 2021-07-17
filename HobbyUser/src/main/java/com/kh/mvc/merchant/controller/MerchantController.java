@@ -345,8 +345,11 @@ public class MerchantController {
 		
 		PageInfo pageInfo = new PageInfo(page, 10, service.getReserveCountByHbNo(hbNo), 8);
 		list = service.getReserveListByHbNo(pageInfo, hbNo);
+		System.out.println(list);
+		
 		
 		model.addObject("loginMerchant", loginMerchant);
+		model.addObject("hbNo", hbNo);
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("merchant/reserveList");

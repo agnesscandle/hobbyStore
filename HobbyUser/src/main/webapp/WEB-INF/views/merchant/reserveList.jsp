@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -13,7 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2 align="center">게시판 </h2>
+    <div>
+        <h2 align="center">게시판 </h2>
 	<div id="reserveList-container">
 	<c:if test="${ loginMerchant != null }">
 		<button type="button" id="btn-add"
@@ -59,13 +60,15 @@
 					</tr>
 				</c:forEach>
 			</c:if>
+            여기
+            <c:out value="${ hbNo}"></c:out>
 		</table>
 		<div id="pageBar">
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href='${ path }/merchant/reserveList?page=1'">&lt;&lt;</button>
+			<button onclick="location.href='${ path }/merchant/reserveList?hbNo=${ hbNo }&page=1'">&lt;&lt;</button>
 			
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href='${ path }/merchant/reserveList?page=${ pageInfo.prvePage }'">&lt;</button>
+			<button onclick="location.href='${ path }/merchant/reserveList?hbNo=${ hbNo }&page=${ pageInfo.prvePage }'">&lt;</button>
 
 			<!--  10개 페이지 목록 -->
 			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1" varStatus="status">
@@ -73,7 +76,7 @@
 					<button disabled><c:out value="${ status.current }"/></button>		
 				</c:if>
 				<c:if test="${ pageInfo.currentPage == status.current }">
-					<button onclick="location.href='${ path }/merchant/reserveList?page=${ status.current }'">
+					<button onclick="location.href='${ path }/merchant/reserveList?hbNo=${ hbNo }&page=${ status.current }'">
 						<c:out value="${ status.current }"/>
 					</button>	
 				</c:if>
@@ -81,11 +84,13 @@
 			
 			
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href='${ path }/merchant/reserveList?page=${ pageInfo.nextPage }'">&gt;</button>
+			<button onclick="location.href='${ path }/merchant/reserveList?hbNo=${ hbNo }&page=${ pageInfo.nextPage }'">&gt;</button>
 			
 			<!-- 맨 끝으로 -->
-			<button onclick="location.href='${ path }/merchant/reserveList?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			<button onclick="location.href='${ path }/merchant/reserveList?hbNo=${ hbNo }&page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 	</div>
+    </div>
+
 </body>
 </html>
