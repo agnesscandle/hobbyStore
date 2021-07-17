@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+
 import com.kh.mvc.hobby.model.vo.Reserve;
+
+import com.kh.mvc.hobby.model.vo.Review;
+
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -161,7 +166,7 @@ public class MerchantController {
 	@PostMapping("/hobbyEnroll")
 	public ModelAndView enroll(ModelAndView model, @RequestParam("postcode") String postcode,
 			@RequestParam("exactAddress") String exactAddress, MultipartHttpServletRequest mtfRequest,
-			// @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@SessionAttribute(name = "loginMerMember", required = false) Merchant loginMerMember,
 			HttpServletRequest request, @ModelAttribute Hobby hobby) {
 
 		/* 다중 파일 불러오기 */
@@ -210,12 +215,26 @@ public class MerchantController {
 
 	}
 	
-	/*취미 수정*/
+	/*후기 가져오기*/
 	@GetMapping("/Reviewmanagement")
-	public ModelAndView updateEnroll(ModelAndView model) {
-	
-		model.setViewName("/merchant/Reviewmanagement");
+	public ModelAndView reviewList(ModelAndView model,
+			@SessionAttribute(name = "loginMerMember", required = false) Merchant loginMerMember,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+
+		
+		
+		List<Hobby> list = null;
+		
+
+		PageInfo pageInfo = new PageInfo(page, 6, service.getHobbyCount(), 6);
+		list = service.getHobbyList(pageInfo, loginMerMember.getMerNo());
+
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("merchant/Reviewmanagement");
+
 		return model;
+
 	}
 	
 	
