@@ -179,7 +179,7 @@
        <result property="merName" column="MER_NAME"/>
        <result property="merPhone" column="MER_PHONE"/>
        <result property="merDate" column="MER_DATE"/>
-       <result property="Bank" column="BANK"/>
+       <result property="bank" column="BANK"/>
        <result property="merNick" column="MER_NICK"/>
        <result property="status" column="STATUS"/>
        <result property="merImgOriginal" column="MEM_IMG_ORIGINAL"/>
@@ -704,7 +704,8 @@
 				TAKE_DATE, 
 				PAY_FEE, 
 				RES_ATTEND, 
-				RES_STATUS
+				RES_STATUS,
+				CAL_STATUS
 			) VALUES (
 				SEQ_RESERVE_NO.NEXTVAL, 
 				#{hbNo}, 
@@ -716,6 +717,7 @@
 				TO_DATE(#{takeDate},'YYYY-MM-DD'),
 				TO_NUMBER(#{payFee}),
 				DEFAULT, 
+				DEFAULT,
 				DEFAULT
 			)
 	</insert>
@@ -731,5 +733,52 @@
 	</select>
 	
 	<!--  결제 끝 -->
+	<!--  네비 : 카테고리  -->
+	<!--  카테고리 번호에 해당하는 취미 개수 -->
+	<select id="selectHobbyCountByCateNo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM HOBBY
+		WHERE STATUS = 'Y'
+		AND CATE_NO = #{cateNo}
+	</select>
+	
+	<!--  카테고리 번호에 해당하는 취미 목록 -->
+	<select id="getHobbyListByCateNo" parameterType="map" resultMap="HobbyListResultMap">
+		SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.STATUS = 'Y'
+		AND
+		H.CATE_NO = #{cateNo}
+
+		ORDER BY H.HB_NO DESC
+	</select>
+	
+	
+
+
+	<select id="selectReserveList" parameterType="map"
+		resultMap="ReserveListResultMap">
+		<include refid="ReserveListSql" /> 
+		ORDER BY
+		RES_DATE DESC
+	</select>
+
 
 </mapper>

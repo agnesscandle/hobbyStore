@@ -546,7 +546,14 @@ public class MemberController {
 			}
 			
 			
-
+		/* 일반 회원 지원 센터 페이지 */
+		@GetMapping("/member/support")
+		public String supportView() {
+			
+			log.info("손님 회원 지원 센터 페이지 요청");
+			
+			return "member/support";
+		}
 }	
 
 

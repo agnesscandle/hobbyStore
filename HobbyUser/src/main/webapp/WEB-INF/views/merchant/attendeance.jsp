@@ -20,7 +20,7 @@
 
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 
-<title>취미상점</title>
+<title>취미상점test</title>
 </head>
 
 
@@ -34,9 +34,9 @@
 			<table class="container" align="center">
 				
 				<!-- 로그인 되어있는 경우 -->
-				<c:if test="${ loginMerMember != null }">
+				<c:if test="${ loginMerchant != null }">
 					<tr class="main info">
-						<td colspan="2" class="infoId">${ loginMerMember.merName }님,
+						<td colspan="2" class="infoId">${ loginMerchant.merName }님,
 							환영합니다</td>
 					</tr>
 					<tr>

@@ -18,35 +18,47 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.merchant.model.service.MerchantService;
-import com.kh.mvc.merchant.model.vo.MerchantMember;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/merchant")
 @SessionAttributes("loginMerchant")
 public class MerchantController {
+	
 	
 	@Autowired
 	private MerchantService service;
 	
 	// 로그인
-	@RequestMapping(value = "/merchantMember/merlogin", method = {RequestMethod.POST})
+	@RequestMapping(value = "/merlogin", method = {RequestMethod.POST})
 	public ModelAndView login(ModelAndView model,
-			@RequestParam("memId")String merId, @RequestParam("memPassword")String merPassword) {
+			@RequestParam("memId")String merId, @RequestParam("memPassword")String merPassword
+			, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		
 		log.info("{}, {}", merId, merPassword);		
 
-       MerchantMember loginMerchantMember =  service.login(merId, merPassword);
+       Merchant loginMerchantMember =  service.login(merId, merPassword);
 		
 		if(loginMerchantMember != null) {
-			model.addObject("loginMerMember", loginMerchantMember);
-			model.setViewName("/merchantMember/merMain");
+			model.addObject("loginMerchant", loginMerchantMember);
+			/* model.addObject("location", "/hobby/list"); */
+//			model.setViewName("merchantMember/merMain");
+			List<Hobby> list = null;
+
+			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			list = service.getHobbyList(pageInfo);
+
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("merchant/list");
 		} else {
 			model.addObject("msg", "아이디나 패스워드가 일치하지 않습니다.");
 			model.addObject("location", "/member/login");
@@ -57,11 +69,28 @@ public class MerchantController {
 	}
 	
 	
-	
+	/* 취미 목록페이지 요청 */
+	@GetMapping("/list")
+	public ModelAndView list(ModelAndView model,
+			@RequestParam(value="adNo") int adNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+          System.out.println("리스트호출");
+		List<Hobby> list = null;
+
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+		list = service.getHobbyList(pageInfo, adNo);
+		System.out.println(list+"맵퍼 확인");
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("hobby/list");
+
+		return model;
+
+	}	
 	
 	// 로그아웃
 	@RequestMapping("/merlogout")
-	public String merlogout(SessionStatus status) {
+	public String logout(SessionStatus status) {
 		
 		log.info("status.isComplete() : " + status.isComplete());
 
@@ -74,16 +103,16 @@ public class MerchantController {
 	}	
 	
 	// 회원가입 페이지 이동
-	@GetMapping("/merchantMember/enroll")
+	@GetMapping("/enroll")
 	public String enrollView() { 
 		log.info("회원가입 페이지 요청");
 		
-		return "/merchantMember/enroll";
+		return "/merchant/enroll";
 	}
 	
 	// 회원가입 처리
-	@RequestMapping(value = "/merchantMember/enroll", method = {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute MerchantMember merchantmember) {
+	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember) {
 		System.out.println(merchantmember);
 		
 		int result = service.save(merchantmember);
@@ -93,7 +122,7 @@ public class MerchantController {
 			model.addObject("location", "/member/login");
 		} else {
 			model.addObject("msg", "회원가입을 실패하였습니다.");
-			model.addObject("location", "/merchantMember/enroll");
+			model.addObject("location", "/merchant/enroll");
 		}
 		
 		model.setViewName("common/msg");
@@ -108,14 +137,6 @@ public class MerchantController {
 //		
 //		return "merchantMember/login";
 //	}
-		
-	// 상인 멤버 로그인 후 상인 메인페이지 이동
-	@GetMapping("/merchantMember/merMain")
-	public String loginView() { 
-		log.info("상인 메인 페이지 요청");
-		
-		return "merchantMember/merMain";
-	}
 
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");
@@ -124,20 +145,20 @@ public class MerchantController {
 	 */
 
 	/* 취미 등록페이지 요청 */
-	@GetMapping("/merchantMember/hobbyEnroll")
+	@GetMapping("/hobbyEnroll")
 	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) {
 
 		List<Category> list = null;
 		list = service.getCateList();
 
 		model.addObject("list", list);
-		model.setViewName("merchantMember/hobbyEnroll");
+		model.setViewName("merchant/hobbyEnroll");
 
 		return model;
 	}
 
 	/* 취미 등록 */
-	@PostMapping("/merchantMember/hobbyEnroll")
+	@PostMapping("/hobbyEnroll")
 	public ModelAndView enroll(ModelAndView model, @RequestParam("postcode") String postcode,
 			@RequestParam("exactAddress") String exactAddress, MultipartHttpServletRequest mtfRequest,
 			// @SessionAttribute(name = "loginMember", required = false) Member loginMember,
@@ -188,5 +209,111 @@ public class MerchantController {
 		return model;
 
 	}
+	
+	/*취미 수정*/
+	@GetMapping("/Reviewmanagement")
+	public ModelAndView updateEnroll(ModelAndView model) {
+	
+		model.setViewName("/merchant/Reviewmanagement");
+		return model;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/calculatelist")
+	public ModelAndView calculatelist(ModelAndView model,
+			@RequestParam(value="merNo") int merNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+          System.out.println("리스트호출");
+  		
+          
+        List<Hobby> list = null;
+
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+		list = service.getHobbycalList(pageInfo, merNo);
+		
+		
+		
+		System.out.println(list+"맵퍼 확인");
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("calculation/calculationlist");
+
+		return model;
+
+	}
+	
+	@RequestMapping(value="/calculateview",method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView calculateview(ModelAndView model,
+			@RequestParam(value="hbNo") int hbNo) {
+          System.out.println("리스트호출");
+  		
+          
+        List<Reserve> list = null;
+		
+		list = service.getReserveList(hbNo);
+		
+		
+		
+		System.out.println(list+"맵퍼 확인");
+		model.addObject("list", list);
+
+		model.setViewName("calculation/calculationview");
+
+		return model;
+
+	}
+
+	
+	/*
+	@PostMapping("calculateapply")
+	public ModelAndView calculateApply(ModelAndView model,
+			@RequestParam("resNo")int resNo,
+			@RequestParam("merNo")int merNo) {
+		System.out.println(resNo + "                " + merNo);
+		int result = service.calculateApply(resNo, merNo);
+		System.out.println(result);
+		/*
+		if (result > 0) {
+			model.addObject("location", "merchantMember/calculateview");
+			model.setViewName("calculation/calculationview");
+			
+		} else {
+			model.addObject("msg", "정산 요청을 실패하였습니다.");
+			model.addObject("location", "/");
+		}
+
+		
+		return model;
+	}*/
+	
+	@PostMapping("/calculateapply")
+	public String calculateApply(ModelAndView model,
+			@ModelAttribute Reserve reserve,
+			HttpServletRequest request) {
+		System.out.println("apply 실행");
+		int result = service.calculateApply(reserve);
+
+		System.out.println(result+ " 칼큘 인서트 결과 !! ");
+		
+		if(result >0)
+		{
+			System.out.println("리절브 실행");
+			service.reserveUpdateStatus(reserve);
+		}
+		String url = "forward:/merchant/calculateview?hbNo="+reserve.getHbNo();
+		
+		return url;
+	}	
+	
+
+
 
 }

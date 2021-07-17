@@ -5,10 +5,18 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+#memberContainer{
+    display : flex;
+    position : relative;
+    width : 500px;
+    margin : 1px;
+    left : 1450px;
+    top : -15px;
+}
 
 nav{
-    margin : 20px;
-    padding : 20px; 
+    margin : 0px 20px;
+    padding : 0px 20px; 
     display : flex;
     justify-content : flex-start;
     align-items : center;
@@ -16,12 +24,11 @@ nav{
     font-family : 'Noto Sans KR', sans-serif;
 }
 
-.member{
-    display : inline-flex;
+/* .member{
+    display : flex;
     position : relative;
-    left : 1000px;
-    top : -15px;
-}
+
+} */
 
 .main button{
     font-size : 15px;
@@ -31,7 +38,7 @@ nav{
 .logo{
     display : inline;
     padding-left : 20px; 
-    color : navy;
+    color :  #34486b;
     text-transform: uppercase;
     letter-spacing: 5px;
     font-size: 35px;
@@ -58,9 +65,9 @@ nav{
     font-weight: bold;
 }
 
-.container td{
+.tbl td{
     height : 30px;
-    width : 100px;
+    width : 150px;
 }
 
 .btn_search{
@@ -68,6 +75,9 @@ nav{
     border : none;
 }
 
+.butn{
+    width : 100px;
+}
 button{
     background-color: white;
     border : none;
@@ -99,14 +109,14 @@ button{
 .nav-links{
     display : flex;
     justify-content: space-around;
-    width: 50%; /* nav 메뉴 글자간격(flexible)*/
+    width: 50%; /* nav 硫붾돱 湲��옄媛꾧꺽(flexible)*/
 }
 .nav-links li{
     list-style: none;
 }
 
 .nav-links a{
-    color : navy;
+    color :  #34486b;
     text-decoration : none;
     letter-spacing : 3px;
     font-weight: bold;
@@ -114,12 +124,39 @@ button{
 }
 
 .nav-links a:hover{
-    /* 밑줄 데코 너무 구린 듯.. => 추후 변경 
+    /* 諛묒쨪 �뜲肄� �꼫臾� 援щ┛ �벏.. => 異뷀썑 蹂�寃� 
     text-decoration : underline; */
 }
 
+/* 카테고리 */
+.category{
+    margin-left : 20px;
+    padding-left : 22px; 
+    display : none;
+    position : relative;
+    left : 50px;
+    top : -10px;
+}
 
-/* 버거 영역 : 메뉴 모양 */
+.category li{
+    list-style: none;
+    display : block;
+    float : left;
+    padding : 12px;
+    font-size : 18px;
+    font-weight : bold;
+}
+
+.category li a {
+    text-decoration : none;
+    color :  #34486b;
+}
+
+.category li a:hover{
+    color: #eacc16;
+}
+
+/* 踰꾧굅 �쁺�뿭 : 硫붾돱 紐⑥뼇 */
 .burger{
     display : none;
     margin : 10px;
@@ -129,7 +166,7 @@ button{
 .burger div{
     width : 25px;
     height : 4px;
-    background-color : navy;
+    background-color :  #34486b;
     margin : 5px;
     transition : all 0.3s ease;
 }
@@ -245,13 +282,11 @@ footer{
 
 .rightFooter a{
     text-decoration: none;
-    color : black;
+    color : #34486b;
 }
 
-/* 페이지바 */
+/* �럹�씠吏�諛� */
 #pageBar {
    text-align: center;
    margin-top: 30px;
 }
-
-

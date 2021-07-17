@@ -105,6 +105,8 @@ public interface HobbyMapper {
 
 	int selectReplyCount(int qnaNo, int merNo);
 
+	int selectHobbyCountByCateNo(int cateNo);
 
+	List<Hobby> getHobbyListByCateNo(RowBounds rowBounds, int cateNo);
 
 }

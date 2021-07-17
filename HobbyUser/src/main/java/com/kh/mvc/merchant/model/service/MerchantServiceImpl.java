@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
-import com.kh.mvc.merchant.model.vo.MerchantMember;
+import com.kh.mvc.merchant.model.vo.Merchant;
+
 
 @Service
 public class MerchantServiceImpl implements MerchantService{
@@ -26,10 +28,10 @@ public class MerchantServiceImpl implements MerchantService{
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
-	public MerchantMember login(String merId, String merPassword) {
+	public Merchant login(String merId, String merPassword) {
 		
 		
-		MerchantMember merchantmember = this.findById(merId);
+		Merchant merchantmember = this.findById(merId);
 		
 		// 암호화된 비밀번호와 맞는지 확인
 		// System.out.println(passwordEncoder.matches(merPassword, merchantmember.getMerPassword()));
@@ -40,7 +42,7 @@ public class MerchantServiceImpl implements MerchantService{
 
 	@Override
 	@Transactional 
-	public int save(MerchantMember merchantMember) {
+	public int save(Merchant merchantMember) {
 		int result = 0;
 		
 		if(merchantMember.getMerNo() != 0) {
@@ -56,8 +58,8 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 	
 	@Override
-	public MerchantMember findById(String merId) {
-       MerchantMember a = mapper.selectMerchantMember(merId);
+	public Merchant findById(String merId) {
+		Merchant a = mapper.selectMerchantMember(merId);
        System.out.println(a);
 
 		return mapper.selectMerchantMember(merId);
@@ -172,6 +174,48 @@ public class MerchantServiceImpl implements MerchantService{
 		hobby.setHbThumRename(thumRename);
 
 	}
+
+	@Override
+	public List<Hobby> getHobbyList(PageInfo pageInfo, int adNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+
+		return mapper.selectHobbyMerList(rowBounds,adNo);
+	}
+
+	@Override
+	public List<Hobby> getHobbycalList(PageInfo pageInfo, int merNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+
+		return mapper.selectHobbyCalList(rowBounds,merNo);
+	}
+
+	@Override
+	public int calculateApply(Reserve reserve) {
+		return mapper.insertCalApply(reserve);
+		
+	}
+
+
+
+	@Override
+	public int getReserveCount(int hbNo) {
+		return mapper.selectReserveCount(hbNo);
+	}
+
+	@Override
+	public List<Reserve> getReserveList(int hbNo) {
+
+		return mapper.selectReserveList(hbNo);
+	}
+
+	@Override
+	public int reserveUpdateStatus(Reserve reserve) {
+		
+		return mapper.reserveUpdateStatus(reserve);
+	}
+
 
 	
 	

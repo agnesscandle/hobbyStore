@@ -8,21 +8,26 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-import com.kh.mvc.merchant.model.vo.MerchantMember;
+
+import com.kh.mvc.merchant.model.vo.Merchant;
+
+
+import com.kh.mvc.hobby.model.vo.Reserve;
+
 
 public interface MerchantService {
 
-	MerchantMember login(String merId, String merPassword);
+	Merchant login(String merId, String merPassword);
 	
-	int save(MerchantMember merchantMember);
+	int save(Merchant merchantMember);
 
-	MerchantMember findById(String merId);
+	Merchant findById(String merId);
 
 	
 	/* 취미 등록 */
 	int getHobbyCount();
 
-	List<Hobby> getHobbyList(PageInfo pageInfo);
+	List<Hobby> getHobbyList(PageInfo pageInfo,int adNo);
 
 	int save(Hobby hobby);
 
@@ -34,4 +39,19 @@ public interface MerchantService {
 	
 	
 	boolean validate(String merid);
+
+	List<Hobby> getHobbyList(PageInfo pageInfo);
+
+	List<Hobby> getHobbycalList(PageInfo pageInfo, int merNo);
+
+	int calculateApply(Reserve reserve);
+
+	int getReserveCount(int merNo);
+
+	List<Reserve> getReserveList(int hbNo);
+
+	int reserveUpdateStatus(Reserve reserve);
+
+
+
 }

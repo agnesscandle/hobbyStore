@@ -387,7 +387,19 @@ public class HobbyServiceImpl implements HobbyService {
 	}
 
 
+	public int getHobbyCountByCateNo(int cateNo) {
+		
+		return mapper.selectHobbyCountByCateNo(cateNo);
+	}
 
+	@Override
+	public List<Hobby> getHobbyListByCateNo(PageInfo pageInfo, int cateNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.getHobbyListByCateNo(rowBounds, cateNo);
+	}
+	
 
 
 
