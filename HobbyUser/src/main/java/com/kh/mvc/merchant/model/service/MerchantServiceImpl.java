@@ -220,16 +220,16 @@ public class MerchantServiceImpl implements MerchantService{
 	
 	
 	@Override
-	public int getReviewCount(int hbNo) {
-		return mapper.selectReviewCount(hbNo);
+	public int getReviewCount(int memNo) {
+		return mapper.selectReviewCount(memNo);
 	}
 
 	@Override
-	public List<Review> getReviewList(PageInfo pageInfo, int hbNo) {
+	public List<Review> getReviewList(PageInfo pageInfo, int memNo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 
-		return mapper.selectReviewList(rowBounds, hbNo);
+		return mapper.selectReviewList(rowBounds, memNo);
 	}
 
 

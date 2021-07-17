@@ -61,9 +61,11 @@ public interface MerchantService {
 	
 	/* 후기 */
 	
-	int getReviewCount(int hbNo);
+	int getReviewCount(int memNo);
 
-	List<Review> getReviewList(PageInfo pageInfo, int hbNo);
+	List<Review> getReviewList(PageInfo pageInfo, int memNo);
+
+
 
 	
 }

@@ -223,15 +223,15 @@ public class MerchantController {
 
 		
 		
-		List<Hobby> list = null;
+		List<Review> reviewList = null;
+		int memNo = loginMerchant.getMerNo();
 
+		PageInfo pageInfo = new PageInfo(page, 6, service.getReviewCount(memNo), 6);
+		reviewList = service.getReviewList(pageInfo, memNo);
 
-		PageInfo pageInfo = new PageInfo(page, 6, service.getHobbyCount(), 6);
-		list = service.getHobbyList(pageInfo, loginMerchant.getMerNo());
-
-		System.out.println(list);
 		
-		model.addObject("list", list);
+		
+		model.addObject("reviewList", reviewList);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("merchant/Reviewmanagement");
 
