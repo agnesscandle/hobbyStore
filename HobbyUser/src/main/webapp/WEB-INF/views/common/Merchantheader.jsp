@@ -14,30 +14,20 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="${path}/css/merchantMember_css/test.css">
-<%-- <link rel="stylesheet" href="${path}/css/style.css"> --%>
+<link rel="stylesheet" href="${path}/css/merchantMember_css/Merchantheader.css">
 <link rel="shortcut icon" type="imae/x-icon"
 	href="${path}/images/logo.png" />
 
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 
 <title>취미상점</title>
+
 </head>
-<!-- <style>
-.topMenu1{
-    margin : 5px;
-    padding : 5px;
-    font: 20px; 
-    color: blak;
-    justify-content : flex-start;
-    align-items : center;
-    min-height : 8vh;
-    font-family : 'Noto Sans KR', sans-serif;
-}
-</style> -->
+
+
 
 	<header>
-		<div class="logo" onclick="location.href='${path}'">
+		<div class="logo" onclick="location.href='${path}/merchant/list?adNo=${loginMerchant.merNo}'">
 			<img class="logoImg" src="${ path }/images/logo.png">
 			<h4>취미상점 상인</h4>
 		</div>
@@ -58,20 +48,21 @@
 			</table>
 		</div>
 	</header>
-<div style="width:200px; float:left;">
+	
+	
+<div class="sideBar" style="width:200px; float:left;">
 
-<nav>
+<nav id="nav1">
 
-<div class="topMenu1">
-    <ul class="dept01"></ul>
+<div class="topMenu1 menu">
         
-            <span style="color:navy; font-size:30px; font-weight:bold">취미관리</span>
-            <ul class="dept01">
+            <span>취미관리</span>
+            <ul class="dept01 hide">
                
-                <div id="hobbyEnroll" class="hobbyEnroll">취미만들기</div>
+                <div class="hobbyEnroll" onclick="location.href='${ path }/merchant/hobbyEnroll'">취미만들기</div>
                   <!--  <a href="/hobbyEnroll">취미만들기</a> -->
                
-                 <div id="hobbylist" class="hobbylist">
+                 <div id="hobbylist" class="hobbylist" onclick="location.href='${ path }/merchant/list?adNo=${loginMerchant.merNo}'">
                     취미관리
                 </div>
                     
@@ -81,46 +72,43 @@
 </div>
 </nav>
 
-<nav>
-<div class="topMenu2">        
+<nav id="nav2">
+<div class="topMenu2 menu">        
         
-            <span style="color:navy; font-size:30px; font-weight:bold">손님관리</span>
-            <ul class="dept02">
+            <span>손님관리</span>
+            <ul class="dept02 hide">
                 
-                 <div id="hobbyEnroll" class="hobbyEnroll">출석</div>
-                  <div id="hobbyEnroll" class="hobbyEnroll">예약</div>
-                  <div id="qnaList" class="qnaList">문의</div>
-                 <div id="hobbyEnroll" class="hobbyEnroll">후기</div>
-                    
-                    
+                 <div class="hobbyEnroll">출석관리</div>
+                  <div class="hobbyEnroll">예약관리</div>
+                  <div id="qnaList" class="qnaList">문의관리</div>
+                 <div class="hobbyEnroll" onclick="location.href='${ path }/merchant/Reviewmanagement'">후기관리</div>
             </ul>        
+            
         
  </div>       
 </nav>
 
-<nav>
-<div  class="topMenu3">        
+<nav id="nav3">
+<div  class="topMenu3 menu">        
       
-            <span style="color:navy; font-size:30px; font-weight:bold">정산</span>
-            <ul class="dept03">
+            <span>정산</span>
+            <ul class="dept03 hide">
                  <div id="hobbyCalculate" class="hobbyCalculate">정산관리</div>
-                  <div id="hobbyEnroll" class="hobbyEnroll">정산요청</div>
+                  <div class="hobbyEnroll">정산요청</div>
             </ul>        
       
  
 </div>
 </nav>
 
-<nav>
-<div class="topMenu4"> 		
+<nav id="nav4">
+<div class="topMenu4 menu"> 		
  		
-            <span style="color:navy; font-size:30px; font-weight:bold">지원센터</span>
-            <ul class="dept04">
-                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">공지사항</a></div>
-                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">운영메뉴얼</a></div>
-                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">자주 묻는 질문</a></div>
-                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">후기</a></div>
-                   
+            <span>지원센터</span>
+            <ul class="dept04 hide">
+                 <div class="hobbyEnroll">공지사항</div>
+                 <div class="hobbyEnroll">운영메뉴얼</div>
+                 <div class="hobbyEnroll">자주 묻는 질문</div>
             </ul>        
         
            
@@ -130,20 +118,24 @@
 </div>
 </body>
 
-
-
-
-
-
 <script>
-$(document).on('mouseover', '.topMenu1 span', function () {
-    $('.dept01').slideDown(700);
-});
-$(document).on('mouseover', 'div', function () {
-    if (!$(this).hasClass('topMenu1')) {
-        $('.dept01').slideUp(700);
-    }
-});
+
+
+
+
+$("#nav1").click(function(){
+    $(".dept01").slideToggle();
+  });
+$("#nav2").click(function(){
+    $(".dept02").slideToggle();
+  });
+$("#nav3").click(function(){
+    $(".dept03").slideToggle();
+  });
+$("#nav4").click(function(){
+    $(".dept04").slideToggle();
+  });
+
 <!-- 취미만들기 페이지 이동 -->
 $(function(){
    $("#hobbyEnroll").click(function(){
@@ -165,14 +157,6 @@ $(function(){
 })
 
 
-$(document).on('mouseover', '.topMenu2 span', function () {
-    $('.dept02').slideDown(700);
-});
-$(document).on('mouseover', 'div', function () {
-    if (!$(this).hasClass('topMenu2')) {
-        $('.dept02').slideUp(700);
-    }
-});
 
 <!-- qna 페이지 이동 -->
 $(function(){
@@ -180,20 +164,5 @@ $(function(){
       location.href='${ path }/hobby/qnaList';
    })
 })
-$(document).on('mouseover', '.topMenu3 span', function () {
-    $('.dept03').slideDown(700);
-});
-$(document).on('mouseover', 'div', function () {
-    if (!$(this).hasClass('topMenu3')) {
-        $('.dept03').slideUp(700);
-    }
-});
-$(document).on('mouseover', '.topMenu4 span', function () {
-    $('.dept04').slideDown(700);
-});
-$(document).on('mouseover', 'div', function () {
-    if (!$(this).hasClass('topMenu4')) {
-        $('.dept04').slideUp(700);
-    }
-});
+
 </script>

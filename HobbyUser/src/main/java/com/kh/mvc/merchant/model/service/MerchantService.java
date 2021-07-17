@@ -58,14 +58,12 @@ public interface MerchantService {
 
 	int reserveUpdateStatus(Reserve reserve);
 
-
-
-
-	
 	
 	/* 후기 */
-	int getReviewCount(int merNo);
+	
+	int getReviewCount(int hbNo);
 
-	List<Review> getReviewList(PageInfo pageInfo, int merNo);
+	List<Review> getReviewList(PageInfo pageInfo, int hbNo);
 
+	
 }

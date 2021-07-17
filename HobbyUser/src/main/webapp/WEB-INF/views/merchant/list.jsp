@@ -4,13 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%-- <%@ include file="../../views/common/Merchantheader.jsp"%> --%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <link rel="stylesheet" href="${path}/css/hobby/list.css">
 
 <body>
-
-<c:import url="../../views/common/Merchantheader.jsp"/>
 
 <div class="divList">
    <div class="containerList">
@@ -113,5 +112,3 @@
       $(this).toggleClass('active')
    })
 </script>
-
-<%@ include file="../../views/common/footer.jsp"%>

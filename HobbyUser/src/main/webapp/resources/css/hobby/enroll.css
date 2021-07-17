@@ -1,5 +1,5 @@
 .divEnroll{
-   width: 1400px;
+   width: 1100px;
    justify-content: center;
    align-items: center;
    height: 100vh;
@@ -129,7 +129,7 @@ a {
 .gnb {
    list-style: none;
    /* position: absolute; */
-   padding: 50px 30px;
+   /* padding: 50px 30px; */
    display: flex;
    width: 100%;
 }

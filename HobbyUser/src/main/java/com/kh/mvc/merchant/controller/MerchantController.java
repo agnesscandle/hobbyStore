@@ -26,7 +26,7 @@ import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Reserve;
 
 import com.kh.mvc.hobby.model.vo.Review;
-
+import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -87,7 +87,7 @@ public class MerchantController {
 		System.out.println(list+"맵퍼 확인");
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
-		model.setViewName("hobby/list");
+		model.setViewName("merchant/list");
 
 		return model;
 
@@ -218,17 +218,19 @@ public class MerchantController {
 	/*후기 가져오기*/
 	@GetMapping("/Reviewmanagement")
 	public ModelAndView reviewList(ModelAndView model,
-			@SessionAttribute(name = "loginMerMember", required = false) Merchant loginMerMember,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 
 		
 		
 		List<Hobby> list = null;
-		
+
 
 		PageInfo pageInfo = new PageInfo(page, 6, service.getHobbyCount(), 6);
-		list = service.getHobbyList(pageInfo, loginMerMember.getMerNo());
+		list = service.getHobbyList(pageInfo, loginMerchant.getMerNo());
 
+		System.out.println(list);
+		
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("merchant/Reviewmanagement");
@@ -237,9 +239,29 @@ public class MerchantController {
 
 	}
 	
-	
-	
-	
+	/* 각 취미별로 후기 가져오기*/
+	@GetMapping("/Review")
+	public ModelAndView reviewList(ModelAndView model,
+			@RequestParam(value="hbNo") int hbNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+
+
+		/* review(리뷰) 리스트 가져오기 */
+		List<Review> reviewList = null;
+		int count = service.getReviewCount(hbNo);
+		PageInfo pageInfo = new PageInfo(page, 10, count, 6);
+		int listCount = pageInfo.getListCount(); 
+		reviewList = service.getReviewList(pageInfo, hbNo);
+
+
+		model.addObject("reviewList", reviewList);
+		model.addObject("pageInfo", pageInfo);
+		model.addObject("count", count);
+		model.addObject("listCount", listCount);
+		model.setViewName("merchant/review");
+
+		return model;
+	}
 	
 	
 	
