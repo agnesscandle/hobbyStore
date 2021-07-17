@@ -249,6 +249,24 @@ public class HobbyController {
 
 	}
 
+//	
+//	@GetMapping("/list/cate")
+//	public ModelAndView listByCateNo(ModelAndView model, @RequestParam("cateNo") int cateNo,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+//		
+//		List<Hobby> list = null;
+//		
+////		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCountByCateNo(cateNo), 8);
+////		list = service.getHobbyListByCateNo(pageInfo, cateNo);
+//		
+////		model.addObject("list", list);
+////		model.addObject("pageInfo", pageInfo);
+////		model.setViewName("hobby/list");
+////		
+//		return model;
+//	}
+	
+	
 	/* 취미 등록페이지 요청 */
 	@GetMapping("/enroll")
 	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) {
@@ -338,7 +356,9 @@ public class HobbyController {
 	@ResponseBody
 	@GetMapping("/liked")
 	public Map<String, String> liked(ModelAndView model,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @RequestParam("hbNo") int hbNo,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, 
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam("hbNo") int hbNo,
 			@ModelAttribute Liked liked) {
 
 		log.info("좋아요 요청");
@@ -501,11 +521,6 @@ public class HobbyController {
        
     }
     
-//    //리플 작성가능검사 : 상인로그인상태 취미등록한상인과 로그인상인 id가 같고, 리플을 한번도 작성하지 않은 상태
-//    if(loginMerchant.getMerId().equals(hobby.getMerNo()) && service.replyFindByNo(qnaNo,loginMerchant.getMerNo()) == null ) {
-//    	
-//    }
-//    
     model.addObject("qnaList", qnaList);
     model.addObject("pageInfo", pageInfo);
     model.addObject("listCount", listCount);
@@ -520,8 +535,8 @@ public class HobbyController {
           @ModelAttribute Qna qna, @ModelAttribute Reply reply, @RequestParam("hbNo") int hbNo) {
 	   log.info("댓글 작성 요청");
 	   System.out.println(reply);
-	   if(loginMerchant.getMerId().equals(reply.getMerId()) ) {
-		   reply.setMerNo(loginMerchant.getMerNo());
+	   
+
 	
 	 
        int result = service.saveReply(reply);
@@ -533,10 +548,7 @@ public class HobbyController {
           model.addObject("msg", "게시글이 등록을 실패하였습니다.");
           model.addObject("location", "/hobby/qnaList");
        }
-	   } else {
-		   model.addObject("msg", "잘못된 접근입니다");
-			model.addObject("location", "/");
-	   }
+	   
        model.setViewName("common/msg");
        return model;
     }
@@ -706,5 +718,8 @@ public class HobbyController {
 		model.setViewName("common/msg");
 		return model;
 	}
+	
+	
+	
 
 }

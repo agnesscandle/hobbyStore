@@ -329,7 +329,8 @@ width:500px;
 								<br>
 						<div class="replyView">
 
-							<c:forEach var="replyList" items="${ qna.reply }">
+							<c:forEach var="replyList" items="${ qna.reply }" >
+						
 							<div id="updateHide${replyList.replyNo }">
 						
 								<fmt:formatDate var="formatRegDate" value="${ replyList.replayDate }" pattern="yyyy.MM.dd"/>
@@ -399,7 +400,7 @@ width:500px;
 								</script>
 							</c:forEach>
 						</div>
-
+						<c:if test="${ qna.reply eq null }">
 						<form action="${ path }/hobby/qnaList" method="POST">
 							<div class="inputContent">
 								<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
@@ -411,6 +412,7 @@ width:500px;
 								<br> <input type="submit" value="등록하기" class="buttons" id="buttonReply">
 							</div>
 						</form>
+						</c:if>
 
 				</c:if>
 				</div>
