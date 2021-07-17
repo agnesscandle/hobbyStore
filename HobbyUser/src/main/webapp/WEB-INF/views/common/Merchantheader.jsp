@@ -157,7 +157,7 @@ $(function(){
 })
 
 
-
+  
 <!-- qna 페이지 이동 -->
 $(function(){
    $("#qnaList").click(function(){
