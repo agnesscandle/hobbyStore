@@ -47,5 +47,9 @@ public interface MerchantMapper {
 
 	List<Hobby> getHobbyListByMerNo(RowBounds rowBounds, int merNo);
 
+	int selectReserveCountByHbNo(int hbNo);
+
+	List<Reserve> getReserveListByHbNo(RowBounds rowBounds, int hbNo);
+
 
 }

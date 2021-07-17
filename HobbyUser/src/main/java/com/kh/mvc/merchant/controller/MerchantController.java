@@ -330,5 +330,28 @@ public class MerchantController {
 		
 		return model;
 	}
+	
+	/* 예약 목록 리스트 (지영) */
+	@GetMapping("/reserveList")
+	public ModelAndView reserveList(ModelAndView model,
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam(value="hbNo") int hbNo
+			) {
+		
+		log.info("해당 취미에 예약된 예약 리스트 가져오기 요청");
+		
+		List<Reserve> list = null;
+		
+		PageInfo pageInfo = new PageInfo(page, 10, service.getReserveCountByHbNo(hbNo), 8);
+		list = service.getReserveListByHbNo(pageInfo, hbNo);
+		
+		model.addObject("loginMerchant", loginMerchant);
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("merchant/reserveList");
+		
+		return model;
+	}
 
 }

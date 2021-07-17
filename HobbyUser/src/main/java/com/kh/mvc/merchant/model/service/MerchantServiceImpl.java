@@ -230,6 +230,20 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.getHobbyListByMerNo(rowBounds, merNo);
 	}
 
+	@Override
+	public int getReserveCountByHbNo(int hbNo) {
+		
+		return mapper.selectReserveCountByHbNo(hbNo);
+	}
+
+	@Override
+	public List<Reserve> getReserveListByHbNo(PageInfo pageInfo, int hbNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.getReserveListByHbNo(rowBounds, hbNo);
+	}
+
 
 
 	

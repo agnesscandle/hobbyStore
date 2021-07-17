@@ -433,5 +433,20 @@
 		ORDER BY HB_NO DESC
 	</select>
 
+	<!--  취미에 해당하는 예약 수 (지영) -->
+	<select id="selectReserveCountByHbNo" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) 
+			FROM RESERVE 
+			WHERE HB_NO = #{hbNo} 
+			AND RES_STATUS = 'Y'
+	</select>
+	
+	<!--  취미에 해당하는 예약 목록 조회 (지영) -->
+	<select id="getReserveListByHbNo" parameterType="_int"
+		resultMap="ReservListResultMap">
+		<include refid="ReservListSql"/>
+		
+		ORDER BY TAKE_DATE DESC
+	</select>
 	
  </mapper>

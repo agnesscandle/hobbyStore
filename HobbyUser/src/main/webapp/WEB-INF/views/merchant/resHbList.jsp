@@ -76,8 +76,8 @@
                           </div>
                        </div>
                        <button
-                          onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
-                          class="add-cart">자세히 보기</button>
+                          onclick="location.replace('${path}/merchant/reserveList?hbNo=${hobby.hbNo}')"
+                          class="add-cart"> 예약 관리하기 </button>
                     </div>
                  </div>
               </c:forEach>

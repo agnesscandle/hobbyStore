@@ -56,6 +56,10 @@ public interface MerchantService {
 
 	List<Hobby> getHobbyListByMerNo(PageInfo pageInfo, int merNo);
 
+	int getReserveCountByHbNo(int hbNo);
+
+	List<Reserve> getReserveListByHbNo(PageInfo pageInfo, int hbNo);
+
 
 
 }
