@@ -220,7 +220,13 @@ public class MerchantController {
 	
 	
 	
-	
+	@GetMapping("/resHbList")
+	public String resHbList() {
+		
+		log.info("예약 목록 페이지 요청");
+		
+		return "/merchant/resHbList";
+	}
 	
 	
 	

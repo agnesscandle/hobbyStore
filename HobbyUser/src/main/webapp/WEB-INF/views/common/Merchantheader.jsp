@@ -88,7 +88,7 @@
             <ul class="dept02">
                 
                  <div id="hobbyEnroll" class="hobbyEnroll">출석</div>
-                  <div id="hobbyEnroll" class="hobbyEnroll">예약</div>
+                  <div id="reserveList" class="reserveList">예약</div>
                   <div id="qnaList" class="qnaList">문의</div>
                  <div id="hobbyEnroll" class="hobbyEnroll">후기</div>
                     
@@ -156,6 +156,14 @@ $(function(){
       location.href='${ path }/merchant/list?adNo=${loginMerchant.merNo}';
    })
 })
+
+
+<!-- 예약 관리(리스트) 페이지 이동 -->
+$(function(){
+	$("#reserveList").click(function(){
+		location.href="${path}/merchant/resHbList?merNo=${loginMerchant.merNo}";
+	});
+});
 
 <!--정산리스트 페이지 이동-->
 $(function(){
