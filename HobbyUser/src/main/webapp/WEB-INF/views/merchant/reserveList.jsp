@@ -74,7 +74,9 @@
 			</c:if>
 			
 			<c:if test="${ list != null }">
-				<c:forEach var="reserve" items="${ list }">
+				<c:forEach var="reserve" items="${ list }" varStatus="status">
+					<c:set var="memNo" value="${reserve.memNo}"/>
+					<c:out value="${memNo}"/>
 					<tr>
 						<td><fmt:formatDate type="DATE" pattern="20yy-MM-dd" value="${ reserve.takeDate }"/></td>
 						<td><c:out value="${ reserve.memId }"/></td>
@@ -83,18 +85,32 @@
                         <td><c:out value="${ reserve.resCount }"/>명</td>
                         <td>
                             <c:if test="${ reserve.resStatus eq 'Y'}">
-                                <button type="button" class="btnRes" id="btnResOK"> 예약 완료 </button>
+                                <button type="button" class="btnRes"> 예약 완료 </button>
                             </c:if>
                             <c:if test="${ reserve.resStatus eq 'N'}">
                                 <button type="button" class="btnRes"> 예약 취소 </button>
                             </c:if>
                         </td>
 					</tr>
-				</c:forEach>
+				</c:forEach>	      
 			</c:if>
 		</table>
+					 <script>
+								$(function(){
+									$(".btnRes").on("click", ()=>{
+										 alert("버튼 클릭");
+									let hbNo = "${hbNo}";
+									let memNo = "${memNo}";
+																	
+									console.log("hbNo : " + hbNo);
+									console.log("memNo : " + memNo);
+									});	
+								});
+			</script>
     </div>
-        취미명 넣기 
+        취미명 넣기 <br>
+        hbNo : <c:out value="${hbNo}"/> <br>
+
 		
 		<div id="pageBar">
 			<!-- 맨 처음으로 -->
@@ -125,12 +141,8 @@
 	</div>
     </div>
 </body>
-<script>
- $("#btnResOK").click(function(){
-     alert("예약을 취소하겠습니까?");
- });
 
-</script>
+
 
 
 </html>

@@ -1,6 +1,8 @@
 package com.kh.mvc.merchant.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -23,7 +26,6 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Reserve;
-import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -345,7 +347,6 @@ public class MerchantController {
 		
 		PageInfo pageInfo = new PageInfo(page, 10, service.getReserveCountByHbNo(hbNo), 8);
 		list = service.getReserveListByHbNo(pageInfo, hbNo);
-		System.out.println(list);
 		
 		
 		model.addObject("loginMerchant", loginMerchant);
@@ -357,4 +358,26 @@ public class MerchantController {
 		return model;
 	}
 
+	/* 예약 상태 변경 */
+	@ResponseBody
+	@GetMapping("/changeRes")
+	public void changeReserve(ModelAndView model,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam("hbNo") int hbNo,
+			@RequestParam("memNo") int memNo,
+			@ModelAttribute Reserve reserve){
+		
+		log.info("예약 상태 변경 요청");
+		
+		System.out.println("hbNo : " + hbNo);
+		System.out.println("memNo : " + memNo);
+
+		Map<String, Integer>map = new HashMap<>();
+		
+		map.put("hbNo", hbNo);
+		map.put("memNo", memNo);
+		
+	}
+	
+	
 }
