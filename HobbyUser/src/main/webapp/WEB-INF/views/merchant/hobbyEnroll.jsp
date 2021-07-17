@@ -24,7 +24,7 @@
    </div>
 
 
-   <form id="enrollForm" action="${ path }/hobby/enroll" method="POST"
+   <form id="enrollForm" action="${ path }/merchant/hobbyEnroll" method="POST"
       enctype="multipart/form-data">
 
       <input type="hidden" name="merNo" value="1" /> 

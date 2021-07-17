@@ -166,27 +166,36 @@ public class MerchantController {
 	@PostMapping("/hobbyEnroll")
 	public ModelAndView enroll(ModelAndView model, @RequestParam("postcode") String postcode,
 			@RequestParam("exactAddress") String exactAddress, MultipartHttpServletRequest mtfRequest,
-			@SessionAttribute(name = "loginMerMember", required = false) Merchant loginMerMember,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
 			HttpServletRequest request, @ModelAttribute Hobby hobby) {
 
 		/* 다중 파일 불러오기 */
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		/* 썸네일 파일 불러오기 */
 		MultipartFile thumFile = mtfRequest.getFile("input-file");
-
 		/* 경로, 변수 설정 */
 		String src = mtfRequest.getParameter("src");
 		System.out.println("src value : " + src);
 		String rootPath = mtfRequest.getSession().getServletContext().getRealPath("resources");
 		String savePath = rootPath + "/upload/hobby/";
-		/*
-		 * String originalFileString = null; String renamedFileString = null; String
-		 * thumOri = null; String thumRename = null;
-		 */
+		
+		if(!fileList.get(0).isEmpty()) {
 
-		service.saveFiles(fileList, savePath, hobby);
-		service.saveFile(thumFile, savePath, hobby);
-
+			
+			/*
+			 * String originalFileString = null; String renamedFileString = null; String
+			 * thumOri = null; String thumRename = null;
+			 */
+			service.saveFiles(fileList, savePath, hobby);
+			System.out.println("타나?");
+		
+		}
+		if(!thumFile.isEmpty()) {
+			service.saveFile(thumFile, savePath, hobby);
+			System.out.println("타나?썸네일");
+		}
+		
+		
 		int result = 0;
 		log.info("게시글 작성요청");
 
@@ -200,13 +209,15 @@ public class MerchantController {
 
 		System.out.println(hobby);
 		result = service.save(hobby);
-
+		
+		int merNo= loginMerchant.getMerNo();
+		
 		if (result > 0) {
 			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/merchant/list?adNo="+merNo);
 		} else {
 			model.addObject("msg", "게시글이 등록을 실패하였습니다.");
-			model.addObject("location", "/");
+			model.addObject("location", "/merchant/list?adNo="+merNo);
 		}
 
 		model.setViewName("common/msg");

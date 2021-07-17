@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.kh.mvc.member.model.vo.Member;
+import com.kh.mvc.merchant.model.vo.Merchant;
 
 
 public class LoginCheckIntercaptor extends HandlerInterceptorAdapter {
@@ -17,8 +18,9 @@ public class LoginCheckIntercaptor extends HandlerInterceptorAdapter {
 		System.out.println("preHandle() call ....");
 		
 		Member loginMember = (Member) request.getSession().getAttribute("loginMember");
+		Merchant loginMerchant = (Merchant) request.getSession().getAttribute("loginMerchant");
 		
-		if(loginMember == null) {
+		if(loginMember == null && loginMerchant == null) {
 			request.setAttribute("msg", "로그인 후 이용이 가능합니다.");
 			request.setAttribute("location", "/");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
