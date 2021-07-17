@@ -83,7 +83,7 @@
                         <td><c:out value="${ reserve.resCount }"/>명</td>
                         <td>
                             <c:if test="${ reserve.resStatus eq 'Y'}">
-                                <button type="button" class="btnRes"> 예약 완료 </button>
+                                <button type="button" class="btnRes" id="btnResOK"> 예약 완료 </button>
                             </c:if>
                             <c:if test="${ reserve.resStatus eq 'N'}">
                                 <button type="button" class="btnRes"> 예약 취소 </button>
@@ -124,6 +124,13 @@
 		</div>
 	</div>
     </div>
-
 </body>
+<script>
+ $("#btnResOK").click(function(){
+     alert("예약을 취소하겠습니까?");
+ });
+
+</script>
+
+
 </html>
