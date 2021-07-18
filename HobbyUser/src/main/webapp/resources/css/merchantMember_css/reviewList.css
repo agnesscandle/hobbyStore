@@ -1,3 +1,4 @@
+
 /* 검색 및 별점 */
 #sortReview{
 	border: 1px solid #ddd;
@@ -30,4 +31,85 @@ p.star_rating, p.star_rating_update{
 	font-size: 18px;
 	color: #ddd;
 	margin-left: 10px;
+	
+	display: inline-block;
+}
+
+#title{
+	padding: 0 15px;
+	font-size: 18px;
+	color: #ddd;
+	margin-left: 10px;
+	display: inline-block;
+	margin-top:15px;
+}
+
+/* 리뷰 내용 */
+#reviewListTitle{
+	/* position: relative; */
+}
+
+#reviewList #review {
+	width: 70%;
+	color: #494949;
+	border-bottom: 2px solid #ddd;
+	overflow: hidden;
+	height: auto;
+	font-size: 14px;
+	font-style: none;
+	padding: 30px;
+}
+
+#reviewList #review #rvContent {
+	display: block;
+	padding: 20px 0;
+}
+
+#reviewImgs img {
+	width: 100px;
+	height: 100px;
+	border-radius: 5px;
+	margin: 10px 2px;
+}
+
+@media ( max-width : 1023px) {
+	#reviewImgs img {
+		width: 75px;
+		height: 75px;
+		border-radius: 5px;
+	}
+}
+
+@media ( max-width : 767px ) {
+	#reviewImgs img {
+		width: 50px;
+		height: 50px;
+		border-radius: 5px;
+	}
+}
+
+
+
+/* 회원 정보 */
+#memInfo img {
+	border: 1px solid #ddd;
+	border-radius: 50px;
+	width: 60px;
+	height: 60px;
+}
+
+#memInfo {
+	display: flex;
+	overflow: hidden;
+	height: auto;
+	padding: 5px 0 10px 0;
+}
+
+#memInfo div span {
+	display: table;
+	padding-left: 10px;
+}
+
+.likeReview{
+	float: right;
 }

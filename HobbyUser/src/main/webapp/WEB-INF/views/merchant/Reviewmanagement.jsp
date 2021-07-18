@@ -13,18 +13,24 @@
 	href="${path}/images/logo.png" />
 <link rel="stylesheet"
 	href="${path}/css/merchantMember_css/reviewList.css">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
 
 
-
-<div>
-	<span>후기</span>
+<div id="reviewDiv">
+	<span id="title">후기</span>
 	<div>
 		<div id="avgScore">
 			<div class="myScore">
 				<span>평균 평점</span>
 				<p class="star_rating">
-					<a href="#" class="on">★</a> <a href="#" class="on">★</a> <a
-						href="#" class="on">★</a> <a href="#">★</a> <a href="#">★</a>
+					<a href="#" class="on">★</a> 
+					<a href="#" class="on">★</a> 
+					<a href="#" class="on">★</a> 
+					<a href="#">★</a> 
+					<a href="#">★</a>
 				</p>
 			</div>
 			<script>

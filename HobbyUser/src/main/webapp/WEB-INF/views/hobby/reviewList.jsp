@@ -18,36 +18,34 @@
 
 <div class="detail" id="reviewAreaD">
 	<div class="reviewDiv">
-	
-		<!-- 상단: 후기 개수, 글쓰기 버튼, 분류별 검색 --> 
+
+		<!-- 상단: 후기 개수, 글쓰기 버튼, 분류별 검색 -->
 		<div id="reviewListTitle">
-			<span> <c:out value="후기${ count }개" /></span> 
-			<select name="sortReview" id="sortReview">
-				
-					<option value="high" selected="selected">평점 높은순</option>
-					<option value="low">평점 낮은순</option>
-					<option value="recent">최신순</option>
-					<option value="help">도움순</option>
+			<span> <c:out value="후기${ count }개" /></span> <select
+				name="sortReview" id="sortReview">
+
+				<option value="high" selected="selected">평점 높은순</option>
+				<option value="low">평점 낮은순</option>
+				<option value="recent">최신순</option>
+				<option value="help">도움순</option>
 				</optgroup>
 			</select>
-			
+
 			<c:if test="${loginMember != null && reserveCount > 0}">
 
-				<button id="review"><c:out value="글쓰기"/></button>
+				<button id="review">
+					<c:out value="글쓰기" />
+				</button>
 				<div id="myModal" class="modal">
 					<div class="modal-content">
-						<span>후기 작성</span>
-						 <span class="close">&times;</span>
-						 
-						 <div class="myScore">
-						
+						<span>후기 작성</span> <span class="close">&times;</span>
+
+						<div class="myScore">
+
 							<span>내 평점 </span>
 							<p class="star_rating">
-							    <a href="#" class="on">★</a>
-							    <a href="#" class="on">★</a>
-							    <a href="#" class="on">★</a>
-							    <a href="#">★</a>
-							    <a href="#">★</a>
+								<a href="#" class="on">★</a> <a href="#" class="on">★</a> <a
+									href="#" class="on">★</a> <a href="#">★</a> <a href="#">★</a>
 							</p>
 						</div>
 						<script>
@@ -61,13 +59,13 @@
 						</script>
 						<form action="${path}/hobby/view/writeReview" method="POST"
 							id="reviewWrite" enctype="multipart/form-data">
-							<input type="hidden" id="rvScore" name="rvScore" value="3"/>
-							<input type="hidden" name="hbNo" value="${hobby.hbNo}">
+							<input type="hidden" id="rvScore" name="rvScore" value="3" /> <input
+								type="hidden" name="hbNo" value="${hobby.hbNo}">
 							<textarea id="reviewContent" name="rvContent" class="req"
 								placeholder="후기를 작성해주세요. 문의는 '문의하기'에서 가능합니다."></textarea>
-								
-							<input multiple="multiple" type="file" name="file" id="btnAtt"/>
-               				<div id="att_zone"></div>
+
+							<input multiple="multiple" type="file" name="file" id="btnAtt" />
+							<div id="att_zone"></div>
 							<input type="submit" value="제출하기" />
 						</form>
 					</div>
@@ -108,54 +106,77 @@
 		</div>
 
 		<!-- 후기 목록 -->
-      <div id="reviewList">
-      
-      	<!-- 1. 후기가 없을 경우 -->
-        <c:if test="${empty reviewList}">
-           <span id="noReview">아직 후기가 없습니다. 가장 먼저 후기를 남겨주세요 :)</span>
-        </c:if>
-        
-         <!-- 1. 후기가 있는 경우 -->
-         <c:if test="${!empty reviewList}">
-            <c:forEach var="review" items="${ reviewList }">
-               <div id="review">
-                  
-                  <!-- 후기를 작성한 회원의 정보, 작성일자, 별점 -->
-                  <div id="memInfo">
-                     <img id="memImg"
-                        src="${path}/resources/upload/user/${review.memImgRename}" />
-                     <div>
-                        <span> ${ review.memName } </span> <span> <fmt:formatDate
-                              var="dateTempParse" pattern="yyyy-MM-dd HH:mm"
-                              value="${ review.rvModifyDate }" /> <c:set var="addInfo"
-                              value=" 작성됨" /> <c:out value="${dateTempParse}${addInfo}" />
+		<div id="reviewList">
 
-                        </span> <span> <c:forEach var="i" begin="1"
-                              end="${review.rvScore}">
-                              <i class="fas fa-star"></i>
-                           </c:forEach>
-                        </span>
-                     </div>
-                     <div class="likeReview">
-                     	<span class="clickGood">
-                     		<c:out value="도움돼요"></c:out>
-                     		<i class="far fa-thumbs-up fa-2x"></i>
-                     	</span>
-                     	
-                     	<script>
-                     	$('.clickGood').click(function() {
-                     		location.href='${path}/hobby/view/deleteReview?rvNo=${reviewByNo.rvNo}';
-                     	});
-                     	</script>
-                     </div>
-                  </div>
-                  
-                  <!-- 후기를 작성한 이력이 있으면 작성한 글을 수정하는 버튼이 나타남(이력이 없으면 화면에 보이지 않음) -->
-                  <c:if test="${ reviewByNo!= null && reviewByNo.memNo eq review.memNo }">
-                     <button id="update">수정</button>
-                     <button id="delete">삭제</button>
-                     
-                     <script>
+			<!-- 1. 후기가 없을 경우 -->
+			<c:if test="${empty reviewList}">
+				<span id="noReview">아직 후기가 없습니다. 가장 먼저 후기를 남겨주세요 :)</span>
+			</c:if>
+
+			<!-- 1. 후기가 있는 경우 -->
+			<c:if test="${!empty reviewList}">
+				<c:forEach var="review" items="${ reviewList }">
+					<div id="review">
+
+						<!-- 후기를 작성한 회원의 정보, 작성일자, 별점 -->
+						<div id="memInfo">
+
+							<c:if test="${loginMember.memImgRename == null}">
+								<img id="memImg" src="${path}/images/memUser.png" />
+							</c:if>
+							<c:if test="${loginMember.memImgRename != null}">
+								<img id="memImg"
+									src="${path}/profile/${loginMember.memImgRename}" />
+							</c:if>
+
+
+							<div>
+								<span> ${ review.memName } </span> <span> <fmt:formatDate
+										var="dateTempParse" pattern="yyyy-MM-dd HH:mm"
+										value="${ review.rvModifyDate }" /> <c:set var="addInfo"
+										value=" 작성됨" /> <c:out value="${dateTempParse}${addInfo}" />
+
+								</span> <span> <c:forEach var="i" begin="1"
+										end="${review.rvScore}">
+										<i class="fas fa-star"></i>
+									</c:forEach>
+								</span>
+							</div>
+
+						</div>
+
+					
+
+						<!-- 후기 내용, 이미지 -->
+						<span id="rvContent"> <c:out value="${ review.rvContent }" />
+						</span>
+
+						<!-- 등록한 이미지가 있는 경우 -->
+						<c:if test="${review.rvRenameFilename != null}">
+
+							<div id="reviewImgs">
+								<c:set var="imgs"
+									value="${fn:split(review.rvRenameFilename,',')}" />
+								<c:forEach var="fileName" items="${imgs}" varStatus="g">
+									<img id="eachImg"
+										src="${path}/resources/upload/review/${fileName}" />
+								</c:forEach>
+
+							</div>
+						</c:if>
+
+						<div class="likeReview">
+
+							<!-- 후기를 작성한 이력이 있으면 작성한 글을 수정하는 버튼이 나타남(이력이 없으면 화면에 보이지 않음) -->
+							<c:if
+								test="${ reviewByNo!= null && reviewByNo.memNo eq review.memNo }">
+
+								<div id="btns">
+									<button id="update">수정</button>
+									<button id="delete">삭제</button>
+								</div>
+
+								<script>
                      	$('#delete').click(function() {
                      		var returnValue = confirm('게시글을 삭제하시겠습니까?');
                      		if(returnValue){
@@ -165,24 +186,20 @@
                      	});
                      	
                      </script>
-                     
-                     
-                     <div id="myModalupd" class="modalupd">
-                        <div class="modal-contentupd">
-                           <span>후기 수정</span> 
-                           <span class="close">&times;</span>
-                           <div class="myScore">
-                              <span>내 평점 </span>
-                              <p class="star_rating_update">
-                                  <a href="#">★</a>
-                                  <a href="#">★</a>
-                                  <a href="#">★</a>
-                                  <a href="#">★</a>
-                                  <a href="#">★</a>
-                              </p>
-                           </div>
-                           
-                           <script>
+
+
+								<div id="myModalupd" class="modalupd">
+									<div class="modal-contentupd">
+										<span>후기 수정</span> <span class="close">&times;</span>
+										<div class="myScore">
+											<span>내 평점 </span>
+											<p class="star_rating_update">
+												<a href="#">★</a> <a href="#">★</a> <a href="#">★</a> <a
+													href="#">★</a> <a href="#">★</a>
+											</p>
+										</div>
+
+										<script>
                            
                               for(var i=0;i<${reviewByNo.rvScore};i++){                                 
                                  $(".star_rating_update a:eq("+i+")").addClass("on");
@@ -197,70 +214,70 @@
                               });
                               
                            </script>
-                           
-                           	<form action="${path}/hobby/view/updateReview" method="POST" id="updatewWrite" enctype="multipart/form-data">
-                              	<textarea id="reviewContent" name="rvContent" class="req">${reviewByNo.rvContent}</textarea>
-                              	<input type="hidden" id="rvScoreupd" name="rvScore" value="${reviewByNo.rvScore}"/>
-								<input type="hidden" name="hbNo" value="${hobby.hbNo}">
-								<input type="hidden" name="rvNo" value="${reviewByNo.rvNo}">
-                              	<input multiple="multiple" type="file" name="file" id="btnAtt"/>
-                              	<div id="att_zone"></div>
-								<span>새로운 파일을 업로드하시면, 이전 파일은 전부 삭제됩니다.</span>
-                               	<input type="submit" value="제출하기" />
-                           	</form>
-                           
-                        </div>
-                     </div>
-                     
-                     <script>
-                     /* 후기 글 수정 관련 modal */ 
-                       var modal = document.getElementById('myModalupd');
-                       var btn = document.getElementById("update");
-                       var span = document.getElementsByClassName("close")[0];                                          
-                
-                       btn.onclick = function() {
-                           modal.style.display = "block";
-                       }
-                
-                       span.onclick = function() {
-                           modal.style.display = "none";
-                       }
-                
-                       window.onclick = function(event) {
-                           if (event.target == modal) {
-                               modal.style.display = "none";
-                           }
-                       }
-         
-                     var review = document.getElementsByClassName("close")[0];                                          
-         
-                     btn.onclick = function() {
-                         modal.style.display = "block";
-                     }
-                     
-                     </script>
-                     
-                  </c:if>
 
-                  <!-- 후기 내용, 이미지 -->      
-                  <span id="rvContent"> <c:out value="${ review.rvContent }" /> </span>
+									<form action="${path}/hobby/view/updateReview" method="POST"
+										id="updatewWrite" enctype="multipart/form-data">
+										<textarea id="reviewContent" name="rvContent" class="req">${reviewByNo.rvContent}</textarea>
+										<input type="hidden" id="rvScoreupd" name="rvScore"
+											value="${reviewByNo.rvScore}" /> <input type="hidden"
+											name="hbNo" value="${hobby.hbNo}"> <input
+											type="hidden" name="rvNo" value="${reviewByNo.rvNo}">
+										<input multiple="multiple" type="file" name="file"
+											id="btnAtt" />
+										<div id="att_zone"></div>
+										<span>새로운 파일을 업로드하시면, 이전 파일은 전부 삭제됩니다.</span> <input
+											type="submit" value="제출하기" />
+									</form>
 
-				  <!-- 등록한 이미지가 있는 경우 -->
-                  <c:if test="${review.rvRenameFilename != null}">
+									</div>
+								</div>
 
-                     <div id="reviewImgs">
-                        <c:set var="imgs" value="${fn:split(review.rvRenameFilename,',')}" />
-                        <c:forEach var="fileName" items="${imgs}" varStatus="g">
-                           <img id="eachImg" src="${path}/resources/upload/review/${fileName}" />
-                        </c:forEach>
+								<script>
+			                     /* 후기 글 수정 관련 modal */ 
+			                       var modal = document.getElementById('myModalupd');
+			                       var btn = document.getElementById("update");
+			                       var span = document.getElementsByClassName("close")[0];                                          
+			                
+			                       btn.onclick = function() {
+			                           modal.style.display = "block";
+			                       }
+			                
+			                       span.onclick = function() {
+			                           modal.style.display = "none";
+			                       }
+			                
+			                       window.onclick = function(event) {
+			                           if (event.target == modal) {
+			                               modal.style.display = "none";
+			                           }
+			                       }
+			         
+			                     var review = document.getElementsByClassName("close")[0];                                          
+			         
+			                     btn.onclick = function() {
+			                         modal.style.display = "block";
+			                     }
+			                     
+			                     </script>
 
-                     </div>
-                  </c:if>
+							</c:if>
 
-               </div>
-            </c:forEach>
-         </c:if>
-      </div>
+
+							<span class="clickGood"> 
+							<c:out value="도움돼요"></c:out> <i
+								class="far fa-thumbs-up fa-2x"></i>
+							</span>
+
+							<script>
+		                     	$('.clickGood').click(function() {
+		                     		location.href='${path}/hobby/view/deleteReview?rvNo=${reviewByNo.rvNo}';
+		                     	});
+	                     	</script>
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
 
 		<!-- 후기 페이지바 -->
 		<div id="pageBar">
