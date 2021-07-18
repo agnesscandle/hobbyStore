@@ -11,6 +11,7 @@
 <style>
 body{
 	align-content: center;
+	color :  #34486b;
 }
 .qnaL_container {
 	height: max-content;
@@ -85,15 +86,29 @@ body{
 #replyView {
 width: inherit;
 }
-.qnaContent {
+.qnaContentUpdate {
 	
 	width: max;	
-	background-color: #bbdefb;
-	height: max-content;
+	background-color: #f1e4ee;
+	color : 2c3c89;
+		overflow:hidden;
+		height:auto;
 	font-weight: bold;
 	display: block;
 	padding : 20px;
 	text-align: left;
+}
+.qnaContent {
+	width: 90%;
+	float: left;
+	height : 10px;
+	padding: 10px;
+	padding-bottom: 20px;
+}
+.qnaUpdateDiv{
+	width: 10%;
+	float: right;
+	
 }
 #replyContent {
 	text-align : center;
@@ -213,16 +228,20 @@ width:500px;
 							<c:if test="${ qna.qnaSecure eq'Y'}">
 								<c:choose>
 								<c:when test="${ (loginMember.memNo == qna.memNo) }">
-									<div class="qnaContent">
+									<div class="qnaContentUpdate">
+								<div class="qnaContent">
 								<c:out value=" ${ qna.qnaContent } " />
+								</div>
+								<div class="qnaUpdatediv">
 								<c:if
 									test="${ !empty loginMember && (loginMember.memId == qna.memId) }">
-									<button type="button" id="qnaUpdate"
+									<button type="button" class="buttons" id="qnaUpdate"
 										onclick="location.replace('${path}/hobby/qnaUpdate?qnaNo=${ qna.qnaNo }')">
 										수정</button>
 								</c:if>
+								</div>
+								</div>
 								<br>
-						</div>
 						<div class="replyView">
 
 							<c:forEach var="replyList" items="${ qna.reply }">
@@ -230,7 +249,7 @@ width:500px;
 						
 								<fmt:formatDate var="formatRegDate" value="${ replyList.replayDate }" pattern="yyyy.MM.dd"/>
 								<div id="replyMerDate">
-									<div id="replyMer"> 작성자아이디입력칸</div> <!-- 작성자 아이디추가해야댐 -->
+									<div id="replyMer"> ${ replyList.merId }</div> <!-- 작성자 아이디추가해야댐 -->
 									<div id="replyDate">${formatRegDate}</div>
 									<br>
 									<button type="button" id="replyUpdateText${replyList.replyNo }" class="buttons">
@@ -315,16 +334,18 @@ width:500px;
 							</div>
 							<c:if
 								test="${ qna.qnaSecure eq'N'}">
+								<div class="qnaContentUpdate">
 								<div class="qnaContent">
 								<c:out value=" ${ qna.qnaContent } " />
-								
-								<br>
+								</div>
+								<div class="qnaUpdatediv">
 								<c:if
 									test="${ !empty loginMember && (loginMember.memId == qna.memId) }">
 									<button type="button" class="buttons" id="qnaUpdate"
 										onclick="location.replace('${path}/hobby/qnaUpdate?qnaNo=${ qna.qnaNo }')">
 										수정</button>
 								</c:if>
+								</div>
 								</div>
 								<br>
 						<div class="replyView">
@@ -335,7 +356,7 @@ width:500px;
 						
 								<fmt:formatDate var="formatRegDate" value="${ replyList.replayDate }" pattern="yyyy.MM.dd"/>
 								<div id="replyMerDate">
-									<div id="replyMer"> 작성자아이디입력칸</div> <!-- 작성자 아이디추가해야댐 -->
+									<div id="replyMer"> ${ replyList.merId } </div> <!-- 작성자 아이디추가해야댐 -->
 									<div id="replyDate">${formatRegDate}</div>
 									<br>
 									
