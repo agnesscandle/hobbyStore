@@ -5,17 +5,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 
 
 <style>
     .manualContainer{
-        width : 900px;
+        width : 1000px;
         height : auto;
-        border : 1px solid #34486b;
+        /*border : 1px solid #34486b;*/
         padding : 20px;
-        margin : 20px;
+        margin-left : 100px;
+        position : relative;
+        left : 100px;
+        
     }
 
     h1, h3{
@@ -91,17 +95,17 @@
         position:absolute; 
         width:100%; 
         height:150%; 
-        background: rgba(0,0,0,1.8); 
-        top: 400px;
-        left: 800px; 
+        top : 0px; left : 0px;
+        background: rgba(0,0,0,0.7); 
         display:none; 
     }
+    
     #mc3, #mc4{
-        height : px;
+        height : 360px;
     }
 
     .modal_content{
-    width:750px; height:600px;
+    width:750px; height:300px;
     background:#fff; border-radius:10px;
     border : 6px solid  #eacc16;
     position:relative; top:400px; left:800px;
@@ -119,7 +123,7 @@
     <div class="manualContainer">
         <div class="manualTitle">
             <h1> 운영 메뉴얼 </h1>
-            <h3> [ 닉네임 ] 상인님, 안녕하세요. <br> 저희 취미상점은 다음과 같이 운영되고 있습니다. </h3>
+            <h3> <c:out value="${nickName}"/> 상인님, 안녕하세요. <br> 저희 취미상점은 다음과 같이 운영되고 있습니다 :) </h3>
         </div>
         <div class="manualBox">
             <div class="manual" id="ma1">

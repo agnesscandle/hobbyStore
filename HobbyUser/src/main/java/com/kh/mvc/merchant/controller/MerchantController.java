@@ -389,5 +389,18 @@ public class MerchantController {
 		return map;
 	}
 	
-	
+	@GetMapping("/manual")
+	public ModelAndView manual(ModelAndView model,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+		
+		log.info("운영 메뉴얼 요청");
+		
+		System.out.println("loginMerchant : " + loginMerchant);
+		
+		String nickName = loginMerchant.getMerNick();
+		model.addObject("nickName", nickName);
+		model.setViewName("merchant/manual");
+		
+		return model;
+	}
 }

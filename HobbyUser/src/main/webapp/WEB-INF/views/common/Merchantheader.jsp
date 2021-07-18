@@ -117,7 +117,7 @@
             <span style="color:navy; font-size:30px; font-weight:bold">지원센터</span>
             <ul class="dept04">
                  <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">공지사항</a></div>
-                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">운영메뉴얼</a></div>
+                 <div id="merManual" class="hobbyEnroll">운영메뉴얼</div>
                  <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">자주 묻는 질문</a></div>
                  <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">후기</a></div>
                    
@@ -162,6 +162,12 @@ $(function(){
 $(function(){
 	$("#reserveList").click(function(){
 		location.href="${path}/merchant/resHbList?merNo=${loginMerchant.merNo}";
+	});
+});
+<!-- 운영 메뉴얼 페이지 이동 -->
+$(function(){
+	$("#merManual").click(function(){
+		location.href="${path}/merchant/manual";
 	});
 });
 
