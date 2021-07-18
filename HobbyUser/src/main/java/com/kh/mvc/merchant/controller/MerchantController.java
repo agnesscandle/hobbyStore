@@ -403,4 +403,12 @@ public class MerchantController {
 		
 		return model;
 	}
+	
+	@GetMapping("/faq")
+	public String faq() {
+		log.info("자주 묻는 질문 페이지 요청");
+		
+		return "merchant/faq";
+	}
+	
 }

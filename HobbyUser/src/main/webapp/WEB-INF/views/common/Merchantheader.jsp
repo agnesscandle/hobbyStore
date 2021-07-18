@@ -117,8 +117,8 @@
             <span style="color:navy; font-size:30px; font-weight:bold">지원센터</span>
             <ul class="dept04">
                  <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">공지사항</a></div>
-                 <div id="merManual" class="hobbyEnroll">운영메뉴얼</div>
-                 <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">자주 묻는 질문</a></div>
+                 <div id="merManual" class="hobbyEnroll"> 운영메뉴얼</div>
+                 <div id="merFaq" class="hobbyEnroll"> 자주 묻는 질문</div>
                  <div id="hobbyEnroll" class="hobbyEnroll"><a href="/html/intro">후기</a></div>
                    
             </ul>        
@@ -169,6 +169,12 @@ $(function(){
 	$("#merManual").click(function(){
 		location.href="${path}/merchant/manual";
 	});
+});
+<!-- 자주 묻는 질문 페이지 이동 -->
+$(function(){
+	$("#merFaq").click(function(){
+		location.href="${path}/merchant/faq";
+	});#
 });
 
 <!--정산리스트 페이지 이동-->

@@ -22,7 +22,7 @@
         
     }
 
-    h1, h3{
+    h1, h2, h3{
         color : #34486b;
     }
 
@@ -123,7 +123,9 @@
     <div class="manualContainer">
         <div class="manualTitle">
             <h1> 운영 메뉴얼 </h1>
-            <h3> <c:out value="${nickName}"/> 상인님, 안녕하세요. <br> 저희 취미상점은 다음과 같이 운영되고 있습니다 :) </h3>
+            <h2> <c:out value="${nickName}"/> 상인님, 안녕하세요. <br>
+            취미상점의 재능상인이 되신걸 환영합니다! </h2>
+            <h3><br> 저희 취미상점은 다음과 같이 운영되고 있습니다 :) </h3>
         </div>
         <div class="manualBox">
             <div class="manual" id="ma1">
