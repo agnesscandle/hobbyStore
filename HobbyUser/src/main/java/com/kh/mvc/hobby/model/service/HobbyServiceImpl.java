@@ -328,17 +328,7 @@ public class HobbyServiceImpl implements HobbyService {
 	      
 	      return mapper.selectReplyList(qnaNo);
 	   }
-	      @Override
-	      public int saveReply(Reply reply) {
-	   int result = 0;
-	         
-	         if(reply.getReplyNo() !=0) {
-	            result = mapper.updateReply(reply);
-	         } else {
-	            result= mapper.saveReply(reply);
-	         }
-	         return result;
-	      }
+	     
 
 	   @Override
 	   public Qna findByQnaNo(int qnaNo) {
@@ -349,12 +339,6 @@ public class HobbyServiceImpl implements HobbyService {
 	   public int deleteQna(int qnaNo) {
 	      return mapper.deleteQna(qnaNo);
 	   }
-
-
-	@Override
-	public int deleteReply(Reply reply) {
-	      return mapper.deleteReply(reply);
-	}
 
 	@Override
 	public Reply findByReplyNo(int replyNo) {

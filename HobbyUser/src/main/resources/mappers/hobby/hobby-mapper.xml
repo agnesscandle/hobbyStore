@@ -630,29 +630,7 @@
 		ORDER BY R.QNA_NO DESC
 	</select>
 
-	<insert id="saveReply" parameterType="map"
-		useGeneratedKeys="true" keyProperty="replyNo" keyColumn="REPLY_NO">
-		INSERT INTO
-		REPLY(
-		REPLY_NO,
-		QNA_NO,
-		MER_NO,
-		REPLY_CONTENT,
-		REPLAY_DATE
-		)VALUES(
-		SEQ_REPLY_NO.NEXTVAL,
-		#{qnaNo},
-		#{merNo},
-		#{replyContent},
-		DEFAULT
-		)
-	</insert>
-	
-	<delete id="deleteReply" parameterType="map">
-		DELETE
-		FROM REPLY
-		WHERE REPLY_NO = #{replyNo}
-	</delete>
+
 
 <select id="selectReplyByNo" parameterType="_int"
 		resultMap="ReplyListResultMap">
@@ -660,15 +638,7 @@
 		WHERE R.REPLY_NO=#{replyNo}
 
 	</select>
-	
-	<update id="updateReply" parameterType="map">
-		UPDATE REPLY
-		SET
-		REPLY_CONTENT=#{replyContent},
-		REPLAY_DATE=SYSDATE
-		WHERE
-		REPLY_NO = #{replyNo}
-	</update>
+
 <!-- 
 	<select id="selectReplyCount" parameterType="map"
 			resultType="_int">

@@ -8,7 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-
+import com.kh.mvc.hobby.model.vo.Qna;
+import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Review;
 
 import com.kh.mvc.merchant.model.vo.Merchant;
@@ -64,6 +65,16 @@ public interface MerchantService {
 	int getReviewCount(int hbNo);
 
 	List<Review> getReviewList(PageInfo pageInfo, int hbNo);
+
+	List<Qna> getQnaList(PageInfo pageInfo, int hbNo);
+
+	List<Reply> getReplyList(int qnaNo);
+
+	int getQnaCount(int hbNo);
+
+	int saveReply(Reply reply);
+
+	int deleteReply(Reply reply);
 
 	
 }

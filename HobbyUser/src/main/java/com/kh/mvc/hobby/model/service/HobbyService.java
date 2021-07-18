@@ -75,8 +75,6 @@ public interface HobbyService {
 
 	int saveQna(Qna qna);
 
-	int saveReply(Reply reply);
-
 	Qna findByQnaNo(int qnaNo);
 
    /* 상인 정보 관련 인터페이스 */
@@ -87,8 +85,6 @@ public interface HobbyService {
    int saveReserve(Reserve reserve);
 
 	int deleteQna(int qnaNo);
-
-	int deleteReply(Reply reply);
 
 	Reply findByReplyNo(int replyNo);
 

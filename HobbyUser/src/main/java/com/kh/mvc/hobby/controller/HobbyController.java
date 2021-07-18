@@ -530,30 +530,7 @@ public class HobbyController {
 
     return model;
  }
-   @PostMapping("/qnaList")
-    public ModelAndView qnaReply(ModelAndView model,
-          HttpServletRequest request, 
-          @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
-          @ModelAttribute Qna qna, @ModelAttribute Reply reply, @RequestParam("hbNo") int hbNo) {
-	   log.info("댓글 작성 요청");
-	   System.out.println(reply);
-	   
 
-	
-	 
-       int result = service.saveReply(reply);
-       
-       if(result > 0) {
-          model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-          model.addObject("location", "/hobby/qnaList?hbNo=" + hbNo);
-       } else {
-          model.addObject("msg", "게시글이 등록을 실패하였습니다.");
-          model.addObject("location", "/hobby/qnaList");
-       }
-	   
-       model.setViewName("common/msg");
-       return model;
-    }
    
    
   @GetMapping("/qnaUpdate")
@@ -615,52 +592,10 @@ public class HobbyController {
     model.setViewName("common/msg");
     return model;
  }
- 
- @GetMapping("/replyDelete")
- public ModelAndView replyDelete(ModelAndView model,
-	       //@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-	       HttpServletRequest request,
-	       @ModelAttribute Hobby hobby,@ModelAttribute Qna qna, @ModelAttribute Reply reply) {
-	 
-	 	int result =0;
-	    
-	    result = service.deleteReply(reply);
-	    
-	    System.out.println(reply);
-	    if(result > 0) {
-	       model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
-	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
-	    } else {
-	       model.addObject("msg", "게시글 수정을 실패하였습니다.");
-	       model.addObject("location", "/hobby/qnaList?hbNo=" + hobby.getHbNo());
-	    }
-	    model.setViewName("common/msg");
-	 return model;
- }
 
  
  
- @PostMapping("/replyUpdate")
- public ModelAndView replyUpdate(ModelAndView model, 
-//       @SessionAttribute(name = "loginMember", required = false) Member loginMember,
-       HttpServletRequest request,
-       @ModelAttribute Qna qna,  @RequestParam("hbNo") int hbNo, @ModelAttribute Reply reply) {
-	 int result = 0;
-	    
-	    result = service.saveReply(reply);
-	   System.out.println(hbNo);
-	    
-	    if(result > 0) {
-	       model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
-	       model.addObject("location", "/hobby/qnaList?hbNo=" + hbNo);
-	    } else {
-	       model.addObject("msg", "게시글 수정을 실패하였습니다.");
-	       model.addObject("location", "/hobby/replyUpdate?replyNo=" + reply.getReplyNo());
-	    }
-	    
-	    model.setViewName("common/msg");
-	    return model;
- }
+
 
 	
 

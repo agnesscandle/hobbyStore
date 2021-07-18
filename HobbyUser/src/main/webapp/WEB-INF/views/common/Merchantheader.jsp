@@ -161,7 +161,7 @@ $(function(){
 <!-- qna 페이지 이동 -->
 $(function(){
    $("#qnaList").click(function(){
-      location.href='${ path }/hobby/qnaList';
+      location.href='${ path }/merchant/merQnaList?merNo=${loginMerchant.merNo}';
    })
 })
 

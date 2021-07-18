@@ -178,7 +178,6 @@ width:500px;
 </style>
 <body>
 
-<div> <c:out value="${loginMerchant.merId }"></c:out> </div>
 
 	<div class="qnaL_container">
 	<div class="qnaL_title"><h1>문의 하기 _</h1></div>
@@ -204,7 +203,7 @@ width:500px;
 						<div id="userInfo">
 							<span class="id"><c:out value=" ${ qna.memId } "></c:out></span><br>
 							<span class="date"><c:out value=" ${ qna.qnaDate } "></c:out></span>
-							<!-- 						<span class="no"><c:out value=" ${ qna.qnaNo } "></c:out></span> -->
+							<!-- <span class="no"><c:out value=" ${ qna.qnaNo } "></c:out></span> -->
 						</div>
 						<div class="title">
 							<c:out value=" ${ qna.qnaTitle } "></c:out>
@@ -225,35 +224,34 @@ width:500px;
 					<div class="slideToggle${ status.index }" id="slideToggle"
 						index="${ status.index }">
 						<div class="qnaContentList">
-							<c:if test="${ qna.qnaSecure eq'Y'}">
-								<c:choose>
-								<c:when test="${ (loginMember.memNo == qna.memNo) }">
-									<div class="qnaContentUpdate">
+								<div class="qnaContentUpdate">
 								<div class="qnaContent">
 								<c:out value=" ${ qna.qnaContent } " />
 								</div>
 								<div class="qnaUpdatediv">
-								<c:if
-									test="${ !empty loginMember && (loginMember.memId == qna.memId) }">
-									<button type="button" class="buttons" id="qnaUpdate"
-										onclick="location.replace('${path}/hobby/qnaUpdate?qnaNo=${ qna.qnaNo }')">
-										수정</button>
-								</c:if>
+
 								</div>
 								</div>
 								<br>
 						<div class="replyView">
 
-							<c:forEach var="replyList" items="${ qna.reply }">
+							<c:forEach var="replyList" items="${ qna.reply }" >
+						
 							<div id="updateHide${replyList.replyNo }">
 						
 								<fmt:formatDate var="formatRegDate" value="${ replyList.replayDate }" pattern="yyyy.MM.dd"/>
 								<div id="replyMerDate">
-									<div id="replyMer"> ${ replyList.merId }</div> 
+									<div id="replyMer"> ${ replyList.merId } </div>
 									<div id="replyDate">${formatRegDate}</div>
 									<br>
 									
-									</div><br>
+									<button type="button" id="replyUpdateText${replyList.replyNo }" class="buttons">
+									수정</button>
+									<button type="button" id="replyDelete" class="buttons"
+										onclick="location.replace('${path}/merchant/replyDelete?hbNo=${ qna.hbNo }&replyNo=${ replyList.replyNo }')">
+										삭제</button>
+									
+								</div><br>
 										<span id="replyContent${replyList.replyNo }">
 										<c:out value="${ replyList.replyContent }"></c:out></span> 
 									
@@ -266,81 +264,78 @@ width:500px;
 						<input type="hidden" id="replyNo" name="replyNo" value="${replyList.replyNo }">
 						<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
 						</form>
-								
-										
-								<hr>
-								
-							</c:forEach>
-						</div>
-
-								</c:when>
-								<c:otherwise>
-									<p>비밀글입니다.</p>
-								</c:otherwise>
-								</c:choose>
-								
-							</c:if>
-							</div>
-							<c:if
-								test="${ qna.qnaSecure eq'N'}">
-								<div class="qnaContentUpdate">
-								<div class="qnaContent">
-								<c:out value=" ${ qna.qnaContent } " />
-								</div>
-								<div class="qnaUpdatediv">
-								<c:if
-									test="${ !empty loginMember && (loginMember.memId == qna.memId) }">
-									<button type="button" class="buttons" id="qnaUpdate"
-										onclick="location.replace('${path}/hobby/qnaUpdate?qnaNo=${ qna.qnaNo }')">
-										수정</button>
-								</c:if>
-								</div>
-								</div>
-								<br>
-						<div class="replyView">
-
-							<c:forEach var="replyList" items="${ qna.reply }" >
-						
-							<div id="updateHide${replyList.replyNo }">
-						
-								<fmt:formatDate var="formatRegDate" value="${ replyList.replayDate }" pattern="yyyy.MM.dd"/>
-								<div id="replyMerDate">
-									<div id="replyMer"> ${ replyList.merId } </div> 
-									<div id="replyDate">${formatRegDate}</div>
-									<br>
-									
-								</div><br>
-										<span id="replyContent${replyList.replyNo }">
-										<c:out value="${ replyList.replyContent }"></c:out></span> 
-											
-								<br>
-
-						</div>
-
 						<div class="hidden_Qbox"></div>	
-						
-								<hr>
 								
+								
+								<hr>
+								<script>
+								$(function(){
+									$("#replyUpdateText${replyList.replyNo }").click(function(){
+
+											var textarea = document.createElement('textarea');
+											var replyContent = $("#replyContent${replyList.replyNo }").text();
+											var text = document.createTextNode(replyContent);
+											textarea.id = 'replyContent';
+											textarea.name = 'replyContent';
+											textarea.appendChild(text);
+											
+											var updateButton = '<input type="submit" id="replyUpdate" class="replyUpdate" name="replyUpdate" value="수정하기">';
+											
+											$('#updateTextarea${replyList.replyNo }').append(textarea).show();
+											$('#updateTextarea${replyList.replyNo }').append(updateButton).show();
+											
+											
+											
+											$('#replyUpdate').on("click", function(){
+												 var replyData = $("#updateTextarea${replyList.replyNo }").serialize();
+												   $.ajax({
+												      type : "POST",
+												      url : "${ path }/merchant/replyUpdate",
+												      data: replyData,
+												      datatype: 'json',
+												      success : function(data){
+												    	  alert("답변수정완료");
+												      }
+													
+												});
+											});
+											
+											$('#updateHide${replyList.replyNo }').hide();
+										});
+								 });
+								</script>
 							</c:forEach>
 						</div>
-
+					<c:if test='${ qna.reply eq "[]" }'>
+						<form action="${ path }/merchant/merQnaView" method="POST">
+						
+							<div class="inputContent">
+								<input type="hidden" id="hbNo" name="hbNo" value="${qna.hbNo }">
+								<input type="hidden" id="qnaNo" name="qnaNo" value="${ qna.qnaNo }" />
+								<input type="hidden" id="merNo" name="merNo" value="${ loginMerchant.merNo }" />
+								<textarea rows="5" cols="50" id="replyContent"
+									name="replyContent" placeholder="답변을 입력하세요."
+									style="resize: none;"></textarea>
+								<br> <input type="submit" value="등록하기" class="buttons" id="buttonReply">
+							</div>
+						
+						</form>
+						</c:if>
+						</div>
+						</div>
+						</c:forEach>
 				</c:if>
 				</div>
 
 
-	</c:forEach>
-		</c:if>
-
-	</div>
-
 
 	<div id="pageBar">
 		<!-- 맨 처음으로 -->
-		<button onclick="location.href='${path}/hobby/qnaList?page=1'">&lt;&lt;</button>
+		<button onclick="location.href='${path}/merchant/merQnaView?page=1'">&lt;&lt;</button>
 
 		<!-- 이전 페이지로 -->
 		<button
-			onclick="location.href='${path}/hobby/qnaList?page=${ pageInfo.prvePage }'">&lt;</button>
+			onclick="location.href='${path}/merchant/merQnaView?page=${ pageInfo.prvePage }'">&lt;</button>
 
 		<!--  10개 페이지 목록 -->
 
@@ -353,25 +348,39 @@ width:500px;
 			</c:if>
 			<c:if test="${pageInfo.currentPage != status.current }">
 				<button
-					onclick="location.href='${path}/hobby/qnaList?page=${status.current}'">
+					onclick="location.href='${path}/merchant/merQnaView?page=${status.current}'">
 					<c:out value="${status.current}" />
 				</button>
 			</c:if>
 		</c:forEach>
 		<!-- 다음 페이지로 -->
 		<button
-			onclick="location.href='${path}/hobby/qnaList?page=${pageInfo.nextPage}'">&gt;</button>
+			onclick="location.href='${path}/merchant/merQnaView?page=${pageInfo.nextPage}'">&gt;</button>
 
 		<!-- 맨 끝으로 -->
 		<button
-			onclick="location.href='${path}/hobby/qnaList?page=${pageInfo.maxPage}'">&gt;&gt;</button>
+			onclick="location.href='${path}/merchant/merQnaView?page=${pageInfo.maxPage}'">&gt;&gt;</button>
 
 
 
 
 	</div>
 
+	<script>
 
+
+$(document).ready(() => {
+
+
+		
+		$(".buttonReply").on("click", (e) => {
+			if(confirm("정말로 답글 등록 하시겠습니까?")) {
+				location.replace("${path}/hobby/qnaList?hbNo=${hobby.hbNo}");
+			}
+		});
+});
+		
+</script>
 
 </body>
 

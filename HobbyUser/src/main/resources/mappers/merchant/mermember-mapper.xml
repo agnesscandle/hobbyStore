@@ -469,6 +469,115 @@
 		ORDER BY R.RV_NO DESC
 	</select>
 	
+	<!-- qna, reply관련 mapper -->
 	
+	<sql id="qnaListSql">
+		SELECT
+		Q.QNA_NO,
+		Q.HB_NO,
+		H.HB_TITLE,
+		Q.MEM_NO,
+		M.MEM_ID,
+		Q.QNA_TITLE,
+		Q.QNA_CONTENT,
+		Q.STATUS,
+		Q.QNA_DATE,
+		Q.QNA_SECURE
+		FROM QNA Q
+		JOIN HOBBY H ON(Q.HB_NO = H.HB_NO)
+		JOIN MEMBER M ON(Q.MEM_NO = M.MEM_NO)
+	</sql>
+	
+	<sql id="replyList">
+		SELECT
+		R.REPLY_NO,
+		R.QNA_NO,
+		R.MER_NO,
+		M.MER_ID,
+		R.REPLY_CONTENT,
+		R.REPLAY_DATE
+		FROM REPLY R
+		JOIN MERCHANT M ON(R.MER_NO = M.MER_NO)
+	</sql>
+	
+	<resultMap type="Reply" id="ReplyListResultMap">
+		<id property="replyNo" column="REPLY_NO" />
+		<result property="qnaNo" column="QNA_NO" />
+		<result property="merNo" column="MER_NO" />
+		<result property="merId" column="MER_ID" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="replayDate" column="REPLAY_DATE" />
+	</resultMap>
+	
+	<resultMap type="Qna" id="qnaListResultMap">
+		<id property="qnaNo" column="QNA_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="hbTitle" column="HB_TITLE" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="memId" column="MEM_ID" />
+		<result property="qnaTitle" column="QNA_TITLE" />
+		<result property="qnaContent" column="QNA_CONTENT" />
+		<result property="status" column="STATUS" />
+		<result property="qnaDate" column="QNA_DATE" />
+		<result property="qnaSecure" column="QNA_SECURE" />
+	</resultMap>
+	
+	
+	
+	<select id="selectQnaCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM QNA
+		WHERE HB_NO = #{hbNo}
+	</select>
+
+	<select id="selectQnaList" resultMap="qnaListResultMap">
+		<include refid="qnaListSql"></include>
+		WHERE Q.HB_NO = #{hbNo}
+		AND Q.STATUS = 'Y'
+		ORDER BY Q.QNA_NO DESC
+	</select>
+	
+	<select id="selectReplyList" resultMap="ReplyListResultMap"
+		parameterType="_int">
+		<include refid="replyList" />
+		WHERE R.QNA_NO = #{qnaNo}
+		ORDER BY R.QNA_NO DESC
+	</select>
+	
+		<insert id="saveReply" parameterType="map"
+		useGeneratedKeys="true" keyProperty="replyNo" keyColumn="REPLY_NO">
+		INSERT INTO
+		REPLY(
+		REPLY_NO,
+		QNA_NO,
+		MER_NO,
+		REPLY_CONTENT,
+		REPLAY_DATE
+		)VALUES(
+		SEQ_REPLY_NO.NEXTVAL,
+		#{qnaNo},
+		#{merNo},
+		#{replyContent},
+		DEFAULT
+		)
+	</insert>
+	
+		
+	<update id="updateReply" parameterType="map">
+		UPDATE REPLY
+		SET
+		REPLY_CONTENT=#{replyContent},
+		REPLAY_DATE=SYSDATE
+		WHERE
+		REPLY_NO = #{replyNo}
+	</update>
+	
+	
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE
+		FROM REPLY
+		WHERE REPLY_NO = #{replyNo}
+	</delete>
 	
  </mapper>

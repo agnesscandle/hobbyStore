@@ -9,7 +9,8 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-
+import com.kh.mvc.hobby.model.vo.Qna;
+import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
 
@@ -48,6 +49,18 @@ public interface MerchantMapper {
 	int selectReviewCount(int merNo);
 
 	List<Review> selectReviewList(RowBounds rowBounds, int merNo);
+
+	int selectQnaCount(int hbNo);
+
+	List<Reply> selectReplyList(int qnaNo);
+
+	List<Qna> selectQnaList(RowBounds rowBounds, int hbNo);
+
+	int saveReply(Reply reply);
+
+	int updateReply(Reply reply);
+
+	int deleteReply(Reply reply);
 
 
 }

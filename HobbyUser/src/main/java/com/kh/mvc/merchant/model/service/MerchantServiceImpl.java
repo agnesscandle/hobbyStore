@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
+import com.kh.mvc.hobby.model.vo.Qna;
+import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
@@ -232,8 +234,38 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.selectReviewList(rowBounds, hbNo);
 	}
 
+	@Override
+	public List<Qna> getQnaList(PageInfo pageInfo, int hbNo) {
+		 int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+	      RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	      return mapper.selectQnaList(rowBounds,hbNo);
+	}
 
-	
+	@Override
+	public List<Reply> getReplyList(int qnaNo) {
+		 return mapper.selectReplyList(qnaNo);
+	}
+
+	@Override
+	public int getQnaCount(int hbNo) {
+		return mapper.selectQnaCount(hbNo);
+	}
+
+	 @Override
+     public int saveReply(Reply reply) {
+		 int result = 0;
+        
+        if(reply.getReplyNo() !=0) {
+           result = mapper.updateReply(reply);
+        } else {
+           result= mapper.saveReply(reply);
+        }
+        return result;
+     }
+		@Override
+		public int deleteReply(Reply reply) {
+		      return mapper.deleteReply(reply);
+		}
 	
 	
 }

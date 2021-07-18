@@ -22,7 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
-
+import com.kh.mvc.hobby.model.vo.Qna;
+import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Reserve;
 
 import com.kh.mvc.hobby.model.vo.Review;
@@ -365,7 +366,132 @@ public class MerchantController {
 		return url;
 	}	
 	
+	//qna관리할 취미리스트페이지로 요청
+	@GetMapping("/merQnaList")
+	public ModelAndView qnaList(ModelAndView model,
+			@RequestParam(value="merNo") int merNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+          System.out.println("리스트호출");
+  		
+          
+        List<Hobby> list = null;
 
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+		list = service.getHobbycalList(pageInfo, merNo);
+		
+		
+		
+		System.out.println(list+"맵퍼 확인");
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("merchant/merQnaList");
 
+		return model;
+
+	}
+	
+	//qna리스트페이지로이동
+	@GetMapping("/merQnaView")
+	public ModelAndView merQnaView(ModelAndView model,
+			@RequestParam(value="hbNo") int hbNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+
+		 //Qna리스트 불러오기
+	    List<Qna> qnaList = null;
+
+	    PageInfo pageInfo = new PageInfo(page, 10, service.getQnaCount(hbNo), 10);
+	    int listCount = pageInfo.getListCount();
+	    qnaList = service.getQnaList(pageInfo, hbNo);
+
+	    //리플리스트 불러오기
+	    List<Reply> replyList = null;
+	    for (int i = 0; i < qnaList.size(); i++) {
+	       int qnaNo = qnaList.get(i).getQnaNo();
+
+	       replyList = service.getReplyList(qnaNo);
+	       
+	       qnaList.get(i).setReply(replyList);
+	       System.out.println(qnaList);
+	    }
+	    
+	    model.addObject("qnaList", qnaList);
+	    model.addObject("pageInfo", pageInfo);
+	    model.addObject("listCount", listCount);
+	    model.setViewName("merchant/merQnaView");
+
+	    return model;
+
+	}
+	
+	//reply등록하기
+	@PostMapping("/merQnaView")
+    public ModelAndView qnaReply(ModelAndView model,
+          HttpServletRequest request, 
+          @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+          @ModelAttribute Qna qna, @ModelAttribute Reply reply, @RequestParam("hbNo") int hbNo) {
+	   log.info("댓글 작성 요청");
+	   System.out.println(reply);
+	   
+
+	
+	 
+       int result = service.saveReply(reply);
+       
+       if(result > 0) {
+          model.addObject("msg", "댓글이 정상적으로 등록되었습니다.");
+          model.addObject("location", "/merchant/merQnaView?hbNo=" + hbNo);
+       } else {
+          model.addObject("msg", "댓글 등록을 실패하였습니다.");
+          model.addObject("location", "/merchant/merQnaView?hbNo=" + hbNo);
+       }
+	   
+       model.setViewName("common/msg");
+       return model;
+    }
+	//reply수정하기
+	 @PostMapping("/replyUpdate")
+	 public ModelAndView replyUpdate(ModelAndView model, 
+	          @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+	       HttpServletRequest request,
+	       @ModelAttribute Qna qna,  @RequestParam("hbNo") int hbNo, @ModelAttribute Reply reply) {
+		 int result = 0;
+		    
+		    result = service.saveReply(reply);
+		   System.out.println(hbNo);
+		    
+		   if(result > 0) {
+		          model.addObject("msg", "댓글이 정상적으로 등록되었습니다.");
+		          model.addObject("location", "/merchant/merQnaView?hbNo=" + hbNo);
+		       } else {
+		          model.addObject("msg", "댓글 등록을 실패하였습니다.");
+		          model.addObject("location", "/merchant/merQnaView?hbNo=" + hbNo);
+		       }
+		    
+		    model.setViewName("common/msg");
+		    return model;
+	 }
+//reply삭제하기
+	 
+	 @GetMapping("/replyDelete")
+	 public ModelAndView replyDelete(ModelAndView model,
+	          @SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+		       HttpServletRequest request,
+		       @ModelAttribute Qna qna, @RequestParam("hbNo") int hbNo, @ModelAttribute Reply reply) {
+		 
+		 	int result =0;
+		    
+		    result = service.deleteReply(reply);
+		    
+		    System.out.println(reply);
+			   if(result > 0) {
+			          model.addObject("msg", "댓글이 정상적으로 삭제되었습니다.");
+			          model.addObject("location", "/merchant/merQnaView?hbNo=" + hbNo);
+			       } else {
+			          model.addObject("msg", "댓글 삭제에 실패하였습니다.");
+			          model.addObject("location", "/merchant/merQnaView?hbNo=" + hbNo);
+			       }
+		    model.setViewName("common/msg");
+		 return model;
+	 }
 
 }
