@@ -134,7 +134,7 @@
 <script>
 // 예약 취소로 변경
 function changeRes(hbNo, memNo){
-
+	
 		console.log("hbNo : " + hbNo);
 		console.log("memNo : " + memNo);
 
