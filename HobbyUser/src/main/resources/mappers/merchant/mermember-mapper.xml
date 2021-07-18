@@ -415,5 +415,60 @@
 		)
 	</insert>
 
+	<!-- 후기 관련 -->
+
+
+	<sql id="ReviewListSql">
+			SELECT R.RV_NO,
+			R.HB_NO,
+			R.MEM_NO,
+			M.MEM_NAME,
+			M.MEM_IMG_RENAME,
+			R.RV_SCORE,
+			R.RV_CONTENT,
+			R.RV_CREATEDATE,
+			R.RV_MODIFYDATE,
+			R.GOOD_REVIEW,
+			R.RV_ORIGINAL_FILENAME,
+			R.RV_RENAME_FILENAME
+			FROM REVIEW R
+			JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO)
+			WHERE R.STATUS = 'Y'
+		</sql>
+		
+		<resultMap type="Review" id="ReviewListResultMap">
+		<id property="rvNo" column="RV_NO" />
+		<result property="hbNo" column="HB_NO" />
+		<result property="memNo" column="MEM_NO" />
+		<result property="memName" column="MEM_NAME" />
+		<result property="memImgRename" column="MEM_IMG_RENAME" />
+		<result property="rvScore" column="RV_SCORE" />
+		<result property="rvContent" column="RV_CONTENT" />
+		<result property="rvCreateDate" column="RV_CREATEDATE" />
+		<result property="rvModifyDate" column="RV_MODIFYDATE" />
+		<result property="goodReview" column="GOOD_REVIEW" />
+		<result property="rvOriginalFilename"
+			column="RV_ORIGINAL_FILENAME" />
+		<result property="rvRenameFilename" column="RV_RENAME_FILENAME" />
+	</resultMap>
+
+
+	<select id="selectReviewCount" parameterType="_int"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE STATUS='Y'
+		AND HB_NO =
+		${hbNo}
+	</select>
+	
+	<select id="selectReviewList" parameterType="_int"
+		resultMap="ReviewListResultMap">
+		<include refid="ReviewListSql" />
+		AND R.HB_NO = ${hbNo}
+		ORDER BY R.RV_NO DESC
+	</select>
+	
+	
 	
  </mapper>

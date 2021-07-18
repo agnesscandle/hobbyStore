@@ -14,6 +14,7 @@ import com.kh.mvc.merchant.model.vo.Merchant;
 
 
 import com.kh.mvc.hobby.model.vo.Reserve;
+import com.kh.mvc.hobby.model.vo.Review;
 
 @Mapper
 public interface MerchantMapper {
@@ -41,6 +42,12 @@ public interface MerchantMapper {
 	List<Reserve> selectReserveList(int hbNo);
 
 	int reserveUpdateStatus(Reserve reserve);
+
+	
+	
+	int selectReviewCount(int merNo);
+
+	List<Review> selectReviewList(RowBounds rowBounds, int merNo);
 
 
 }
