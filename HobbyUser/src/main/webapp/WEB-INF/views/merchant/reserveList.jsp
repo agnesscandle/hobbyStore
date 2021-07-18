@@ -62,6 +62,7 @@
 				<th id="c4">휴대폰 번호</th>
 				<th id="c5">예약 인원 수</th>
 				<th ic="c6">예약 여부</th>
+				<th ic="c7">memNo</th>
 			</tr>
 			
 			
@@ -76,7 +77,7 @@
 			<c:if test="${ list != null }">
 				<c:forEach var="reserve" items="${ list }" varStatus="status">
 					<c:set var="memNo" value="${reserve.memNo}"/>
-					<c:out value="${memNo}"/>
+					
 					<tr>
 						<td><fmt:formatDate type="DATE" pattern="20yy-MM-dd" value="${ reserve.takeDate }"/></td>
 						<td><c:out value="${ reserve.memId }"/></td>
@@ -85,28 +86,17 @@
                         <td><c:out value="${ reserve.resCount }"/>명</td>
                         <td>
                             <c:if test="${ reserve.resStatus eq 'Y'}">
-                                <button type="button" class="btnRes"> 예약 완료 </button>
+                                <button type="button" class="btnRes" onclick="changeRes('${hbNo}', '${reserve.memNo}')"> 예약 완료 </button>
                             </c:if>
                             <c:if test="${ reserve.resStatus eq 'N'}">
                                 <button type="button" class="btnRes"> 예약 취소 </button>
                             </c:if>
                         </td>
+                        <td><c:out value="${memNo}"></c:out></td>
 					</tr>
-				</c:forEach>	      
+				</c:forEach>	  
 			</c:if>
 		</table>
-					 <script>
-								$(function(){
-									$(".btnRes").on("click", ()=>{
-										 alert("버튼 클릭");
-									let hbNo = "${hbNo}";
-									let memNo = "${memNo}";
-																	
-									console.log("hbNo : " + hbNo);
-									console.log("memNo : " + memNo);
-									});	
-								});
-			</script>
     </div>
         취미명 넣기 <br>
         hbNo : <c:out value="${hbNo}"/> <br>
@@ -141,8 +131,13 @@
 	</div>
     </div>
 </body>
+<script>
+// 예약 취소로 변경
+function changeRes(hbNo, memNo){
 
+		console.log("hbNo : " + hbNo);
+		console.log("memNo : " + memNo);
 
-
-
+}
+</script>
 </html>
