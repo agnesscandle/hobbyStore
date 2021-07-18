@@ -264,14 +264,33 @@
 
 
 							<span class="clickGood"> 
-							<c:out value="도움돼요"></c:out> <i
-								class="far fa-thumbs-up fa-2x"></i>
+							<c:out value="도움돼요"></c:out> 
+							<span id="ajaxReturn">  ${ review.goodReview }  </span>
+							<i class="far fa-thumbs-up fa-2x"></i>
 							</span>
 
 							<script>
-		                     	$('.clickGood').click(function() {
-		                     		location.href='${path}/hobby/view/deleteReview?rvNo=${reviewByNo.rvNo}';
-		                     	});
+		                     	$(".clickGood").on("click", ()=>{
+		                     	   var rvNo = ${reviewByNo.rvNo};
+		                     	   
+		                        		$.ajax({
+		                        			type:"get",
+		                        			url:"${path}/hobby/view/goodReview",
+		                        			dataType:"json",
+		                        			data:{
+		                        				rvNo
+		                        			},
+		                        			success:function(data){
+		                        				console.log(data);
+		                        				$("#ajaxReturn").html(data);
+		                        				
+		                        			},
+		                        			error : function(e){
+		                        				console.log(e);
+		                        			}
+		                        		});
+		                        });
+		                
 	                     	</script>
 						</div>
 					</div>

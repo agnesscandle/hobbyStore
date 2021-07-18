@@ -51,6 +51,12 @@ public interface HobbyService {
 	int save(Review review);
 
 	int deleteReview(int rvNo);
+	
+	
+	/* 도움돼요 */
+	int getUpGoodReview(int rvNo);
+
+	int selectGoodReviewCount(int rvNo);
 
 	/* Liked(좋아요) 관련 인터페이스 */
 	String selectLikedStatusByNo(int hbNo, int memNo);
@@ -99,4 +105,5 @@ public interface HobbyService {
 
 	List<Hobby> getHobbyListByCateNo(PageInfo pageInfo, int cateNo);
 
+	
 }

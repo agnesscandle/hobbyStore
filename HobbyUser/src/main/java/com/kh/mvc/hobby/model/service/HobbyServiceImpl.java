@@ -242,7 +242,19 @@ public class HobbyServiceImpl implements HobbyService {
 		
 	}
 	
-	
+	/* 도움돼요 */
+	@Override
+	@Transactional
+	public int getUpGoodReview(int rvNo) {
+		
+		return mapper.updateGoodReview(rvNo);
+	}
+
+	@Override
+	public int selectGoodReviewCount(int rvNo) {
+		
+		return mapper.selectGoodReviewCount(rvNo);
+	}
 	
 	
 	
@@ -399,6 +411,7 @@ public class HobbyServiceImpl implements HobbyService {
 		
 		return mapper.getHobbyListByCateNo(rowBounds, cateNo);
 	}
+
 	
 
 }

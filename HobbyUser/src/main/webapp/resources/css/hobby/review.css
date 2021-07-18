@@ -237,6 +237,15 @@ button#update,button#delete {
  	padding-right: 40px;
  	
  }
+ 
+ /* 도움돼요 */
+ i.fa-thumbs-up{
+  color: #2759AE;
+}
+.clickGood{
+	 color: #2759AE;
+}
+ 
 
 button#review:hover, button#update:hover {
 	color: #4d4d4d;
@@ -283,4 +292,5 @@ span#noReview{
     flex-basis: 400px;
     /* border : 1px solid black; */
 }
+
 
