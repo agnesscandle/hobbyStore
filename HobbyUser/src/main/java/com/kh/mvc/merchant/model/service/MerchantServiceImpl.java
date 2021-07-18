@@ -265,5 +265,11 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.resCancle(hashMap);
 	}
 
+	@Override
+	public Hobby findByNo(int hbNo) {
+		
+		return mapper.selectHobbyByNo(hbNo);
+	}
+
 	
 }

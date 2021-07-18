@@ -64,5 +64,7 @@ public interface MerchantService {
 
 	int resCancle(int hbNo, int resNo);
 
+	Hobby findByNo(int hbNo);
+
 
 }

@@ -56,4 +56,6 @@ public interface MerchantMapper {
 
 	int resCancle(HashMap<String, Integer> hashMap);
 
+	Hobby selectHobbyByNo(int hbNo);
+
 }

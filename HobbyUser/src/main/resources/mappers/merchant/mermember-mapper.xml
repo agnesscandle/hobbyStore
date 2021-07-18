@@ -309,7 +309,6 @@
 	</select>
 	
 
-
 	<!-- 취미 검색 -->
 	<select id="selectHobbyByNo" parameterType="_int"
 		resultMap="HobbyListResultMap">

@@ -30,7 +30,7 @@
       position : relative;
       left : 250px;
   }
-  h1{
+  h1, h2{
       position : relative;
       left : 200px;
       color : #293a57;
@@ -59,6 +59,9 @@
 <body>
     <div>
     <h1> 예약 현황 </h1>
+    <div id="hbInfo">
+    	<h2> [ <c:out value="${ hobby.hbTitle }"/> ] </h2> 
+    </div>
 	<div id="reserveList-container">
     <br><br>
     <div class="tblContainer">
@@ -104,8 +107,6 @@
 			</c:if>
 		</table>
     </div>
-        취미명 넣기 <br>
-        hbNo : <c:out value="${hbNo}"/> <br>
 
 		
 		<div id="pageBar">
