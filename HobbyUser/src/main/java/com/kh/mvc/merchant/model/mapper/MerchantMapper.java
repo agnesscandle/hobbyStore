@@ -1,6 +1,7 @@
 package com.kh.mvc.merchant.model.mapper;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -51,5 +52,8 @@ public interface MerchantMapper {
 
 	List<Reserve> getReserveListByHbNo(RowBounds rowBounds, int hbNo);
 
+	String selectResStatusByNo(HashMap<String, Integer> hashMap);
+
+	int resCancle(HashMap<String, Integer> hashMap);
 
 }

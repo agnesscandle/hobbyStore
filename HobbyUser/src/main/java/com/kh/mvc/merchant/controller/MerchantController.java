@@ -361,22 +361,32 @@ public class MerchantController {
 	/* 예약 상태 변경 */
 	@ResponseBody
 	@GetMapping("/changeRes")
-	public void changeReserve(ModelAndView model,
+	public Map<String, String> changeReserve(ModelAndView model,
 			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
 			@RequestParam("hbNo") int hbNo,
-			@RequestParam("memNo") int memNo,
+			@RequestParam("resNo") int resNo,
 			@ModelAttribute Reserve reserve){
 		
 		log.info("예약 상태 변경 요청");
 		
 		System.out.println("hbNo : " + hbNo);
-		System.out.println("memNo : " + memNo);
+		System.out.println("resNo : " + resNo);
+		
+		int result = 0;
+		String history = null;
+		Map<String, String>map = new HashMap<>();
 
-		Map<String, Integer>map = new HashMap<>();
+		log.info("예약 상태 확인 요청");
+		history = service.selectResStatusByNo(hbNo, resNo);
+		System.out.println("history : " + history);
 		
-		map.put("hbNo", hbNo);
-		map.put("memNo", memNo);
+		if( history.equals("Y")) {
+			log.info("예약 취소로 update");
+			result = service.resCancle(hbNo, resNo);
+			map.put("status", "N");
+		} 
 		
+		return map;
 	}
 	
 	

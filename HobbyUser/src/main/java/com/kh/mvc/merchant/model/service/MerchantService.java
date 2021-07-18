@@ -60,6 +60,9 @@ public interface MerchantService {
 
 	List<Reserve> getReserveListByHbNo(PageInfo pageInfo, int hbNo);
 
+	String selectResStatusByNo(int hbNo, int resNo);
+
+	int resCancle(int hbNo, int resNo);
 
 
 }

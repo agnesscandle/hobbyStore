@@ -468,4 +468,19 @@
 		ORDER BY TAKE_DATE DESC
 	</select>
 	
+	<!--  예약 변경을 위한 예약 상태 확인 -->
+	<select id="selectResStatusByNo" parameterType="hashMap"
+		resultType="String">
+		SELECT RES_STATUS FROM RESERVE 
+		WHERE RES_ATTEND = 'N' AND HB_NO = #{hbNo} AND RES_NO=#{resNo}
+	</select>
+	
+	<!--  예약 변경(취소) -->
+	<update id="resCancle" parameterType="hashMap">
+		UPDATE RESERVE 
+			SET RES_STATUS = 'N' 
+			WHERE RES_ATTEND = 'N' AND HB_NO = #{hbNo} AND RES_NO=#{resNo}
+	</update>
+
+
  </mapper>

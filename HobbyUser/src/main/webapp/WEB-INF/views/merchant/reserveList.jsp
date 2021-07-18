@@ -24,7 +24,7 @@
     text-align : center;
   }
   #c1, #c2, #c4, #c5{ width : 180px;}
-  #c3, #c5, #c6{ width : 140px; }
+  #c3, #c5, #c6, #c7{ width : 140px; }
   
   .tblContainer{
       position : relative;
@@ -35,14 +35,22 @@
       left : 200px;
       color : #293a57;
   }
-  .btnRes{
+  .btnRes, .btnAttend{
       font-size : 15px;
       font-weight: bold;
       padding : 4px 8px;
       border-radius : 8px;
       background-color: #eacc16;;
   }
-  .btnRes:hover{
+  .btnRes2{
+  	font-size : 15px;
+  	font-weight : bold;
+  	padding : 4px 8px;
+  	border-radius : 8px;
+  	color : white;
+  	background-color : #293a57;
+  }
+  .btnRes:hover, .btnRes2:hover{
       border : 2px solid #34486b;
     }
 
@@ -62,7 +70,6 @@
 				<th id="c4">휴대폰 번호</th>
 				<th id="c5">예약 인원 수</th>
 				<th ic="c6">예약 여부</th>
-				<th ic="c7">memNo</th>
 			</tr>
 			
 			
@@ -86,13 +93,12 @@
                         <td><c:out value="${ reserve.resCount }"/>명</td>
                         <td>
                             <c:if test="${ reserve.resStatus eq 'Y'}">
-                                <button type="button" class="btnRes" onclick="changeRes('${hbNo}', '${reserve.memNo}')"> 예약 완료 </button>
+                                <button type="button" class="btnRes" onclick="changeRes('${hbNo}', '${reserve.resNo }')"> 예약 완료 </button>
                             </c:if>
                             <c:if test="${ reserve.resStatus eq 'N'}">
-                                <button type="button" class="btnRes"> 예약 취소 </button>
+                                <button type="button" class="btnRes2"> 예약 취소 </button>
                             </c:if>
                         </td>
-                        <td><c:out value="${memNo}"></c:out></td>
 					</tr>
 				</c:forEach>	  
 			</c:if>
@@ -133,11 +139,38 @@
 </body>
 <script>
 // 예약 취소로 변경
-function changeRes(hbNo, memNo){
+function changeRes(hbNo, resNo){
 	
 		console.log("hbNo : " + hbNo);
-		console.log("memNo : " + memNo);
-
+		console.log("resNo : " + resNo);
+		const changedBtn = document.getElementsByClassName('btnRes');
+		alert("정말로 예약을 취소하시겠습니까? 예약 취소시 변경이 불가합니다.");
+		
+		$.ajax({
+			type : "get",
+			url : "${path}/merchant/changeRes",
+			dataType : "json",
+			data :{
+				hbNo,
+				resNo
+			},
+			success : function(data){
+				console.log(data);
+				
+				if(data.status === 'N'){
+					alert("예약이 취소되었습니다.");
+					changedBtn.innerText = '예약 취소';
+				}
+			},
+			error : function(e){
+				console.log(e)
+			}
+		});
 }
+
+// 예약 취소 버튼
+$(".btnRes2").on("click", (e)=>{
+	alert("재예약은 결제를 통해 진행해 주시기 바랍니다.");
+});
 </script>
 </html>

@@ -2,6 +2,7 @@ package com.kh.mvc.merchant.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -245,8 +246,24 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 
 
+	@Override
+	public String selectResStatusByNo(int hbNo, int resNo) {
+		
+		HashMap<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("hbNo", hbNo);
+		hashMap.put("resNo", resNo);
+		
+		return mapper.selectResStatusByNo(hashMap);
+	}
 
-	
-	
+	@Override
+	public int resCancle(int hbNo, int resNo) {
+		HashMap<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("hbNo", hbNo);
+		hashMap.put("resNo", resNo);
+		
+		return mapper.resCancle(hashMap);
+	}
+
 	
 }
