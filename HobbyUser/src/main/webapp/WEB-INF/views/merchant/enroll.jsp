@@ -426,5 +426,46 @@ $('#merId').on("propertychange change keyup paste input", function(){
       }
    }); 
 });
+
+// 이메일 중복 검사
+$('#merEmail').on("input", function(){
+	var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    var result = regex.exec($("#merEmail").val());
+	var merEmail = $("#merEmail").val(); 
+	   
+	  
+	
+	$.ajax({
+	      type : "get",
+	      url : "${path}/merchant/emailChk",
+	      dataType : "json",
+	      data: {
+	    	  merEmail
+	      },
+	      success : function(data){
+	    	  $('.email_input_re_2').hide();
+	    	  $('.email_input_re_1').hide();
+	    	  
+	    	   if(data.result === true) {
+	        	  $('.email_input_re_2').show();
+	        	  $('.email_input_re_1').hide();
+	        	  $('.email_input_re_2').html("이미 존재하는 이메일입니다.").css("display","inline-block");
+	        	  $('.email_input_re_1').css("display", "none");
+	            } else{
+	            	if(merEmail == ""){
+	            		$('.email_input_re_1').hide();
+	          	  		$('.email_input_re_1').css("display", "none");
+	            	} else{
+	          		$('.email_input_re_2').hide();
+				 		 $('.email_input_re_2').css("display", "none");
+	            	}
+	        	  
+	            }
+	      },
+	      error: function(e){
+	         console.log(e);
+	      }
+	   }); 
+});
 </script>
 

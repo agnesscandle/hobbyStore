@@ -171,7 +171,7 @@ public class MemberController {
 			Map<String, Object> map = new HashMap<>();
 			
 			map.put("result", service.result(memEmail));
-			
+			  
 			return map;
 		}
 	

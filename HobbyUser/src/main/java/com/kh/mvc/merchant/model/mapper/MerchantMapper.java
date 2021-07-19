@@ -25,6 +25,8 @@ public interface MerchantMapper {
 
 	int insertMerchantMember(Merchant merchantMember);
 	
+	Merchant searchEmail(String merEmail);
+	
 	/* 취미 등록 */
 	int selectHobbyCount();
 
@@ -83,6 +85,8 @@ public interface MerchantMapper {
 	List<Calculation> selectCalFinishList(int merNo);
 
 	int selectCalculateCount();
+
+	
 
 
 

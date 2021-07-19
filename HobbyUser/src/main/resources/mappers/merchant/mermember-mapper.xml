@@ -107,6 +107,12 @@
 		WHERE MER_ID = #{merId} AND STATUS ='Y'
  	</select>
  	
+ 	<!-- 이메일 중복 검사 -->
+ 	<select id="searchEmail" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
+		WHERE MER_EMAIL = #{merEmail} AND STATUS ='Y'
+ 	</select>
+ 	
  	<insert id="insertMerchantMember" parameterType="Merchant"
  		useGeneratedKeys="true" keyColumn="MER_NO" keyProperty="merNo" >
 

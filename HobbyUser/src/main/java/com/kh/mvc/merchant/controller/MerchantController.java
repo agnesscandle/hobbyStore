@@ -174,7 +174,7 @@ public class MerchantController {
 	// 아이디 중복검사 
 		@GetMapping("/idChk")
 		@ResponseBody
-		public Map<String, Object> memberIdChk(@RequestParam("merId") String merId) {
+		public Map<String, Object> merchantIdChk(@RequestParam("merId") String merId) {
 			log.info("User ID : {}", merId);
 			
 			Map<String, Object> map = new HashMap<>();
@@ -183,6 +183,19 @@ public class MerchantController {
 			
 			return map;
 		}
+		
+		// 이메일 중복검사 
+		@GetMapping("/emailChk")
+		@ResponseBody
+			public Map<String, Object> merchantEmailChk(@RequestParam("merEmail") String merEmail) {
+				log.info("User Email : {}", merEmail);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("result", service.result(merEmail));
+				
+				return map;
+			}
 		
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");

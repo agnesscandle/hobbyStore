@@ -27,7 +27,11 @@ public interface MerchantService {
 
 	Merchant findById(String merId);
 	
+	Merchant findByEmail(String merEmail);
+	
 	boolean validate(String merId);
+	
+	boolean result(String merEmail);
 
 	String saveMerFile(MultipartFile upfile, String savePath);
 	
@@ -100,6 +104,10 @@ public interface MerchantService {
 	int saveReply(Reply reply);
 
 	int deleteReply(Reply reply);
+
+	
+
+	
 
 	
 

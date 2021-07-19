@@ -22,6 +22,7 @@ import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -70,6 +71,12 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.selectMerchantMember(merId);
 	}
 	
+	
+	@Override
+	public Merchant findByEmail(String merEmail) {
+
+		return mapper.searchEmail(merEmail);
+	}
 
 	@Override
 	public boolean validate(String merId) {
@@ -78,7 +85,11 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 	
 	
-	
+	@Override
+	public boolean result(String merEmail) {
+
+		return this.findByEmail(merEmail) != null;
+	}
 	
 	
 	@Override
@@ -366,5 +377,7 @@ public class MerchantServiceImpl implements MerchantService{
 		
 		return renameFileName;
 	}
+
+	
 
 }
