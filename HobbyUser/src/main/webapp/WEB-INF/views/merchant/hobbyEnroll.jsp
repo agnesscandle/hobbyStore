@@ -19,7 +19,8 @@
          <li class="step step-2"><span>클래스 소개</span></li>
          <li class="step step-3"><span>클래스 일정 및 가격</span></li>
          <li class="step step-4"><span>클래스 부가정보</span></li>
-         <li class="step step-5"><span>클래스 등록 및 약관동의</span></li>
+         <li class="step step-5"><span>클래스 상세설명</span></li>
+         <li class="step step-6"><span>클래스 등록 및 약관동의</span></li>
       </ul>
    </div>
 
@@ -136,6 +137,7 @@
             </div>
          </section>
       </div>
+      
       <div class="enroll enroll-4">
          <section>
             <div class="title">
@@ -169,7 +171,38 @@
             </div>
          </section>
       </div>
+      
       <div class="enroll enroll-5">
+         <section>
+            <div class="title">
+      
+               <span>설명 이미지</span> 
+               <div class="file-upload-detail preview-image-detail">
+                   <input type="text" class="upload-name-detail" value="파일선택" disabled="disabled"> 
+                   <label for="input-file-detail">업로드</label> 
+                   <input type="file" id="input-file-detail" name="input-file-detail" class="upload-hidden-detail">
+               </div>
+               
+               <span>설명</span> 
+               <textarea id="detail" name="detail" class="req" cols="67" rows="15" placeholder="설명을 입력해주세요"style="resize: none;"></textarea>
+               
+               <div class="btn">
+                  <input type="button" class="before" value="이전으로" /> 
+                  <input type="button" class="next" value="다음으로" />
+               </div>
+            </div>
+            <div class="warn">
+               <p>
+                  - 최소: 가로 600px X 세로 600px<br> - 권장 : 가로 1000px X 세로 1000px
+                  (고해상도 지원)<br> - 1:1 비율의 (정사각형) 이미지를 권장합니다.<br> - 초상권,
+                  저작권에 문제가 없어야 합니다.<br> - 상업적으로 사용 가능해야 합니다.<br> - 최소 1장 ~
+                  최대 5장까지 가능합니다.<br> - 용량 10MB 이하<br> - 포맷 jpg, png
+               </p>
+            </div>
+         </section>
+      </div>
+      
+      <div class="enroll enroll-6">
          <section>
             <div class="title">
 
@@ -196,6 +229,7 @@
             </div>
          </section>
       </div>
+      
    </form>
 </div>
 
@@ -235,6 +269,7 @@ $('.next').click(function(){
     $('.enroll-'+seq).addClass('active')
     
   });
+  
  $('.before').click(function(){
    seq = seq -1;
     $('.step').siblings('.step').removeClass('active')
@@ -247,7 +282,7 @@ $('.next').click(function(){
  /* 등록하기 버튼 클릭 시 마지막 section 항목들이 다 작성되어있는지 검사 */
  $('.register').click(function(){
     var is_empty = false;
-      $('.enroll-5').find('.req').each(function(){
+      $('.enroll-6').find('.req').each(function(){
              if(!$(this).val()) {
                  is_empty = true;
              }
@@ -411,6 +446,58 @@ imgTarget.on('change', function(){
          img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
     }
 });
+
+
+
+/* 상세 이미지 파일 미리보기 */
+$(document).ready(function(){
+
+    var fileTarget = $('.file-upload-detail .upload-hidden-detail');
+
+    fileTarget.on('change', function(){  // 값이 변경되면
+         if(window.FileReader){  // modern browser
+              var filename = $(this)[0].files[0].name;
+         } 
+         else {  // old IE
+              var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+         }
+
+         // 추출한 파일명 삽입
+         $(this).siblings('.upload-name-detail').val(filename);
+    });
+}); 
+
+var imgTarget = $('.preview-image-detail .upload-hidden-detail');
+
+imgTarget.on('change', function(){
+    var parent = $(this).parent();
+    parent.children('.upload-display-detail').remove();
+
+    if(window.FileReader){
+         //image 파일만
+         if (!$(this)[0].files[0].type.match(/image\//)) return;
+
+         var reader = new FileReader();
+         reader.onload = function(e){
+              var src = e.target.result;
+              parent.prepend('<div class="upload-display-detail"><div class="upload-thumb-wrap-detail"><img src="'+src+'" class="upload-thumb-detail"></div></div>');
+         }
+         reader.readAsDataURL($(this)[0].files[0]);
+    }
+
+    else {
+         $(this)[0].select();
+         $(this)[0].blur();
+         var imgSrc = document.selection.createRange().text;
+         parent.prepend('<div class="upload-display-detail"><div class="upload-thumb-wrap-detail"><img class="upload-thumb-detail"></div></div>');
+
+         var img = $(this).siblings('.upload-display-detail').find('img');
+         img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+    }
+});
+
+
+
 
 
 /* Daum 주소 API */

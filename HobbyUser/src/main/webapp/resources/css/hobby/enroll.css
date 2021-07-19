@@ -82,7 +82,7 @@ a {
 .title input[type=button], input[type=submit] {
    background-color: #34486b;
    color: #fff;
-   width: 300px;
+   width: 200px;
    padding: 10px;
    border-radius: 5px;
    border: none;
@@ -175,7 +175,7 @@ input[type=checkbox]:checked ~ #disRate{
 
 
 /* image */
-.file-upload label {
+.file-upload label, .file-upload-detail label {
     display: inline-block;
     padding: .5em .75em;
     color: #999;
@@ -189,7 +189,7 @@ input[type=checkbox]:checked ~ #disRate{
     border-radius: .25em;
 }
 /* 파일 필드 숨기기 */
-.file-upload input[type="file"] {  
+.file-upload input[type="file"],.file-upload-detail input[type="file"] {  
     position: absolute;
     width: 1px;
     height: 1px;
@@ -202,7 +202,7 @@ input[type=checkbox]:checked ~ #disRate{
 
 
 /* named upload */
-.file-upload .upload-name {
+.file-upload .upload-name,.file-upload-detail .upload-name-detail  {
     display: inline-block;
     padding: .5em .75em;  /* label의 패딩값과 일치 */
     font-size: inherit;
@@ -220,19 +220,19 @@ input[type=checkbox]:checked ~ #disRate{
     margin-bottom: 20px;
 }
 /* imaged preview */
-.file-upload .upload-display {  /* 이미지가 표시될 지역 */
+.file-upload .upload-display, .file-upload-detail .upload-display-detail {  /* 이미지가 표시될 지역 */
     margin-bottom: 5px;
 }
 
 @media(min-width: 768px) { 
-    .file-upload .upload-display {
+    .file-upload .upload-display, .file-upload-detail .upload-display-detail {
         display: inline-block;
         margin-right: 5px;
         margin-bottom: 0;
     }
 }
 
-.file-upload .upload-thumb-wrap {  /* 추가될 이미지를 감싸는 요소 */
+.file-upload .upload-thumb-wrap, .file-upload-detail .upload-thumb-wrap-detail {  /* 추가될 이미지를 감싸는 요소 */
     display: inline-block;
     width: 200px;
     padding: 2px;
@@ -244,7 +244,7 @@ input[type=checkbox]:checked ~ #disRate{
     
 }
 
-.file-upload .upload-display img {  /* 추가될 이미지 */
+.file-upload .upload-display img, .file-upload-detail .upload-display-detail img {  /* 추가될 이미지 */
     display: block;
     max-width: 100%;
     width: 100% \9;
@@ -269,4 +269,11 @@ input[type=checkbox]:checked ~ #disRate{
    content : attr(data-placeholder);
    color : #999;
    font-size:.9em;
+}
+
+#detail{
+	border-color: #777777;
+	font-size: 14px;
+	line-height: 1.2em;
+	padding: 10px;
 }
