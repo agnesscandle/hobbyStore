@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -249,8 +250,16 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectHobbyCount();
 	}
 
-	
+	@Override
+	public int getLikedHobbyCount() {
+		return mapper.selectLikedHobbyCount();
+	}
 
+	@Override
+	public int getRsHobbyCount() {
+		return mapper.selectRsHobbyCount();
+	}
+	
 	/* 예약 */
 	@Override
 	public List<Reserve> getRsList() {
@@ -274,6 +283,11 @@ public class MemberServiceImpl implements MemberService{
 	public Hobby findByNo(int hbNo) {
 		return mapper.selectHobbyByNo(hbNo);
 	}
+
+	
+	
+
+	
 		
 		
 	

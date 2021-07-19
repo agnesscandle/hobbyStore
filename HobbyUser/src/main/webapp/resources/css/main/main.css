@@ -1,8 +1,16 @@
+section{
+	margin-bottom: 5%;
+	padding: 0;
+	height: 310px;
+	box-sizing: border-box;
+	
+}
+
 /* Slider */
 .slick-slider {
-    position: relative;
     width: 90%;
-    margin: -10% 0% 0% 4% ;
+    height: 310px;
+    margin: 5% 0% 0% 4% ;
     display: block;
     box-sizing: border-box;
 
@@ -89,7 +97,6 @@
 
 .slick-slide img {
     display: block;
-    height: auto;
     width: 100%;
 }
 
@@ -121,10 +128,6 @@
     display: none;
 }
 
-/* Slider */
-.slick-loading .slick-list {
-    background: #fff url('./ajax-loader.gif') center center no-repeat;
-}
 
 /* Arrows */
 .slick-prev,
@@ -181,7 +184,7 @@
     line-height: 1;
 
     opacity: .75;
-    color: black;
+    color: white;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -376,8 +379,22 @@
 	
 }
 
+.btn_all{
+	cursor: pointer;
+	position: relative;
+	font-size: 20px;
+}
+
+.seeAll1, .seeAll3{
+	left: 68%;
+}
+
+.seeAll2{
+	left: 62%;
+}
+
 .mainentire-box {
-	margin-top: -100px;
+	margin-top: 5%;
 }
 /* 이미지 불러오는 부분 */
 .divList_h {
@@ -443,6 +460,7 @@
    transition: 0.5s;
    padding: 5px 15px 5px 20px;
    box-sizing: border-box;
+   text-overflow: ellipsis;
 }
 
 .item_h:hover .detail_h {
@@ -503,8 +521,9 @@
    width: 230px;
    height: 70px;
    padding-top: 10px;
-   margin-bottom: 10px;
+   margin-bottom: 20px;
    box-sizing: border-box;
+   
 }
 
 .size_h label {

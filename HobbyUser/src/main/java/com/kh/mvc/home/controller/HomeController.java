@@ -115,4 +115,61 @@ public class HomeController {
 					
 					return model;
 				}
+				
+		// skillUp 전체보기
+			@GetMapping("/main/skillUp")
+			public ModelAndView skillUpView(ModelAndView model,
+					@RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
+				log.info("skillUp 페이지 요청");
+				// category가 커리어 취미
+				List<Hobby> listS = null; 
+				PageInfo pageInfo = new PageInfo(page, 10, service.getSHobbyCount(), 8);
+				
+				listS = service.getSHobbyList(pageInfo);
+				
+				model.addObject("listS", listS);
+				model.addObject("pageInfo", pageInfo);
+				
+				model.setViewName("main/skillUp");
+				
+				return model;
+			}	
+			
+			// discount 전체보기
+				@GetMapping("/main/discount")
+				public ModelAndView discountView(ModelAndView model,
+						@RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
+					log.info("discount 페이지 요청");
+					
+					List<Hobby> listD = null;
+					PageInfo pageInfo = new PageInfo(page, 10, service.getDHobbyCount(), 8);
+
+					listD = service.getDHobbyList(pageInfo);
+					
+					model.addObject("listD", listD);
+					model.addObject("pageInfo", pageInfo);
+
+					model.setViewName("main/discount");
+					
+					return model;
+				}	
+				
+			// 인기UP 전체보기
+			@GetMapping("/main/popular")
+			public ModelAndView popularView(ModelAndView model,
+					@RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
+				log.info("인기UP 페이지 요청");
+				
+				List<Hobby> listP = null;
+				PageInfo pageInfo = new PageInfo(page, 10, service.getPHobbyCount(), 8);
+
+				listP = service.getPHobbyList(pageInfo);
+				
+				model.addObject("listP", listP);
+				model.addObject("pageInfo", pageInfo);
+
+				model.setViewName("main/popular");
+				
+				return model;
+			}	
 }

@@ -255,7 +255,7 @@ public class MemberController {
 			log.info("좋아요관리 페이지 요청");
 			
 			List<Hobby> hobbyList = null;
-			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			PageInfo pageInfo = new PageInfo(page, 10, service.getLikedHobbyCount(), 8);
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
 			
@@ -265,6 +265,8 @@ public class MemberController {
 			model.addObject("pageInfo", pageInfo);
 			
 			System.out.println(hobbyList);
+			System.out.println(pageInfo);
+			
 			model.setViewName("/member/likedHobby");
 			
 			return model;
@@ -279,7 +281,7 @@ public class MemberController {
 			log.info("예약관리 페이지 요청");
 			
 			List<Hobby> hobbyList = null;
-			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			PageInfo pageInfo = new PageInfo(page, 10, service.getRsHobbyCount(), 8);
 			
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
@@ -527,7 +529,8 @@ public class MemberController {
 			@GetMapping("/member/reservedHbView")
 			public ModelAndView reservedHbView(ModelAndView model,
 					@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-					@RequestParam("hbNo") int hbNo) { 
+					@RequestParam("hbNo") int hbNo
+					) { 
 				log.info("예약 상세 페이지 요청");
 				
 				int memNo = 0;
@@ -535,7 +538,7 @@ public class MemberController {
 				
 				Reserve reserve = service.findReserveByNo(memNo, hbNo);
 				Hobby hobby = service.findByNo(hbNo);
-				
+		
 				
 				model.addObject("reserve", reserve);
 				model.addObject("hobby", hobby);

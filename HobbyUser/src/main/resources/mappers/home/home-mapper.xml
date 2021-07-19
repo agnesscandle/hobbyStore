@@ -274,7 +274,91 @@
 		FROM HOBBY
 		WHERE STATUS='Y'
 	</select>
-
+	
+	<!-- 커리어 취미 수 검색 -->
+	<select id="selectSHobbyCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM(
+        SELECT
+        H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.CATE_NO = 6 AND H.STATUS = 'Y')
+	</select>
+	
+	<!-- 할인 취미 수 검색 -->
+	<select id="selectDHobbyCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM(
+        SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		WHERE H.HB_DISCOUNT_STATUS = 'Y' AND H.STATUS = 'Y'
+		ORDER BY
+		H.HB_DISCOUNT_RATE DESC)
+	</select>
+	
+	<!-- 인기UP 취미 수 검색 -->
+	<select id="selectPHobbyCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM(
+        SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+		C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN LIKED L ON(H.HB_NO = L.HB_NO)
+		WHERE L.STATUS = 'Y' AND H.STATUS = 'Y')
+	</select>
 	<!-- 카테고리  -->
  	<select id="selectCateList" parameterType="map"
 		resultMap="CateListResultMap">

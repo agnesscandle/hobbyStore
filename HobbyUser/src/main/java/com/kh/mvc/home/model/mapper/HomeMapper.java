@@ -30,6 +30,12 @@ public interface HomeMapper {
 	public List<Hobby> selectOpenHobbyList(RowBounds rowBounds);
 
 	public List<Hobby> selectBestHobbyList();
+
+	public int selectSHobbyCount();
+
+	public int selectDHobbyCount();
+
+	public int selectPHobbyCount();
 	
 
 }

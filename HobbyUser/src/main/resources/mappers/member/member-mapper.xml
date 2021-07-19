@@ -309,6 +309,38 @@
 		H.HB_NO DESC
 	</select>	
 	
+	<!--  좋아요 취미 개수 -->
+	<select id="selectLikedHobbyCount" parameterType="map"
+		resultType="_int">
+	SELECT COUNT(*)
+		FROM(
+        SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+        C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN LIKED L ON(H.HB_NO = L.HB_NO)
+		WHERE L.MEM_NO = #{memNo}
+        AND H.STATUS = 'Y'
+
+		ORDER BY
+		H.HB_NO DESC)
+		</select>
+		
 	<!-- 예약한 취미 가져오기 -->
 	<select id="selectHobbyRsList" parameterType="map"
 		resultMap="HobbyListResultMap">
@@ -340,6 +372,39 @@
 		R.RES_DATE DESC
 	</select>	
 	
+	<!--  예약 취미 개수 -->
+	<select id="selectRsHobbyCount" parameterType="map"
+		resultType="_int">
+	SELECT COUNT(*)
+		FROM(
+        SELECT H.HB_NO,
+		H.MER_NO,
+		H.CATE_NO,
+        C.CATE_NAME,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM HOBBY H
+        JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
+		JOIN RESERVE R ON(H.HB_NO = R.HB_NO)
+		WHERE R.MEM_NO = #{memNo}
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'
+
+		ORDER BY
+		R.RES_DATE DESC)
+		</select>
+		
 	<!-- 예약 상세 가져오기 -->
 	<select id="selectRsByNo" parameterType="map"
 		resultMap="ReserveListResultMap">
@@ -361,6 +426,9 @@
         AND H.HB_NO = #{hbNo}
         AND H.STATUS = 'Y'
         AND R.RES_STATUS = 'Y'
+        
+        ORDER BY
+		R.RES_DATE DESC
 	</select>
 	
 	<!-- 취미 수 검색 -->

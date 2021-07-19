@@ -12,11 +12,9 @@
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
-
-<section>
 	<div class="slick-slider js-slick">
 		<div class="photo is-animating"
-			style="background-image: url('${path}/images/메인배너4.png'); width: 1280px height: 800px;"
+			style="background-image: url('${path}/images/메인배너4.png'); width: 1280px "
 			onclick="location.href='${ path }/hobby/list/search?searchDate=맥주';">
 		</div>
 		<div class="photo"
@@ -24,12 +22,12 @@
 			onclick="location.href='${ path }/hobby/list/search?searchDate=주식';">
 		</div>
 		<div class="photo"
-			style="background-image: url('${path}/images/타로배너.png');"></div>
+			style="background-image: url('${path}/images/타로배너.png');"
+			onclick="location.href='${ path }/hobby/list/search?searchDate=타로';"></div>
 	</div>
-</section>
 
 <div class="mainentire-box">
-<span class="mainLabel_s"><h2>스킬 up!</h2></span><span>전체보기</span>
+<span class="mainLabel_s"><h2>스킬 up!</h2></span><button class="seeAll1 btn_all" onclick="location.href='${ path }/main/skillUp'">전체보기</button>
 <div class="divList_h">
 	<div class="containerList_h">
 		<c:if test="${ listS != null }">
@@ -88,7 +86,7 @@
 		</c:if>
 	</div>
 </div>
-<span class="mainLabel_s"><h2>지금 할인중인 취미!</h2></span><span>전체보기</span>
+<span class="mainLabel_s"><h2>지금 할인중인 취미!</h2></span><button class="seeAll2 btn_all" onclick="location.href='${ path }/main/discount'">전체보기</button>
 <div class="divList_h">
 	<div class="containerList_h">
 		<c:if test="${ listD != null}">
@@ -149,7 +147,7 @@
 		</c:if>
 	</div>
 </div>
-<span class="mainLabel_s"><h2>인기 UP!</h2></span><span>전체보기</span>
+<span class="mainLabel_s"><h2>인기 UP!</h2></span><button class="seeAll3 btn_all" onclick="location.href='${ path }/main/popular'">전체보기</button>
 <div class="divList_h">
 	<div class="containerList_h">
 		<c:if test="${ listP != null}">
@@ -234,5 +232,7 @@
 									'is-animating');
 						});
 			});
+	
+	
 </script>
 <%@ include file="../views/common/footer.jsp"%>
