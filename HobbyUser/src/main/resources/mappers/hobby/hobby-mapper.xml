@@ -456,6 +456,22 @@
 		WHERE RV_NO = #{rvNo}
 	</delete>
 
+	<!-- 도움돼요 +1 -->
+	<update id="updateGoodReview" parameterType="_int">
+		UPDATE REVIEW
+		SET
+		GOOD_REVIEW = GOOD_REVIEW +1
+		WHERE
+			RV_NO = #{rvNo}
+	</update>
+	
+	<select id="selectGoodReviewCount" parameterType="_int" resultType="_int">
+		SELECT GOOD_REVIEW
+		FROM REVIEW
+		WHERE RV_NO = #{rvNo}
+	</select>
+
+
 	<!-- 리뷰 끝 -->
 
 

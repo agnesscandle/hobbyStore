@@ -47,10 +47,6 @@ public interface MerchantMapper {
 	int reserveUpdateStatus(Reserve reserve);
 
 
-	int selectReviewCount(int merNo);
-
-	List<Review> selectReviewList(RowBounds rowBounds, int merNo);
-
 	int selectQnaCount(int hbNo);
 
 	List<Reply> selectReplyList(int qnaNo);
@@ -86,4 +82,13 @@ public interface MerchantMapper {
 
 
 
+	/* 후기 관련 mapper[김예원] */
+
+	int selectReviewCount(int merNo);
+	
+	List<Review> selectReviewList(RowBounds rowBounds, int merNo);
+	
+	List<String> selectHobbyTitle(@Param("merNo") int merNo);
+
+	List<Review> selectReviewListByNo(RowBounds rowBounds, int hbNo);
 }

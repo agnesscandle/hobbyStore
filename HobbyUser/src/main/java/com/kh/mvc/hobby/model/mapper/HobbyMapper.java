@@ -54,6 +54,11 @@ public interface HobbyMapper {
 	
 	int deleteReview(@Param("rvNo") int rvNo);
 	
+	/* 후기 도움돼요 */
+	int updateGoodReview(int rvNo);
+	
+	int selectGoodReviewCount(int rvNo);
+	
 	/* Liked(좋아요) 관련 mapper [심지영] */
 
 	String selectLikedStatusByNo(HashMap<String, Integer> hashMap);
@@ -108,5 +113,7 @@ public interface HobbyMapper {
 	int selectHobbyCountByCateNo(int cateNo);
 
 	List<Hobby> getHobbyListByCateNo(RowBounds rowBounds, int cateNo);
+
+	
 
 }

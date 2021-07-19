@@ -233,57 +233,6 @@ public class MerchantController {
 
 	}
 	
-	/*후기 가져오기*/
-	@GetMapping("/Reviewmanagement")
-	public ModelAndView reviewList(ModelAndView model,
-			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-
-		
-		
-		List<Hobby> list = null;
-
-
-		PageInfo pageInfo = new PageInfo(page, 6, service.getHobbyCount(), 6);
-		list = service.getHobbyList(pageInfo, loginMerchant.getMerNo());
-
-		System.out.println(list);
-		
-		model.addObject("list", list);
-		model.addObject("pageInfo", pageInfo);
-		model.setViewName("merchant/Reviewmanagement");
-
-		return model;
-
-	}
-	
-	/* 각 취미별로 후기 가져오기*/
-	@GetMapping("/Review")
-	public ModelAndView reviewList(ModelAndView model,
-			@RequestParam(value="hbNo") int hbNo,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-
-
-		/* review(리뷰) 리스트 가져오기 */
-		List<Review> reviewList = null;
-		int count = service.getReviewCount(hbNo);
-		PageInfo pageInfo = new PageInfo(page, 10, count, 6);
-		int listCount = pageInfo.getListCount(); 
-		reviewList = service.getReviewList(pageInfo, hbNo);
-
-
-		model.addObject("reviewList", reviewList);
-		model.addObject("pageInfo", pageInfo);
-		model.addObject("count", count);
-		model.addObject("listCount", listCount);
-		model.setViewName("merchant/review");
-
-		return model;
-	}
-	
-	
-	
-
 	
 	@GetMapping("/calculatelist")
 	public ModelAndView calculatelist(ModelAndView model,
@@ -688,6 +637,90 @@ public class MerchantController {
 		log.info("자주 묻는 질문 페이지 요청");
 		
 		return "merchant/faq";
+	}
+	
+	
+	
+	/*후기 가져오기*/
+	@GetMapping("/Reviewmanagement")
+	public ModelAndView reviewList(ModelAndView model,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+
+		
+		
+		List<Review> reviewList = null;
+		int merNo = loginMerchant.getMerNo();
+
+		PageInfo pageInfo = new PageInfo(page, 6, service.getReviewCount(merNo), 6);
+		reviewList = service.getReviewList(pageInfo, merNo);
+
+		/* 후기 타이틀 이름 가져오기 */
+		List<String> hobbyTitle = null;
+		hobbyTitle = service.getHobbyTitle(merNo);
+		
+		
+		int sumScore = 0;
+		for(int i=0; i<reviewList.size();i++) {
+
+			sumScore += reviewList.get(i).getRvScore();
+		}
+		
+		double avgScore = (double)sumScore/reviewList.size();
+		sumScore = (int)Math.round(avgScore);
+		
+		
+		model.addObject("size",reviewList.size());
+		model.addObject("hobbyTitle",hobbyTitle);
+		model.addObject("sumScore",sumScore);
+		model.addObject("reviewList", reviewList);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("merchant/Reviewmanagement");
+
+		return model;
+
+	}
+	
+	/* 각 취미별로 후기 가져오기*/
+	@GetMapping("/ReviewByTitle")
+	public ModelAndView reviewList(ModelAndView model,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam(value="hbNo") int hbNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+
+		int merNo = loginMerchant.getMerNo();
+		
+		/* review(리뷰) 리스트 가져오기 */
+		List<Review> reviewList = null;
+		int count = service.getReviewCount(hbNo);
+		PageInfo pageInfo = new PageInfo(page, 10, count, 6);
+		int listCount = pageInfo.getListCount(); 
+		reviewList = service.getReviewListByNo(pageInfo, hbNo);
+
+		/* 후기 타이틀 이름 가져오기 */
+		List<String> hobbyTitle = null;
+		hobbyTitle = service.getHobbyTitle(merNo);
+		
+		
+		int sumScore = 0;
+		for(int i=0; i<reviewList.size();i++) {
+
+			sumScore += reviewList.get(i).getRvScore();
+		}
+		
+		double avgScore = (double)sumScore/reviewList.size();
+		sumScore = (int)Math.round(avgScore);
+		
+		model.addObject("size",reviewList.size());
+		model.addObject("hobbyTitle",hobbyTitle);
+		model.addObject("sumScore",sumScore);
+		model.addObject("reviewList", reviewList);
+		model.addObject("pageInfo", pageInfo);
+		model.addObject("count", count);
+		model.addObject("listCount", listCount);
+		model.setViewName("merchant/Reviewmanagement");
+
+		return model;
 	}
 	
 }

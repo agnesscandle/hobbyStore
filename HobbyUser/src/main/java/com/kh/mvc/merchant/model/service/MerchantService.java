@@ -49,7 +49,6 @@ public interface MerchantService {
 	
 	List<Hobby> getHobbyList(PageInfo pageInfo);
 
-
 	List<Hobby> getHobbycalList(PageInfo pageInfo, int merNo);
 
 	int calculateApply(Reserve reserve);
@@ -60,11 +59,6 @@ public interface MerchantService {
 
 	int reserveUpdateStatus(Reserve reserve);
 
-
-	
-	/* 후기 */
-	
-	int getReviewCount(int hbNo);
 
 	int getHobbyCountByMerNo(int merNo);
 
@@ -86,8 +80,6 @@ public interface MerchantService {
 
 	Hobby findByNo(int hbNo);
 
-	List<Review> getReviewList(PageInfo pageInfo, int hbNo);
-
 	List<Qna> getQnaList(PageInfo pageInfo, int hbNo);
 
 	List<Reply> getReplyList(int qnaNo);
@@ -99,4 +91,12 @@ public interface MerchantService {
 	int deleteReply(Reply reply);
 
 	
+	/* 후기 관련 메서드[김예원] */
+	int getReviewCount(int memNo);
+
+	List<Review> getReviewList(PageInfo pageInfo, int memNo);
+
+	List<String> getHobbyTitle(int merNo);
+
+	List<Review> getReviewListByNo(PageInfo pageInfo, int hbNo);
 }

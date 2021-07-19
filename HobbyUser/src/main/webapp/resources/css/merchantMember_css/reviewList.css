@@ -1,196 +1,180 @@
-.divList {
-	box-sizing:border-box;
-   width: 1400px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin: auto;
-   padding-top: 100px;
-   padding-bottom: 40px;
+
+#reviewDiv{
+	width: 1400px;
+	margin: 40px;
+	display: inline-block;
+	border: 1px solid #ddd;
+	border-radius: 5px;
 
 }
-.reviewSpan{
-	display:inline-block;
-	font-size: 30px;
-	color: #eacc16;
-	padding: 50px 0 0 50px;
-	
+
+
+/* 검색 및 별점 */
+/* 검색영역 */
+#searchDiv{
+	display: inline-block;
+	float: right;
 }
-.containerList {
-   display: grid;
-   grid-column-gap: 30px;
-   grid-row-gap: 30px;
-   grid-template-rows: 280px 280px ;
-   grid-template-columns: 310px 310px 310px ;
+/* 검색 select box */
+#sortReview{
+	border: 1px solid #ddd;
+   	width: 300px;
+   	padding : 10px;
+	padding-bottom: 20px;
+	padding: 6px;
+   	box-sizing: border-box;
+   	border-radius: 5px;
+
+} 
+/* 검색 버튼 */
+#search{
+	float: right;
+	padding: 0 10px;
+	color: #686868;
+	font-size: 20px;
+}
+
+
+
+p.star_rating, p.star_rating_update{
+	display: inline-block;
+}
+.star_rating, .star_rating_update {font-size:0; letter-spacing:-4px;}
+.star_rating a, .star_rating_update a {
+    font-size:22px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    color:#ddd;
+    text-decoration:none;
+}
+.star_rating a:first-child, .star_rating_update a:first-child {margin-left:0;}
+.star_rating a.on, .star_rating_update a.on {color:#eacc16;}
+
+.myScore{
+	padding: 0 15px;
+	font-size: 18px;
+	color: #ddd;
+	margin-left: 10px;
+	
+	display: inline-block;
+}
+
+#title{
+	padding: 0 15px;
+	font-size: 24px;
+	color: #686868;
+	margin-left:10px;
+	display: block;
+	margin-top:15px;
+
+}
+#avgScore{
+
+	padding: 10px 0;
+}
+
+
+/* 리뷰 내용 */
+#reviewListTitle{
+	/* position: relative; */
+}
+
+#reviewList #review {
+	width: 100%;
+	color: #494949;
+	border-top: 1px solid #ddd;
+	overflow: hidden;
+	height: auto;
+	font-size: 14px;
+	font-style: none;
+	padding: 30px;
+}
+
+
+/* 아직 후기가 없습니다:( */
+#noReview{
+	padding: 30px;
+	font-size: 24px;
+	color: #686868;
+	display: block;
+	text-align: center;
+}
+
+#reviewList #review #rvContent {
+	display: block;
+	padding: 20px 70px;
+}
+#reviewImgs{
+	padding: 0 70px;
+}
+
+#reviewImgs img {
+	width: 100px;
+	height: 100px;
+	border-radius: 5px;
+	margin: 10px 2px;
+}
+
+@media ( max-width : 1750px) {
+	
+	#reviewDiv{
+		width: 1200px;
+	}
+
+}
+@media ( max-width : 1670px) {
+	
+	#reviewDiv{
+		width: 700px;
+	
+	}
+
 }
 
 @media ( max-width : 1023px) {
-   .containerList {
-      display: grid;
-      grid-column-gap: 30px;
-      grid-row-gap: 30px;
-      grid-template-rows: 280px 280px 280px ;
-      grid-template-columns: 310px 310px;
-   }
+	
+	#reviewDiv{
+		width: 500px;
+	}
+	#reviewImgs img {
+		width: 75px;
+		height: 75px;
+		border-radius: 5px;
+	}
 }
 
 @media ( max-width : 767px ) {
-   .containerList {
-      display: grid;
-      grid-column-gap: 30px;
-      grid-row-gap: 30px;
-      grid-template-rows: 280px 280px 280px 280px 280px 280px;
-      grid-template-columns: 310px;
-   }
-}
 
-/* item */
-.item {
-   border-radius: 5px;
-   overflow: hidden;
-   position: relative;
-   margin: 5px;
-   /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.164);*/
-}
-
-.item img {
-   transition: 0.5s;
-}
-
-.detail {
-   background-color: #f8f8f8;
-   position: absolute;
-   width: 100%;
-   bottom: -177px;
-   left: 0;
-   height: 250px;
-   transition: 0.5s;
-   padding: 5px 15px 5px 20px;
-   box-sizing: border-box;
-}
-
-.item:hover img {
-   filter: blur(2px)
+	#reviewImgs img {
+		width: 50px;
+		height: 50px;
+		border-radius: 5px;
+	}
 }
 
 
-/* title */
-.title {
-   padding-top: 15px;
-   padding-bottom: 20px;
-   border-bottom: 1px solid #ddd;
-   overflow: hidden;
-   margin-bottom: 15px;
-   height: 70px;
-}
 
-.title h2 {
-   width: 175px;
-   font-size: 12px;
-   color: #888;
-   line-height: 1.2em;
-   float: left;
-}
-
-.title h2 em {
-   font-style: normal;
-   display: block;
-   margin-bottom: 5px;
-   padding-top: 5px;
-   color: #000;
-   font-size: 14px;
-}
-
-.title .price {
-   float: right;
-   font-size: 12px;
-   color: #000;
-}
-
-.info {
-   position: relative;
-}
-
-#thumImg {
-   width: 100%;
-   height: 100%;
-}
-
-
-/* Size */
-.size {
-   font-size: 12px;
-   width: 230px;
-   height: 70px;
-   padding-top: 10px;
-   margin-bottom: 10px;
-   box-sizing: border-box;
-}
-
-.size label {
-   display: block;
-   margin-bottom: 5px;
-   font-size: 14px;
-}
-
-#reviewView{
-	float: right;
+/* 회원 정보 */
+#memInfo img {
+	border: 1px solid #ddd;
+	border-radius: 50px;
 	width: 60px;
-   	font-size: 14px;
-   	color: #eacc16;  
-
+	height: 60px;
 }
 
-
-
-
-/* 모달창 관련 css */
-/* The Modal (background) */
-.modal, .modalupd {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+#memInfo {
+	display: flex;
+	overflow: hidden;
+	height: auto;
+	padding: 5px 0 10px 0;
 }
 
-/* Modal Content/Box */
-.modal-content, .modal-contentupd {
-	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
-	padding: 20px;
-	border: 1px solid #888;
-	border-radius: 10px;
-	width: 50%; /* Could be more or less, depending on screen size */
+#memInfo div span {
+	display: table;
+	padding-left: 10px;
 }
 
-.modal-content>span, .modal-contentupd>span {
-	color: #34486b;
-	display: inline-block;
-	border-color: #34486b; 
-	padding : 10px;
-	padding-bottom: 20px;
-	padding: 10px;
-	font-size: 30px;
-}
-
-
-/* The Close Button */
-.close {
-	color: #aaa;
+.likeReview{
 	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
 }

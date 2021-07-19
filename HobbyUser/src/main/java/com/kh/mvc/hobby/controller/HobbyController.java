@@ -212,6 +212,29 @@ public class HobbyController {
 
 		return model;
 	}
+	
+	
+	
+	/* 후기 도움돼요 */
+	@ResponseBody
+	@GetMapping("/view/goodReview")
+	public int goodReview(ModelAndView model,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, 
+			@RequestParam("rvNo") int rvNo) {
+
+		int result = 0;
+		int count = 0;
+		
+		// 로그인 상태 확인
+		if (loginMember != null) {
+			service.getUpGoodReview(rvNo);
+			count = service.selectGoodReviewCount(rvNo);
+		}
+
+		return count;
+	}
+	
+	
 
 	/* 취미 목록페이지 요청 */
 	@GetMapping("/list")

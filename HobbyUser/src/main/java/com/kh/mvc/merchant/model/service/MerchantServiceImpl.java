@@ -221,10 +221,7 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.reserveUpdateStatus(reserve);
 	}
 
-	@Override
-	public int getReviewCount(int hbNo) {
-		return mapper.selectReviewCount(hbNo);
-	}
+
 	
 	public List<Calculation> getCalculateList(int merNo) {
 		
@@ -243,15 +240,12 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.selectCalculateCount();
 	}
 
-
-	@Override
-	public List<Review> getReviewList(PageInfo pageInfo, int hbNo) {
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-
-		return mapper.selectReviewList(rowBounds, hbNo);
-	}
-
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<Qna> getQnaList(PageInfo pageInfo, int hbNo) {
 		 int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
@@ -338,5 +332,37 @@ public class MerchantServiceImpl implements MerchantService{
 		
 		return mapper.selectHobbyByNo(hbNo);
 	}
+	
+	
+	
+	/* 후기 관련 Impl[김예원] */
+	@Override
+	public int getReviewCount(int memNo) {
+		return mapper.selectReviewCount(memNo);
+	}
+	
+	@Override
+	public List<Review> getReviewList(PageInfo pageInfo, int memNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+
+		return mapper.selectReviewList(rowBounds, memNo);
+	}
+	
+	@Override
+	public List<Review> getReviewListByNo(PageInfo pageInfo, int hbNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+
+		return mapper.selectReviewListByNo(rowBounds, hbNo);
+	}
+
+	/* 후기 타이틀 이름 가져오기 */
+	@Override
+	public List<String> getHobbyTitle(int merNo) {
+
+		return mapper.selectHobbyTitle(merNo);
+	}
+
 
 }
