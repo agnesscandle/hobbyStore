@@ -27,14 +27,14 @@
 	
 	$(function(){ 
 
-	   var dateData = $("#dateSelect").serialize();
+	   var dateData = $(".dateSelect").serialize();
 	   $.ajax({
 	      type : "POST",
 	      url : "${ path }/merchant/attendanceView",
 	      data: dateData,
 	      datatype: 'json',
 	      success : function(data){ 
-	    	  $("#attendanceMem").append(data);
+	    	  $(".attendanceMem").append(data);
 	   });
 	});
 	});

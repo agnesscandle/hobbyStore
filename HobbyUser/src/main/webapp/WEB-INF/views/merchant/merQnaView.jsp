@@ -101,7 +101,7 @@ width: inherit;
 .qnaContent {
 	width: 90%;
 	float: left;
-	height : 10px;
+	height : max;
 	padding: 10px;
 	padding-bottom: 20px;
 }
