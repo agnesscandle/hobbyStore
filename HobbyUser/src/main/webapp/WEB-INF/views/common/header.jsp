@@ -5,18 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-<style>
-h4{
-    display : inline;
-    color : navy;
-    letter-spacing: 5px;
-    font-size: 70px;
-    font-family : 'Noto Sans KR', sans-serif;
-    position: relative;
-    top : -20px;
-    left : -4px;
-}
-</style>
+
 <html>
     <head>
         <meta charset="UTF-8">
