@@ -274,7 +274,7 @@
 		FROM HOBBY H
 		JOIN CATEGORY C ON(H.CATE_NO = C.CATE_NO)
 		WHERE H.STATUS = 'Y' 
-		AND H.MER_NO = #{adNo} 
+		AND H.MER_NO = #{merNo} 
 
 		ORDER BY
 		H.HB_NO DESC
@@ -292,6 +292,14 @@
 		SELECT COUNT(*)
 		FROM RESERVE
 		WHERE HB_NO=#{hbNo}
+	</select>
+	
+	<select id="selectCalculateCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM CALCULATION
+		WHERE STATUS='N'
+		AND CAL_FINISH='N'
 	</select>
 	
 	

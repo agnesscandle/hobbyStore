@@ -28,7 +28,7 @@ public interface MerchantService {
 	/* 취미 등록 */
 	int getHobbyCount();
 
-	List<Hobby> getHobbyList(PageInfo pageInfo,int adNo);
+	List<Hobby> getHobbyList(PageInfo pageInfo,int merNo);
 
 	int save(Hobby hobby);
 
@@ -56,6 +56,8 @@ public interface MerchantService {
 	List<Calculation> getCalculateList(int merNo);
 
 	List<Calculation> getCalFinishList(int merNo);
+
+	int getCalculateCount();
 
 
 

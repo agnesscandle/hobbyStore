@@ -47,5 +47,7 @@ public interface MerchantMapper {
 
 	List<Calculation> selectCalFinishList(int merNo);
 
+	int selectCalculateCount();
+
 
 }

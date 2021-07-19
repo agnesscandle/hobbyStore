@@ -154,7 +154,7 @@ $(function(){
 <!--취미리스트 페이지 이동-->
 $(function(){
    $("#hobbylist").click(function(){
-      location.href='${ path }/merchant/list?adNo=${loginMerchant.merNo}';
+      location.href='${ path }/merchant/list?merNo=${loginMerchant.merNo}';
    })
 })
 

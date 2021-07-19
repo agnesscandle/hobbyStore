@@ -177,11 +177,11 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 
 	@Override
-	public List<Hobby> getHobbyList(PageInfo pageInfo, int adNo) {
+	public List<Hobby> getHobbyList(PageInfo pageInfo, int merNo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 
-		return mapper.selectHobbyMerList(rowBounds,adNo);
+		return mapper.selectHobbyMerList(rowBounds,merNo);
 	}
 
 	@Override
@@ -227,6 +227,12 @@ public class MerchantServiceImpl implements MerchantService{
 	public List<Calculation> getCalFinishList(int merNo) {
 		
 		return mapper.selectCalFinishList(merNo);
+	}
+
+	@Override
+	public int getCalculateCount() {
+		// TODO Auto-generated method stub
+		return mapper.selectCalculateCount();
 	}
 
 
