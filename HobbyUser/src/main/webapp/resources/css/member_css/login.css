@@ -91,6 +91,9 @@
 	color: white;
 }
 
+.mloginInput_b input[type=button]:hover {
+	background-color: #111934;
+}
 #merLoginSumit, #merEnrollSubmit{
 	cursor: pointer;
 	background-color: #E89C31;

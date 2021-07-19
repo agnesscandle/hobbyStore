@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="../../views/common/header.jsp"%>
 
@@ -53,11 +54,12 @@
 		</div>
 	</div>
 	<div class="reserved-wrap">
-		<span class="rsTitle"><h1>예약 상세</h1></span> <br> <input
-			type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}" /> <span
-			class="title_date"><c:out value="${reserve.resDate}" />&nbsp예약&nbsp&nbsp</span>
-		<span class="title_number">No <c:out value="${reserve.resNo}" /></span>
+		<span class="rsTitle"><h1>예약 상세</h1></span> <br> 
+		<input type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}" /> 
+		<input type="hidden" id="resDate" name="resDate" value="${ reserve.resDate }" /> 
 		
+		<span class="title_date"><c:out value="${ reserve.resDate }" />&nbsp예약&nbsp&nbsp</span>
+		<span class="title_number">No <c:out value="${reserve.resNo}" /></span>
 		
 		
 		

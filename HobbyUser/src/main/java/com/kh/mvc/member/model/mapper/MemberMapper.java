@@ -1,5 +1,6 @@
 package com.kh.mvc.member.model.mapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,6 +49,10 @@ public interface MemberMapper {
 	Reserve selectRsByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo);
 
 	Hobby selectHobbyByNo(int hbNo);
+
+	int selectLikedHobbyCount();
+
+	int selectRsHobbyCount();
 
 
 

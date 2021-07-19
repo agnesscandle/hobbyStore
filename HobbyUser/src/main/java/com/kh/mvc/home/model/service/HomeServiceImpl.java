@@ -27,6 +27,21 @@ public class HomeServiceImpl implements HomeService {
 	public int getHobbyCount() {
 		return mapper.selectHobbyCount();
 	}
+	
+	@Override
+	public int getSHobbyCount() {
+		return mapper.selectSHobbyCount();
+	}
+	
+	@Override
+	public int getDHobbyCount() {
+		return mapper.selectDHobbyCount();
+	}
+
+	@Override
+	public int getPHobbyCount() {
+		return mapper.selectPHobbyCount();
+	}
 
 	@Override
 	public String findCateNameByNo(int cateNo) {
@@ -71,6 +86,11 @@ public class HomeServiceImpl implements HomeService {
 	public List<Hobby> getBestHobbyList() {
 		return mapper.selectBestHobbyList();
 	}
+
+	
+
+	
+	
 	
 
 

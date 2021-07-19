@@ -27,6 +27,12 @@ public interface HomeService {
 	/* 베스트 취미 */
 	List<Hobby> getBestHobbyList();
 
+	int getSHobbyCount();
+
+	int getDHobbyCount();
+
+	int getPHobbyCount();
+
 
 
 
