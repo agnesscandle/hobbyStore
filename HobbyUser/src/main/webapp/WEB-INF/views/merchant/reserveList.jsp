@@ -141,12 +141,12 @@
 </body>
 <script>
 // 예약 취소로 변경
-function changeRes(obj, hbNo, resNo){
+function changeRes(changedBtn, hbNo, resNo){
 	
-		console.log($(obj));
+		console.log($(changedBtn));
 		console.log("hbNo : " + hbNo);
 		console.log("resNo : " + resNo);
-		const changedBtn = document.getElementsByClassName('btnRes');
+		
 		alert("정말로 예약을 취소하시겠습니까? 예약 취소시 변경이 불가합니다.");
 		
 		$.ajax({
@@ -159,11 +159,12 @@ function changeRes(obj, hbNo, resNo){
 			},
 			success : function(data){
 				console.log(data);
-				console.log(obj);
+				console.log(changedBtn);
 				
 				if(data.status === 'N'){
 					alert("예약이 취소되었습니다.");
 					changedBtn.innerText = '예약 취소';
+					changedBtn.className='btnRes2';
 				}
 			},
 			error : function(e){
