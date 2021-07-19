@@ -229,8 +229,17 @@ public class MerchantController {
 		PageInfo pageInfo = new PageInfo(page, 6, service.getReviewCount(memNo), 6);
 		reviewList = service.getReviewList(pageInfo, memNo);
 
+		int sumScore = 0;
+		for(int i=0; i<reviewList.size();i++) {
+
+			sumScore += reviewList.get(i).getRvScore();
+		}
 		
+		double avgScore = (double)sumScore/reviewList.size();
+		sumScore = (int)Math.round(avgScore);
+
 		
+		model.addObject("sumScore",sumScore);
 		model.addObject("reviewList", reviewList);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("merchant/Reviewmanagement");

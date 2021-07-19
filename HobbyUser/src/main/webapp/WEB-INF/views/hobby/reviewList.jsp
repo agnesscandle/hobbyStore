@@ -115,18 +115,18 @@
 
 			<!-- 1. 후기가 있는 경우 -->
 			<c:if test="${!empty reviewList}">
-				<c:forEach var="review" items="${ reviewList }">
+				<c:forEach var="review" items="${ reviewList }" varStatus="status">
 					<div id="review">
 
 						<!-- 후기를 작성한 회원의 정보, 작성일자, 별점 -->
 						<div id="memInfo">
 
-							<c:if test="${loginMember.memImgRename == null}">
+							<c:if test="${review.memImgRename == null}">
 								<img id="memImg" src="${path}/images/memUser.png" />
 							</c:if>
-							<c:if test="${loginMember.memImgRename != null}">
+							<c:if test="${review.memImgRename != null}">
 								<img id="memImg"
-									src="${path}/profile/${loginMember.memImgRename}" />
+									src="${path}/profile/${review.memImgRename}" />
 							</c:if>
 
 
@@ -264,15 +264,10 @@
 
 
 							<span class="clickGood"> 
-							<c:out value="도움돼요"></c:out> 
-							<span id="ajaxReturn">  ${ review.goodReview }  </span>
-							<i class="far fa-thumbs-up fa-2x"></i>
-							</span>
-
 							<script>
 		                     	$(".clickGood").on("click", ()=>{
-		                     	   var rvNo = ${reviewByNo.rvNo};
-		                     	   
+		                     	   var rvNo = ${status.current.rvNo};
+		                     	   console.log(rvNo);
 		                        		$.ajax({
 		                        			type:"get",
 		                        			url:"${path}/hobby/view/goodReview",
@@ -281,17 +276,25 @@
 		                        				rvNo
 		                        			},
 		                        			success:function(data){
-		                        				console.log(data);
+		                        				
 		                        				$("#ajaxReturn").html(data);
+		                        				
 		                        				
 		                        			},
 		                        			error : function(e){
 		                        				console.log(e);
 		                        			}
 		                        		});
+		                        		return;
 		                        });
 		                
 	                     	</script>
+							<c:out value="도움돼요"></c:out> 
+							<span id="ajaxReturn">  ${ review.goodReview }  </span>
+							<i class="far fa-thumbs-up fa-2x"></i>
+							</span>
+
+							
 						</div>
 					</div>
 				</c:forEach>

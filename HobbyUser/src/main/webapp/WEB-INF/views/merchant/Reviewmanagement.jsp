@@ -32,15 +32,13 @@
 					<a href="#">★</a> 
 					<a href="#">★</a>
 				</p>
+				<span><fmt:formatNumber value="${sumScore}" pattern=".0"/></span>
+			
 			</div>
 			<script>
-				$( ".star_rating a" ).click(function() {
-				     $(this).parent().children("a").removeClass("on");
-				     $(this).addClass("on").prevAll("a").addClass("on");
-				     var score = $('.on').length;
-					 $('#rvScore').val(score);
-				     return false;
-				});				
+			 for(var i=0;i<${sumScore};i++){                                 
+                 $(".star_rating a:eq("+i+")").addClass("on");
+              }	
 			</script>
 		</div>
 		
@@ -59,8 +57,15 @@
                   
                   <!-- 후기를 작성한 회원의 정보, 작성일자, 별점 -->
                   <div id="memInfo">
-                     <img id="memImg"
-                        src="${path}/resources/upload/user/${review.memImgRename}" />
+                  
+                  <c:if test="${review.memImgRename == null}">
+								<img id="memImg" src="${path}/images/memUser.png" />
+					</c:if>
+					<c:if test="${review.memImgRename != null}">
+						<img id="memImg"
+							src="${path}/profile/${review.memImgRename}" />
+					</c:if>
+                     
                      <div>
                         <span> ${ review.memName } </span> <span> <fmt:formatDate
                               var="dateTempParse" pattern="yyyy-MM-dd HH:mm"

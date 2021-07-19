@@ -50,7 +50,7 @@ p.star_rating, p.star_rating_update{
 }
 
 #reviewList #review {
-	width: 70%;
+	width: 80%;
 	color: #494949;
 	border-bottom: 2px solid #ddd;
 	overflow: hidden;
