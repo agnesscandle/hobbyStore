@@ -49,5 +49,7 @@ public interface MerchantMapper {
 
 	List<Review> selectReviewList(RowBounds rowBounds, int merNo);
 
+	List<String> selectHobbyTitle(@Param("merNo") int merNo);
 
+	List<Review> selectReviewListByNo(RowBounds rowBounds, int hbNo);
 }

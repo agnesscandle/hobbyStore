@@ -65,6 +65,10 @@ public interface MerchantService {
 
 	List<Review> getReviewList(PageInfo pageInfo, int memNo);
 
+	List<String> getHobbyTitle(int merNo);
+
+	List<Review> getReviewListByNo(PageInfo pageInfo, int hbNo);
+
 
 
 	

@@ -19,16 +19,39 @@
 	crossorigin="anonymous" />
 
 
+<div id="background">
 <div id="reviewDiv">
-	<span id="title">후기</span>
+	<span id="title">후기
+		<div id="searchDiv">
+			<select name="sortReview" id="sortReview">
+					<option value="0">전체보기</option>
+					<c:forEach var="title" items="${ hobbyTitle }">
+						<option value="${ title.hbNo }">${ title.hbTitle }</option>
+					</c:forEach>
+			</select>
+				<span id="search">검색</span>
+		</div>
+		<script>
+		$("#search").on("click", ()=>{
+			var hbNo = $("#sortReview option:selected").val();
+			
+			if(hbNo==0){
+				location.href='${path}/merchant/Reviewmanagement';
+			}else{
+				location.href='${path}/merchant/ReviewByTitle?hbNo='+hbNo;
+			}
+		});
+			
+		</script>
+	</span>
 	<div>
 		<div id="avgScore">
 			<div class="myScore">
 				<span>평균 평점</span>
 				<p class="star_rating">
-					<a href="#" class="on">★</a> 
-					<a href="#" class="on">★</a> 
-					<a href="#" class="on">★</a> 
+					<a href="#">★</a> 
+					<a href="#">★</a> 
+					<a href="#">★</a> 
 					<a href="#">★</a> 
 					<a href="#">★</a>
 				</p>
@@ -47,14 +70,14 @@
       
       	<!-- 1. 후기가 없을 경우 -->
         <c:if test="${empty reviewList}">
-           <span id="noReview">아직 후기가 없습니다. 가장 먼저 후기를 남겨주세요 :)</span>
+           <span id="noReview">아직 후기가 없습니다:(</span>
         </c:if>
         
          <!-- 1. 후기가 있는 경우 -->
          <c:if test="${!empty reviewList}">
             <c:forEach var="review" items="${ reviewList }">
                <div id="review">
-                  
+                 
                   <!-- 후기를 작성한 회원의 정보, 작성일자, 별점 -->
                   <div id="memInfo">
                   
@@ -104,51 +127,42 @@
       </div>
 		</div>
 	</div>
-</div>
 
 
 
-<div id="pageBar">
-	<!-- 맨 처음으로 -->
-	<button onclick="location.href='${path}/hobby/list?page=1'">&lt;&lt;</button>
-
-	<!-- 이전 페이지로 -->
-	<button
-		onclick="location.href='${path}/hobby/list?page=${ pageInfo.prvePage }'">&lt;</button>
-
-	<!--  10개 페이지 목록 -->
-
-	<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}"
-		step="1" varStatus="status">
-		<c:if test="${pageInfo.currentPage == status.current }">
-			<button disabled>
-				<c:out value="${status.current}" />
-			</button>
-		</c:if>
-		<c:if test="${pageInfo.currentPage != status.current }">
-			<button
-				onclick="location.href='${path}/hobby/list?page=${status.current}'">
-				<c:out value="${status.current}" />
-			</button>
-		</c:if>
-	</c:forEach>
-	<!-- 다음 페이지로 -->
-	<button
-		onclick="location.href='${path}/hobby/list?page=${pageInfo.nextPage}'">&gt;</button>
-
-	<!-- 맨 끝으로 -->
-	<button
-		onclick="location.href='${path}/hobby/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
-</div>
-
-<script>
-	$('.size span, .color span').click(function() {
-		$(this).addClass('active')
-		$(this).siblings().removeClass('active')
-	})
-	$('.like').click(function() {
-		$(this).toggleClass('active')
-	})
+<c:if test="${ size>6 }">
+	<div id="pageBar">
+		<!-- 맨 처음으로 -->
+		<button onclick="location.href='${path}/hobby/list?page=1'">&lt;&lt;</button>
 	
+		<!-- 이전 페이지로 -->
+		<button
+			onclick="location.href='${path}/hobby/list?page=${ pageInfo.prvePage }'">&lt;</button>
 	
-</script>
+		<!--  10개 페이지 목록 -->
+	
+		<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}"
+			step="1" varStatus="status">
+			<c:if test="${pageInfo.currentPage == status.current }">
+				<button disabled>
+					<c:out value="${status.current}" />
+				</button>
+			</c:if>
+			<c:if test="${pageInfo.currentPage != status.current }">
+				<button
+					onclick="location.href='${path}/hobby/list?page=${status.current}'">
+					<c:out value="${status.current}" />
+				</button>
+			</c:if>
+		</c:forEach>
+		<!-- 다음 페이지로 -->
+		<button
+			onclick="location.href='${path}/hobby/list?page=${pageInfo.nextPage}'">&gt;</button>
+	
+		<!-- 맨 끝으로 -->
+		<button
+			onclick="location.href='${path}/hobby/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
+	</div>
+</c:if>
+</div>
+</div>

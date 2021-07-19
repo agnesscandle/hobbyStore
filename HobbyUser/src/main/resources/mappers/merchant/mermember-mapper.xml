@@ -472,6 +472,21 @@
 		ORDER BY R.RV_NO DESC
 	</select>
 	
+	<select id="selectReviewListByNo" parameterType="_int"
+		resultMap="ReviewListResultMap">
+		<include refid="ReviewListSql" />
+		AND H.HB_NO = #{hbNo} 
+		ORDER BY R.RV_NO DESC
+	</select>
+	
+	<select id="selectHobbyTitle" parameterType="_int"
+	resultMap="HobbyListResultMap">
+		SELECT H.HB_TITLE,
+		H.HB_NO
+		FROM HOBBY H
+		JOIN MERCHANT M ON(H.MER_NO = M.MER_NO)
+		WHERE M.MER_NO = #{merNo}
+	</select>
 	
 	
  </mapper>

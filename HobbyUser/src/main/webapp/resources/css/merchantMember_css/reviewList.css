@@ -1,15 +1,40 @@
 
+#reviewDiv{
+	width: 1400px;
+	margin: 40px;
+	display: inline-block;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+
+}
+
+
 /* 검색 및 별점 */
+/* 검색영역 */
+#searchDiv{
+	display: inline-block;
+	float: right;
+}
+/* 검색 select box */
 #sortReview{
 	border: 1px solid #ddd;
-   	width: 150px;
+   	width: 300px;
    	padding : 10px;
 	padding-bottom: 20px;
-	padding: 10px;
+	padding: 6px;
    	box-sizing: border-box;
    	border-radius: 5px;
-   	float: right;
+
 } 
+/* 검색 버튼 */
+#search{
+	float: right;
+	padding: 0 10px;
+	color: #686868;
+	font-size: 20px;
+}
+
+
 
 p.star_rating, p.star_rating_update{
 	display: inline-block;
@@ -37,12 +62,18 @@ p.star_rating, p.star_rating_update{
 
 #title{
 	padding: 0 15px;
-	font-size: 18px;
-	color: #ddd;
-	margin-left: 10px;
-	display: inline-block;
+	font-size: 24px;
+	color: #686868;
+	margin-left:10px;
+	display: block;
 	margin-top:15px;
+
 }
+#avgScore{
+
+	padding: 10px 0;
+}
+
 
 /* 리뷰 내용 */
 #reviewListTitle{
@@ -50,9 +81,9 @@ p.star_rating, p.star_rating_update{
 }
 
 #reviewList #review {
-	width: 80%;
+	width: 100%;
 	color: #494949;
-	border-bottom: 2px solid #ddd;
+	border-top: 1px solid #ddd;
 	overflow: hidden;
 	height: auto;
 	font-size: 14px;
@@ -60,9 +91,22 @@ p.star_rating, p.star_rating_update{
 	padding: 30px;
 }
 
+
+/* 아직 후기가 없습니다:( */
+#noReview{
+	padding: 30px;
+	font-size: 24px;
+	color: #686868;
+	display: block;
+	text-align: center;
+}
+
 #reviewList #review #rvContent {
 	display: block;
-	padding: 20px 0;
+	padding: 20px 70px;
+}
+#reviewImgs{
+	padding: 0 70px;
 }
 
 #reviewImgs img {
@@ -72,7 +116,27 @@ p.star_rating, p.star_rating_update{
 	margin: 10px 2px;
 }
 
+@media ( max-width : 1750px) {
+	
+	#reviewDiv{
+		width: 1200px;
+	}
+
+}
+@media ( max-width : 1670px) {
+	
+	#reviewDiv{
+		width: 700px;
+	
+	}
+
+}
+
 @media ( max-width : 1023px) {
+	
+	#reviewDiv{
+		width: 500px;
+	}
 	#reviewImgs img {
 		width: 75px;
 		height: 75px;
@@ -81,6 +145,7 @@ p.star_rating, p.star_rating_update{
 }
 
 @media ( max-width : 767px ) {
+
 	#reviewImgs img {
 		width: 50px;
 		height: 50px;

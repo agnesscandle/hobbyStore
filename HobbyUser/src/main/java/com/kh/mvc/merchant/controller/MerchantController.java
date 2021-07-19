@@ -224,11 +224,16 @@ public class MerchantController {
 		
 		
 		List<Review> reviewList = null;
-		int memNo = loginMerchant.getMerNo();
+		int merNo = loginMerchant.getMerNo();
 
-		PageInfo pageInfo = new PageInfo(page, 6, service.getReviewCount(memNo), 6);
-		reviewList = service.getReviewList(pageInfo, memNo);
+		PageInfo pageInfo = new PageInfo(page, 6, service.getReviewCount(merNo), 6);
+		reviewList = service.getReviewList(pageInfo, merNo);
 
+		/* 후기 타이틀 이름 가져오기 */
+		List<String> hobbyTitle = null;
+		hobbyTitle = service.getHobbyTitle(merNo);
+		
+		
 		int sumScore = 0;
 		for(int i=0; i<reviewList.size();i++) {
 
@@ -237,8 +242,10 @@ public class MerchantController {
 		
 		double avgScore = (double)sumScore/reviewList.size();
 		sumScore = (int)Math.round(avgScore);
-
 		
+		
+		model.addObject("size",reviewList.size());
+		model.addObject("hobbyTitle",hobbyTitle);
 		model.addObject("sumScore",sumScore);
 		model.addObject("reviewList", reviewList);
 		model.addObject("pageInfo", pageInfo);
@@ -249,33 +256,47 @@ public class MerchantController {
 	}
 	
 	/* 각 취미별로 후기 가져오기*/
-	@GetMapping("/Review")
+	@GetMapping("/ReviewByTitle")
 	public ModelAndView reviewList(ModelAndView model,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
 			@RequestParam(value="hbNo") int hbNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 
-
+		int merNo = loginMerchant.getMerNo();
+		
 		/* review(리뷰) 리스트 가져오기 */
 		List<Review> reviewList = null;
 		int count = service.getReviewCount(hbNo);
 		PageInfo pageInfo = new PageInfo(page, 10, count, 6);
 		int listCount = pageInfo.getListCount(); 
-		reviewList = service.getReviewList(pageInfo, hbNo);
+		reviewList = service.getReviewListByNo(pageInfo, hbNo);
 
+		/* 후기 타이틀 이름 가져오기 */
+		List<String> hobbyTitle = null;
+		hobbyTitle = service.getHobbyTitle(merNo);
+		
+		
+		int sumScore = 0;
+		for(int i=0; i<reviewList.size();i++) {
 
+			sumScore += reviewList.get(i).getRvScore();
+		}
+		
+		double avgScore = (double)sumScore/reviewList.size();
+		sumScore = (int)Math.round(avgScore);
+		
+		model.addObject("size",reviewList.size());
+		model.addObject("hobbyTitle",hobbyTitle);
+		model.addObject("sumScore",sumScore);
 		model.addObject("reviewList", reviewList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("count", count);
 		model.addObject("listCount", listCount);
-		model.setViewName("merchant/review");
+		model.setViewName("merchant/Reviewmanagement");
 
 		return model;
 	}
-	
-	
-	
-	
-	
+
 	
 	@GetMapping("/calculatelist")
 	public ModelAndView calculatelist(ModelAndView model,
