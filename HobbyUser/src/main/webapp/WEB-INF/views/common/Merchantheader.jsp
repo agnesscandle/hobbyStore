@@ -93,7 +93,8 @@
             <span>정산</span>
             <ul class="dept03 hide">
                  <div id="hobbyCalculate" class="hobbyCalculate">정산관리</div>
-                  <div class="hobbyEnroll">정산요청</div>
+                  <div id="calculatehistory" class="calculatehistory">정산대기</div>
+                  <div id="calculatefinish" class="calculatefinish">정산완료</div>
             </ul>        
       
  
@@ -144,7 +145,7 @@ $(function(){
 <!--취미리스트 페이지 이동-->
 $(function(){
    $("#hobbylist").click(function(){
-      location.href='${ path }/merchant/list?adNo=${loginMerchant.merNo}';
+      location.href='${ path }/merchant/list?merNo=${loginMerchant.merNo}';
    })
 })
 
@@ -181,7 +182,29 @@ $(function(){
    })
 })
 
-  
+
+$(function(){
+   $("#calculatehistory").click(function(){
+      location.href='${ path }/merchant/calculateWait?merNo=${loginMerchant.merNo}';
+   })
+})
+
+$(function(){
+   $("#calculatefinish").click(function(){
+      location.href='${ path }/merchant/calculateFinish?merNo=${loginMerchant.merNo}';
+   })
+})
+
+
+$(document).on('mouseover', '.topMenu2 span', function () {
+    $('.dept02').slideDown(700);
+});
+$(document).on('mouseover', 'div', function () {
+    if (!$(this).hasClass('topMenu2')) {
+        $('.dept02').slideUp(700);
+    }
+});
+
 <!-- qna 페이지 이동 -->
 $(function(){
    $("#qnaList").click(function(){

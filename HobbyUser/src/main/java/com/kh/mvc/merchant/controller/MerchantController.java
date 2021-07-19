@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.mvc.common.util.PageInfo;
+import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Qna;
@@ -83,13 +84,13 @@ public class MerchantController {
 	/* 취미 목록페이지 요청 */
 	@GetMapping("/list")
 	public ModelAndView list(ModelAndView model,
-			@RequestParam(value="adNo") int adNo,
+			@RequestParam(value="merNo") int merNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
           System.out.println("리스트호출");
 		List<Hobby> list = null;
 
 		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
-		list = service.getHobbyList(pageInfo, adNo);
+		list = service.getHobbyList(pageInfo, merNo);
 		System.out.println(list+"맵퍼 확인");
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
@@ -293,12 +294,12 @@ public class MerchantController {
           
         List<Hobby> list = null;
 
-		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+		PageInfo pageInfo = new PageInfo(page, 10, service.getCalculateCount(), 8);
 		list = service.getHobbycalList(pageInfo, merNo);
 		
 		
 		
-		System.out.println(list+"맵퍼 확인");
+		System.out.println(list+"callist 확인");
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("calculation/calculationlist");
@@ -326,6 +327,36 @@ public class MerchantController {
 
 		return model;
 
+	}
+	
+	@GetMapping("/calculateWait")
+	public ModelAndView calculateHistory(ModelAndView model,
+			@RequestParam("merNo")int merNo)
+	{
+		//Calculation가져오기
+		List<Calculation> list = null;
+		System.out.println(merNo);
+		list = service.getCalculateList(merNo);
+		System.out.println(list+"웨잇확인");
+		model.addObject("list", list);
+
+		model.setViewName("calculation/calculationWait");
+		return model;
+	}
+	
+	@GetMapping("/calculateFinish")
+	public ModelAndView calculateFinish(ModelAndView model,
+			@RequestParam("merNo")int merNo)
+	{
+		//Calculation가져오기
+		List<Calculation> list = null;
+		System.out.println(merNo);
+		list = service.getCalFinishList(merNo);
+		System.out.println(list+"웨잇확인");
+		model.addObject("list", list);
+
+		model.setViewName("calculation/calculationFinish");
+		return model;
 	}
 
 	

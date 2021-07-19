@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Qna;
@@ -45,6 +46,7 @@ public interface MerchantMapper {
 
 	int reserveUpdateStatus(Reserve reserve);
 
+
 	int selectReviewCount(int merNo);
 
 	List<Review> selectReviewList(RowBounds rowBounds, int merNo);
@@ -75,6 +77,12 @@ public interface MerchantMapper {
 	int resCancle(HashMap<String, Integer> hashMap);
 
 	Hobby selectHobbyByNo(int hbNo);
+
+	List<Calculation> selectCalWaitList(int merNo);
+
+	List<Calculation> selectCalFinishList(int merNo);
+
+	int selectCalculateCount();
 
 
 

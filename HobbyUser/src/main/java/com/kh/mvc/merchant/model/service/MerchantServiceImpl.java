@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mvc.common.util.PageInfo;
+import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Qna;
@@ -180,11 +181,11 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 
 	@Override
-	public List<Hobby> getHobbyList(PageInfo pageInfo, int adNo) {
+	public List<Hobby> getHobbyList(PageInfo pageInfo, int merNo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 
-		return mapper.selectHobbyMerList(rowBounds,adNo);
+		return mapper.selectHobbyMerList(rowBounds,merNo);
 	}
 
 	@Override
@@ -224,6 +225,24 @@ public class MerchantServiceImpl implements MerchantService{
 	public int getReviewCount(int hbNo) {
 		return mapper.selectReviewCount(hbNo);
 	}
+	
+	public List<Calculation> getCalculateList(int merNo) {
+		
+		return mapper.selectCalWaitList(merNo);
+	}
+
+	@Override
+	public List<Calculation> getCalFinishList(int merNo) {
+		
+		return mapper.selectCalFinishList(merNo);
+	}
+
+	@Override
+	public int getCalculateCount() {
+		// TODO Auto-generated method stub
+		return mapper.selectCalculateCount();
+	}
+
 
 	@Override
 	public List<Review> getReviewList(PageInfo pageInfo, int hbNo) {

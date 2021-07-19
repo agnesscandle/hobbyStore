@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.mvc.common.util.PageInfo;
+import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Qna;
@@ -30,7 +31,7 @@ public interface MerchantService {
 	/* 취미 등록 */
 	int getHobbyCount();
 
-	List<Hobby> getHobbyList(PageInfo pageInfo,int adNo);
+	List<Hobby> getHobbyList(PageInfo pageInfo,int merNo);
 
 	int save(Hobby hobby);
 
@@ -59,6 +60,7 @@ public interface MerchantService {
 
 	int reserveUpdateStatus(Reserve reserve);
 
+
 	
 	/* 후기 */
 	
@@ -71,6 +73,12 @@ public interface MerchantService {
 	int getReserveCountByHbNo(int hbNo);
 
 	List<Reserve> getReserveListByHbNo(PageInfo pageInfo, int hbNo);
+
+	List<Calculation> getCalculateList(int merNo);
+
+	List<Calculation> getCalFinishList(int merNo);
+
+	int getCalculateCount();
 
 	String selectResStatusByNo(int hbNo, int resNo);
 
