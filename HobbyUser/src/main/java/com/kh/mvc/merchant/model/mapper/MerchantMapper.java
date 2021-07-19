@@ -44,7 +44,7 @@ public interface MerchantMapper {
 	int reserveUpdateStatus(Reserve reserve);
 
 	
-	
+	/* 후기 관련 mapper[김예원] */
 	int selectReviewCount(int merNo);
 
 	List<Review> selectReviewList(RowBounds rowBounds, int merNo);

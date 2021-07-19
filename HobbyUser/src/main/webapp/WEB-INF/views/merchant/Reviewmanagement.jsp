@@ -21,6 +21,9 @@
 
 <div id="background">
 <div id="reviewDiv">
+
+
+	<!-- 1. 상단(검색) -->
 	<span id="title">후기
 		<div id="searchDiv">
 			<select name="sortReview" id="sortReview">
@@ -44,6 +47,8 @@
 			
 		</script>
 	</span>
+	
+	<!-- 2. 별점 -->
 	<div>
 		<div id="avgScore">
 			<div class="myScore">
@@ -65,15 +70,16 @@
 			</script>
 		</div>
 		
+		<!-- 3.후기 리스트 -->
 		<div id="reviewArea">
 			<div id="reviewList">
       
-      	<!-- 1. 후기가 없을 경우 -->
+      	<!-- (1) 후기가 없을 경우 -->
         <c:if test="${empty reviewList}">
            <span id="noReview">아직 후기가 없습니다:(</span>
         </c:if>
         
-         <!-- 1. 후기가 있는 경우 -->
+         <!-- (2) 후기가 있는 경우 -->
          <c:if test="${!empty reviewList}">
             <c:forEach var="review" items="${ reviewList }">
                <div id="review">

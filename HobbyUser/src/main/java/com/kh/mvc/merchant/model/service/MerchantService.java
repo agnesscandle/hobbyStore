@@ -47,7 +47,6 @@ public interface MerchantService {
 	
 	List<Hobby> getHobbyList(PageInfo pageInfo);
 
-
 	List<Hobby> getHobbycalList(PageInfo pageInfo, int merNo);
 
 	int calculateApply(Reserve reserve);
@@ -59,8 +58,7 @@ public interface MerchantService {
 	int reserveUpdateStatus(Reserve reserve);
 
 	
-	/* 후기 */
-	
+	/* 후기 관련 메서드[김예원] */
 	int getReviewCount(int memNo);
 
 	List<Review> getReviewList(PageInfo pageInfo, int memNo);

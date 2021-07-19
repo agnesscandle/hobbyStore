@@ -218,7 +218,7 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 
 	
-	
+	/* 후기 관련 Impl[김예원] */
 	@Override
 	public int getReviewCount(int memNo) {
 		return mapper.selectReviewCount(memNo);
@@ -239,7 +239,6 @@ public class MerchantServiceImpl implements MerchantService{
 
 		return mapper.selectReviewListByNo(rowBounds, hbNo);
 	}
-
 
 	/* 후기 타이틀 이름 가져오기 */
 	@Override

@@ -415,9 +415,9 @@
 		)
 	</insert>
 
+
+
 	<!-- 후기 관련 -->
-
-
 	<sql id="ReviewListSql">
 			SELECT R.RV_NO,
 			R.HB_NO,
