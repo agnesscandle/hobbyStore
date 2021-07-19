@@ -165,7 +165,7 @@ $(function(){
 $(function(){
 	$("#merFaq").click(function(){
 		location.href="${path}/merchant/faq";
-	});#
+	});
 });
 
 <!--정산리스트 페이지 이동-->
