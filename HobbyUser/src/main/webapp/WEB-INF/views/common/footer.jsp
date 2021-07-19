@@ -22,7 +22,7 @@
 						src="${path}/images/logo2.png""></a></td>
 			</tr>
 			<tr>
-				<td><a href=""><h5>자주 묻는 질문</h5></a></td>
+				<td><a a href="${path}/member/support"><h5>자주 묻는 질문</h5></a></td>
 			</tr>
 		</table>
 	</div>

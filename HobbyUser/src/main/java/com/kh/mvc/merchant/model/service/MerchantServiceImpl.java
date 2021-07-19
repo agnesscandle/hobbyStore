@@ -2,6 +2,7 @@ package com.kh.mvc.merchant.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -219,8 +220,6 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.reserveUpdateStatus(reserve);
 	}
 
-	
-	
 	@Override
 	public int getReviewCount(int hbNo) {
 		return mapper.selectReviewCount(hbNo);
@@ -267,5 +266,58 @@ public class MerchantServiceImpl implements MerchantService{
 		      return mapper.deleteReply(reply);
 		}
 	
-	
+
+	public int getHobbyCountByMerNo(int merNo) {
+		
+		return mapper.selectHobbyCountByMerNo(merNo);
+	}
+
+	@Override
+	public List<Hobby> getHobbyListByMerNo(PageInfo pageInfo, int merNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.getHobbyListByMerNo(rowBounds, merNo);
+	}
+
+	@Override
+	public int getReserveCountByHbNo(int hbNo) {
+		
+		return mapper.selectReserveCountByHbNo(hbNo);
+	}
+
+	@Override
+	public List<Reserve> getReserveListByHbNo(PageInfo pageInfo, int hbNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.getReserveListByHbNo(rowBounds, hbNo);
+	}
+
+
+	@Override
+	public String selectResStatusByNo(int hbNo, int resNo) {
+		
+		HashMap<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("hbNo", hbNo);
+		hashMap.put("resNo", resNo);
+		
+		return mapper.selectResStatusByNo(hashMap);
+	}
+
+	@Override
+	public int resCancle(int hbNo, int resNo) {
+		HashMap<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("hbNo", hbNo);
+		hashMap.put("resNo", resNo);
+		
+		return mapper.resCancle(hashMap);
+	}
+
+	@Override
+	public Hobby findByNo(int hbNo) {
+		
+		return mapper.selectHobbyByNo(hbNo);
+	}
+
 }

@@ -64,6 +64,20 @@ public interface MerchantService {
 	
 	int getReviewCount(int hbNo);
 
+	int getHobbyCountByMerNo(int merNo);
+
+	List<Hobby> getHobbyListByMerNo(PageInfo pageInfo, int merNo);
+
+	int getReserveCountByHbNo(int hbNo);
+
+	List<Reserve> getReserveListByHbNo(PageInfo pageInfo, int hbNo);
+
+	String selectResStatusByNo(int hbNo, int resNo);
+
+	int resCancle(int hbNo, int resNo);
+
+	Hobby findByNo(int hbNo);
+
 	List<Review> getReviewList(PageInfo pageInfo, int hbNo);
 
 	List<Qna> getQnaList(PageInfo pageInfo, int hbNo);
