@@ -67,7 +67,12 @@
 					
 			<div class="btnContainer">
 			<p>
-				<button class="btn" id="btnPay">결제하기</button>
+				<c:if test="${loginMember == null}">
+					<button class="btn" id="btnPay2">결제하기</button>
+				</c:if>
+				<c:if test="${ loginMember != null }">
+					<button class="btn" id="btnPay">결제하기</button>
+				</c:if>
 			</p>
 			<p>
 				<button class="btn" id="btnMerchantInfo" onclick="merInfoPopup();">상인 정보보기</button>
@@ -298,6 +303,11 @@ $(document).on("click", "#shareLink", function(e) {
 
 $(document).ready(()=>{
 
+// 비회원용 결제하기 버튼
+$("#btnPay2").on("click", (e)=>{
+	alert("로그인 후 이용 가능합니다.");
+});
+	
 // 결제하기 버튼
 $("#btnPay").on("click", (e)=>{
 	location.href="${path}/hobby/reserve?hbNo=${hobby.hbNo}";

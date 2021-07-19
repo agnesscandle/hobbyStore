@@ -163,7 +163,7 @@
     background-color: 0 0 5px #111934;
 }
 
-#btnPay, #btnMerchantInfo{
+#btnPay, #btnPay2, #btnMerchantInfo{
     background-color: #34486b;
     color: #fff;
     width : 280px;
