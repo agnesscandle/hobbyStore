@@ -2,6 +2,8 @@ package com.kh.mvc.merchant.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,18 +66,15 @@ public class MerchantServiceImpl implements MerchantService{
 	
 	@Override
 	public Merchant findById(String merId) {
-		Merchant a = mapper.selectMerchantMember(merId);
-       System.out.println(a);
 
 		return mapper.selectMerchantMember(merId);
 	}
 	
-	
 
 	@Override
-	public boolean validate(String merid) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean validate(String merId) {
+		
+		return this.findById(merId) != null;
 	}
 	
 	
@@ -337,6 +336,35 @@ public class MerchantServiceImpl implements MerchantService{
 	public Hobby findByNo(int hbNo) {
 		
 		return mapper.selectHobbyByNo(hbNo);
+	}
+
+	/* 상인회원 이미지 저장*/
+	@Override
+	public String saveMerFile(MultipartFile upfile, String savePath) {
+		String renameFileName = null;
+		String renamePath = null;
+		String originalFileName = upfile.getOriginalFilename();
+		
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		renameFileName = 
+				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + 
+				originalFileName.substring(originalFileName.lastIndexOf("."));
+		renamePath = savePath + "/"  + renameFileName;
+		
+		try {
+			upfile.transferTo(new File(renamePath));
+		} catch (IOException e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
 	}
 
 }

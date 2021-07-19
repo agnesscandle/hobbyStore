@@ -116,18 +116,43 @@ public class MerchantController {
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/enroll")
-	public String enrollView() { 
+	public ModelAndView merenrollView(ModelAndView model, @ModelAttribute Category category) { 
 		log.info("회원가입 페이지 요청");
 		
-		return "/merchant/enroll";
+		List<Category> list = null;
+		list = service.getCateList();
+		
+		model.addObject("list", list);
+		model.setViewName("merchant/enroll");
+		return model;
 	}
 	
 	// 회원가입 처리
 	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember) {
-		System.out.println(merchantmember);
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember,
+			HttpServletRequest request, @RequestParam("upfile") MultipartFile upfile) {
 		
-		int result = service.save(merchantmember);
+		System.out.println(merchantmember);
+		System.out.println(upfile.getOriginalFilename());
+		System.out.println(upfile.isEmpty());
+		
+		int result = 0;
+		
+		if(upfile != null && !upfile.isEmpty()) {
+			
+			String rootPath = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = rootPath + "/upload/profile";
+			String renameFileName = service.saveMerFile(upfile, savePath);
+			
+			System.out.println(renameFileName);
+			
+			if(renameFileName != null) {
+				merchantmember.setMerImgOriginal(upfile.getOriginalFilename());
+				merchantmember.setMerImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
+			}
+		
+		
+		result = service.save(merchantmember);
 		
 		if(result > 0) {
 			model.addObject("msg", "회원가입이 정상적으로 완료되었습니다.");
@@ -136,20 +161,29 @@ public class MerchantController {
 			model.addObject("msg", "회원가입을 실패하였습니다.");
 			model.addObject("location", "/merchant/enroll");
 		}
+		}	else {
+			model.addObject("msg", "잘못된 접근입니다");
+			model.addObject("location", "/");
+		}
 		
 		model.setViewName("common/msg");
 		
 		return model;
 	}
 	
-	//로그인 페이지 이동
-//	@GetMapping("/merchantMember/login")
-//	public String loginView() { 
-//		log.info("로그인 페이지 요청");
-//		
-//		return "merchantMember/login";
-//	}
-
+	// 아이디 중복검사 
+		@GetMapping("/idChk")
+		@ResponseBody
+		public Map<String, Object> memberIdChk(@RequestParam("merId") String merId) {
+			log.info("User ID : {}", merId);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("validate", service.validate(merId));
+			
+			return map;
+		}
+		
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");
 	 * 

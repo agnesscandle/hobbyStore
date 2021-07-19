@@ -56,8 +56,8 @@
 
 <div class="divList_h">
 	<div class="containerList_h">
-		<c:if test="${ hobbyList != null }">
-			<c:forEach var="hobby" items="${ hobbyList }">
+		<c:if test="${ hobbyListRs != null }">
+			<c:forEach var="hobby" items="${ hobbyListRs }">
 					<div class="item_h">
 						<img id="thumImg_h"
 							src="${path}/resources/upload/hobby/${hobby.hbThumRename}">
@@ -111,8 +111,8 @@
 <span class="mainLabel_Info"><h2>좋아요 취미</h2></span><button class="expand_btn" onclick="location.replace('${path}/member/likedHobby')">전체보기</button>
 <div class="divList_h">
 	<div class="containerList_h">
-		<c:if test="${ hobbyList_ != null }">
-			<c:forEach var="hobby" items="${ hobbyList_ }">
+		<c:if test="${ hobbyListLike != null }">
+			<c:forEach var="hobby" items="${ hobbyListLike }">
 					<div class="item_h">
 						<img id="thumImg_h"
 							src="${path}/resources/upload/hobby/${hobby.hbThumRename}">

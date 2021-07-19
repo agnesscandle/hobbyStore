@@ -134,7 +134,7 @@
 			#{merEmail},
 			#{merName},
 			#{merPhone},
-			#{merDate},
+			DEFAULT,
 			#{bank},
 			#{bankNumber},
 			#{merNick},
@@ -142,7 +142,7 @@
 			#{merImgOriginal},
 			#{merImgRename},
 			#{merIDCARD},
-			DEFAULT,
+			#{cateNo},
 			#{greeting}
 		)
  	</insert>

@@ -19,7 +19,7 @@
 
         <title> 취미상점  </title>
     </head>
-
+    
     <body>
         <header>
             <div class="logo" onclick="location.href='${path}'">
@@ -30,8 +30,8 @@
                 <button class="search btn_search" id="search" type="button"/>
                 <img src="${path}/images/search.png"/></button>
             </form>
-
-            <span class="member" id="memberContainer">
+            
+             <span class="member" id="memberContainer">
                 <!-- 로그인이 되어있지 않은 경우  -->
                     <table class="tbl" align="center">
                 <c:if test="${ loginMember == null && loginMerchant == null }">
@@ -61,43 +61,8 @@
                         </tr>
                         <tr>
                             <td class="butn logout"><button type="button" onclick="location.replace('${path}/merchant/merlogout')">로그아웃</button></td>
-                            <td class="butn myPage"><button type="button" onclick="location.href='${path}/merchant/list'">마이 페이지</button></td>
+                            <td class="butn myPage"><button type="button" onclick="location.href='${path}/merchant/merMain'">마이 페이지</button></td>
                         </tr>
                </c:if>
                     </table>
             </span>
-            <nav>
-                <ul class="nav-links">
-                    <li id="btnCate"><a href="${ path }/hobby/list">전체 카테고리</a>
-                    </li>
-                    <li><a href="${ path }/main/event">이벤트</a></li>
-                    <li><a href="${ path }/main/grandOpening">오픈 예정</a></li>
-                    <li><a href="${ path }/main/best">베스트</a></li>
-                    <li><a href="${path}/member/support">지원센터</a></li>
-                </ul>
-                <div class="burger">
-                    <div class="line1"></div>
-                    <div class="line2"></div>
-                    <div class="line3"></div>
-                </div>
-            </nav>
-            <div id="cate" class="category">
-            <ul>
-            	<li> <a href="${path}/hobby/list/cate?cateNo=1">여행</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=2">액티비티</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=3">공예(DIY)</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=4">음악</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=5">미술</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=6">커리어</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=7">사진</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=8">요리</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=9">반려동물</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=10">건강</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=11">뷰티</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=12">모임</a></li>
-                <li> <a href="${path}/hobby/list/cate?cateNo=13">KIDS</a></li>
-            </ul>
-            </div>
-        </header>
-        
-   <script type="text/javascript" src="${ path }/js/header.js"></script>

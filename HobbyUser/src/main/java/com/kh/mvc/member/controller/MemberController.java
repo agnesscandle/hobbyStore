@@ -221,25 +221,23 @@ public class MemberController {
           @RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
        log.info("회원정보 페이지 요청");
        
-       List<Hobby> hobbyList = null;
-       List<Hobby> hobbyList_ = null;
+       List<Hobby> hobbyListRs = null;
+       List<Hobby> hobbyListLike = null;
        
        PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
        
        int memNo = 0;
        memNo = loginMember.getMemNo();
        
-       hobbyList = service.getHobbyRsList(memNo, pageInfo);
-       hobbyList_ = service.getHobbyLikedList(memNo, pageInfo);
+       hobbyListRs = service.getHobbyRsList(memNo, pageInfo);
+       hobbyListLike = service.getHobbyLikedList(memNo, pageInfo);
        
-       model.addObject("hobbyList", hobbyList);
-       model.addObject("hobbyList_", hobbyList_);
+       model.addObject("hobbyListRs", hobbyListRs);
+       model.addObject("hobbyListLike", hobbyListLike);
        model.addObject("pageInfo", pageInfo);
        
        model.setViewName("/member/myInfo");
        
-		System.out.println("예약취미 : " + hobbyList);
-		System.out.println("좋아요취미: " + hobbyList_);
 		// System.out.println(rsList);
 		// System.out.println(likedList);
 		

@@ -26,7 +26,10 @@ public interface MerchantService {
 	int save(Merchant merchantMember);
 
 	Merchant findById(String merId);
+	
+	boolean validate(String merId);
 
+	String saveMerFile(MultipartFile upfile, String savePath);
 	
 	/* 취미 등록 */
 	int getHobbyCount();
@@ -42,7 +45,7 @@ public interface MerchantService {
 	void saveFiles(List<MultipartFile> fileList, String savePath, Hobby hobby);
 	
 	
-	boolean validate(String merid);
+	
 
 	
 	
@@ -97,6 +100,8 @@ public interface MerchantService {
 	int saveReply(Reply reply);
 
 	int deleteReply(Reply reply);
+
+	
 
 	
 }

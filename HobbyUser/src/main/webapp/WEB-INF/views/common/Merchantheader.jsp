@@ -27,7 +27,7 @@
 
 
 	<header>
-		<div class="logo" onclick="location.href='${path}/merchant/list?adNo=${loginMerchant.merNo}'">
+		<div class="logo" onclick="location.href='${path}'">
 			<img class="logoImg" src="${ path }/images/logo.png">
 			<h4>취미상점 상인</h4>
 		</div>
