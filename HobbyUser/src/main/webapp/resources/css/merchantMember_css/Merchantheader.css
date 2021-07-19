@@ -12,10 +12,6 @@ header{
 	
 }
 
-.hobbyEnroll{
-	width: 100%;
-}
-
 .sideBar{
 	/* 
 	padding: 10px;
@@ -320,6 +316,7 @@ footer{
 .topMenu3, .topMenu1, .topMenu2, .topMenu4 {
 			width: 150px;
 			margin-top: 10px;
+			
 			margin-bottom: 20px;
 		
 		} 
