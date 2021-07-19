@@ -71,7 +71,7 @@ h4{
                             <td colspan="2" class="infoId">${ loginMerchant.merName } 님, 환영합니다</td>
                         </tr>
                         <tr>
-                            <td class="butn logout"><button type="button" onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
+                            <td class="butn logout"><button type="button" onclick="location.replace('${path}/merchant/merlogout')">로그아웃</button></td>
                             <td class="butn myPage"><button type="button" onclick="location.href='${path}/merchant/merMain'">마이 페이지</button></td>
                         </tr>
                </c:if>
