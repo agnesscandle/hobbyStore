@@ -55,9 +55,9 @@
                             <td class="butn myPage"><button type="button" onclick="location.href='${path}/member/myInfo'">마이 페이지</button></td>
                         </tr>
                </c:if>
-				<c:if test="${ loginMerMember != null }">
+				<c:if test="${ loginMerchant != null }">
                         <tr class="main info">
-                            <td colspan="2" class="infoId">${ loginMerMember.merName } 님, 환영합니다</td>
+                            <td colspan="2" class="infoId">${ loginMerchant.merName } 님, 환영합니다</td>
                         </tr>
                         <tr>
                             <td class="butn logout"><button type="button" onclick="location.replace('${path}/merlogout')">로그아웃</button></td>
