@@ -77,9 +77,8 @@
         
             <span>손님관리</span>
             <ul class="dept02 hide">
-                
                  <div class="hobbyEnroll">출석관리</div>
-                  <div class="hobbyEnroll">예약관리</div>
+                  <div class="hobbyEnroll" id="reserveList" >예약관리</div>
                   <div id="qnaList" class="qnaList">문의관리</div>
                  <div class="hobbyEnroll" onclick="location.href='${ path }/merchant/Reviewmanagement'">후기관리</div>
             </ul>        
@@ -107,8 +106,8 @@
             <span>지원센터</span>
             <ul class="dept04 hide">
                  <div class="hobbyEnroll">공지사항</div>
-                 <div class="hobbyEnroll">운영메뉴얼</div>
-                 <div class="hobbyEnroll">자주 묻는 질문</div>
+                 <div class="hobbyEnroll" id="merManual">운영메뉴얼</div>
+                 <div class="hobbyEnroll" id="merFaq">자주 묻는 질문</div>                  
             </ul>        
         
            
@@ -148,6 +147,26 @@ $(function(){
       location.href='${ path }/merchant/list?adNo=${loginMerchant.merNo}';
    })
 })
+
+
+<!-- 예약 관리(리스트) 페이지 이동 -->
+$(function(){
+	$("#reserveList").click(function(){
+		location.href="${path}/merchant/resHbList?merNo=${loginMerchant.merNo}";
+	});
+});
+<!-- 운영 메뉴얼 페이지 이동 -->
+$(function(){
+	$("#merManual").click(function(){
+		location.href="${path}/merchant/manual";
+	});
+});
+<!-- 자주 묻는 질문 페이지 이동 -->
+$(function(){
+	$("#merFaq").click(function(){
+		location.href="${path}/merchant/faq";
+	});#
+});
 
 <!--정산리스트 페이지 이동-->
 $(function(){

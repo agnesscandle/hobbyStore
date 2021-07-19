@@ -1,6 +1,8 @@
 package com.kh.mvc.merchant.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -276,8 +281,7 @@ public class MerchantController {
 	
 	
 	
-	
-	
+
 	
 	@GetMapping("/calculatelist")
 	public ModelAndView calculatelist(ModelAndView model,
@@ -366,6 +370,106 @@ public class MerchantController {
 	}	
 	
 
+	/* 예약 관리 - 상인이 개설한 취미 목록 가져오기 (지영) */
+	@GetMapping("/resHbList")
+	public ModelAndView resHbList(ModelAndView model,
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam(value="merNo") int merNo) {
+		
+		log.info("상인이 개설한 취미 목록 페이지 요청");
+		
+		List<Hobby> list = null;
+		
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCountByMerNo(merNo), 8);
+		list = service.getHobbyListByMerNo(pageInfo, merNo);
+		
+		model.addObject("loginMerchant", loginMerchant);
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("merchant/resHbList");
+		
+		return model;
+	}
+	
+	/* 예약 목록 리스트 (지영) */
+	@GetMapping("/reserveList")
+	public ModelAndView reserveList(ModelAndView model,
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam(value="hbNo") int hbNo
+			) {
+		
+		log.info("해당 취미에 예약된 예약 리스트 가져오기 요청");
+		
+		List<Reserve> list = null;
+		
+		PageInfo pageInfo = new PageInfo(page, 10, service.getReserveCountByHbNo(hbNo), 8);
+		list = service.getReserveListByHbNo(pageInfo, hbNo);
+		Hobby hobby = service.findByNo(hbNo);
+		
+		
+		model.addObject("loginMerchant", loginMerchant);
+		model.addObject("hobby", hobby);
+		model.addObject("hbNo", hbNo);
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("merchant/reserveList");
+		
+		return model;
+	}
 
+	/* 예약 상태 변경 */
+	@ResponseBody
+	@GetMapping("/changeRes")
+	public Map<String, String> changeReserve(ModelAndView model,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam("hbNo") int hbNo,
+			@RequestParam("resNo") int resNo,
+			@ModelAttribute Reserve reserve){
+		
+		log.info("예약 상태 변경 요청");
+		
+		System.out.println("hbNo : " + hbNo);
+		System.out.println("resNo : " + resNo);
+		
+		int result = 0;
+		String history = null;
+		Map<String, String>map = new HashMap<>();
 
+		log.info("예약 상태 확인 요청");
+		history = service.selectResStatusByNo(hbNo, resNo);
+		System.out.println("history : " + history);
+		
+		if( history.equals("Y")) {
+			log.info("예약 취소로 update");
+			result = service.resCancle(hbNo, resNo);
+			map.put("status", "N");
+		} 
+		
+		return map;
+	}
+	
+	@GetMapping("/manual")
+	public ModelAndView manual(ModelAndView model,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+		
+		log.info("운영 메뉴얼 요청");
+		
+		System.out.println("loginMerchant : " + loginMerchant);
+		
+		String nickName = loginMerchant.getMerNick();
+		model.addObject("nickName", nickName);
+		model.setViewName("merchant/manual");
+		
+		return model;
+	}
+	
+	@GetMapping("/faq")
+	public String faq() {
+		log.info("자주 묻는 질문 페이지 요청");
+		
+		return "merchant/faq";
+	}
+	
 }

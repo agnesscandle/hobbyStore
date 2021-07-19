@@ -1,6 +1,7 @@
 package com.kh.mvc.merchant.model.mapper;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -43,11 +44,24 @@ public interface MerchantMapper {
 
 	int reserveUpdateStatus(Reserve reserve);
 
-	
-	
 	int selectReviewCount(int merNo);
 
 	List<Review> selectReviewList(RowBounds rowBounds, int merNo);
+
+	/* 예약 관리 (지영) */
+	int selectHobbyCountByMerNo(int merNo);
+
+	List<Hobby> getHobbyListByMerNo(RowBounds rowBounds, int merNo);
+
+	int selectReserveCountByHbNo(int hbNo);
+
+	List<Reserve> getReserveListByHbNo(RowBounds rowBounds, int hbNo);
+
+	String selectResStatusByNo(HashMap<String, Integer> hashMap);
+
+	int resCancle(HashMap<String, Integer> hashMap);
+
+	Hobby selectHobbyByNo(int hbNo);
 
 
 }
