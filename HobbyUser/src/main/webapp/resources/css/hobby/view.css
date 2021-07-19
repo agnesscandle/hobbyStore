@@ -59,10 +59,11 @@
     border-radius: 10px;
     margin : 10px;
     margin-top:8%;
-    margin-left : 16%;
-    width : 68%;
+    margin-left : 7%;
+    width : 700px;
     display : flex;
     padding-left: 5%;
+    overflow : hidden;
 }
 
 .addedImgDiv{
