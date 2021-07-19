@@ -96,7 +96,7 @@
                         <td><c:out value="${ reserve.resCount }"/>명</td>
                         <td>
                             <c:if test="${ reserve.resStatus eq 'Y'}">
-                                <button type="button" class="btnRes" onclick="changeRes('${hbNo}', '${reserve.resNo }')"> 예약 완료 </button>
+                                <button type="button" class="btnRes" onclick="changeRes(this,'${hbNo}', '${reserve.resNo }')"> 예약 완료 </button>
                             </c:if>
                             <c:if test="${ reserve.resStatus eq 'N'}">
                                 <button type="button" class="btnRes2"> 예약 취소 </button>
@@ -140,8 +140,9 @@
 </body>
 <script>
 // 예약 취소로 변경
-function changeRes(hbNo, resNo){
+function changeRes(obj, hbNo, resNo){
 	
+		console.log($(obj));
 		console.log("hbNo : " + hbNo);
 		console.log("resNo : " + resNo);
 		const changedBtn = document.getElementsByClassName('btnRes');
@@ -157,6 +158,7 @@ function changeRes(hbNo, resNo){
 			},
 			success : function(data){
 				console.log(data);
+				console.log(obj);
 				
 				if(data.status === 'N'){
 					alert("예약이 취소되었습니다.");
