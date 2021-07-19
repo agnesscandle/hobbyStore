@@ -493,5 +493,62 @@ public class MerchantController {
 		    model.setViewName("common/msg");
 		 return model;
 	 }
+	 
+		//출석관리할 취미리스트 페이지 접근
+		@GetMapping("/attendanceList")
+		public ModelAndView attendanceList(ModelAndView model,
+				@RequestParam(value="merNo") int merNo,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+	          System.out.println("리스트호출");
+	  		
+	          
+	        List<Hobby> list = null;
+
+			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
+			list = service.getHobbycalList(pageInfo, merNo);
+			
+			
+			
+			System.out.println(list+"맵퍼 확인");
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("merchant/attendanceList");
+
+			return model;
+		}
+		
+		//qna리스트페이지로이동
+		@GetMapping("/attendanceView")
+		public ModelAndView attendanceView(ModelAndView model,
+				@RequestParam(value="hbNo") int hbNo,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+			System.out.println(hbNo);
+//			 //Qna리스트 불러오기
+//		    List<Qna> qnaList = null;
+//
+//		    PageInfo pageInfo = new PageInfo(page, 10, service.getQnaCount(hbNo), 10);
+//		    int listCount = pageInfo.getListCount();
+//		    qnaList = service.getQnaList(pageInfo, hbNo);
+//
+//		    //리플리스트 불러오기
+//		    List<Reply> replyList = null;
+//		    for (int i = 0; i < qnaList.size(); i++) {
+//		       int qnaNo = qnaList.get(i).getQnaNo();
+//
+//		       replyList = service.getReplyList(qnaNo);
+//		       
+//		       qnaList.get(i).setReply(replyList);
+//		       System.out.println(qnaList);
+//		    }
+//		    
+//		    model.addObject("qnaList", qnaList);
+//		    model.addObject("pageInfo", pageInfo);
+//		    model.addObject("listCount", listCount);
+			model.addObject("hbNo",hbNo);
+		    model.setViewName("merchant/attendanceView");
+
+		    return model;
+
+		}
 
 }

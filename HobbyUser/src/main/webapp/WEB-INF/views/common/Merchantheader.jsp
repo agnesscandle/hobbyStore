@@ -78,7 +78,7 @@
             <span>손님관리</span>
             <ul class="dept02 hide">
                 
-                 <div class="hobbyEnroll">출석관리</div>
+                 <div class="attendance">출석관리</div>
                   <div class="hobbyEnroll">예약관리</div>
                   <div id="qnaList" class="qnaList">문의관리</div>
                  <div class="hobbyEnroll" onclick="location.href='${ path }/merchant/Reviewmanagement'">후기관리</div>
@@ -155,7 +155,12 @@ $(function(){
       location.href='${ path }/merchant/calculatelist?merNo=${loginMerchant.merNo}';
    })
 })
-
+<!--출석관리 페이지 이동-->
+$(function(){
+   $(".attendance").click(function(){
+      location.href='${ path }/merchant/attendanceList?merNo=${loginMerchant.merNo}';
+   })
+})
 
   
 <!-- qna 페이지 이동 -->

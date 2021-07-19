@@ -61,8 +61,8 @@
                      </div>
                   </div>
                   <button
-                     onclick="location.replace('${path}/merchant/merQnaView?hbNo=${hobby.hbNo}')"
-                     class="add-cart">문의 관리하기</button>
+                     onclick="location.replace('${path}/merchant/attendanceView?hbNo=${hobby.hbNo}')"
+                     class="add-cart">출석 관리하기</button>
                </div>
             </div>
          </c:forEach>
@@ -112,4 +112,5 @@
       $(this).toggleClass('active')
    })
 </script>
+
 <%@ include file="../../views/common/footer.jsp"%>
