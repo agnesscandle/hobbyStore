@@ -2,6 +2,8 @@ package com.kh.mvc.hobby.model.vo;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class Reserve {
 	
 	private int resCount;
 	
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */
 	private Date resDate;
 	

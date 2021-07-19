@@ -47,11 +47,17 @@
 		<exclude-mapping path="/member/memberPwSearch"/>
 		<exclude-mapping path="/member/memberPwSearch2"/>
 		<exclude-mapping path="/member/memberPwSearch3"/>
+		<exclude-mapping path="/member/support"/>
 		
 		
 		<exclude-mapping path="/hobby/qnaList"/>
 		<exclude-mapping path="/hobby/view"/>
 		<exclude-mapping path="/hobby/list"/>
+		<exclude-mapping path="/hobby/list/search"/>
+		
+		
+		
+		
 		
 		<beans:bean id="loginCheckInterceptor" class="com.kh.mvc.common.Interceptor.LoginCheckIntercaptor" />
 		</interceptor>	

@@ -58,6 +58,10 @@ public interface MemberService {
 
 	Hobby findByNo(int hbNo);
 
+	int getLikedHobbyCount();
+
+	int getRsHobbyCount();
+
 
 
 
