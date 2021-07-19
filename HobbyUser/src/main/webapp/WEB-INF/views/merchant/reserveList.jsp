@@ -12,17 +12,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    table {
+    #tbl-board {
     width: 1000px;
     border-top: 1px solid #34486b;
     border-collapse: collapse;
   }
-  th, td {
+  #tbl-board th, #tbl-board td {
     border-bottom: 1px solid #34486b;
     padding: 10px;
     font-size: 18px;
     text-align : center;
   }
+
   #c1, #c2, #c4, #c5{ width : 180px;}
   #c3, #c5, #c6, #c7{ width : 140px; }
   
