@@ -262,8 +262,8 @@ public class MemberServiceImpl implements MemberService{
 	
 	/* 예약 */
 	@Override
-	public List<Reserve> getRsList() {
-		return mapper.selectRsList();
+	public List<Reserve> getRsList(int memNo) {
+		return mapper.selectRsList(memNo);
 	}
 
 	@Override
@@ -274,15 +274,27 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectHobbyRsList(memNo, rowBounds);
 	}
 
-	@Override
-	public Reserve findReserveByNo(int memNo, int hbNo) {
-		return mapper.selectRsByNo(memNo, hbNo);
-	}
 
 	@Override
 	public Hobby findByNo(int hbNo) {
 		return mapper.selectHobbyByNo(hbNo);
 	}
+
+	@Override
+	public Reserve findReserveViewByNo(int memNo, int hbNo) {
+		return mapper.selectRsByNo(memNo, hbNo);
+	}
+
+	@Override
+	public Reserve findReserveByNo(int memNo, int hbNo, int resNo) {
+		
+		return mapper.selectRsViewByNo(memNo, hbNo, resNo);
+	}
+
+	
+
+
+	
 
 	
 	

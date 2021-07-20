@@ -347,6 +347,7 @@
 		SELECT H.HB_NO,
 		H.MER_NO,
 		H.CATE_NO,
+		R.RES_NO,
         C.CATE_NAME,
 		H.HB_TITLE,
 		H.HB_SUMMARY,
@@ -404,8 +405,42 @@
 		ORDER BY
 		R.RES_DATE DESC)
 		</select>
+	
+	
+	<select id="selectRsNo" parameterType="_int"
+		resultMap="ReserveListResultMap">
+		<include refid="ReserveListSql" />
+		AND RES_NO=#{resNo}
+	</select>
+	
 		
 	<!-- 예약 상세 가져오기 -->
+	<select id="selectRsViewByNo" parameterType="map"
+		resultMap="ReserveListResultMap">
+		SELECT 
+        R.RES_NO,
+        R.RES_DATE,
+        R.HB_NO,
+        H.HB_THUM_RENAME,
+        H.HB_TITLE,
+        R.RES_NAME,
+        R.RES_PHONE,
+        R.RES_COUNT,
+        R.TAKE_DATE,
+        R.PAY_FEE,
+        R.RES_STATUS
+        FROM RESERVE R 
+        JOIN HOBBY H ON(H.HB_NO = R.HB_NO)
+        WHERE R.MEM_NO = #{memNo}
+        AND R.RES_NO = #{resNo}
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'
+        
+        ORDER BY
+		R.RES_DATE DESC
+	</select>
+	
+	
 	<select id="selectRsByNo" parameterType="map"
 		resultMap="ReserveListResultMap">
 		SELECT 
@@ -430,7 +465,6 @@
         ORDER BY
 		R.RES_DATE DESC
 	</select>
-	
 	<!-- 취미 수 검색 -->
 	<select id="selectHobbyCount" parameterType="map"
 		resultType="_int">
@@ -440,6 +474,8 @@
 	</select>
 	
 	<select id="selectRsList" parameterType="map" resultMap="ReserveListResultMap">
+		
 		<include refid="ReserveListSql" />
+		AND MEM_NO = #{memNo}
 	</select>
  </mapper>

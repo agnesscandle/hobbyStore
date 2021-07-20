@@ -44,15 +44,18 @@ public interface MemberMapper {
 
 	List<Hobby> selectHobbyRsList(int memNo, RowBounds rowBounds);
 
-	List<Reserve> selectRsList();
-
-	Reserve selectRsByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo);
+	List<Reserve> selectRsList(int memNo);
 
 	Hobby selectHobbyByNo(int hbNo);
 
 	int selectLikedHobbyCount();
 
 	int selectRsHobbyCount();
+
+	Reserve selectRsByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo);
+
+	Reserve selectRsViewByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo, @Param("resNo") int resNo);
+
 
 
 

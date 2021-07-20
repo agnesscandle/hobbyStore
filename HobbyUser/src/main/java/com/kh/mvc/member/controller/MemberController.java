@@ -30,6 +30,7 @@ import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Reserve;
+import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.member.model.service.MemberService;
 import com.kh.mvc.member.model.vo.Member;
@@ -223,6 +224,7 @@ public class MemberController {
        
        List<Hobby> hobbyListRs = null;
        List<Hobby> hobbyListLike = null;
+       List<Reserve> reserveList = null;
        
        PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
        
@@ -231,13 +233,16 @@ public class MemberController {
        
        hobbyListRs = service.getHobbyRsList(memNo, pageInfo);
        hobbyListLike = service.getHobbyLikedList(memNo, pageInfo);
+       reserveList = service.getRsList(memNo);
        
        model.addObject("hobbyListRs", hobbyListRs);
        model.addObject("hobbyListLike", hobbyListLike);
+       model.addObject("reserveList", reserveList);
+       
        model.addObject("pageInfo", pageInfo);
        
        model.setViewName("/member/myInfo");
-       
+       System.out.println("reserveList : " + reserveList);
 		// System.out.println(rsList);
 		// System.out.println(likedList);
 		
@@ -527,22 +532,25 @@ public class MemberController {
 			@GetMapping("/member/reservedHbView")
 			public ModelAndView reservedHbView(ModelAndView model,
 					@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-					@RequestParam("hbNo") int hbNo
+					 @ModelAttribute Reserve reserve, @RequestParam("resNo") int resNo, @RequestParam("hbNo") int hbNo
 					) { 
 				log.info("예약 상세 페이지 요청");
 				
 				int memNo = 0;
 				memNo = loginMember.getMemNo();
 				
-				Reserve reserve = service.findReserveByNo(memNo, hbNo);
+				
 				Hobby hobby = service.findByNo(hbNo);
-		
+//				int resNo = service.findReserveViewByNo(memNo, hbNo).getResNo();
+				 
+				reserve = service.findReserveByNo(memNo,hbNo,resNo);
 				
 				model.addObject("reserve", reserve);
 				model.addObject("hobby", hobby);
 				
 				model.setViewName("member/reservedHbView");
 				
+				System.out.println("hbNo : " + hbNo);
 				return model;
 			}
 			

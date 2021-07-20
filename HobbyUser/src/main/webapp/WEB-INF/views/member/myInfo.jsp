@@ -51,23 +51,29 @@
 </div>
 
 
+
+
 <span class="mainLabel_Info"><h2>예약한 취미</h2></span><button class="expand_btn" onclick="location.replace('${path}/member/reservedHobby')">전체보기</button>
 
 
 <div class="divList_h">
 	<div class="containerList_h">
+
 		<c:if test="${ hobbyListRs != null }">
 			<c:forEach var="hobby" items="${ hobbyListRs }">
+					
 					<div class="item_h">
+					
 						<img id="thumImg_h"
 							src="${path}/resources/upload/hobby/${hobby.hbThumRename}">
+					
 						<div class="detail_h">
 							<div class="title_h">
 
 								<h2>
 									${hobby.cateName}<em>${hobby.hbTitle}</em>
 								</h2>
-
+								
 								<c:if test="${ hobby.hbDiscountStatus eq 'Y' }">
 									<c:set var="disFee"
 										value="${ hobby.hbFee - (hobby.hbFee * hobby.hbDiscountRate / 100)}" />
@@ -98,15 +104,18 @@
 									<c:out value="${hobby.hbSummary}"></c:out>
 								</div>
 							</div>
+							<c:forEach var="reserve" items="${ reserveList }">
 							<button
-								onclick="location.replace('${path}/member/reservedHbView?hbNo=${hobby.hbNo}')"
-								class="add-cart_h">자세히 보기</button>
+								onclick="location.replace('${path}/member/reservedHbView?resNo=${reserve.resNo}&hbNo=${hobby.hbNo}')"
+								class="add-cart_h">자세히 보기</button></c:forEach>
 						</div>
 					</div>
 			</c:forEach>
+
 		</c:if>
 	</div>
 </div>
+
 
 <span class="mainLabel_Info"><h2>좋아요 취미</h2></span><button class="expand_btn" onclick="location.replace('${path}/member/likedHobby')">전체보기</button>
 <div class="divList_h">
@@ -153,6 +162,7 @@
 									<c:out value="${hobby.hbSummary}"></c:out>
 								</div>
 							</div>
+							
 							<button
 								onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
 								class="add-cart_h">자세히 보기</button>

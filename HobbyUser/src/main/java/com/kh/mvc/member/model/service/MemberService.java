@@ -18,7 +18,6 @@ public interface MemberService {
 	Member findById(String memId);
 
 	Member findByIdAndName(String memName, String memEmail);
-
 	
 	Member findByEmail(String memEmail);
 	
@@ -42,25 +41,45 @@ public interface MemberService {
 
 	int setNewPw(String memPhone, String numStr);
 	
-	List<Category> getCateList();
 
-	List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo);
-
-	List<Liked> getLikedList();
-
+	
+	Hobby findByNo(int hbNo);
+	
 	int getHobbyCount();
-
-	List<Reserve> getRsList();
-
+	
+	List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo);
+	
 	List<Hobby> getHobbyRsList(int memNo, PageInfo pageInfo);
 
-	Reserve findReserveByNo(int memNo, int hbNo);
 
-	Hobby findByNo(int hbNo);
-
+	List<Liked> getLikedList();
+	
 	int getLikedHobbyCount();
 
+	
+	List<Reserve> getRsList(int memNo);
+
 	int getRsHobbyCount();
+
+	
+	
+	
+	List<Category> getCateList();
+
+	Reserve findReserveViewByNo(int memNo, int hbNo);
+
+	Reserve findReserveByNo(int memNo, int hbNo, int resNo);
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -18,9 +18,9 @@ public class Reserve {
 	
 	private int memNo;
 	
-	private String merNo;
+//	private String merNo;
 	
-	private String memId;
+//	private String memId;
 	
 	private String resName;
 	
@@ -41,8 +41,10 @@ public class Reserve {
 	
 	private String resStatus;
 	
-	private String calStatus;
+//	private String calStatus;
 	
-	private String calFinish;
+//	private String calFinish;
+
+	
 	
 }
