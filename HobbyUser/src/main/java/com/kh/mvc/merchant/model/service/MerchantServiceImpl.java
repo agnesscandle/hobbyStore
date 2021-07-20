@@ -339,4 +339,5 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.selectHobbyByNo(hbNo);
 	}
 
+
 }

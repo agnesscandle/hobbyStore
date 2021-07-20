@@ -12,6 +12,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+	#search-container{
+		position : relative;
+		width : 800px;
+		top : 30px;
+		left : 250px;
+		font-size : 18px;
+	}
+    
     #tbl-board {
     width: 1000px;
     border-top: 1px solid #34486b;
@@ -62,6 +71,23 @@
     <h1> 예약 현황 </h1>
     <div id="hbInfo">
     	<h2> [ <c:out value="${ hobby.hbTitle }"/> ] </h2> 
+    </div>
+    <div id="search-container">
+		<form id="searchForm">
+			<label class="hidden"> 조회 분류 </label>
+	    	<select name="filterCate">
+	    		<option value="">- 선택 -</option>
+	    		<option value="resDate">예약 날짜</option>
+	    		<option value="memId">예약자 아이디</option>
+	    		<option value="resName">예약자 성명</option>
+	    	</select>
+	    	<input type="hidden" name="hbNo"/>
+	    	<input type="text" name="resName"/>
+	    	<input type="text" style="display:none;"/>
+	    	<button type="button" id="btnSearch"> 조회하기 </button>
+		</form>
+
+
     </div>
 	<div id="reserveList-container">
     <br><br>
@@ -177,5 +203,11 @@ function changeRes(changedBtn, hbNo, resNo){
 $(".btnRes2").on("click", (e)=>{
 	alert("재예약은 결제를 통해 진행해 주시기 바랍니다.");
 });
+
+// 조회하기 버튼
+$('#btnSearch').click(function(){
+    
+    $('#searchForm').submit();
+ });
 </script>
 </html>

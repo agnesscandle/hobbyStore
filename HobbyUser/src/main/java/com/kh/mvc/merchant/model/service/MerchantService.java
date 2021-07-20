@@ -98,5 +98,6 @@ public interface MerchantService {
 
 	int deleteReply(Reply reply);
 
+
 	
 }

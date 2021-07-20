@@ -85,5 +85,4 @@ public interface MerchantMapper {
 	int selectCalculateCount();
 
 
-
 }
