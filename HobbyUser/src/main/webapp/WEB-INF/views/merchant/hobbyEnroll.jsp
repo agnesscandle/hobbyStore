@@ -184,7 +184,7 @@
                </div>
                
                <span>설명</span> 
-               <textarea id="detail" name="detail" class="req" cols="67" rows="15" placeholder="설명을 입력해주세요"style="resize: none;"></textarea>
+               <textarea id="detail" name="hbDetailInfo" class="req" cols="67" rows="15" placeholder="설명을 입력해주세요"style="resize: none;"></textarea>
                
                <div class="btn">
                   <input type="button" class="before" value="이전으로" /> 

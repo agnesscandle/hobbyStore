@@ -37,7 +37,7 @@ public interface MerchantService {
 
 	List<Category> getCateList();
 
-	void saveFile(MultipartFile thumFile, String savePath, Hobby hobby);
+	List<String> saveFile(MultipartFile thumFile, String savePath, Hobby hobby);
 
 	void saveFiles(List<MultipartFile> fileList, String savePath, Hobby hobby);
 	

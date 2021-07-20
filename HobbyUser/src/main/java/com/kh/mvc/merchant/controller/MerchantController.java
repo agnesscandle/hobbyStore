@@ -175,11 +175,20 @@ public class MerchantController {
 			@RequestParam("exactAddress") String exactAddress, MultipartHttpServletRequest mtfRequest,
 			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
 			HttpServletRequest request, @ModelAttribute Hobby hobby) {
-
+		
+		List<String> setFile = null;
+		
+		
 		/* 다중 파일 불러오기 */
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		
 		/* 썸네일 파일 불러오기 */
 		MultipartFile thumFile = mtfRequest.getFile("input-file");
+
+		/* 상세페이지 이미지 파일 불러오기 */
+		MultipartFile detailFile = mtfRequest.getFile("input-file-detail");
+
+		
 		/* 경로, 변수 설정 */
 		String src = mtfRequest.getParameter("src");
 		System.out.println("src value : " + src);
@@ -187,20 +196,26 @@ public class MerchantController {
 		String savePath = rootPath + "/upload/hobby/";
 		
 		if(!fileList.get(0).isEmpty()) {
-
-			
 			/*
 			 * String originalFileString = null; String renamedFileString = null; String
 			 * thumOri = null; String thumRename = null;
 			 */
 			service.saveFiles(fileList, savePath, hobby);
-			System.out.println("타나?");
 		
 		}
 		if(!thumFile.isEmpty()) {
-			service.saveFile(thumFile, savePath, hobby);
-			System.out.println("타나?썸네일");
+			setFile = service.saveFile(thumFile, savePath, hobby);
+			hobby.setHbThumOri(setFile.get(0));
+			hobby.setHbThumRename(setFile.get(1));
+
 		}
+		
+		if(!detailFile.isEmpty()) {
+			setFile = service.saveFile(detailFile, savePath, hobby);
+			hobby.setHbDetailOri(setFile.get(0));
+			hobby.setHbDetailRename(setFile.get(1));
+		}
+		
 		
 		
 		int result = 0;

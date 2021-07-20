@@ -162,6 +162,9 @@
 		HB_IMGS_RENAME,
 		HB_THUM_ORI,
 		HB_THUM_RENAME,
+		HB_DETAIL_ORI,
+		HB_DETAIL_RENAME,
+		HB_DETAIL_INFO,
 		HB_INFO,
 		HB_LOCATION
 		FROM HOBBY
@@ -176,6 +179,7 @@
 		FROM
 		CATEGORY
 	</sql>
+	
 	
 	
 	
@@ -195,9 +199,11 @@
 		<result property="hbImgsRename" column="HB_IMGS_RENAME" />
 		<result property="hbThumOri" column="HB_THUM_ORI" />
 		<result property="hbThumRename" column="HB_THUM_RENAME" />
+		<result property="hbDetailOri" column="HB_DETAIL_ORI" />
+		<result property="hbDetailRename" column="HB_DETAIL_RENAME" />
+		<result property="hbDetailInfo" column="HB_DETAIL_INFO" />
 		<result property="hbInfo" column="HB_INFO" />
 		<result property="hbLocation" column="HB_LOCATION" />
-		<result property="hbTotalFee" column="HB_TOTALFEE"/>
 	</resultMap>
 		
 		
@@ -363,6 +369,9 @@
 		HB_IMGS_RENAME,
 		HB_THUM_ORI,
 		HB_THUM_RENAME,
+		HB_DETAIL_ORI,
+		HB_DETAIL_RENAME,
+		HB_DETAIL_INFO,
 		HB_INFO,
 		HB_LOCATION,
 		STATUS
@@ -382,6 +391,9 @@
 		#{hbImgsRename},
 		#{hbThumOri},
 		#{hbThumRename},
+		#{hbDetailOri},
+		#{hbDetailRename},
+		#{hbDetailInfo},
 		#{hbInfo},
 		#{hbLocation},
 		'Y'

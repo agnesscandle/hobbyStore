@@ -45,6 +45,18 @@ public class Hobby {
    
    private String hbThumRename;
    
+   
+	/* 상세페이지 설명, 이미지 추가 */
+   
+   private String hbDetailOri;
+   
+   private String hbDetailRename;
+   
+   private String hbDetailInfo;
+   
+   
+   
+   
    private String hbInfo;
    
    private String hbLocation;

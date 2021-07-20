@@ -2,6 +2,7 @@ package com.kh.mvc.merchant.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -118,6 +119,7 @@ public class MerchantServiceImpl implements MerchantService{
 
 	@Override
 	public void saveFiles(List<MultipartFile> fileList, String savePath, Hobby hobby) {
+		
 		String originalFileString = null;
 		String renamedFileString = null;
 		for (MultipartFile mf : fileList) {
@@ -150,13 +152,16 @@ public class MerchantServiceImpl implements MerchantService{
 				e.printStackTrace();
 			}
 		}
-
+		
 		hobby.setHbImgsOri(originalFileString);
 		hobby.setHbImgsRename(renamedFileString);
 	}
 
+
 	@Override
-	public void saveFile(MultipartFile thumFile, String savePath, Hobby hobby) {
+	public List<String> saveFile(MultipartFile thumFile, String savePath, Hobby hobby) {
+	
+		List<String> setFile = new ArrayList<>();
 
 		String thumOri = null;
 		String thumRename = null;
@@ -165,9 +170,12 @@ public class MerchantServiceImpl implements MerchantService{
 		thumOri = thumFile.getOriginalFilename();
 		thumRename = System.currentTimeMillis() + thumOri;
 
+		System.out.println(thumOri);
+		
 		try {
 			String safeFile = savePath + thumRename;
 			thumFile.transferTo(new File(safeFile));
+			
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,8 +183,12 @@ public class MerchantServiceImpl implements MerchantService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		hobby.setHbThumOri(thumOri);
-		hobby.setHbThumRename(thumRename);
+
+
+		setFile.add(thumOri);
+		setFile.add(thumRename);
+		
+		return setFile;
 
 	}
 
