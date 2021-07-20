@@ -60,8 +60,9 @@
 	<div class="containerList_h">
 
 		<c:if test="${ hobbyListRs != null }">
-			<c:forEach var="hobby" items="${ hobbyListRs }">
-					
+			<c:forEach var="hobby" items="${ hobbyListRs }" >
+		<c:forEach var="reserve" items="${ reserveList }">
+				<c:if test="${reserve.hbNo == hobby.hbNo}">
 					<div class="item_h">
 					
 						<img id="thumImg_h"
@@ -104,14 +105,15 @@
 									<c:out value="${hobby.hbSummary}"></c:out>
 								</div>
 							</div>
-							<c:forEach var="reserve" items="${ reserveList }">
+							
 							<button
 								onclick="location.replace('${path}/member/reservedHbView?resNo=${reserve.resNo}&hbNo=${hobby.hbNo}')"
-								class="add-cart_h">자세히 보기</button></c:forEach>
+								class="add-cart_h">자세히 보기</button>
 						</div>
 					</div>
+		</c:if>
 			</c:forEach>
-
+	</c:forEach>
 		</c:if>
 	</div>
 </div>
