@@ -222,8 +222,11 @@ public class MemberController {
           @RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
        log.info("회원정보 페이지 요청");
        
+       // 예약 취미
        List<Hobby> hobbyListRs = null;
+       // 좋아요 취미
        List<Hobby> hobbyListLike = null;
+       // 예약 리스트
        List<Reserve> reserveList = null;
        
        PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
@@ -337,20 +340,21 @@ public class MemberController {
 						member.setMemImgOriginal(upfile.getOriginalFilename());
 						member.setMemImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
 					}
-				}
+				}result = service.save(member);		
+					
+					if(result > 0) {
+						model.addObject("loginMember" , service.findById(loginMember.getMemId())); 
+						model.addObject("msg", "회원정보 수정을 완료했습니다.");
+						model.addObject("location", "/member/updateMyInfo");
+					} else {
+						model.addObject("msg", "회원정보 수정에 실패했습니다.");
+						model.addObject("location", "/member/updateMyInfo");
+					}		
+					
 				
 				
-				result = service.save(member);		
-				
-				if(result > 0) {
-					model.addObject("loginMember" , service.findById(loginMember.getMemId())); 
-					model.addObject("msg", "회원정보 수정을 완료했습니다.");
-					model.addObject("location", "/member/updateMyInfo");
-				} else {
-					model.addObject("msg", "회원정보 수정에 실패했습니다.");
-					model.addObject("location", "/member/updateMyInfo");
-				}			
-			} else {
+			}
+			else {
 				model.addObject("msg", "잘못된 접근입니다");
 				model.addObject("location", "/");
 			}
