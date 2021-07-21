@@ -68,6 +68,10 @@ td{
     border-radius: 10px;
 }
 
+.col2:focus{
+	background-color : #fffbe6;
+}
+
 #hbTitle, #rpWriterId{
    border : none;
 }
