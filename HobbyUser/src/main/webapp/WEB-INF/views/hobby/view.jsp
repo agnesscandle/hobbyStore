@@ -118,7 +118,15 @@
 		<!-- 하단 영역 : 상세 내용(후기, 취미소개, 위치, 문의하기, 환불정책) -->
 		<div class="bottom">
 			<span class="bottomMenu" id="infoM"> 취미소개 </span>
-			<span class="detail" id="infoD"></span>
+			<span class="detail" id="infoD">
+			<span id=hbDetailInfo> <c:out value="${hobby.hbDetailInfo}"/></span>
+			<span id=hbDetailImage>
+				<c:if test="${hobby.hbDetailRename} != null">
+					<c:out value="${hobby.hbDetailRename}"/>
+					<img class="hobbyDetailImg" src="${ path }/upload/hobby/${hobby.hbDetailRename}">
+				</c:if>
+			</span>
+			</span>
 			<br><hr><br>
 			<span class="bottomMenu" id="locationM"> 위치 </span>
 			<span class="detail address" id="locationD">
