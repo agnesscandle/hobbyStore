@@ -14,8 +14,19 @@
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
 
+<style>
+#footer{
+	position:absolute;
 
+    bottom:0;
 
+    width:100%;
+
+    height:70px;    
+}
+</style>
+
+<br><br><br><br>
 <div class="detail" id="reviewAreaD">
 	<div class="reviewDiv">
 	
@@ -410,4 +421,6 @@
 
 </script>
 
+<div id="footer">
 <%@ include file="../../views/common/footer.jsp"%>
+</div>
