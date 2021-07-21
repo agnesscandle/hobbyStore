@@ -4,6 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../../views/common/Merchantheader.jsp"%>
+
+<!-- datepiker -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -11,6 +17,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+   <script>
+  $( function() {
+    $( "#takeDate" ).datepicker({
+    	dateFormat: 'yy-mm-dd' //Input Display Format 변경
+            
+        });                    
+        
+  } );
+  </script> 
 <style>
 
 	#search-container{
@@ -73,22 +88,11 @@
     	<h2> [ <c:out value="${ hobby.hbTitle }"/> ] </h2> 
     </div>
     <div id="search-container">
-		<form id="searchForm">
-			<label class="hidden"> 조회 분류 </label>
-	    	<select name="filterCate">
-	    		<option value="">- 선택 -</option>
-	    		<option value="resDate">예약 날짜</option>
-	    		<option value="memId">예약자 아이디</option>
-	    		<option value="resName">예약자 성명</option>
-	    	</select>
-	    	<input type="hidden" name="hbNo"/>
-	    	<input type="text" name="resName"/>
-	    	<input type="text" style="display:none;"/>
-	    	<button type="button" id="btnSearch"> 조회하기 </button>
-		</form>
-
-
+	    	<input type="text" id="hbNo" name="hbNo" value="${hbNo}"/>
+			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd">
+			<input type="submit" id="dateTrans" value="조회하기" >
     </div>
+    
 	<div id="reserveList-container">
     <br><br>
     <div class="tblContainer">
@@ -103,7 +107,7 @@
 			</tr>
 			
 			
-			<c:if test="${ list == null }">
+			<c:if test="${ list eq [] }">
 				<tr>
 					<td colspan="6">
 						조회된 예약 이력이 없습니다.
@@ -111,7 +115,7 @@
 				</tr>
 			</c:if>
 			
-			<c:if test="${ list != null }">
+			<c:if test="${ list != [] }">
 				<c:forEach var="reserve" items="${ list }" varStatus="status">
 					<c:set var="memNo" value="${reserve.memNo}"/>
 					
@@ -165,6 +169,28 @@
 	</div>
     </div>
 </body>
+<script>
+$(function(){ 
+    $('#dateTrans').on("click",function () {
+			var hbNo = $('#hbNo').val();
+			var takeDate = $('#takeDate').val();
+			   $.ajax({
+			      type : "POST",
+			      url : "${ path }/merchant/reserveList",
+			      data: {
+			    	  'hbNo' : hbNo,
+			    	  'takeDate' : takeDate
+			      },
+			      datatype: 'json'
+			    }).done(function (fragment) {
+			         $("#reserveList-container").replaceWith(fragment);
+			    });
+
+	
+	});
+});
+
+</script>
 <script>
 // 예약 취소로 변경
 function changeRes(changedBtn, hbNo, resNo){

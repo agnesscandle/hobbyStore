@@ -590,6 +590,8 @@ public class MerchantController {
 			) {
 		
 		log.info("해당 취미에 예약된 예약 리스트 가져오기 요청");
+		System.out.println("hbNo : " + hbNo);
+		
 		
 		List<Reserve> list = null;
 		
@@ -607,6 +609,40 @@ public class MerchantController {
 		
 		return model;
 	}
+	
+	
+	@PostMapping("/reserveList")
+	public ModelAndView reserveListBySearch(ModelAndView model,
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam(value="hbNo") int hbNo,
+			@RequestParam(value="takeDate")  String takeDate
+			) {
+		
+		log.info("날짜 검색된 예약 리스트 가져오기");
+		
+		System.out.println(hbNo);
+		
+		takeDate = takeDate.substring(2); 
+		System.out.println(takeDate);
+		List<Reserve> list = null;
+		
+		list = service.getReserveListByTakeDate(hbNo,takeDate);
+		Hobby hobby = service.findByNo(hbNo);
+		
+		
+		model.addObject("loginMerchant", loginMerchant);
+		model.addObject("hobby", hobby);
+		model.addObject("hbNo", hbNo);
+		model.addObject("list", list);
+		model.setViewName("merchant/reserveList");
+		
+		return model;
+	}
+	
+	
+	
+	
 	
 	
 

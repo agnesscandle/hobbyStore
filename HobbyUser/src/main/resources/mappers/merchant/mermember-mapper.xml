@@ -694,13 +694,15 @@
 	<select id="selectReserveByTakeDate" parameterType="map"
 		resultMap="ReservListResultMap">
 		SELECT 
-			R.RES_NO,  
+			R.RES_NO, 
+			R.HB_NO,
 			R.MEM_NO, 
 			M.MEM_ID,
 			R.RES_NAME, 
 			R.RES_PHONE, 
 			R.RES_COUNT, 
 			R.RES_DATE, 
+			R.TAKE_DATE,
 			R.PAY_FEE, 
 			R.RES_ATTEND, 
 			R.RES_STATUS, 
@@ -710,7 +712,7 @@
 		WHERE R.HB_NO = #{hbNo}
 		AND TO_CHAR(TAKE_DATE,'YY-MM-DD') = #{takeDate}
 		</select>
-
+		
 
 	<!-- 후기 관련 sql-->
 	<sql id="ReviewListSql">
