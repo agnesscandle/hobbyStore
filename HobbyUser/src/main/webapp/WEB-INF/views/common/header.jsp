@@ -34,7 +34,7 @@
             <span class="member" id="memberContainer">
                 <!-- 로그인이 되어있지 않은 경우  -->
                     <table class="tbl" align="center">
-                <c:if test="${ loginMember == null && loginMerchant == null }">
+                <c:if test="${ loginMember == null}">
                         <tr class="main">
                             <td class="butn login"><button type="button" onclick="location.href='${path}/member/login'">로그인</button></td>
                             <td class="butn join"><button type="button" onclick="location.href='${path}/member/enroll'">회원가입</button></td>
@@ -55,15 +55,7 @@
                             <td class="butn myPage"><button type="button" onclick="location.href='${path}/member/myInfo'">마이 페이지</button></td>
                         </tr>
                </c:if>
-				<c:if test="${ loginMerchant != null }">
-                        <tr class="main info">
-                            <td colspan="2" class="infoId">${ loginMerchant.merName } 님, 환영합니다</td>
-                        </tr>
-                        <tr>
-                            <td class="butn logout"><button type="button" onclick="location.replace('${path}/merchant/merlogout')">로그아웃</button></td>
-                            <td class="butn myPage"><button type="button" onclick="location.href='${path}/merchant/list'">마이 페이지</button></td>
-                        </tr>
-               </c:if>
+				
                     </table>
             </span>
             <nav>
