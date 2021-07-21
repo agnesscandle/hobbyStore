@@ -32,6 +32,7 @@
 		
 		<mapping path="/member/**"/>
 		<mapping path="/hobby/**"/>
+		<mapping path="/merchant/**"/>
 		
 		<exclude-mapping path="/member/enroll"/>
 		<exclude-mapping path="/member/registerPage_1"/>
@@ -55,7 +56,11 @@
 		<exclude-mapping path="/hobby/list"/>
 		<exclude-mapping path="/hobby/list/search"/>
 		
-		
+		<exclude-mapping path="/merchant/enroll"/>
+		<exclude-mapping path="/merchant/merlogin"/>
+		<exclude-mapping path="/merchant/emailChk"/>
+		<exclude-mapping path="/merchant/idChk"/>
+		<exclude-mapping path="/merchant/idSearch"/>
 		
 		
 		
