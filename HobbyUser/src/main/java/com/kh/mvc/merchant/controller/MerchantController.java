@@ -130,27 +130,46 @@ public class MerchantController {
 	// 회원가입 처리
 	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember,
-			HttpServletRequest request, @RequestParam("upfile") MultipartFile upfile) {
+			HttpServletRequest request, MultipartHttpServletRequest mtfRequest) {
+		
+		
+		/* 썸네일 파일 불러오기 */
+		MultipartFile thumFile = mtfRequest.getFile("input-file");
 		
 		System.out.println(merchantmember);
-		System.out.println(upfile.getOriginalFilename());
-		System.out.println(upfile.isEmpty());
+		System.out.println(thumFile.getOriginalFilename());
+		System.out.println(thumFile.isEmpty());
 		
-		int result = 0;
 		
-		if(upfile != null && !upfile.isEmpty()) {
+		if(!thumFile.isEmpty()) {
 			
-			String rootPath = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = rootPath + "/upload/profile";
-			String renameFileName = service.saveMerFile(upfile, savePath);
+			/* 경로, 변수 설정 */
+			String src = mtfRequest.getParameter("src");
+			System.out.println("src value : " + src);
+			String rootPath = mtfRequest.getSession().getServletContext().getRealPath("resources");
+			String savePath = rootPath + "/upload/profile/";
+			String thumRename = service.saveMerFile(thumFile, savePath);
 			
-			System.out.println(renameFileName);
-			
-			if(renameFileName != null) {
-				merchantmember.setMerImgOriginal(upfile.getOriginalFilename());
-				merchantmember.setMerImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
+			if(thumRename != null) {
+				merchantmember.setMerImgOriginal(thumFile.getOriginalFilename());
+				merchantmember.setMerImgRename(thumRename);
 			}
+		}
 		
+		
+//		if(upfile != null && !upfile.isEmpty()) {
+//			
+//			String rootPath = request.getSession().getServletContext().getRealPath("resources");
+//			String savePath = rootPath + "/upload/profile";
+//			String renameFileName = service.saveMerFile(upfile, savePath);
+//			
+//			System.out.println(renameFileName);
+//			
+//			if(renameFileName != null) {
+//				merchantmember.setMerImgOriginal(upfile.getOriginalFilename());
+//				merchantmember.setMerImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
+//			}
+		int result = 0;
 		
 		result = service.save(merchantmember);
 		
@@ -161,15 +180,12 @@ public class MerchantController {
 			model.addObject("msg", "회원가입을 실패하였습니다.");
 			model.addObject("location", "/merchant/enroll");
 		}
-		}	else {
-			model.addObject("msg", "잘못된 접근입니다");
-			model.addObject("location", "/");
-		}
-		
+			
 		model.setViewName("common/msg");
 		
 		return model;
 	}
+	
 	
 	// 아이디 중복검사 
 		@GetMapping("/idChk")

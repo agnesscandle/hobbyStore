@@ -65,6 +65,28 @@ public class MerchantServiceImpl implements MerchantService{
 		return result;
 	}
 	
+	/* 상인회원 이미지 저장*/
+	@Override
+	public String saveMerFile(MultipartFile thumFile, String savePath) {
+		
+		String thumOri = null;
+		String thumRename = null;
+
+		/* 썸네일 이미지 저장 */
+		thumOri = thumFile.getOriginalFilename();
+		thumRename = System.currentTimeMillis() + thumOri;
+
+		try {
+			String safeFile = savePath + thumRename;
+			thumFile.transferTo(new File(safeFile));
+		} catch (IOException e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return thumRename;
+	}
+	
 	@Override
 	public Merchant findById(String merId) {
 
@@ -382,39 +404,13 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.selectHobbyByNo(hbNo);
 	}
 
-	/* 상인회원 이미지 저장*/
-	@Override
-	public String saveMerFile(MultipartFile upfile, String savePath) {
-		String renameFileName = null;
-		String renamePath = null;
-		String originalFileName = upfile.getOriginalFilename();
-		
-		
-		File folder = new File(savePath);
-		
-		if(!folder.exists()) {
-			folder.mkdirs();
-		}
-		
-		renameFileName = 
-				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + 
-				originalFileName.substring(originalFileName.lastIndexOf("."));
-		renamePath = savePath + "/"  + renameFileName;
-		
-		try {
-			upfile.transferTo(new File(renamePath));
-		} catch (IOException e) {
-			System.out.println("파일 전송 에러 : " + e.getMessage());
-			e.printStackTrace();
-		}
-		
-		return renameFileName;
-	}
+	
 
 	
 
 	
 
+	
 	
 
 	

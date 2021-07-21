@@ -112,12 +112,12 @@
       <div class="enroll enroll-3">
          <section>
             <div class="title">
-            
-            <div class=" profile-wrapper preview-image">
-			<input type="file" id="my-profile" class="my-file" name="upfile"/>
-			<label class="my-file-button" for="my-profile"></label>
-			<input type="file" id="input-file" name="input-file" class="upload-hidden">
-			</div>
+            <span>프로필 사진</span>
+            <div class="file-upload preview-image">
+                        <input type="text" class="upload-name" value="파일선택" disabled="disabled"> 
+                        <label for="input-file">업로드</label> 
+                        <input type="file" id="input-file" name="input-file" class="upload-hidden">
+                     </div>
             
                <span>닉네임</span> 
        			 <input class="enrollInput req" type="text" name="merNick" id="merNick" placeholder="요리천재39" required="required">
@@ -230,7 +230,22 @@ $('.next').click(function(){
   
   
  /* 썸네일 이미지 파일 미리보기 */
+$(document).ready(function(){
 
+    var fileTarget = $('.file-upload .upload-hidden');
+
+    fileTarget.on('change', function(){  // 값이 변경되면
+         if(window.FileReader){  // modern browser
+              var filename = $(this)[0].files[0].name;
+         } 
+         else {  // old IE
+              var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+         }
+
+         // 추출한 파일명 삽입
+         $(this).siblings('.upload-name').val(filename);
+    });
+}); 
 
 var imgTarget = $('.preview-image .upload-hidden');
 

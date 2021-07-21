@@ -40,7 +40,7 @@ public interface MerchantService {
 	
 	boolean result(String merEmail);
 
-	String saveMerFile(MultipartFile upfile, String savePath);
+	String saveMerFile(MultipartFile thumFile, String savePath);
 	
 	
 	
