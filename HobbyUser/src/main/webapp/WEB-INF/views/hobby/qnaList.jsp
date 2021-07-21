@@ -13,6 +13,11 @@ body{
 	align-content: center;
 	color :  #34486b;
 }
+
+#footer{
+	margin-top:auto;
+}
+
 .qnaL_container {
 	height: max-content;
 	width : 1400px;
@@ -178,6 +183,7 @@ width:500px;
 </style>
 <body>
 
+<br><br><br><br>
 <div> <c:out value="${loginMerchant.merId }"></c:out> </div>
 
 	<div class="qnaL_container">
@@ -374,7 +380,8 @@ width:500px;
 
 
 </body>
+<br><br><br><br><br><br><br><br><br><br>
 
-
-
+<div id="footer">
 <%@ include file="../../views/common/footer.jsp"%>
+</div>
