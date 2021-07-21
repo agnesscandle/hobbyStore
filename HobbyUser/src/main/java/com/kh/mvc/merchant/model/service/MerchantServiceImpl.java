@@ -380,8 +380,36 @@ public class MerchantServiceImpl implements MerchantService{
 
 	@Override
 	public List<Reserve> getReserveListByTakeDate(int hbNo, String takeDate) {
-		// TODO Auto-generated method stub
 		return mapper.selectReserveByTakeDate(hbNo,takeDate);
 	}
+
+	@Override
+	public int resAttendY(int hbNo, int resNo) {
+		HashMap<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("hbNo", hbNo);
+		hashMap.put("resNo", resNo);
+		
+		return mapper.resAttendY(hashMap);
+	}
+
+	@Override
+	public String selectResAttendByNo(int hbNo, int resNo) {
+		HashMap<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("hbNo", hbNo);
+		hashMap.put("resNo", resNo);
+		
+		return mapper.selectResAttendByNo(hashMap);
+	}
+
+	@Override
+	public int resAttendN(int hbNo, int resNo) {
+		HashMap<String, Integer> hashMap = new HashMap<>();
+		hashMap.put("hbNo", hbNo);
+		hashMap.put("resNo", resNo);
+		
+		return mapper.resAttendN(hashMap);
+	}
+
+
 
 }

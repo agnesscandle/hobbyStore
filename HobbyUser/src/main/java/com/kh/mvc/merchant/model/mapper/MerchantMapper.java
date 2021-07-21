@@ -93,4 +93,10 @@ public interface MerchantMapper {
 	List<String> selectHobbyTitle(@Param("merNo") int merNo);
 
 	List<Review> selectReviewListByNo(RowBounds rowBounds, int hbNo);
+	
+	int resAttendY(HashMap<String, Integer> hashMap);
+
+	String selectResAttendByNo(HashMap<String, Integer> hashMap);
+
+	int resAttendN(HashMap<String, Integer> hashMap);
 }
