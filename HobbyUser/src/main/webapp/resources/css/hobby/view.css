@@ -173,7 +173,7 @@
     font-weight: bold;
 }
 
-#btnLiked, #btnLikedA, #btnLikedB, #btnShare, #btnQuestion, #btnReport{
+#btnLiked, #btnLiked2, #btnShare, #btnQuestion, #btnReport, #btnReport2{
     background-color: #34486b;
     color: #fff;
     width : 135px;
