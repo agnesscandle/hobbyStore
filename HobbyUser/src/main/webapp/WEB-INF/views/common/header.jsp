@@ -40,8 +40,8 @@
                             <td class="butn join"><button type="button" onclick="location.href='${path}/member/enroll'">회원가입</button></td>
                         </tr>
                         <tr class="find">
-                            <td class="butn findId"><button type="button" onclick="location.href='${path}'">아이디찾기</button></td>
-                            <td class="butn findPwd"><button type="button" onclick="location.href='${path}'">비밀번호찾기</button></td>
+                            <td class="butn findId"><button type="button" onclick="location.href='${path}/member/memberIdSearch'">아이디찾기</button></td>
+                            <td class="butn findPwd"><button type="button" onclick="location.href='${path}/member/memberPwSearch'">비밀번호찾기</button></td>
                         </tr>
                  </c:if>
                  

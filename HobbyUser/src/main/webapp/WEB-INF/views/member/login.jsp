@@ -27,19 +27,21 @@
 	 
 	 <hr>
 	 <br><br>
-	<!-- 로그인 버튼 -->
+	<!-- 손님 로그인 버튼 -->
 	<div id="mLoginBtn">
 	<input class="mloginInput_b" type="submit" id="mLoginSubmit" value="손님으로 로그인" 
 	onclick="javascript: form.action='${path}/member/login';"/>
+	
 	<!-- 손님회원 가입하기 버튼 -->
 	<button type="button" class="mloginInput_b" id="mEnrollSubmit" onclick="location.href='${path}/member/enroll'">손님회원 가입하기</button>
 	</div>
 	<div id="EnrollBtn">
-	<!-- 상인회원 가입하기 버튼  -->
+	
+	<!-- 상인 로그인 버튼 -->
 	<input class="mloginInput_b" type="submit" id="merLoginSumit" 
-
 	onclick="javascript: form.action='${path}/merchant/merlogin';"  value="상인으로 로그인"/>
-
+	
+	<!-- 상인회원 가입하기 버튼  -->
 	<button type="submit" class="mloginInput_b" id="merEnrollSubmit" 
 	onclick="location.href='${path}/merchant/enroll'" >상인회원 가입하기</button>
 	</div>
