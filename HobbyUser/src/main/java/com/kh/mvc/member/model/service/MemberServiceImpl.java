@@ -238,6 +238,11 @@ public class MemberServiceImpl implements MemberService{
 	
 	/* 취미 */
 	@Override
+	public Hobby findByNo(int hbNo) {
+		return mapper.selectHobbyByNo(hbNo);
+	}
+	
+	@Override
 	public List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
@@ -260,9 +265,11 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectRsHobbyCount();
 	}
 	
+	
 	/* 예약 */
 	@Override
 	public List<Reserve> getRsList(int memNo) {
+		
 		return mapper.selectRsList(memNo);
 	}
 
@@ -274,12 +281,7 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectHobbyRsList(memNo, rowBounds);
 	}
 
-
-	@Override
-	public Hobby findByNo(int hbNo) {
-		return mapper.selectHobbyByNo(hbNo);
-	}
-
+	
 	@Override
 	public Reserve findReserveViewByNo(int memNo, int hbNo) {
 		return mapper.selectRsByNo(memNo, hbNo);
@@ -291,6 +293,10 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectRsViewByNo(memNo, hbNo, resNo);
 	}
 
+	
+	
+
+	
 	
 
 

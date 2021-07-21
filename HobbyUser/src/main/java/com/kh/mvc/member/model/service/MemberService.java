@@ -42,7 +42,7 @@ public interface MemberService {
 	int setNewPw(String memPhone, String numStr);
 	
 
-	
+	/* 취미 */
 	Hobby findByNo(int hbNo);
 	
 	int getHobbyCount();
@@ -51,24 +51,26 @@ public interface MemberService {
 	
 	List<Hobby> getHobbyRsList(int memNo, PageInfo pageInfo);
 
-
+    /* 좋아요 */
 	List<Liked> getLikedList();
 	
 	int getLikedHobbyCount();
 
 	
+	/* 예약 */
+	int getRsHobbyCount();
+	
 	List<Reserve> getRsList(int memNo);
 
-	int getRsHobbyCount();
+	Reserve findReserveViewByNo(int memNo, int hbNo);
 
+	Reserve findReserveByNo(int memNo, int hbNo, int resNo);
 	
 	
 	
 	List<Category> getCateList();
 
-	Reserve findReserveViewByNo(int memNo, int hbNo);
-
-	Reserve findReserveByNo(int memNo, int hbNo, int resNo);
+	
 
 
 
