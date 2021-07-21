@@ -119,13 +119,10 @@
 		<div class="bottom">
 			<span class="bottomMenu" id="infoM"> 취미소개 </span>
 			<span class="detail" id="infoD">
-			<span id=hbDetailInfo> <c:out value="${hobby.hbDetailInfo}"/></span>
-			<span id=hbDetailImage>
-				<c:if test="${hobby.hbDetailRename} != null">
-					<c:out value="${hobby.hbDetailRename}"/>
-					<img class="hobbyDetailImg" src="${ path }/upload/hobby/${hobby.hbDetailRename}">
-				</c:if>
-			</span>
+				<span id=hbDetailInfo> <c:out value="${hobby.hbDetailInfo}"/></span><br><br><br>
+				<span id=hbDetailImage>
+					<img id="hobbyDetailImg" src="${ path }/upload/hobby/${hobby.hbDetailRename}">
+				</span>
 			</span>
 			<br><hr><br>
 			<span class="bottomMenu" id="locationM"> 위치 </span>
