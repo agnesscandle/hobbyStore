@@ -54,8 +54,8 @@ public class MerchantServiceImpl implements MerchantService{
 		int result = 0;
 		
 		if(merchantMember.getMerNo() != 0) {
-			// update
-//			result = mapper.updateMember(member);
+			
+			result = mapper.updateMerchantMember(merchantMember);
 		} else {
 			merchantMember.setMerPassword(passwordEncoder.encode(merchantMember.getMerPassword()));
 			
@@ -77,7 +77,13 @@ public class MerchantServiceImpl implements MerchantService{
 
 		return mapper.searchEmail(merEmail);
 	}
-
+	
+	@Override
+	public Merchant findByIdAndName(String merName, String merEmail) {
+		
+		return mapper.findMerId(merName, merEmail);
+	}
+	
 	@Override
 	public boolean validate(String merId) {
 		
@@ -90,6 +96,33 @@ public class MerchantServiceImpl implements MerchantService{
 
 		return this.findByEmail(merEmail) != null;
 	}
+	
+	@Override
+	public Merchant checkpw(String merId, String merPassword) {
+		Merchant merchantMember = this.findById(merId);
+		
+		return merchantMember != null && 
+				passwordEncoder.matches(merPassword, merchantMember.getMerPassword()) ? merchantMember : null;
+	}
+	
+	@Override
+	public int changePw(Merchant merchantmember) {
+		int result = 0;
+		
+		if(merchantmember.getMerNo() != 0) {
+			
+			merchantmember.setMerPassword(passwordEncoder.encode(merchantmember.getMerPassword()));
+			result = mapper.updateMerPwd(merchantmember);
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int delete(int merNo) {
+		return mapper.deleteMerchant(merNo);
+	}
+	
 	
 	
 	@Override
@@ -377,6 +410,14 @@ public class MerchantServiceImpl implements MerchantService{
 		
 		return renameFileName;
 	}
+
+	
+
+	
+
+	
+
+	
 
 	
 

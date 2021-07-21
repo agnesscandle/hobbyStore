@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <style>
@@ -22,8 +22,13 @@ strong {
 	line-height: 60px;
 }
 
+#mArticle{
+	position: relative;
+	top: -850px;
+}
+
 #mDeleteFrm {
-	padding: 0% 21% 6% 21%;
+	padding: 0% 20% 0% 25%;
 }
 
 .info_user {
@@ -176,7 +181,7 @@ strong {
 			</div>
 			<div class="wrap_btn">
 				<button type="button" 
-					onclick="location.href='${path}/merchant/myInfo'">
+					onclick="location.href='${path}/merchant/list?merNo=${loginMerchant.merNo}'">
 					<span class="btn_comm btn_cancle">취소</span>
 				</button>
 				<button type="submit" id="delete_btn">

@@ -123,7 +123,8 @@
             <span>마이페이지</span>
             <ul class="dept05 hide">
                  <div class="hobbyEnroll" id="updateMyInfo">프로필 수정</div>
-                 <div class="hobbyEnroll" id="merManual">비밀번호 변경</div>
+                 <div class="hobbyEnroll" id="changePw">비밀번호 변경</div>
+                 <div class="hobbyEnroll" id="deleteMerchant">회원 탈퇴</div>
             </ul>        
         
            
@@ -221,6 +222,19 @@ $(function(){
 	   })
 	})
 	
+<!--비밀번호 변경 페이지 이동-->
+$(function(){
+	   $("#changePw").click(function(){
+	      location.href='${ path }/merchant/changePw';
+	   })
+	})
+	
+<!--회원탈퇴 페이지 이동-->
+$(function(){
+	   $("#deleteMerchant").click(function(){
+	      location.href='${ path }/merchant/deleteAgree';
+	   })
+	})	
 	
 	
 $(document).on('mouseover', '.topMenu2 span', function () {

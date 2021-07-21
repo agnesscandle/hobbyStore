@@ -33,6 +33,7 @@ import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Reserve;
 
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -202,7 +203,7 @@ public class MerchantController {
 		public ModelAndView findId(ModelAndView model, @ModelAttribute Merchant merchantmember,
 				@RequestParam("memName")String merName, @RequestParam("memEmail")String merEmail) {
 			
-//			테스트 로그
+			// 테스트 로그
 			log.info("{}, {}", merName, merEmail);
 			
 			Merchant result = service.findByIdAndName(merName, merEmail);
@@ -220,13 +221,167 @@ public class MerchantController {
 			
 		}
 		
-	  // 프로필 수정 이동
+	   // 프로필 수정 이동
 		@GetMapping("/updateMyInfo")
 		public String updateMyInfoView() { 
 			log.info("프로필수정 페이지 요청");
 			
 			return "merchant/updateMyInfo";
 		}	
+		
+		
+		// 프로필 수정 
+		@PostMapping("/updateMyInfo")
+		public ModelAndView update(ModelAndView model, HttpServletRequest request,
+				@ModelAttribute Merchant merchantmember, @RequestParam("upfile") MultipartFile upfile,
+				@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+			
+			int result = 0;
+			
+			log.info("프로필 수정 작성 요청");
+			System.out.println(upfile.getOriginalFilename());
+			System.out.println(upfile.isEmpty());
+			
+			
+			if(loginMerchant.getMerId().equals(merchantmember.getMerId())) {
+				merchantmember.setMerNo(loginMerchant.getMerNo());
+				
+				if(upfile != null && !upfile.isEmpty()) {
+					
+					String rootPath = request.getSession().getServletContext().getRealPath("resources");
+					String savePath = rootPath + "/upload/profile";
+					String renameFileName = service.saveMerFile(upfile, savePath);
+					
+					System.out.println(renameFileName);
+					
+					if(renameFileName != null) {
+						merchantmember.setMerImgOriginal(upfile.getOriginalFilename());
+						merchantmember.setMerImgRename(renameFileName); 
+					}
+				}
+				
+				result = service.save(merchantmember);		
+				
+				if(result > 0) {
+					model.addObject("loginMerchant" , service.findById(loginMerchant.getMerId())); 
+					model.addObject("msg", "회원정보 수정을 완료했습니다.");
+					model.addObject("location", "/merchant/updateMyInfo");
+				} else {
+					model.addObject("msg", "회원정보 수정에 실패했습니다.");
+					model.addObject("location", "/merchant/updateMyInfo");
+				}			
+			} else {
+				model.addObject("msg", "잘못된 접근입니다");
+				model.addObject("location", "/");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
+		
+		// 비밀번호 변경 페이지 이동
+		@GetMapping("/changePw")
+		public String changePwView() { 
+			log.info("상인정보 수정 페이지 요청");
+			
+			return "merchant/changePw";
+		}
+		
+		
+		// 현재 비밀번호 확인 처리 요청
+		@PostMapping("/changePw")
+		public ModelAndView changePw(ModelAndView model,
+				@RequestParam("merId")String merId, @RequestParam("merPassword")String merPassword) {
+			
+			log.info("{}, {}", merId, merPassword);
+			
+			Merchant loginMerchant = service.checkpw(merId, merPassword);
+			
+			if(loginMerchant != null) {
+				model.setViewName("/merchant/changePw2");
+			} else {
+				model.addObject("msg", "패스워드가 일치하지 않습니다.");
+				model.addObject("location", "/merchant/changePw");
+				model.setViewName("common/msg");
+			}
+			
+			return model;
+		}
+		
+		
+		// 새로운 비밀번호 변경 처리
+		@PostMapping("/changePw2")
+		public ModelAndView changePw2(ModelAndView model, SessionStatus status,
+				@ModelAttribute Merchant merchantmember,
+				@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+			
+			int result = 0;
+			
+			if(loginMerchant.getMerId().equals(merchantmember.getMerId())) {
+				merchantmember.setMerNo(loginMerchant.getMerNo());
+				
+				result = service.changePw(merchantmember);
+			if(result > 0) {
+				model.addObject("loginMerchant" , service.findById(loginMerchant.getMerId()));
+				model.addObject("msg", "비밀번호 변경이 완료되었습니다. 다시 로그인해주세요.");
+				status.setComplete();
+				model.addObject("location", "/member/login");
+			} else {
+				model.addObject("msg", "비밀번호 변경을 실패하였습니다.");
+				model.addObject("location", "/merchant/changePw2");
+			} 
+			}else {
+				model.addObject("msg", "잘못된 접근입니다");
+				model.addObject("location", "/");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+			
+		}
+			
+		// 회원탈퇴 약관동의 페이지 이동
+		@GetMapping("/deleteAgree")
+		public String deleteAgreeView() { 
+			log.info("상인탈퇴 약관동의 페이지 요청");
+			
+			return "merchant/deleteAgree";
+			}	
+	
+		// 회원 약관동의 후 탈퇴 페이지 이동
+		@GetMapping("/delete")
+		public String delete() { 
+			log.info("상인탈퇴 페이지 요청");
+			
+			return "merchant/delete";
+		}
+	
+		// 탈퇴처리
+		@PostMapping("/delete")
+		public ModelAndView delete(ModelAndView model,
+				@RequestParam("merId")String merId, @RequestParam("merPassword")String merPassword,
+				@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+			
+			Merchant chkMember = service.checkpw(merId, merPassword);
+
+			int result = service.delete(loginMerchant.getMerNo());
+			
+			if(chkMember != null && result > 0) {
+				model.addObject("msg", "정상적으로 탈퇴되었습니다.");
+				model.addObject("location", "/merchant/merlogout");
+			} else {
+				model.addObject("msg", "회원탈퇴에 실패했습니다.");
+				model.addObject("location", "/member/delete");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
+		
+		
 		
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");
