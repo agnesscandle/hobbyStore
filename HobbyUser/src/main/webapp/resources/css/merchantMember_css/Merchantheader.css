@@ -313,7 +313,14 @@ footer{
 
 }
 
-.topMenu3, .topMenu1, .topMenu2, .topMenu4 {
+.dept05 {
+    
+    font-size: 25px; 
+    color: navy;
+
+}
+
+.topMenu3, .topMenu1, .topMenu2, .topMenu4, .topMenu5 {
 			width: 150px;
 			margin-top: 10px;
 			

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
@@ -17,12 +17,12 @@
 	box-sizing: border-box;
 }
 .profile-wrapper{
-	height: 151px;
+	height: 150px;
 	width: 150px;
 	position: relative;
 	border: 2px solid rgb(32, 51, 84);
 	border-radius: 50%;
-	background: url('${ path }/profile/${ loginMember.memImgRename }');
+	background: url('${ path }/profile/${ loginMerchant.merImgRename }');
 	background-size: 100% 100% ;
 	margin: 50px auto;
 	overflow: hideen;
@@ -133,29 +133,29 @@
 	<label class="my-file-button" for="my-profile"></label>
 </div>
 
-<div class="infoTitle">${ loginMerMember.merName } 님, 안녕하세요!</div><br>
+<div class="infoTitle">${ loginMerchant.merName } 님, 안녕하세요!</div><br>
 <div class="m_infoG">
 <label class="mInfoLabel">아이디</label><br>
 		<input type="text" name="memId" id="memId" class="mInfoInput"
-			value="${ loginMerMember.merId }" readonly required />
+			value="${ loginMerchant.merId }" readonly required />
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">이름</label><br>
-<input type="text" name="merName" id="merName" class="mInfoInput"
-			value="${ loginMerMember.merName }" required/>
+<input type="text" name="memName" id="memName" class="mInfoInput"
+			value="${ loginMerchant.merName }" required/>
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">휴대폰 번호</label><br>
-<input type="text" name="merPhone" id="merPhone" 
-			value="${ loginMerMember.merPhone }" class="mInfoInput" required/>
+<input type="text" name="memPhone" id="memPhone" 
+			value="${ loginMerchant.merPhone }" class="mInfoInput" required/>
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">이메일</label><br>
-<input type="text" name="memEmail" id="merEmail" 
-			value="${ loginMerMember.merEmail }"  class="mInfoInput" required/>
+<input type="text" name="memEmail" id="memEmail" 
+			value="${ loginMerchant.merEmail }"  class="mInfoInput" required/>
 </div>
 
 

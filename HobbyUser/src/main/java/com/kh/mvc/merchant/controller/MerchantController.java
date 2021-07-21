@@ -33,7 +33,6 @@ import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Reserve;
 
 import com.kh.mvc.hobby.model.vo.Review;
-import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
@@ -196,6 +195,38 @@ public class MerchantController {
 				
 				return map;
 			}
+		
+		
+		// 아이디 찾기 실행
+		@RequestMapping(value="/idSearch", method = {RequestMethod.POST})
+		public ModelAndView findId(ModelAndView model, @ModelAttribute Merchant merchantmember,
+				@RequestParam("memName")String merName, @RequestParam("memEmail")String merEmail) {
+			
+//			테스트 로그
+			log.info("{}, {}", merName, merEmail);
+			
+			Merchant result = service.findByIdAndName(merName, merEmail);
+			
+			if(result == null) {
+				model.addObject("msg", "일치하는 회원이 없습니다.");
+				model.addObject("location", "/member/memberIdSearch");
+			} else {
+				model.addObject("msg", "아이디는 " + result.getMerId() + " 입니다.");
+				model.addObject("location", "/member/login");
+			}
+			model.setViewName("common/msg");
+			
+			return model;
+			
+		}
+		
+	  // 프로필 수정 이동
+		@GetMapping("/updateMyInfo")
+		public String updateMyInfoView() { 
+			log.info("프로필수정 페이지 요청");
+			
+			return "merchant/updateMyInfo";
+		}	
 		
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");

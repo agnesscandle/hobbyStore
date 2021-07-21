@@ -27,7 +27,7 @@
 
 
 	<header>
-		<div class="logo" onclick="location.href='${path}'">
+		<div class="logo" >
 			<img class="logoImg" src="${ path }/images/logo.png">
 			<h4>취미상점 상인</h4>
 		</div>
@@ -115,7 +115,23 @@
 </div>   
   
 </nav>
+
+
+<nav id="nav5">
+<div class="topMenu5 menu"> 		
+ 		
+            <span>마이페이지</span>
+            <ul class="dept05 hide">
+                 <div class="hobbyEnroll" id="updateMyInfo">프로필 수정</div>
+                 <div class="hobbyEnroll" id="merManual">비밀번호 변경</div>
+            </ul>        
+        
+           
+</div>   
+  
+</nav>
 </div>
+</html>
 </body>
 
 <script>
@@ -134,6 +150,9 @@ $("#nav3").click(function(){
   });
 $("#nav4").click(function(){
     $(".dept04").slideToggle();
+  });
+$("#nav5").click(function(){
+    $(".dept05").slideToggle();
   });
 
 <!-- 취미만들기 페이지 이동 -->
@@ -195,7 +214,15 @@ $(function(){
    })
 })
 
-
+<!--프로필 수정 페이지 이동-->
+$(function(){
+	   $("#updateMyInfo").click(function(){
+	      location.href='${ path }/merchant/updateMyInfo';
+	   })
+	})
+	
+	
+	
 $(document).on('mouseover', '.topMenu2 span', function () {
     $('.dept02').slideDown(700);
 });
