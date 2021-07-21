@@ -1,60 +1,103 @@
 body{
     height : 95vh;
     /* align-items: center; */
+    color : #34486b;
 }
 
 .container{
-    width : 90%;
+	position : relative;
+	top : 16px;
+    width : 700px;
     height : max-content;
-    margin : 4%;
-    padding : 2%;
+    margin : 10px;
+    padding : 10px;
     /*border : 1px solid #616161;*/
     text-align : center;
 }
 
+.formContainer{
+	position : relative;
+	top : -10px;
+	left : -10px;
+	width : 680px;
+	padding : 20px;
+	margin-right : 40px;
+}
+
 h1{
 	text-align : center;	
+	color : #34486b;
+	background-color : #eacc16;
+	padding : 5px;
 }
 
 table{
-   border-spacing : 0 8px;
+   border-spacing : 10 10px;
 }
 
 th{
    width : 180px;
-   height : 20px;
-   font-size : 20px;
+   height : 25px;
+   font-size : 22px;
+   color : #34486b;
 }
 
 input{
-   height : 20px;
-   font-size : 15px;
+   padding-left : 10px;
+   height : 28px;
+   width : 200px;
+   font-size : 19px;
+   border : none;
 }
 
 td{
-   height : 20px;
-   font-size : 15px;
+   height : 25px;
+   font-size : 20px;
 }
 
 .col1{
-    width : 380px;
+    width : 400px;
+    height : 25px;
+}
+
+.col2{
+	width : 400px;
+	border : none;
+	padding : 10px;
+	border : 2px solid #eacc16;
+    border-radius: 10px;
 }
 
 #hbTitle, #rpWriterId{
    border : none;
 }
 
-.btn{
-    font-size : 18px;
-    font-weight : bold;
-    color : white;
-    background-color: #0277bd;
-    border : none;
-    width : 150px;
-    height : 33px;
-    border-radius : 5px;
+hr{
+	border : none;
+	border : 6px double #eacc16;
+	width : 95%;
+	position : relative;
+	top : -10px;
+	left : 22px;
 }
 
-#btnContainer{
-   padding-left : 15px;
+.reportBtnContainer{
+	position : relative;
+	top : 22px;
+	left : 12px;
 }
+
+.btn{
+	background-color: #eacc16;
+	border : 3px solid #34486b;
+    color: #fff;
+    font-size : 22px;
+    font-weight : bold;
+    color : #34486b;
+    width : 185px;
+    height : 40px;
+    border-radius : 8px;
+	padding-right : 5px;
+	margin : 10px;
+}
+
