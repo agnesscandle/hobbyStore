@@ -123,42 +123,80 @@
     cursor: pointer;
 }
 
+.enrollArea{
+	resize: none;
+	height: 100px;
+	
+}
+
+.label_bank{
+	font-size: 16px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(239, 239, 239);
+    background-color: white;
+    height: 48px;
+    color: rgb(26, 26, 26);
+    box-sizing: border-box;
+    padding: 0px 16px;
+    border-radius: 3px;
+    width: 282px;
+}
 </style>
 
 <div class="updateMemInfo">
 
-<form id="memberFrm" action="${ path }/member/update" method="POST" enctype="multipart/form-data">
+<form id="memberFrm" action="${ path }/merchant/updateMyInfo" method="POST" enctype="multipart/form-data">
 <div class="profile-wrapper">
-	<input type="file" id="my-profile" class="my-file" name="upfile"/>
+	<input type="file" id="my-profile" class="my-file" name="upfile" value="${ loginMerchant.merImgRename }"/>
 	<label class="my-file-button" for="my-profile"></label>
 </div>
 
 <div class="infoTitle">${ loginMerchant.merName } 님, 안녕하세요!</div><br>
 <div class="m_infoG">
 <label class="mInfoLabel">아이디</label><br>
-		<input type="text" name="memId" id="memId" class="mInfoInput"
+		<input type="text" name="merId" id="merId" class="mInfoInput"
 			value="${ loginMerchant.merId }" readonly required />
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">이름</label><br>
-<input type="text" name="memName" id="memName" class="mInfoInput"
-			value="${ loginMerchant.merName }" required/>
+<input type="text" name="merName" id="merName" class="mInfoInput"
+			value="${ loginMerchant.merName }" readonly required/>
+</div>
+
+<div class="m_infoG">
+<label class="mInfoLabel">닉네임</label><br>
+<input type="text" name="merNick" id="merNick" class="mInfoInput"
+			value="${ loginMerchant.merNick }" required/>
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">휴대폰 번호</label><br>
-<input type="text" name="memPhone" id="memPhone" 
+<input type="text" name="merPhone" id="merPhone" 
 			value="${ loginMerchant.merPhone }" class="mInfoInput" required/>
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">이메일</label><br>
-<input type="text" name="memEmail" id="memEmail" 
+<input type="text" name="merEmail" id="merEmail" 
 			value="${ loginMerchant.merEmail }"  class="mInfoInput" required/>
 </div>
 
+<div class="m_infoG">
+<label class="mInfoLabel">계좌정보</label><br>
 
+<input class="label_bank" type="text" name="bank" id="bank" placeholder="${ loginMerchant.bank }은행"  required="required" readonly>
+<input class="label_bank" type="text" name="bankNumber" id="bankNumber" placeholder="${ loginMerchant.bankNumber }"  required="required" readonly>
+</div>
+
+<div class="m_infoG">
+<label class="mInfoLabel">소개글</label><br>
+<textarea name="greeting" id="greeting" 
+			  class="enrollArea mInfoInput" >${ loginMerchant.greeting }</textarea>
+</div>
 
 <p>
 <input type="submit" id="mInfoSubmit" value="정보 수정" />
