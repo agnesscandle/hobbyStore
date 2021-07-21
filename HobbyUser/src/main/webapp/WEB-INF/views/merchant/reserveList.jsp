@@ -88,7 +88,7 @@
     	<h2> [ <c:out value="${ hobby.hbTitle }"/> ] </h2> 
     </div>
     <div id="search-container">
-	    	<input type="text" id="hbNo" name="hbNo" value="${hbNo}"/>
+	    	<input type="hidden" id="hbNo" name="hbNo" value="${hbNo}"/>
 			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd">
 			<input type="submit" id="dateTrans" value="조회하기" >
     </div>
@@ -120,7 +120,7 @@
 					<c:set var="memNo" value="${reserve.memNo}"/>
 					
 					<tr>
-						<td><c:out value="${ reserve.takeDate }"/></td>
+						<td><fmt:formatDate type="DATE" pattern="yyyy-MM-dd" value="${ reserve.resDate }"/></td>
 						<td><c:out value="${ reserve.memId }"/></td>
 						<td><c:out value="${ reserve.resName }"/></td>
 						<td><c:out value="${ reserve.resPhone }"/></td>
