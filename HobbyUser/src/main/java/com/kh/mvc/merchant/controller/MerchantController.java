@@ -555,7 +555,43 @@ public class MerchantController {
 				    return model;
 
 				}
-		
+		//출결 상태 변경
+				@ResponseBody
+				@GetMapping("/changeResAttend")
+				public Map<String, String> changeResAttend(ModelAndView model,
+						@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+						@RequestParam("hbNo") int hbNo,
+						@RequestParam("resNo") int resNo,
+						@ModelAttribute Reserve reserve){
+					
+					log.info("예약 상태 변경 요청");
+					
+					System.out.println("hbNo : " + hbNo);
+					System.out.println("resNo : " + resNo);
+					
+					int result = 0;
+					String history = null;
+					Map<String, String>map = new HashMap<>();
+
+					log.info("예약 상태 확인 요청");
+					history = service.selectResAttendByNo(hbNo, resNo);
+					System.out.println("history : " + history);
+
+					if( history.equals("N")) {
+						log.info("출석확인으로 update");
+						result = service.resAttendY(hbNo, resNo);
+						map.put("history", "Y");
+					} 
+					
+					if( history.equals("Y")) {
+						log.info("미출석으로 update");
+						result = service.resAttendN(hbNo, resNo);
+						map.put("history", "N");
+					} 
+					
+					return map;
+				}
+				
 		
 		
 

@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="${path}/css/hobby/list.css">
 
 <body>
-
+ <div class="reserveListTitle">
+    	<h2> * <c:out value="${loginMerchant.merNick}"/> *님이 개설하신 취미 리스트입니다. <br> 어떤 취미의 출석을 관리하고 싶으신가요? </h2>
+    </div>
 <div class="divList">
    <div class="containerList">
       <c:if test="${ list != null}">

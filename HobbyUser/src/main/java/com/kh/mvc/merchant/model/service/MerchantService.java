@@ -101,4 +101,11 @@ public interface MerchantService {
 	List<String> getHobbyTitle(int merNo);
 
 	List<Review> getReviewListByNo(PageInfo pageInfo, int hbNo);
+
+
+	int resAttendY(int hbNo, int resNo);
+
+	String selectResAttendByNo(int hbNo, int resNo);
+
+	int resAttendN(int hbNo, int resNo);
 }

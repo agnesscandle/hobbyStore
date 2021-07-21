@@ -65,19 +65,33 @@
   .btnRes:hover, .btnRes2:hover{
       border : 2px solid #34486b;
     }
+    .dateSelect{
+      position : relative;
+      width : 800px;
+      top : -20px;
+      left : 250px;
+      font-size : 18px;
+   }
+   .attendancediv{
+   	padding-top: 50px;
+   }
+   #takeDate{
+   	width: 200px;
+   	height: 35px;
+   }
 
 </style>
 
 <body>
- <h1> 예약 현황 </h1>
+ <h1> 출결 현황 </h1>
     <div id="hbInfo">
     	<h2> [ <c:out value="${ hobby.hbTitle }"/> ] </h2> 
     </div>
+<div class="attendancediv">
 <div class="dateSelect">
 
-
 <input type="hidden" id="hbNo" value="${ hbNo }" name="hbNo">
-<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd">
+<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd" placeholder="클릭하여 날짜를 선택해 주세요">
 <input type="submit" id="dateTrans" value="전송" >
 <!-- 	onclick="location.replace('${path}/merchant/attendanceMem?hbNo=${ hbNo }&takeDate='+$('#takeDate').val())">
  -->
@@ -94,35 +108,7 @@
 			</tr>
 			
 			
-			<c:if test="${ list eq [] }">
-				<tr>
-					<td colspan="6">
-						조회된 예약 이력이 없습니다.
-					</td>
-				</tr>
-			</c:if>
 			
-			<c:if test="${ list != [] }">
-				<c:forEach var="reserve" items="${ list }" varStatus="status">
-					<c:set var="memNo" value="${reserve.memNo}"/>
-					
-					<tr>
-						<td><fmt:formatDate type="DATE" pattern="yyyy-MM-dd" value="${ reserve.resDate }"/></td>
-						<td><c:out value="${ reserve.memId }"/></td>
-						<td><c:out value="${ reserve.resName }"/></td>
-						<td><c:out value="${ reserve.resPhone }"/></td>
-                        <td><c:out value="${ reserve.resCount }"/>명</td>
-                        <td>
-                            <c:if test="${ reserve.resAttend eq 'Y'}">
-                                <button type="button" class="btnRes" onclick="changeRes(this,'${hbNo}', '${reserve.resNo }')"> 출석확인 </button>
-                            </c:if>
-                            <c:if test="${ reserve.resAttend eq 'N'}">
-                                <button type="button" class="btnRes2"> 미출석 </button>
-                            </c:if>
-                        </td>
-					</tr>
-				</c:forEach>	  
-			</c:if>
 		</table>
     </div>
 
@@ -149,6 +135,5 @@ $(function(){
 
 </script>
 
+</div>
 
-
-<%@ include file="../../views/common/footer.jsp"%>
