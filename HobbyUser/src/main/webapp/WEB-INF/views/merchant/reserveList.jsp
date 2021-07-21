@@ -116,7 +116,7 @@
 					<c:set var="memNo" value="${reserve.memNo}"/>
 					
 					<tr>
-						<td><fmt:formatDate type="DATE" pattern="20yy-MM-dd" value="${ reserve.takeDate }"/></td>
+						<td><c:out value="${ reserve.takeDate }"/></td>
 						<td><c:out value="${ reserve.memId }"/></td>
 						<td><c:out value="${ reserve.resName }"/></td>
 						<td><c:out value="${ reserve.resPhone }"/></td>

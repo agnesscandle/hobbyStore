@@ -378,4 +378,10 @@ public class MerchantServiceImpl implements MerchantService{
 
 
 
+	@Override
+	public List<Reserve> getReserveListByTakeDate(int hbNo, String takeDate) {
+		// TODO Auto-generated method stub
+		return mapper.selectReserveByTakeDate(hbNo,takeDate);
+	}
+
 }

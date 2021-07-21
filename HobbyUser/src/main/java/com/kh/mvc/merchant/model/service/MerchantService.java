@@ -1,6 +1,7 @@
 package com.kh.mvc.merchant.model.service;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -90,7 +91,7 @@ public interface MerchantService {
 
 	int deleteReply(Reply reply);
 
-
+	List<Reserve> getReserveListByTakeDate(int hbNo, String takeDate);
 	
 	/* 후기 관련 메서드[김예원] */
 	int getReviewCount(int memNo);

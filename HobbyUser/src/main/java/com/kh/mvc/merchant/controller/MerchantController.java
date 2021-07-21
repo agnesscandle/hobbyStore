@@ -1,5 +1,6 @@
 package com.kh.mvc.merchant.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -499,7 +501,6 @@ public class MerchantController {
 		public ModelAndView attendanceList(ModelAndView model,
 				@RequestParam(value="merNo") int merNo,
 				@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-	          System.out.println("리스트호출");
 	  		
 	          
 	        List<Hobby> list = null;
@@ -517,39 +518,46 @@ public class MerchantController {
 			return model;
 		}
 		
-		//qna리스트페이지로이동
+		//출석관리리스트페이지로이동
 		@GetMapping("/attendanceView")
 		public ModelAndView attendanceView(ModelAndView model,
-				@RequestParam(value="hbNo") int hbNo,
-				@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-			System.out.println(hbNo);
-//			 //Qna리스트 불러오기
-//		    List<Qna> qnaList = null;
-//
-//		    PageInfo pageInfo = new PageInfo(page, 10, service.getQnaCount(hbNo), 10);
-//		    int listCount = pageInfo.getListCount();
-//		    qnaList = service.getQnaList(pageInfo, hbNo);
-//
-//		    //리플리스트 불러오기
-//		    List<Reply> replyList = null;
-//		    for (int i = 0; i < qnaList.size(); i++) {
-//		       int qnaNo = qnaList.get(i).getQnaNo();
-//
-//		       replyList = service.getReplyList(qnaNo);
-//		       
-//		       qnaList.get(i).setReply(replyList);
-//		       System.out.println(qnaList);
-//		    }
-//		    
-//		    model.addObject("qnaList", qnaList);
-//		    model.addObject("pageInfo", pageInfo);
-//		    model.addObject("listCount", listCount);
+				@RequestParam(value="hbNo") int hbNo) {
+			
+			Hobby hobby = service.findByNo(hbNo);
+
 			model.addObject("hbNo",hbNo);
+			model.addObject("hobby",hobby);
 		    model.setViewName("merchant/attendanceView");
 
 		    return model;
 
 		}
+		//출석관리멤버
+				@PostMapping("/attendanceMem")
+				public ModelAndView attendanceMem(ModelAndView model,
+						@RequestParam(value="hbNo") int hbNo, 
+						@RequestParam(value="takeDate")  String takeDate) {
+						System.out.println(hbNo);
+						
+						takeDate = takeDate.substring(2); 
+						System.out.println(takeDate);
+					List<Reserve> list = null;
+					
+					list = service.getReserveListByTakeDate(hbNo,takeDate);
+					Hobby hobby = service.findByNo(hbNo);
+					System.out.println(list);
+					
+					model.addObject("hobby",hobby);
+					model.addObject("list", list);
+					model.addObject("hbNo",hbNo);
+				    model.setViewName("merchant/attendanceMem");
+
+				    return model;
+
+				}
+		
+		
+		
 
 	/* 예약 관리 - 상인이 개설한 취미 목록 가져오기 (지영) */
 	@GetMapping("/resHbList")

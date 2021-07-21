@@ -404,7 +404,7 @@ public class HobbyController {
 			System.out.println("좋아요 누른 회원 번호 : " + liked.getMemNo());
 			System.out.println("getLikedNo : " + liked.getLikedNo());
 
-			history = service.selectLikedStatusByNo(liked.getHbNo(), liked.getMemNo()); //멤버가 좋아요 눌렀는ㄴ지 안눌렀는지 상태값 읽어옴
+			history = service.selectLikedStatusByNo(liked.getHbNo(), liked.getMemNo());
 
 			System.out.println("history : " + history);
 			log.info("좋아요 상태 확인 요청");

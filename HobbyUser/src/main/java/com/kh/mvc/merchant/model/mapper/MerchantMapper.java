@@ -1,12 +1,14 @@
 package com.kh.mvc.merchant.model.mapper;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.kh.mvc.hobby.model.vo.Calculation;
 import com.kh.mvc.hobby.model.vo.Category;
@@ -79,6 +81,8 @@ public interface MerchantMapper {
 	List<Calculation> selectCalFinishList(int merNo);
 
 	int selectCalculateCount();
+	
+	List<Reserve> selectReserveByTakeDate(@Param("hbNo") int hbNo, @Param("takeDate") String takeDate);
 
 	/* 후기 관련 mapper[김예원] */
 

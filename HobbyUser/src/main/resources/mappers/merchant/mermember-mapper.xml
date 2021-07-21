@@ -690,6 +690,26 @@
 			WHERE RES_ATTEND = 'N' AND HB_NO = #{hbNo} AND RES_NO=#{resNo}
 	</update>
 
+	<!-- 출석관리 리스트 조회 -->
+	<select id="selectReserveByTakeDate" parameterType="map"
+		resultMap="ReservListResultMap">
+		SELECT 
+			R.RES_NO,  
+			R.MEM_NO, 
+			M.MEM_ID,
+			R.RES_NAME, 
+			R.RES_PHONE, 
+			R.RES_COUNT, 
+			R.RES_DATE, 
+			R.PAY_FEE, 
+			R.RES_ATTEND, 
+			R.RES_STATUS, 
+			R.CAL_STATUS 
+		FROM RESERVE R 
+		JOIN MEMBER M ON(R.MEM_NO = M.MEM_NO) 
+		WHERE R.HB_NO = #{hbNo}
+		AND TO_CHAR(TAKE_DATE,'YY-MM-DD') = #{takeDate}
+		</select>
 
 
 	<!-- 후기 관련 sql-->
