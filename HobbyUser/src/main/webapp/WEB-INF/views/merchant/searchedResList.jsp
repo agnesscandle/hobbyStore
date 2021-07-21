@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ include file="../../views/common/Merchantheader.jsp"%>
 
 <!-- datepiker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -83,16 +82,6 @@
 </head>
 <body>
     <div>
-    <h1> 예약 현황 </h1>
-    <div id="hbInfo">
-    	<h2> [ <c:out value="${ hobby.hbTitle }"/> ] </h2> 
-    </div>
-    <div id="search-container">
-	    	<input type="hidden" id="hbNo" name="hbNo" value="${hbNo}"/>
-			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd">
-			<input type="submit" id="dateTrans" value="조회하기" >
-    </div>
-    
 	<div id="reserveList-container">
     <br><br>
     <div class="tblContainer">
@@ -176,7 +165,7 @@ $(function(){
 			var takeDate = $('#takeDate').val();
 			   $.ajax({
 			      type : "POST",
-			      url : "${ path }/merchant/searchedResList",
+			      url : "${ path }/merchant/reserveList",
 			      data: {
 			    	  'hbNo' : hbNo,
 			    	  'takeDate' : takeDate

@@ -611,7 +611,7 @@ public class MerchantController {
 	}
 	
 	
-	@PostMapping("/reserveList")
+	@PostMapping("/searchedResList")
 	public ModelAndView reserveListBySearch(ModelAndView model,
 			@RequestParam(value="page", required=false, defaultValue="1") int page,
 			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
@@ -635,7 +635,7 @@ public class MerchantController {
 		model.addObject("hobby", hobby);
 		model.addObject("hbNo", hbNo);
 		model.addObject("list", list);
-		model.setViewName("merchant/reserveList");
+		model.setViewName("merchant/searchedResList");
 		
 		return model;
 	}
