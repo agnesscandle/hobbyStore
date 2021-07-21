@@ -712,7 +712,29 @@
 		WHERE R.HB_NO = #{hbNo}
 		AND TO_CHAR(TAKE_DATE,'YY-MM-DD') = #{takeDate}
 		</select>
+
+			<!--  예약 변경을 위한 예약 상태 확인 -->
+	<select id="selectResAttendByNo" parameterType="hashMap"
+		resultType="String">
+		SELECT RES_ATTEND FROM RESERVE 
+		WHERE HB_NO = #{hbNo} AND RES_NO=#{resNo}
+	</select>
+
 		
+			<!--  출석여부 변경 상태 확인 -->
+	<!--  예약 변경(취소) -->
+	<update id="resAttendY" parameterType="hashMap">
+		UPDATE RESERVE 
+			SET RES_ATTEND = 'Y' 
+			WHERE HB_NO = #{hbNo} AND RES_NO=#{resNo}
+	</update>
+	
+	<update id="resAttendN" parameterType="hashMap">
+		UPDATE RESERVE 
+			SET RES_ATTEND = 'N' 
+			WHERE HB_NO = #{hbNo} AND RES_NO=#{resNo}
+	</update>
+
 
 	<!-- 후기 관련 sql-->
 	<sql id="ReviewListSql">

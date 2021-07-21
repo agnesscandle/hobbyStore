@@ -3,6 +3,8 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +70,7 @@
 			</tr>
 			
 			
-			<c:if test="${ list eq [] }">
+			<c:if test="${ list == [] }">
 				<tr>
 					<td colspan="6">
 						조회된 예약 이력이 없습니다.
@@ -88,10 +90,10 @@
                         <td><c:out value="${ reserve.resCount }"/>명</td>
                         <td>
                             <c:if test="${ reserve.resAttend eq 'Y'}">
-                                <button type="button" class="btnRes" onclick="changeRes(this,'${hbNo}', '${reserve.resNo }')"> 출석확인 </button>
+                                <button type="button" class="btnRes" > 출석확인 </button>
                             </c:if>
                             <c:if test="${ reserve.resAttend eq 'N'}">
-                                <button type="button" class="btnRes2"> 미출석 </button>
+                                <button type="button" class="btnRes2" onclick="changeRes(this,'${hbNo}', '${reserve.resNo }')"> 미출석 </button>
                             </c:if>
                         </td>
 					</tr>
@@ -99,5 +101,49 @@
 			</c:if>
 		</table>
     </div>
+    
+    <script>
+// 예약 취소로 변경
+function changeRes(changedBtn, hbNo, resNo){
+	
+		console.log($(changedBtn));
+		console.log("hbNo : " + hbNo);
+		console.log("resNo : " + resNo);
+		
+		alert("정말로 출석상태로 변경합니다.");
+		
+		$.ajax({
+			type : "get",
+			url : "${path}/merchant/changeResAttend",
+			dataType : "json",
+			data :{
+				hbNo,
+				resNo
+			},
+			success : function(data){
+				console.log(data);
+				console.log(changedBtn);
+				
+				if(data.history === 'Y'){
+					alert("출결상태로 완료되었습니다.");
+					changedBtn.innerText = '출석확인';
+					changedBtn.className='btnRes';
+				
+				}
+				else{
+					
+						alert("출결상태 취소되었습니다.");
+						changedBtn.innerText = '미출석';
+						changedBtn.className='btnRes2';
+				}
+				
+			},
+			error : function(e){
+				console.log(e)
+			}
+		});
+}
+
+</script>
 </body>
 </html>
