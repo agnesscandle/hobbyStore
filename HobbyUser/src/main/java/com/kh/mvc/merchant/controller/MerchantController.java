@@ -599,6 +599,8 @@ public class MerchantController {
 		
 		return model;
 	}
+	
+	
 
 	/* 예약 상태 변경 */
 	@ResponseBody

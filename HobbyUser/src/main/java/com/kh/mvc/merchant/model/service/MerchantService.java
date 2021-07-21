@@ -90,6 +90,7 @@ public interface MerchantService {
 
 	int deleteReply(Reply reply);
 
+
 	
 	/* 후기 관련 메서드[김예원] */
 	int getReviewCount(int memNo);

@@ -80,8 +80,6 @@ public interface MerchantMapper {
 
 	int selectCalculateCount();
 
-
-
 	/* 후기 관련 mapper[김예원] */
 
 	int selectReviewCount(int merNo);
