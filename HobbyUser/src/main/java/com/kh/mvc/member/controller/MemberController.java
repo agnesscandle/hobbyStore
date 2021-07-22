@@ -207,13 +207,6 @@ public class MemberController {
 		
 	}
 	
-	// 비밀번호 찾기 페이지 이동
-	@GetMapping("/member/memberPwSearch")
-	public String pwSearchView() { 
-		log.info("비밀번호 찾기 페이지 요청");
-		
-		return "member/memberPwSearch";
-	}
 	
 	// 마이페이지 이동
     @GetMapping("/member/myInfo")
@@ -463,6 +456,15 @@ public class MemberController {
 			
 			return model;
 		}
+		
+		// 비밀번호 찾기 페이지 이동
+		@GetMapping("/member/memberPwSearch")
+		public String pwSearchView() { 
+			log.info("비밀번호 찾기 페이지 요청");
+			
+			return "member/memberPwSearch";
+		}
+		
 		
 		// 비밀번호 찾기 실행 전 아이디 확인
 		@RequestMapping(value="/member/memberPwSearch", method = {RequestMethod.POST})
