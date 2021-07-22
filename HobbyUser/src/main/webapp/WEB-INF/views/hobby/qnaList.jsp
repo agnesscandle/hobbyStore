@@ -184,7 +184,6 @@ width:500px;
 <body>
 
 <br><br><br><br>
-<div> <c:out value="${loginMerchant.merId }"></c:out> </div>
 
 	<div class="qnaL_container">
 	<div class="qnaL_title"><h1>문의 하기 _</h1></div>
