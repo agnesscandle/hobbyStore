@@ -98,7 +98,7 @@
     </div>
     <div id="search-container">
 	    	<input type="hidden" id="hbNo" name="hbNo" value="${hbNo}"/>
-			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd">
+			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd" placeholder="수강일을 선택하세요.">
 			<input type="submit" id="dateTrans" value="조회하기" >
     </div>
     
