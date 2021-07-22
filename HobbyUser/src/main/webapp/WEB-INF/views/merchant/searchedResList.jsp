@@ -80,12 +80,13 @@
     
        #dateTrans{
       font-size : 15px;
-        height : 26px;
+        height : 27px;
         width : 80px;
         border-radius : 8px;
         color : white;
         background-color : #293a57;
    }
+
 
 </style>
 </head>

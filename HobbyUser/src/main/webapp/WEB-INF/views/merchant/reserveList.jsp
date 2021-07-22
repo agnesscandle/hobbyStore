@@ -81,11 +81,23 @@
     
     #dateTrans{
       font-size : 15px;
-        height : 26px;
+        height : 27px;
         width : 80px;
         border-radius : 8px;
         color : white;
         background-color : #293a57;
+        cursor : pointer;
+   }
+   
+   #totalList{
+    	font-size : 15px;
+    	text-align : center;
+        height : 27px;
+        width : 120px;
+        border-radius : 8px;
+        color : white;
+        background-color : #293a57;
+        cursor : pointer;
    }
 
 </style>
@@ -100,6 +112,7 @@
 	    	<input type="hidden" id="hbNo" name="hbNo" value="${hbNo}"/>
 			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd" placeholder="수강일을 선택하세요.">
 			<input type="submit" id="dateTrans" value="조회하기" >
+			<input type="text" id="totalList" value="전체 예약자 보기" onclick="location.replace('${path}/merchant/reserveList?hbNo=${hobby.hbNo}')"/>
     </div>
     
 	<div id="reserveList-container">
