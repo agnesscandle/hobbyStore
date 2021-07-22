@@ -97,6 +97,10 @@ public interface MerchantMapper {
 
 	int selectCalculateCount();
 
+	Merchant findByPhone(String merPhone);
+
+	
+
 	
 
 	

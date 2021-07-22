@@ -120,6 +120,17 @@
 		AND MER_EMAIL = #{merEmail}
 	</select>
  	
+ 	<select id="findByPhone" parameterType="String" resultMap="merchantmemberResultMap">
+		SELECT 
+			MER_NO,
+			MER_ID,
+			MER_PASSWORD
+		FROM MERCHANT
+		WHERE 
+			MER_PHONE = #{merPhone}
+		AND STATUS ='Y'
+	</select>
+	
  	<!-- 회원가입 -->
  	<insert id="insertMerchantMember" parameterType="Merchant"
  		useGeneratedKeys="true" keyColumn="MER_NO" keyProperty="merNo" >

@@ -61,6 +61,9 @@
 		<exclude-mapping path="/merchant/emailChk"/>
 		<exclude-mapping path="/merchant/idChk"/>
 		<exclude-mapping path="/merchant/idSearch"/>
+		<exclude-mapping path="/merchant/findPw"/>
+		<exclude-mapping path="/merchant/checkSMS"/>
+		<exclude-mapping path="/merchant/sendNewPw"/>
 		
 		
 		

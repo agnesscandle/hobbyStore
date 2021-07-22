@@ -5,14 +5,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%@ include file="../../views/common/header.jsp"%>
+<script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 
 
 
 <div class="findIdPage">
-<form name="mIdSearchFrm" id="idSearchForm" 
-	action="${ path }/member/memberIdSearch" method="POST">
+<form name="form" id="idSearchForm" method="POST" name="form">
 	<div class="mId_Search_Title">아이디 찾기</div>
 	<div class="search_box">
 		<label class="labelMname">이름</label><br>
@@ -26,8 +26,23 @@
 		<div class="email regex"></div>
 	</div>
 	
+	<div class="gubun_cont">
+      <label class="member_flag_mem" class="container_radio">
+         손님
+      <input type="radio" id="member_flag_mem" name="member_flag"  value="m" checked>
+      <span class="checkmark"></span>
+      </label>
+      
+      <label class="member_flag_mer" class="container_radio">
+         상인
+      <input type="radio" id="member_flag_mer" name="member_flag"  value="s">   
+      <span class="checkmark"></span>
+      </label>
+   </div>
+   
+   
 	<p>
-		<button type="submit" id="searchId_submit" class="searchId_btn">아이디 찾기</button>
+		<button type="submit" id="searchId_submit" class="searchId_btn" onclick="radio_chk();">아이디 찾기</button>
 	</p>
 
 
@@ -120,6 +135,18 @@ $("#memEmail").on("input",function(){
     }
 });
 
+function radio_chk(){
+	var member_flag = $('input[name=member_flag]:checked').val();
+	
+	if(member_flag == 'm'){
+		form.action='${path}/member/memberIdSearch';
+		
+	}
+	
+	if(member_flag == 's'){
+		form.action='${path}/merchant/idSearch';
+	}
+}
 
 </script>
 	<%@ include file="../../views/common/footer.jsp"%>

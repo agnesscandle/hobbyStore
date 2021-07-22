@@ -3,6 +3,7 @@ package com.kh.mvc.merchant.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -397,7 +398,66 @@ public class MerchantController {
 			return model;
 		}
 		
+		// 비밀번호 찾기 실행 전 아이디 확인
+		@RequestMapping(value="/findPw", method = {RequestMethod.POST})
+		public ModelAndView memberPwSearch(ModelAndView model, 
+				@RequestParam("memId")String merId) {
+			
+			// 테스트 로그
+			log.info("회원 아이디 : " + merId);
+			
+			Merchant loginMerchant = service.findById(merId);
+			
+			if(loginMerchant != null) {
+				model.setViewName("/merchant/memberPwSearch2");
+			} else {
+				model.addObject("msg", "일치하는 회원이 없습니다.");
+				model.addObject("location", "/member/memberPwSearch");
+				model.setViewName("common/msg");
+			}
+			
+			return model;
+			
+		}
 		
+		
+		
+		// 비번찾기 핸드폰 번호 인증 
+		@PostMapping("/checkSMS")
+		@ResponseBody
+		public String checkSMS(@RequestParam("phoneNumber")String merPhone) {
+
+	        Random rand  = new Random();
+	        String numStr = "";
+	        for(int i=0; i<6; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+
+	        System.out.println("수신자 번호 : " + merPhone);
+	        System.out.println("인증번호 : " + numStr);
+//				        service.certifiedPhoneNumber(memPhone,numStr);
+	        return numStr;
+	    }
+		
+		// 임시번호 휴대폰 발송 
+		@PostMapping("/sendNewPw")
+		@ResponseBody
+		public String sendNewPw(@RequestParam("phoneNumber")String merPhone) {
+		
+			Random rand  = new Random();
+	        String numStr = "";
+	        for(int i=0; i<8; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+	        
+	        System.out.println("수신자 번호 : " + merPhone);
+	        System.out.println("임시비밀번호 : " + numStr);
+//				        service.sendNewPwNumber(memPhone,numStr);
+	        service.setNewPw(merPhone, numStr);
+	        return numStr;
+		}
 		
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");

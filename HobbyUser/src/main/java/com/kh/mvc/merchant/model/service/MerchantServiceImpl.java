@@ -107,6 +107,21 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 	
 	@Override
+	public int setNewPw(String merPhone, String numStr) {
+		Merchant merchantMember = mapper.findByPhone(merPhone);
+		int result = 0;
+        System.out.println(merchantMember);
+        
+        if(merchantMember.getMerNo() != 0) {
+        	merchantMember.setMerPassword(passwordEncoder.encode(numStr));
+        	result= mapper.updateMerPwd(merchantMember);
+        }
+		
+		return result;
+		
+	}
+	
+	@Override
 	public boolean validate(String merId) {
 		
 		return this.findById(merId) != null;
@@ -403,6 +418,8 @@ public class MerchantServiceImpl implements MerchantService{
 		
 		return mapper.selectHobbyByNo(hbNo);
 	}
+
+	
 
 	
 

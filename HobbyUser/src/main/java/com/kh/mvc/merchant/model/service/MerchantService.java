@@ -36,6 +36,8 @@ public interface MerchantService {
 	
 	Merchant findByEmail(String merEmail);
 	
+	int setNewPw(String merPhone, String numStr);
+	
 	boolean validate(String merId);
 	
 	boolean result(String merEmail);
@@ -115,6 +117,8 @@ public interface MerchantService {
 	int saveReply(Reply reply);
 
 	int deleteReply(Reply reply);
+
+	
 
 	
 

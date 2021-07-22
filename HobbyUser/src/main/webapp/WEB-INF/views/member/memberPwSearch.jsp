@@ -69,8 +69,8 @@
 </style>
 
 <div class="searchPwPage">
-<form name="mPwSearchFrm" id="PwSearchForm" 
-	action="${ path }/member/memberPwSearch" method="POST">
+<form name="form" id="PwSearchForm" 
+	 method="POST">
 	<div class="mPw_Search_Title">비밀번호 찾기</div>
 	
 	<div class="search_box">
@@ -78,9 +78,21 @@
 	<input type="text" class="pwSearchInput" name="memId" id="memId" placeholder="hobbymarket"/>
 	<div id="find_mId_btn">아이디를 잊으셨나요?</div>
 	</div>
-	
+	<div class="gubun_cont">
+      <label class="member_flag_mem" class="container_radio">
+         손님
+      <input type="radio" id="member_flag_mem" name="member_flag"  value="m" checked>
+      <span class="checkmark"></span>
+      </label>
+      
+      <label class="member_flag_mer" class="container_radio">
+         상인
+      <input type="radio" id="member_flag_mer" name="member_flag"  value="s">   
+      <span class="checkmark"></span>
+      </label>
+   </div>
 	<p>
-		<button type="submit" id="searchPw_submit" class="searchPw_btn">다음</button>
+		<button type="submit" id="searchPw_submit" class="searchPw_btn" onclick="radio_chk();">다음</button>
 	</p>
 
 </form>
@@ -104,6 +116,19 @@ $("#searchPw_submit").on("click",function(){
 	}
 });
 
+
+function radio_chk(){
+	var member_flag = $('input[name=member_flag]:checked').val();
+	
+	if(member_flag == 'm'){
+		form.action='${path}/member/memberPwSearch';
+		
+	}
+	
+	if(member_flag == 's'){
+		form.action='${path}/merchant/findPw';
+	}
+}
 </script>
 
 
