@@ -59,9 +59,9 @@
 <div class="divList_h">
 	<div class="containerList_h">
 
-		<c:if test="${ hobbyListRs != null }">
-			<c:forEach var="hobby" items="${ hobbyListRs }" >
+		<c:if test="${ hobbyListRs != null && reserveList != null}">
 		<c:forEach var="reserve" items="${ reserveList }">
+			<c:forEach var="hobby" items="${ hobbyListRs }" >
 				<c:if test="${reserve.hbNo == hobby.hbNo}">
 					<div class="item_h">
 					
