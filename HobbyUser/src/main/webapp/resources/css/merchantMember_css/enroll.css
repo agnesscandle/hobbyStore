@@ -164,14 +164,6 @@ a {
    display: block;
 }
 
-/* 할인여부 허용하면 할인률 입력칸 띄우기 */
-#disRate{
-   display: none;
-}
-input[type=checkbox]:checked ~ #disRate{
-   display: block;
-}
-
 
 /* image */
 .file-upload label {
@@ -270,8 +262,6 @@ input[type=checkbox]:checked ~ #disRate{
    font-size:.9em;
 }
 
-
-
 .enrollArea{
 	resize: none;
 	height: 100px;
@@ -287,17 +277,33 @@ input[type=checkbox]:checked ~ #disRate{
 	color: #34486b;
 }
 
+/* 약관동의 */
+.agree_wrap{
+	text-align: center;
+	font-size: 16px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-right: 70px;
+}
 
+.registerPage {
+	color: blue ;
+	font-size: 16px !important;
+	cursor: pointer;	
+}
 
 /* 중복아이디 존재하지 않는경우 */
-.id_input_re_1, .email_input_re_1{
+.id_input_re_1, .email_input_re_1, .phone_input_re_1, .bankNumber_input_re_1, .merNick_input_re_1{
 		color : blue;
 		display : none;
+		font-weight: normal !important;
 }
 /* 중복아이디 존재하는 경우 */
-.id_input_re_2, .email_input_re_2{
+.id_input_re_2, .email_input_re_2, .phone_input_re_2, .bankNumber_input_re_2, .merNick_input_re_2{
 		color : red;
 		display : none;
+		font-weight: normal !important;
+		
 }
 
 .regex {
