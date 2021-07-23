@@ -153,6 +153,12 @@
 		WHERE MEM_EMAIL = #{memEmail} AND STATUS ='Y'
  	</select>
  	
+ 	<!-- 핸드폰 중복 검사 -->
+ 	<select id="searchPhone" parameterType="string" resultMap="memberResultMap">
+ 		<include refid="selectMemberSql" />
+		WHERE MEM_PHONE = #{memPhone} AND STATUS ='Y'
+ 	</select>
+ 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultMap="memberResultMap">
 		SELECT MEM_ID FROM MEMBER 
@@ -214,13 +220,16 @@
  	<update id="updateMember" parameterType="Member">
  		UPDATE MEMBER 
  		SET 
+ 			<if test="memImgOriginal != null">
  			MEM_IMG_ORIGINAL = #{memImgOriginal},
  			MEM_IMG_RENAME = #{memImgRename},
+ 			</if>
  			MEM_NAME = #{memName},
  			MEM_PHONE = #{memPhone},
  			MEM_EMAIL = #{memEmail}
 		WHERE MEM_NO = #{memNo}
  	</update>
+ 	
  	
  	<update id="deleteMember" parameterType="_int">
  		UPDATE MEMBER
@@ -344,10 +353,20 @@
 	<!-- 예약한 취미 가져오기 -->
 	<select id="selectHobbyRsList" parameterType="map"
 		resultMap="HobbyListResultMap">
-		SELECT H.HB_NO,
+		SELECT 
+        H.HB_NO,
 		H.MER_NO,
 		H.CATE_NO,
 		R.RES_NO,
+        R.MEM_NO,
+        R.RES_NAME, 
+		R.RES_PHONE, 
+		R.RES_COUNT, 
+		R.RES_DATE, 
+		R.TAKE_DATE, 
+		R.PAY_FEE, 
+		R.RES_ATTEND, 
+		R.RES_STATUS,
         C.CATE_NAME,
 		H.HB_TITLE,
 		H.HB_SUMMARY,
@@ -409,8 +428,12 @@
 	
 	<select id="selectRsNo" parameterType="_int"
 		resultMap="ReserveListResultMap">
-		<include refid="ReserveListSql" />
-		AND RES_NO=#{resNo}
+		SELECT 
+		RES_NO,
+		HB_NO
+        FROM RESERVE
+        WHERE MEM_NO = #{memNo}
+        AND RES_STATUS = 'Y'
 	</select>
 	
 		
@@ -474,8 +497,39 @@
 	</select>
 	
 	<select id="selectRsList" parameterType="map" resultMap="ReserveListResultMap">
-		
-		<include refid="ReserveListSql" />
-		AND MEM_NO = #{memNo}
+		SELECT
+		H.HB_NO,
+		H.MER_NO,
+		R.RES_NO,
+        R.MEM_NO,
+        R.RES_NAME, 
+		R.RES_PHONE, 
+		R.RES_COUNT, 
+		R.RES_DATE, 
+		R.TAKE_DATE, 
+		R.PAY_FEE, 
+		R.RES_ATTEND, 
+		R.RES_STATUS,
+		H.HB_TITLE,
+		H.HB_SUMMARY,
+		H.HB_STARTDATE,
+		H.HB_FEE,
+		H.HB_DISCOUNT_RATE,
+		H.HB_DISCOUNT_STATUS,
+		H.HB_ENDDATE,
+		H.HB_IMGS_ORI,
+		H.HB_IMGS_RENAME,
+		H.HB_THUM_ORI,
+		H.HB_THUM_RENAME,
+		H.HB_INFO,
+		H.HB_LOCATION
+		FROM RESERVE R
+		JOIN HOBBY H ON(H.HB_NO = R.HB_NO)
+		WHERE R.MEM_NO = #{memNo}
+        AND H.STATUS = 'Y'
+        AND R.RES_STATUS = 'Y'
+
+		ORDER BY
+		R.RES_DATE DESC
 	</select>
  </mapper>
