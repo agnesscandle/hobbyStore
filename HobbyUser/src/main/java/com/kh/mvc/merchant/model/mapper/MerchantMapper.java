@@ -30,13 +30,19 @@ public interface MerchantMapper {
 	
 	int updateMerchantMember(Merchant merchantMember);
 	
-	int deleteMerchant(int merNo);
+	int deleteMerchant(@Param("merNo") int merNo);
 	
-	Merchant searchEmail(String merEmail);
+	Merchant searchEmail(@Param("merEmail") String merEmail);
+	
+	Merchant searchPhone(@Param("merPhone") String merPhone);
 	
 	Merchant findMerId(@Param("merName") String merName, @Param("merEmail") String merEmail);
 	
+	Merchant searchNick(@Param("merNick") String merNick);
 	
+	Merchant findByPhone(String merPhone);
+
+	Merchant searchBankNum(@Param("bankNumber") String bankNumber);
 	
 	/* 취미 등록 */
 	int selectHobbyCount();
@@ -97,7 +103,13 @@ public interface MerchantMapper {
 
 	int selectCalculateCount();
 
-	Merchant findByPhone(String merPhone);
+	
+
+	
+
+	
+
+	
 
 	
 

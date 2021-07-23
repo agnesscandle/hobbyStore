@@ -22,11 +22,14 @@ import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.member.model.service.MemberServiceImpl;
 import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class MerchantServiceImpl implements MerchantService{
 	@Autowired
@@ -88,6 +91,17 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 	
 	@Override
+	public void deleteFile(String filePath) {
+		log.info("FILE PATH : {}" , filePath );
+		
+		File file = new File(filePath);
+		
+		if(file.exists()) {
+			file.delete();
+		}
+	}
+	
+	@Override
 	public Merchant findById(String merId) {
 
 		return mapper.selectMerchantMember(merId);
@@ -98,6 +112,24 @@ public class MerchantServiceImpl implements MerchantService{
 	public Merchant findByEmail(String merEmail) {
 
 		return mapper.searchEmail(merEmail);
+	}
+	
+	@Override
+	public Merchant findByPhone(String merPhone) {
+
+		return mapper.searchPhone(merPhone);
+	}
+	
+	@Override
+	public Merchant findByBankNum(String bankNumber) {
+		
+		return mapper.searchBankNum(bankNumber);
+	}
+	
+	@Override
+	public Merchant findByNick(String merNick) {
+		
+		return mapper.searchNick(merNick);
 	}
 	
 	@Override
@@ -127,11 +159,28 @@ public class MerchantServiceImpl implements MerchantService{
 		return this.findById(merId) != null;
 	}
 	
+	@Override
+	public boolean res(String merPhone) {
+		
+		return this.findByPhone(merPhone) != null;
+	}
 	
 	@Override
 	public boolean result(String merEmail) {
 
 		return this.findByEmail(merEmail) != null;
+	}
+	
+	@Override
+	public boolean rs(String bankNumber) {
+
+		return this.findByBankNum(bankNumber) != null;
+	}
+	
+	@Override
+	public boolean nickVal(String merNick) {
+		
+		return this.findByNick(merNick) != null;
 	}
 	
 	@Override
@@ -418,6 +467,15 @@ public class MerchantServiceImpl implements MerchantService{
 		
 		return mapper.selectHobbyByNo(hbNo);
 	}
+
+	
+
+	
+
+
+	
+
+	
 
 	
 

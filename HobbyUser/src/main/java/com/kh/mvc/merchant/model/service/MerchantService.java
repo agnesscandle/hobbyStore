@@ -12,6 +12,7 @@ import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
 
@@ -34,13 +35,25 @@ public interface MerchantService {
 
 	Merchant findById(String merId);
 	
+	Merchant findByPhone(String merPhone);
+	
 	Merchant findByEmail(String merEmail);
+	
+	Merchant findByBankNum(String bankNumber);
+	
+	Merchant findByNick(String merNick);
 	
 	int setNewPw(String merPhone, String numStr);
 	
 	boolean validate(String merId);
 	
 	boolean result(String merEmail);
+	
+	boolean res(String merPhone);
+	
+	boolean rs(String bankNumber);
+	
+	boolean nickVal(String merNick);
 
 	String saveMerFile(MultipartFile thumFile, String savePath);
 	
@@ -117,6 +130,18 @@ public interface MerchantService {
 	int saveReply(Reply reply);
 
 	int deleteReply(Reply reply);
+
+	void deleteFile(String filePath);
+
+
+
+	
+
+	
+
+	
+
+	
 
 	
 

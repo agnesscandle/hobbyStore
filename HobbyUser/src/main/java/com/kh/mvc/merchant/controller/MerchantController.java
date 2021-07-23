@@ -128,6 +128,30 @@ public class MerchantController {
 		return model;
 	}
 	
+	// 회원가입 이용약관 페이지 이동
+	@GetMapping("/registerPage_1")
+	public String registerPage_1_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "merchant/registerPage_1";
+	}
+			
+	// 회원가입 이용약관2 페이지 이동
+	@GetMapping("/registerPage_2")
+	public String registerPage_2_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "merchant/registerPage_2";
+	}
+				
+	// 회원가입 이용약관3 페이지 이동
+	@GetMapping("/registerPage_3")
+	public String registerPage_3_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "merchant/registerPage_3";
+	}
+	
 	// 회원가입 처리
 	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember,
@@ -201,6 +225,20 @@ public class MerchantController {
 			return map;
 		}
 		
+		
+		// 핸드폰번호 중복검사 
+			@GetMapping("/dupPhoneNum")
+			@ResponseBody
+			public Map<String, Object> dupPhoneNum(@RequestParam("merPhone") String merPhone) {
+				log.info("User Phone : {}", merPhone);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("res", service.res(merPhone));
+				
+				return map;
+			}
+				
 		// 이메일 중복검사 
 		@GetMapping("/emailChk")
 		@ResponseBody
@@ -214,7 +252,33 @@ public class MerchantController {
 				return map;
 			}
 		
+		// 계좌 중복검사 
+		@GetMapping("/dupBankNum")
+		@ResponseBody
+			public Map<String, Object> dupBankNum(@RequestParam("bankNumber") String bankNumber) {
+				log.info("User BankNum : {}", bankNumber);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("rs", service.rs(bankNumber));
+				
+				return map;
+			}
 		
+		// 닉네임 중복검사 
+		@GetMapping("/dupNickName")
+		@ResponseBody
+			public Map<String, Object> dupNickName(@RequestParam("merNick") String merNick) {
+				log.info("NickName : {}", merNick);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("nickVal", service.nickVal(merNick));
+				
+				return map;
+			}
+
+
 		// 아이디 찾기 실행
 		@RequestMapping(value="/idSearch", method = {RequestMethod.POST})
 		public ModelAndView findId(ModelAndView model, @ModelAttribute Merchant merchantmember,
@@ -250,30 +314,38 @@ public class MerchantController {
 		// 프로필 수정 
 		@PostMapping("/updateMyInfo")
 		public ModelAndView update(ModelAndView model, HttpServletRequest request,
-				@ModelAttribute Merchant merchantmember, @RequestParam("upfile") MultipartFile upfile,
+				@ModelAttribute Merchant merchantmember, MultipartHttpServletRequest mtfRequest,
 				@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
 			
+			log.info("프로필 수정 작성 요청");
 			int result = 0;
 			
-			log.info("프로필 수정 작성 요청");
-			System.out.println(upfile.getOriginalFilename());
-			System.out.println(upfile.isEmpty());
+			MultipartFile thumFile = mtfRequest.getFile("input-file");
+			
+			System.out.println(merchantmember);
+			System.out.println(thumFile.getOriginalFilename());
+			System.out.println(thumFile.isEmpty());
 			
 			
 			if(loginMerchant.getMerId().equals(merchantmember.getMerId())) {
 				merchantmember.setMerNo(loginMerchant.getMerNo());
 				
-				if(upfile != null && !upfile.isEmpty()) {
+				if(thumFile != null && !thumFile.isEmpty()) {
 					
 					String rootPath = request.getSession().getServletContext().getRealPath("resources");
-					String savePath = rootPath + "/upload/profile";
-					String renameFileName = service.saveMerFile(upfile, savePath);
+					String savePath = rootPath + "/upload/profile/";
 					
-					System.out.println(renameFileName);
+					if(merchantmember.getMerImgRename() != null) {
+						service.deleteFile(savePath + "/" + merchantmember.getMerImgRename());
+					}
 					
-					if(renameFileName != null) {
-						merchantmember.setMerImgOriginal(upfile.getOriginalFilename());
-						merchantmember.setMerImgRename(renameFileName); 
+					String thumRename = service.saveMerFile(thumFile, savePath);
+					
+					System.out.println(thumRename);
+					System.out.println(savePath);
+					if(thumRename != null) {
+						merchantmember.setMerImgOriginal(thumFile.getOriginalFilename());
+						merchantmember.setMerImgRename(thumRename); 
 					}
 				}
 				
