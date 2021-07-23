@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<% response.setHeader("Cache-Control","no-store"); response.setHeader("Pragma","no-cache"); response.setDateHeader("Expires",0); if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
 <%@ include file="../../views/common/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
@@ -54,7 +54,7 @@
 	<button type="button" class="mloginInput_b" id="mEnrollSubmit" onclick="location.href='${path}/member/enroll'">손님회원 가입하기</button>
 	
 	<!-- 상인회원 가입하기 버튼  -->
-	<button type="submit" class="mloginInput_b" id="merEnrollSubmit" 
+	<button type="button" class="mloginInput_b" id="merEnrollSubmit" 
 	onclick="location.href='${path}/merchant/enroll'" >상인회원 가입하기</button>
 	</div>
 	<br>
