@@ -4,14 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../../views/common/headerWithoutNav.jsp"%>
+<% response.setHeader("Cache-Control","no-store"); response.setHeader("Pragma","no-cache"); response.setDateHeader("Expires",0); if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/merchantMember_css/enroll2.css">
+<link rel="stylesheet" href="${path}/css/merchantMember_css/enroll.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
-<script
-   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 <span class="merEnroll_t">상인 회원가입</span>
 <div class="divEnroll">
@@ -69,7 +69,7 @@
                <div class="btn">
 
                   <!-- <button>이전으로</button> -->
-                  <input type="button" class="next" value="다음으로" />
+                  <input type="button" class="next" value="다음으로" id="enrollNextA"/>
 
                </div>
             </div>
@@ -99,12 +99,15 @@
 
                <span>계좌 번호</span>
 		        <input class="enrollInput req" type="text" name="bankNumber" id="bankNumber" placeholder="(-)없이 숫자만 입력하세요."  required="required">
+		        <div class="bankNumber_input_re_1"></div>
+				<div class="bankNumber_input_re_2"></div>
 		        <div class="bankNumber regex"></div>
 
 
                <div class="btn">
-                  <input type="button" class="before" value="이전으로" /> <input
-                     type="button" class="next" value="다음으로" />
+                  <input type="button" class="before" value="이전으로" /> 
+                  <input
+                     type="button" class="next" value="다음으로" id="enrollNextB"/>
                </div>
             </div>
          </section>
@@ -121,7 +124,8 @@
             
                <span>닉네임</span> 
        			 <input class="enrollInput req" type="text" name="merNick" id="merNick" placeholder="요리천재39" required="required">
-       			 <div class="bank regex"></div>
+       			 <div class="merNick_input_re_1"></div>
+				 <div class="merNick_input_re_2"></div>
        			 
        			<span>간단한 소개</span> 
        			<div>
@@ -149,9 +153,17 @@
                 
                 </script>
                 
+             <div class="agree_wrap">
+				<input type="checkbox" id="memAgree" name="memAgree" class="agree_chk">
+				<button onclick="showPopup();" class="registerPage">이용약관</button>,
+				<button onclick="showPopup2();" class="registerPage">개인정보 수집 및 이용</button>,
+				<button onclick="showPopup3();" class="registerPage">개인정보 제공</button>
+			    내용을 확인하였고 동의합니다.
+			</div>
+			
                <div class="btn">
                   <input type="button" class="before" value="이전으로" /> 
-                  <input type="submit" class="next" value="가입하기" />
+                  <input type="submit" class="next" value="가입하기" id="enrollNextC"/>
                </div>
             </div>
             
@@ -223,7 +235,7 @@ $('.next').click(function(){
           alert('값을 전부 입력해주십시오.');
           return;
       }else{
-         $('#enrollForm').submit();
+         $('#memberEnrollFrm').submit();
       }
  });
  
@@ -283,8 +295,10 @@ $("#merName").on("input",function(){
     
     if(result != null){
        $(".name.regex").html("");  
+       $("#enrollNextA").removeAttr("disabled");
     }else{
         $(".name.regex").html("한글만 입력 가능합니다.");
+        $("#enrollNextA").attr("disabled", "disabled");
     }
     
 });
@@ -296,9 +310,11 @@ $("#merId").on("input",function(){
           
           if(result != null){
               $(".id_validate").html("");
+              $("#enrollNextA").removeAttr("disabled");
           }else{
               $(".id_validate").html("영어 대소문자,숫자 6-12자리");
-              $(".id_validate").css("color","red")
+              $(".id_validate").css("color","red");
+              $("#enrollNextA").attr("disabled", "disabled");
           }
       });
       
@@ -321,18 +337,22 @@ $(function() {
 			$("#pw-danger").show();
 			$("#pw-success").hide();
 			$("#pw-danger").html("10자리 ~ 20자리 이내로 입력해주세요.").css("color","red");
+			$("#enrollNextA").attr("disabled", "disabled");
 		} else if(pw.search(/\s/) != -1){
 			 $("#pw-danger").show();
 			 $("#pw-success").hide();
 			 $("#pw-danger").html("비밀번호는 공백 없이 입력해주세요.");
+			 $("#enrollNextA").attr("disabled", "disabled");
 		} else if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
 			$("#pw-danger").show(); 
 			$("#pw-success").hide();
 			$("#pw-danger").html("영문,숫자,특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+			$("#enrollNextA").attr("disabled", "disabled");
 		} else {
 			 $("#pw-success").show();
 			 $("#pw-danger").hide();
-			 $("#pw-success").html("사용가능한 비밀번호입니다.").css("color","blue");	 
+			 $("#pw-success").html("사용가능한 비밀번호입니다.").css("color","blue");	
+			 $("#enrollNextA").removeAttr("disabled");
 		}
 	});
 }); 
@@ -349,12 +369,12 @@ $(function() {
 				$("#alert-success").show();
 				$("#alert-success").html("비밀번호가 일치합니다.").css("color","blue");
 				$("#alert-danger").hide();
-				$("#submit").removeAttr("disabled");
+				$("#enrollNextA").removeAttr("disabled");
 			} else {
 				$("#alert-success").hide();
 				$("#alert-danger").show();
 				$("#alert-danger").html("비밀번호가 일치하지 않습니다.").css("color","red");	
-				$("#submit").attr("disabled", "disabled");
+				$("#enrollNextA").attr("disabled", "disabled");
 			}
 		}
 	});
@@ -367,9 +387,11 @@ $("#merPhone").on("input",function(){
     
     if(result != null){
        $(".phone.regex").html("");  
+       $("#enrollNextA").removeAttr("disabled");
     } 
     else{
         $(".phone.regex").html("올바른 번호가 아닙니다");
+        $("#enrollNextA").attr("disabled", "disabled");
     }
     
 });
@@ -381,13 +403,32 @@ $("#merEmail").on("input",function(){
      var merEmail = $("#merEmail").val();
     if(result != null){
        $(".email.regex").html("");  
+       $("#enrollNextA").removeAttr("disabled");
     		
     }else{
     	if(merEmail != ""){
         $(".email.regex").html("올바른 이메일이 아닙니다");
+        $("#enrollNextA").attr("disabled", "disabled");
     	}
     }
 });
+
+// 계좌번호 유효성 검사
+$("#bankNumber").on("input",function(){
+	var regex = /^[0-9]*$/;
+	var result = regex.exec($("#bankNumber").val());
+	
+	if(result != null){
+	       $(".bankNumber.regex").html("");  
+	       $("#enrollNextB").removeAttr("disabled");
+	    		
+	    }else{
+	        $(".bankNumber.regex").html("올바른 계좌번호가 아닙니다.");
+	        $("#enrollNextB").attr("disabled", "disabled");
+	    }
+	
+});
+
 
 //아이디 중복검사
 $('#merId').on("propertychange change keyup paste input", function(){
@@ -395,7 +436,7 @@ $('#merId').on("propertychange change keyup paste input", function(){
    
    if(merId.length < 6){
 	   $(".id_validate").html("아이디는 최소 6글자 이상 입력하세요.");
-		
+	   $(".id_validate").css("color","red")
 		return;
 	}
    
@@ -416,11 +457,13 @@ $('#merId').on("propertychange change keyup paste input", function(){
         	  $('.id_input_re_1').hide();
         	  $('.id_input_re_2').html("아이디가 이미 존재합니다.").css("display","inline-block");
         	  $('.id_input_re_1').css("display", "none");
+        	  $("#enrollNextA").attr("disabled", "disabled");
+        	  
             } else {
           	  $('.id_input_re_1').show();
         	  $('.id_input_re_2').hide();
-        	  $('.id_input_re_1').html("사용 가능한 아이디입니다.").css("display","inline-block");
 			  $('.id_input_re_2').css("display", "none");
+			  $("#enrollNextA").removeAttr("disabled");
             }
       },
       error: function(e){
@@ -453,13 +496,16 @@ $('#merEmail').on("input", function(){
 	        	  $('.email_input_re_1').hide();
 	        	  $('.email_input_re_2').html("이미 존재하는 이메일입니다.").css("display","inline-block");
 	        	  $('.email_input_re_1').css("display", "none");
+	        	  $("#enrollNextA").attr("disabled", "disabled");
 	            } else{
 	            	if(merEmail == ""){
 	            		$('.email_input_re_1').hide();
 	          	  		$('.email_input_re_1').css("display", "none");
+	          	  		$("#enrollNextA").removeAttr("disabled");
 	            	} else{
 	          		$('.email_input_re_2').hide();
 				 		 $('.email_input_re_2').css("display", "none");
+				 		$("#enrollNextA").removeAttr("disabled");
 	            	}
 	        	  
 	            }
@@ -469,5 +515,147 @@ $('#merEmail').on("input", function(){
 	      }
 	   }); 
 });
+
+//핸드폰 번호 중복검사
+$('#merPhone').on("input", function(){
+	var regex = /^01\d\d{3,4}\d{4}$/;
+    var result = regex.exec($("#merPhone").val());
+    var merPhone = $("#merPhone").val();  
+   
+   $.ajax({
+      type : "get",
+      url : "${path}/merchant/dupPhoneNum",
+      dataType : "json",
+      data: {
+    	  merPhone
+      },
+      success : function(data){
+    	  $('.phone_input_re_2').hide();
+    	  $('.phone_input_re_1').hide();
+    	  
+    	  
+    	  if(data.res === true) {
+        	  $('.phone_input_re_2').show();
+        	  $('.phone_input_re_1').hide();
+        	  $('.phone_input_re_2').html("이미 존재하는 번호입니다.").css("display","inline-block");
+        	  $('.phone_input_re_1').css("display", "none");
+        	  $("#enrollNextA").attr("disabled", "disabled");
+            } else{
+            	if(merPhone == ""){
+            		$('.phone_input_re_1').hide();
+          	  		$('.phone_input_re_1').css("display", "none");
+          	  		$("#enrollNextA").removeAttr("disabled");
+            	} else{
+          		 $('.phone_input_re_2').hide();
+			 		 $('.phone_input_re_2').css("display", "none");
+			 		 $("#enrollNextA").removeAttr("disabled");
+            	}
+        	  
+            }
+      },
+      error: function(e){
+         console.log(e);
+      }
+   }); 
+});
+
+//계좌번호 중복검사
+$('#bankNumber').on("input", function(){
+	var regex = /^[0-9]*$/;
+	var result = regex.exec($("#bankNumber").val());
+    var bankNumber = $("#bankNumber").val();  
+   
+   $.ajax({
+      type : "get",
+      url : "${path}/merchant/dupBankNum",
+      dataType : "json",
+      data: {
+    	  bankNumber
+      },
+      success : function(data){
+    	  $('.bankNumber_input_re_2').hide();
+    	  $('.bankNumber_input_re_1').hide();
+    	  
+    	  
+    	  if(data.rs === true) {
+        	  $('.bankNumber_input_re_2').show();
+        	  $('.bankNumber_input_re_1').hide();
+        	  $('.bankNumber_input_re_2').html("이미 존재하는 계좌입니다.").css("display","inline-block");
+        	  $('.bankNumber_input_re_1').css("display", "none");
+        	  $("#enrollNextB").attr("disabled", "disabled");
+            } else{
+            	if(bankNumber == ""){
+            		$('.bankNumber_input_re_1').hide();
+          	  		$('.bankNumber_input_re_1').css("display", "none");
+          	  		$("#enrollNextB").removeAttr("disabled");
+            	} else{
+          		 $('.bankNumber_input_re_2').hide();
+			 		 $('.bankNumber_input_re_2').css("display", "none");
+			 		 $("#enrollNextB").removeAttr("disabled");
+            	}
+        	  
+            }
+      },
+      error: function(e){
+         console.log(e);
+      }
+   }); 
+});
+
+//닉네임 중복검사
+$('#merNick').on("input", function(){
+    var merNick = $("#merNick").val();  
+   
+   $.ajax({
+      type : "get",
+      url : "${path}/merchant/dupNickName",
+      dataType : "json",
+      data: {
+    	  merNick
+      },
+      success : function(data){
+    	  $('.merNick_input_re_2').hide();
+    	  $('.merNick_input_re_1').hide();
+    	  
+    	  
+    	  if(data.nickVal === true) {
+        	  $('.merNick_input_re_2').show();
+        	  $('.merNick_input_re_1').hide();
+        	  $('.merNick_input_re_2').html("이미 존재하는 닉네임입니다.").css("display","inline-block");
+        	  $('.merNick_input_re_1').css("display", "none");
+        	  $("#enrollNextC").attr("disabled", "disabled");
+            } else{
+            	if(merNick == ""){
+            		$('.merNick_input_re_1').hide();
+          	  		$('.merNick_input_re_1').css("display", "none");
+          	  		$("#enrollNextC").removeAttr("disabled");
+            	} else{
+          		 $('.merNick_input_re_2').hide();
+			 		 $('.merNick_input_re_2').css("display", "none");
+			 		 $("#enrollNextC").removeAttr("disabled");
+            	}
+        	  
+            }
+      },
+      error: function(e){
+         console.log(e);
+      }
+   }); 
+});
+
+// 이용약관 팝업창 띄우기
+function showPopup(){
+	window.open("${path}/merchant/registerPage_1", "이용약관", "width=800, height=500, left=350, top=110"
+			);}
+			
+// 개인정보 수집 및 이용 팝업
+function showPopup2(){
+	window.open("${path}/merchant/registerPage_2", "이용약관", "width=800, height=500, left=350, top=110"
+			);}
+			
+//개인정보 제공 팝업 
+function showPopup3(){
+	window.open("${path}/merchant/registerPage_3", "이용약관", "width=800, height=500, left=350, top=110"
+			);}
 </script>
 

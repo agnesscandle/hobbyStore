@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
 
 <main>
 	<div class="Background-sc-1j88w7m-0 gfOHVQ">
@@ -116,4 +115,3 @@ table {
 
 
 </style>
-<%@ include file="../../views/common/footer.jsp"%>

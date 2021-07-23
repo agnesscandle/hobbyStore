@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
 
 <div class="UseofTerms_Container">
 	<h2 class="titleOfTerms">취미 상점 이용약관.</h2>
@@ -316,6 +315,7 @@ element.style {
 }
 
 .titleOfTerms {
+	padding-top: 50px;
 	text-align: center;
 }
 
@@ -364,4 +364,3 @@ body {
 }
 </style>
 
-<%@ include file="../../views/common/footer.jsp"%>
