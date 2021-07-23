@@ -163,6 +163,19 @@ public class MemberController {
 		return map;
 	}
 	
+	// 핸드폰번호 중복검사 
+		@GetMapping("/member/dupPhoneNum")
+		@ResponseBody
+		public Map<String, Object> dupPhoneNum(@RequestParam("memPhone") String memPhone) {
+			log.info("User ID : {}", memPhone);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("res", service.res(memPhone));
+			
+			return map;
+		}
+		
 	// 이메일 중복검사 
 	@GetMapping("/member/memberEmailChk")
 	@ResponseBody
@@ -222,26 +235,30 @@ public class MemberController {
        // 예약 리스트
        List<Reserve> reserveList = null;
        
-       PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
-       
        int memNo = 0;
        memNo = loginMember.getMemNo();
        
+       PageInfo pageInfo = new PageInfo(page, 10, service.getRsHobbyCount(memNo), 4);
+       PageInfo pageInfoLike = new PageInfo(page, 10, service.getLikedHobbyCount(memNo), 4);
+       
+       
+       
        hobbyListRs = service.getHobbyRsList(memNo, pageInfo);
-       hobbyListLike = service.getHobbyLikedList(memNo, pageInfo);
-       reserveList = service.getRsList(memNo);
+       reserveList = service.getRsNo(memNo);
+       hobbyListLike = service.getHobbyLikedList(memNo, pageInfoLike);
        
        model.addObject("hobbyListRs", hobbyListRs);
        model.addObject("hobbyListLike", hobbyListLike);
        model.addObject("reserveList", reserveList);
        
        model.addObject("pageInfo", pageInfo);
+       model.addObject("pageInfo", pageInfoLike);
        
        model.setViewName("/member/myInfo");
-       System.out.println("reserveList : " + reserveList);
-		// System.out.println(rsList);
-		// System.out.println(likedList);
-		
+
+       System.out.println(hobbyListRs);
+       System.out.println(reserveList);
+       
        return model;
     }
 		
@@ -253,21 +270,24 @@ public class MemberController {
 			
 			log.info("좋아요관리 페이지 요청");
 			
-			List<Hobby> hobbyList = null;
-			PageInfo pageInfo = new PageInfo(page, 10, service.getLikedHobbyCount(), 8);
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
 			
-			hobbyList = service.getHobbyLikedList(memNo, pageInfo);
+			List<Hobby> hobbyList = null;
+			PageInfo pageInfoLike = new PageInfo(page, 10, service.getLikedHobbyCount(memNo), 8);
+			
+			
+			hobbyList = service.getHobbyLikedList(memNo, pageInfoLike);
 			
 			model.addObject("hobbyList", hobbyList);
-			model.addObject("pageInfo", pageInfo);
+			model.addObject("pageInfo", pageInfoLike);
 			
 			System.out.println(hobbyList);
-			System.out.println(pageInfo);
+			System.out.println(pageInfoLike);
 			
 			model.setViewName("/member/likedHobby");
 			
+			System.out.println("좋아요 개수 : " + service.getLikedHobbyCount(memNo));
 			return model;
 		}
 		
@@ -279,14 +299,24 @@ public class MemberController {
 			
 			log.info("예약관리 페이지 요청");
 			
-			List<Hobby> hobbyList = null;
-			PageInfo pageInfo = new PageInfo(page, 10, service.getRsHobbyCount(), 8);
-			
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
 			
-			hobbyList = service.getHobbyRsList(memNo, pageInfo);
+			// 예약 취미
+			List<Hobby> hobbyList = null;
 			
+			// 예약 리스트
+		    List<Reserve> reserveList = null;
+		    
+			PageInfo pageInfo = new PageInfo(page, 10, service.getRsHobbyCount(memNo), 8);
+			
+			System.out.println("예약 개수 : " + service.getRsHobbyCount(memNo));
+			
+			hobbyList = service.getHobbyRsList(memNo, pageInfo);
+			reserveList = service.getRsNo(memNo);
+			 
+			 
+			model.addObject("reserveList", reserveList);
 			model.addObject("hobbyList", hobbyList);
 			model.addObject("pageInfo", pageInfo);
 			
@@ -325,6 +355,11 @@ public class MemberController {
 					
 					String rootPath = request.getSession().getServletContext().getRealPath("resources");
 					String savePath = rootPath + "/upload/profile";
+					
+					if(member.getMemImgRename() != null) {
+						service.deleteFile(savePath + "/" + member.getMemImgRename());
+					}
+					
 					String renameFileName = service.saveFile(upfile, savePath);
 					
 					System.out.println(renameFileName);
@@ -333,7 +368,9 @@ public class MemberController {
 						member.setMemImgOriginal(upfile.getOriginalFilename());
 						member.setMemImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
 					}
-				}result = service.save(member);		
+				}
+				
+				result = service.save(member);		
 					
 					if(result > 0) {
 						model.addObject("loginMember" , service.findById(loginMember.getMemId())); 

@@ -31,6 +31,8 @@ public interface MemberMapper {
 	int deleteMember(int memNo);
 
 	Member searchEmail(@Param("memEmail") String memEmail);
+	
+	Member searchPhone(@Param("memPhone") String memPhone);
 
 	Member findByPhone(String memPhone);
 	
@@ -44,17 +46,22 @@ public interface MemberMapper {
 
 	List<Hobby> selectHobbyRsList(int memNo, RowBounds rowBounds);
 
-	List<Reserve> selectRsList(int memNo);
+	List<Reserve> selectRsList(int memNo, RowBounds rowBounds);
 
 	Hobby selectHobbyByNo(int hbNo);
 
-	int selectLikedHobbyCount();
+	int selectLikedHobbyCount(int memNo);
 
-	int selectRsHobbyCount();
+	int selectRsHobbyCount(int memNo);
 
 	Reserve selectRsByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo);
 
 	Reserve selectRsViewByNo(@Param("memNo") int memNo, @Param("hbNo") int hbNo, @Param("resNo") int resNo);
+
+	List<Reserve> selectRsNo(int memNo);
+
+	
+
 
 
 

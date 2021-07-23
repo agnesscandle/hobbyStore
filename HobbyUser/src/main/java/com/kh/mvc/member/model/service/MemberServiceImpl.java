@@ -26,9 +26,10 @@ import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.member.model.mapper.MemberMapper;
 import com.kh.mvc.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
-
+@Slf4j
 @Service
 public class MemberServiceImpl implements MemberService{
 	@Autowired
@@ -80,6 +81,11 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.searchEmail(memEmail);
 	}
 	
+	@Override
+	public Member findByPhone(String memPhone) {
+
+		return mapper.searchPhone(memPhone);
+	}
 
 	@Override
 	public boolean validate(String memId) {
@@ -93,7 +99,12 @@ public class MemberServiceImpl implements MemberService{
 		return this.findByEmail(memEmail) != null;
 	}
 	
-
+	@Override
+	public boolean res(String memPhone) {
+		
+		return this.findByPhone(memPhone) != null;
+	}
+	
 	// 아이디 찾기
 	public Member findByIdAndName(String memName, String memEmail) {
 
@@ -243,9 +254,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfoLike) {
+		int offset = (pageInfoLike.getCurrentPage() - 1) * pageInfoLike.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfoLike.getListLimit());
 		
 		return mapper.selectHobbyLikedList(memNo, rowBounds);
 	}
@@ -256,21 +267,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int getLikedHobbyCount() {
-		return mapper.selectLikedHobbyCount();
+	public int getLikedHobbyCount(int memNo) {
+		return mapper.selectLikedHobbyCount(memNo);
 	}
 
 	@Override
-	public int getRsHobbyCount() {
-		return mapper.selectRsHobbyCount();
+	public int getRsHobbyCount(int memNo) {
+		return mapper.selectRsHobbyCount(memNo);
 	}
 	
 	
 	/* 예약 */
 	@Override
-	public List<Reserve> getRsList(int memNo) {
+	public List<Reserve> getRsList(int memNo, PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		
-		return mapper.selectRsList(memNo);
+		return mapper.selectRsList(memNo, rowBounds);
 	}
 
 	@Override
@@ -292,6 +305,25 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.selectRsViewByNo(memNo, hbNo, resNo);
 	}
+
+	@Override
+	public List<Reserve> getRsNo(int memNo) {
+		return mapper.selectRsNo(memNo);
+	}
+
+	@Override
+	public void deleteFile(String filePath) {
+		log.info("FILE PATH : {}" , filePath );
+		
+		File file = new File(filePath);
+		
+		if(file.exists()) {
+			file.delete();
+		}
+		
+	}
+
+	
 
 	
 	

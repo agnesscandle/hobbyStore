@@ -21,12 +21,16 @@ public interface MemberService {
 	
 	Member findByEmail(String memEmail);
 	
+	Member findByPhone(String memPhone);
+	
 	Member checkpw(String memId, String memPassword);
 	
 	boolean validate(String memId);
 
 	boolean result(String memEmail);
 
+	boolean res(String memPhone);
+	
 	int save(Member member);
 
 	int changePw(Member member);
@@ -47,20 +51,20 @@ public interface MemberService {
 	
 	int getHobbyCount();
 	
-	List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo);
+	List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfoLike);
 	
 	List<Hobby> getHobbyRsList(int memNo, PageInfo pageInfo);
 
     /* 좋아요 */
 	List<Liked> getLikedList();
 	
-	int getLikedHobbyCount();
+	int getLikedHobbyCount(int memNo);
 
 	
 	/* 예약 */
-	int getRsHobbyCount();
+	int getRsHobbyCount(int memNo);
 	
-	List<Reserve> getRsList(int memNo);
+	List<Reserve> getRsList(int memNo, PageInfo pageInfo);
 
 	Reserve findReserveViewByNo(int memNo, int hbNo);
 
@@ -69,6 +73,14 @@ public interface MemberService {
 	
 	
 	List<Category> getCateList();
+
+	List<Reserve> getRsNo(int memNo);
+
+	void deleteFile(String filePath);
+
+	
+
+	
 
 	
 
