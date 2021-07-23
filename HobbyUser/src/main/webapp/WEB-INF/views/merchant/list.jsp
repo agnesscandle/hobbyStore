@@ -71,11 +71,11 @@
 </div>
 <div id="pageBar">
    <!-- 맨 처음으로 -->
-   <button onclick="location.href='${path}/hobby/list?page=1'">&lt;&lt;</button>
+   <button onclick="location.href='${path}/merchant/list?page=1'">&lt;&lt;</button>
 
    <!-- 이전 페이지로 -->
    <button
-      onclick="location.href='${path}/hobby/list?page=${ pageInfo.prvePage }'">&lt;</button>
+      onclick="location.href='${path}/merchant/list?merNo=${loginMerchant.merNo}&page=${ pageInfo.prvePage }'">&lt;</button>
 
    <!--  10개 페이지 목록 -->
 
@@ -88,18 +88,18 @@
       </c:if>
       <c:if test="${pageInfo.currentPage != status.current }">
          <button
-            onclick="location.href='${path}/hobby/list?page=${status.current}'">
+            onclick="location.href='${path}/merchant/list?merNo=${loginMerchant.merNo}&page=${status.current}'">
             <c:out value="${status.current}" />
          </button>
       </c:if>
    </c:forEach>
    <!-- 다음 페이지로 -->
    <button
-      onclick="location.href='${path}/hobby/list?page=${pageInfo.nextPage}'">&gt;</button>
+      onclick="location.href='${path}/merchant/list?merNo=${loginMerchant.merNo}&page=${pageInfo.nextPage}'">&gt;</button>
 
    <!-- 맨 끝으로 -->
    <button
-      onclick="location.href='${path}/hobby/list?page=${pageInfo.maxPage}'">&gt;&gt;</button>
+      onclick="location.href='${path}/merchant/list?merNo=${loginMerchant.merNo}&page=${pageInfo.maxPage}'">&gt;&gt;</button>
 </div>
 
 </body>
