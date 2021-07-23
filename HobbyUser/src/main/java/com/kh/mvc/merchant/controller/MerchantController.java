@@ -181,19 +181,6 @@ public class MerchantController {
 			}
 		}
 		
-		
-//		if(upfile != null && !upfile.isEmpty()) {
-//			
-//			String rootPath = request.getSession().getServletContext().getRealPath("resources");
-//			String savePath = rootPath + "/upload/profile";
-//			String renameFileName = service.saveMerFile(upfile, savePath);
-//			
-//			System.out.println(renameFileName);
-//			
-//			if(renameFileName != null) {
-//				merchantmember.setMerImgOriginal(upfile.getOriginalFilename());
-//				merchantmember.setMerImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
-//			}
 		int result = 0;
 		
 		result = service.save(merchantmember);

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.mvc.common.util.PageInfo;
@@ -338,35 +339,38 @@ public class MemberController {
 	// 회원정보 수정
 		@PostMapping("/member/update")
 		public ModelAndView update(ModelAndView model, HttpServletRequest request,
-				@ModelAttribute Member member, @RequestParam("upfile") MultipartFile upfile,
+				@ModelAttribute Member member, MultipartHttpServletRequest mtfRequest,
 				@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+			
+			log.info("프로필 수정 작성 요청");
 			
 			int result = 0;
 			
-			log.info("프로필 수정 작성 요청");
-			System.out.println(upfile.getOriginalFilename());
-			System.out.println(upfile.isEmpty());
+			MultipartFile thumFile = mtfRequest.getFile("input-file");
+			
+			System.out.println(thumFile.getOriginalFilename());
+			System.out.println(thumFile.isEmpty());
 			
 			
 			if(loginMember.getMemId().equals(member.getMemId())) {
 				member.setMemNo(loginMember.getMemNo());
 				
-				if(upfile != null && !upfile.isEmpty()) {
+				if(thumFile != null && !thumFile.isEmpty()) {
 					
 					String rootPath = request.getSession().getServletContext().getRealPath("resources");
-					String savePath = rootPath + "/upload/profile";
+					String savePath = rootPath + "/upload/profile/";
 					
 					if(member.getMemImgRename() != null) {
 						service.deleteFile(savePath + "/" + member.getMemImgRename());
 					}
 					
-					String renameFileName = service.saveFile(upfile, savePath);
+					String thumRename = service.saveFile(thumFile, savePath);
 					
-					System.out.println(renameFileName);
+					System.out.println(thumRename);
 					
-					if(renameFileName != null) {
-						member.setMemImgOriginal(upfile.getOriginalFilename());
-						member.setMemImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
+					if(thumRename != null) {
+						member.setMemImgOriginal(thumFile.getOriginalFilename());
+						member.setMemImgRename(thumRename); 
 					}
 				}
 				
@@ -380,9 +384,6 @@ public class MemberController {
 						model.addObject("msg", "회원정보 수정에 실패했습니다.");
 						model.addObject("location", "/member/updateMyInfo");
 					}		
-					
-				
-				
 			}
 			else {
 				model.addObject("msg", "잘못된 접근입니다");

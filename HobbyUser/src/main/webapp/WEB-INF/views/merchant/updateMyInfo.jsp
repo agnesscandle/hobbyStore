@@ -136,7 +136,6 @@
 	overflow: hideen;
 }
 
-/* named upload */
 
 
 /* 파일 필드 숨기기 */

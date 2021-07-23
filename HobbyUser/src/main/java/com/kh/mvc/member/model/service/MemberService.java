@@ -41,7 +41,7 @@ public interface MemberService {
 	
 	void sendNewPwNumber(String memPhone, String cerNum);
 
-	String saveFile(MultipartFile upfile, String savePath);
+	String saveFile(MultipartFile thumFile, String savePath);
 
 	int setNewPw(String memPhone, String numStr);
 	

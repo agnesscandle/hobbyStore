@@ -190,34 +190,26 @@ public class MemberServiceImpl implements MemberService{
 		        }
 			
 		}
-
+		
+	/* 회원 이미지 저장*/	
 	@Override
-	public String saveFile(MultipartFile upfile, String savePath) {
-		String renameFileName = null;
-		String renamePath = null;
-		String originalFileName = upfile.getOriginalFilename();
+	public String saveFile(MultipartFile thumFile, String savePath) {
+		String thumOri = null;
+		String thumRename = null;
 		
-		
-		File folder = new File(savePath);
-		
-		if(!folder.exists()) {
-			folder.mkdirs();
-		}
-		
-		renameFileName = 
-				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + 
-				originalFileName.substring(originalFileName.lastIndexOf("."));
-		renamePath = savePath + "/"  + renameFileName;
+		/* 썸네일 이미지 저장 */
+		thumOri = thumFile.getOriginalFilename();
+		thumRename = System.currentTimeMillis() + thumOri;
 		
 		try {
-			// 업로드한 파일 데이터를 지정한 파일에 저장한다.
-			upfile.transferTo(new File(renamePath));
+			String safeFile = savePath + thumRename;
+			thumFile.transferTo(new File(safeFile));
 		} catch (IOException e) {
 			System.out.println("파일 전송 에러 : " + e.getMessage());
 			e.printStackTrace();
 		}
 		
-		return renameFileName;
+		return thumRename;
 	}
 	
 	// 비밀번호 찾기 새 비밀번호로 변경
