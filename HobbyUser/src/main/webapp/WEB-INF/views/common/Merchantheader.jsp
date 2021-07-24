@@ -237,15 +237,6 @@ $(function(){
 	   })
 	})	
 	
-	
-$(document).on('mouseover', '.topMenu2 span', function () {
-    $('.dept02').slideDown(700);
-});
-$(document).on('mouseover', 'div', function () {
-    if (!$(this).hasClass('topMenu2')) {
-        $('.dept02').slideUp(700);
-    }
-});
 
 <!-- qna 페이지 이동 -->
 $(function(){
