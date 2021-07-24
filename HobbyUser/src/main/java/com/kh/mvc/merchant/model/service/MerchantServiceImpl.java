@@ -27,6 +27,7 @@ import com.kh.mvc.member.model.service.MemberServiceImpl;
 import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.Merchant;
+import com.kh.mvc.merchant.model.vo.Notice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -562,12 +563,24 @@ public class MerchantServiceImpl implements MerchantService{
 		return mapper.selectCalFinishCount(merNo);
 	}
 
+	@Override
+	public int getNoticeCount() {
+		return mapper.getNoticeCount();
+	}
 
-	
+	@Override
+	public List<Notice> getNoticeList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return mapper.getNoticelist(rowBounds);
+	}
 
 
-	
-
+	@Override
+	public Notice noticefindByNo(int noticeNum) {
+		
+		return mapper.selectNoticeByNo(noticeNum);
+	}
 	
 
 	

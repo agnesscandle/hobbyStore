@@ -264,3 +264,18 @@ h2{
 .merStatus{
 	display:inline;
 }
+
+.btnList {
+  border: none;
+  border-radius: 2px;
+  padding: 12px 18px;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  background-color: #324960;
+  box-shadow: 0 0 4px #999;
+  outline: none;
+  position:relative;
+  right:500px;
+}

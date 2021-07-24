@@ -106,7 +106,7 @@
  		
             <span>지원센터</span>
             <ul class="dept04 hide">
-                 <div class="hobbyEnroll">공지사항</div>
+                 <div class="hobbyEnroll" id="merNotice">공지사항</div>
                  <div class="hobbyEnroll" id="merManual">운영메뉴얼</div>
                  <div class="hobbyEnroll" id="merFaq">자주 묻는 질문</div>                  
             </ul>        
@@ -174,6 +174,12 @@ $(function(){
 $(function(){
 	$("#reserveList").click(function(){
 		location.href="${path}/merchant/resHbList?merNo=${loginMerchant.merNo}";
+	});
+});
+<!-- 공지사항 페이지 이동 -->
+$(function(){
+	$("#merNotice").click(function(){
+		location.href="${path}/merchant/notice";
 	});
 });
 <!-- 운영 메뉴얼 페이지 이동 -->

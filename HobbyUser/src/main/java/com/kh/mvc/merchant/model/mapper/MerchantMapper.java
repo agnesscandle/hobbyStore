@@ -16,8 +16,7 @@ import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.merchant.model.vo.Merchant;
-
-
+import com.kh.mvc.merchant.model.vo.Notice;
 import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
 
@@ -150,5 +149,11 @@ public interface MerchantMapper {
 
 
 	int imgsDelete(int hbNo);
+
+	int getNoticeCount();
+
+	List<Notice> getNoticelist(RowBounds rowBounds);
+
+	Notice selectNoticeByNo(int noticeNum);
 
 }

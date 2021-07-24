@@ -28,6 +28,27 @@
  
 
 
+	<sql id="noticeListSql">
+		SELECT  N.NOT_NO,
+				N.NOT_TITLE, 
+				A.AD_NO,
+				A.AD_ID,
+				N.NOT_READCOUNT, 
+				N.NOT_CONTENT
+
+		FROM NOTICE N
+		JOIN ADMIN A ON(N.AD_NO = A.AD_NO)
+	</sql>
+	
+	<resultMap type="Notice" id="noticeListResultMap">
+		<id property="noticeNum" column="NOT_NO"/>
+		<result property="noticeTitle" column="NOT_TITLE"/>
+		<result property="adminNo" column="AD_NO"/>
+		<result property="adminId" column="AD_ID"/>
+		<result property="noticeReadCount" column="NOT_READCOUNT"/>
+		<result property="noticeCont" column="NOT_CONTENT"/>
+	</resultMap>
+	
  	<sql id="ReservListSql">
 		SELECT 
 		RES_NO, 
@@ -961,6 +982,28 @@
 		WHERE M.MER_NO = #{merNo}
 	</select>
 	
+	<select id="getNoticeCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+	</select>
 	
+	<select id="getNoticelist" resultMap="noticeListResultMap">
+		<include refid="noticeListSql"/>
+		
+		ORDER BY N.NOT_NO DESC
+	</select>
 
+	<select id="selectNoticeByNo" parameterType="_int" resultMap="noticeListResultMap">
+ 		SELECT N.NOT_NO,
+		       N.NOT_TITLE,
+		       N.AD_NO, 
+		       A.AD_ID, 
+		       N.NOT_READCOUNT, 
+		       N.NOT_CONTENT
+
+ 		FROM NOTICE N
+		JOIN ADMIN A ON(N.AD_NO = A.AD_NO)
+		WHERE N.NOT_NO=#{noticeNum}
+	</select>
  </mapper>

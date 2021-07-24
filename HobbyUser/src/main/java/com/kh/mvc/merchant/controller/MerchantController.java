@@ -39,6 +39,7 @@ import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.service.MerchantService;
 import com.kh.mvc.merchant.model.vo.Merchant;
+import com.kh.mvc.merchant.model.vo.Notice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -677,7 +678,7 @@ public class MerchantController {
 		
 		list = service.getCalculateList(merNo);
 		
-		System.out.println(list+"웨잇확인");
+
 		model.addObject("list", list);
 		model.addObject("pageInfo",pageInfo);
 		model.setViewName("calculation/calculationWait");
@@ -1323,6 +1324,34 @@ public class MerchantController {
 		
 		model.setViewName("/common/msg");
 
+		return model;
+	}
+	
+	@GetMapping("/notice")
+	public ModelAndView notice(ModelAndView model,
+			@RequestParam(value="page", required=false, defaultValue ="1") int page) {
+		
+		List<Notice> list = null;
+		PageInfo pageInfo = new PageInfo(page,10,service.getNoticeCount(),10);
+		
+		list = service.getNoticeList(pageInfo);
+		System.out.println(list+"공지확인");
+		model.addObject("list",list);
+		model.addObject("pageInfo",pageInfo);
+		model.setViewName("merchant/noticelist");
+		
+		return model;
+	}
+	
+	@GetMapping("/noticeview")
+	public ModelAndView view(ModelAndView model,
+			@RequestParam("no") int noticeNum) {
+		
+		Notice notice = service.noticefindByNo(noticeNum);
+
+		model.addObject("notice", notice);
+		model.setViewName("merchant/noticeview");
+		
 		return model;
 	}
 	

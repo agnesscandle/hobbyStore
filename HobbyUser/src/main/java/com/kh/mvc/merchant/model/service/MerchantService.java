@@ -15,8 +15,7 @@ import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.vo.Merchant;
-
-
+import com.kh.mvc.merchant.model.vo.Notice;
 import com.kh.mvc.hobby.model.vo.Reserve;
 
 
@@ -147,5 +146,11 @@ public interface MerchantService {
 	void deleteFile(String string);
 
 	int imgsDelete(int hbNo);
+
+	int getNoticeCount();
+
+	List<Notice> getNoticeList(PageInfo pageInfo);
+
+	Notice noticefindByNo(int noticeNum);
 
 }
