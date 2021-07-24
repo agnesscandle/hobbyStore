@@ -1,11 +1,14 @@
 a { text-decoration:none } 
 
 .registerPage {
-	color: blue;	
+	color: blue ;
+	font-size: 16px !important;
+	cursor: pointer;	
 }
 .agree_wrap{
-	font-size: 13px;
-	margin-bottom: 20px;
+	font-size: 15px;
+	margin-bottom: 30px;
+	margin-left: 40px;
 }
 .memEnrollWrapper {
 	margin-left: 33%;
@@ -76,15 +79,16 @@ a { text-decoration:none }
 
 
 /* 중복아이디 존재하지 않는경우 */
-.id_input_re_1, .email_input_re_1{
+.id_input_re_1, .email_input_re_1, .phone_input_re_1{
 		color : blue;
 		display : none;
 }
 /* 중복아이디 존재하는 경우 */
-.id_input_re_2, .email_input_re_2{
+.id_input_re_2, .email_input_re_2, .phone_input_re_2{
 		color : red;
 		display : none;
 }
+
 
 .cateLabel {
 	display:inline-block;

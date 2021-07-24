@@ -1,66 +1,309 @@
-a { text-decoration:none } 
+.divEnroll{
+   width: 1100px;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   margin: auto;
+   padding-top: 150px;
+}
+
+section {
+   line-height: 1.5em;
+   margin: 0;
+   font-weight: 300;
+   color: #34486b;
+   align-items: center;
+}
+
+a {
+   text-decoration: none;
+   color: #222;
+}
+
+.title {
+   width: 800px;
+   padding: 25px;
+   padding-right :65px; 
+   margin-left: 150px;
+   box-sizing: border-box;
+}
+
+.title span {
+   font-weight: bold;
+   display: block;
+   margin-top: 20px;
+}
+
+.title .req, .title .reqDisRate{
+   border: 1px solid #ddd;
+   width: 100%;
+   padding: 15px;
+   box-sizing: border-box;
+   border-radius: 5px;
+   padding-left: 40px;
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+.title .req:hover, .title .reqDisRate:hover {
+   border: 1px solid dodgerblue;
+   box-shadow: 0 0 5px #34486b;
+}
+
+.title .req::placeholder, .title .reqDisRate::placeholder {
+   opacity: 1;
+   transition: 0.3s;
+}
+
+.title .req:focus::placeholder, .title .reqDisRate:focus::placeholder
+{
+   opacity: 0;
+   visibility: hidden;
+}
+
+.title p {
+   overflow: hidden;
+}
+
+.title p label {
+   float: left;
+   cursor: pointer;
+}
+
+.title p a {
+   float: right;
+}
+
+.title p a:hover {
+   text-decoration: underline;
+}
+
+.title input[type=button], input[type=submit] {
+   background-color: #34486b;
+   color: #fff;
+   width: 300px;
+   padding: 10px;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+   font-size: 24px;
+   transition: 0.3s;
+   margin: 10px;
+}
+#hbLocationButton{
+   width: 100px;
+   font-size: 14px;
+}
+#postcode{
+   width: 200px;
+}
+
+
+#disStat{
+   cursor: pointer;
+   padding: 15px;
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+.btn {
+   text-align: center;
+   margin-top: 30px;
+}
+
+.title input[type=button]:hover, .title input[type=submit]:hover {
+   background-color: #111934;
+}
+
+.warn {
+   height:100%;
+   width:570px;
+   padding-left : 50px;
+   margin:auto;
+   margin-left : 10px;
+   color: #242f83;
+   box-sizing: border-box;
+}
+
+.gnb {
+   list-style: none;
+   /* position: absolute; */
+   /* padding: 50px 30px; */
+   display: flex;
+   width: 100%;
+}
+
+.gnb li {
+   flex: 1;
+   width: 200px;
+   height: 50px;
+   text-align: center;
+}
+
+.gnb li span {
+   font-size: 14px;
+   position: relative;
+}
+
+.gnb>li.active {
+   border-bottom: solid 3px;
+   border-bottom-color: #eacc16;
+}
+.gnb>li.active>span {
+   padding: 20px 0;
+   font-size: 16px;
+   color: #eacc16;
+}
+
+.enroll {
+   padding: 15px;
+   display: none;
+}
+
+.enroll.active {
+   display: block;
+}
+
+
+/* image */
+.file-upload label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
+/* 파일 필드 숨기기 */
+.file-upload input[type="file"] {  
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+
+
+/* named upload */
+.file-upload .upload-name {
+    display: inline-block;
+    padding: .5em .75em;  /* label의 패딩값과 일치 */
+    font-size: inherit;
+    font-family: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+    margin-top:20px; 
+    margin-bottom: 20px;
+}
+/* imaged preview */
+.file-upload .upload-display {  /* 이미지가 표시될 지역 */
+    margin-bottom: 5px;
+}
+
+@media(min-width: 768px) { 
+    .file-upload .upload-display {
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
+}
+
+.file-upload .upload-thumb-wrap {  /* 추가될 이미지를 감싸는 요소 */
+    display: inline-block;
+    width: 200px;
+    padding: 2px;
+    margin-top:15px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    
+}
+
+.file-upload .upload-display img {  /* 추가될 이미지 */
+    display: block;
+    max-width: 100%;
+    width: 200px;
+    height: 200px;
+}
+
+#btnAtt{
+   margin-top:15px;
+   margin-bottom:15px;
+}
+
+
+#att_zone{
+   margin-top:10px;
+   width: 100%;
+   min-height:150px;
+   padding:10px;
+   border-radius:5px;
+   border:1px dotted #ddd;
+}
+#att_zone:empty:before{
+   content : attr(data-placeholder);
+   color : #999;
+   font-size:.9em;
+}
+
+.enrollArea{
+	resize: none;
+	height: 100px;
+	
+}
+
+.merEnroll_t{
+	font-size: 30px;
+	font-weight: bolder;
+	position: relative;
+	top: 80px;
+	left: 860px;
+	color: #34486b;
+}
+
+/* 약관동의 */
+.agree_wrap{
+	text-align: center;
+	font-size: 16px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-right: 70px;
+}
 
 .registerPage {
-	color: blue;	
-}
-.agree_wrap{
-	font-size: 13px;
-	margin-bottom: 20px;
-}
-.memEnrollWrapper {
-	margin-left: 33%;
-	margin-right: 33%;
+	color: blue ;
+	font-size: 16px !important;
+	cursor: pointer;	
 }
 
-.memEnrollTitle {
-	text-align: center;
-	font-size: 30px;
-	font-weight: bold;
-	color: black;
-	margin: 20px 0px 40px 0px;
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1, .email_input_re_1, .phone_input_re_1, .bankNumber_input_re_1, .merNick_input_re_1{
+		color : blue;
+		display : none;
+		font-weight: normal !important;
 }
-
-.memEnrollLabel {
-	display: inline-block;
-	text-align: right;
-	font-size: 18px;
-	font-weight: 600;
-	padding-bottom: 8px;
-}
-
-.memEnrollLabel_1{
-	font-size: 13px;
-}
-
-.pwCheck{
-	padding-top: 10px;
-}
-
-.enrollInput {
-	font-size: 14px;
-    font-weight: normal;
-    line-height: 20px;
-    letter-spacing: -0.15px;
-    margin: 0px;
-    border: 1px solid rgb(239, 239, 239);
-    background-color: white;
-    height: 48px;
-    flex: 1 1 auto;
-    width: 100%;
-    color: rgb(26, 26, 26);
-    box-sizing: border-box;
-    padding: 0px 16px;
-    border-radius: 3px;
-}
-
-.enrollInput:active {
-   background-color: rgb(230, 243, 250);
-}
-
-
-#mSignup {
-	text-align: center;
-	margin: 5px;
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2, .email_input_re_2, .phone_input_re_2, .bankNumber_input_re_2, .merNick_input_re_2{
+		color : red;
+		display : none;
+		font-weight: normal !important;
+		
 }
 
 .regex {
@@ -72,52 +315,3 @@ a { text-decoration:none }
 .repw regex{
 	padding: 15px 0;
 }
-
-
-
-/* 중복아이디 존재하지 않는경우 */
-.id_input_re_1, .email_input_re_1{
-		color : blue;
-		display : none;
-}
-/* 중복아이디 존재하는 경우 */
-.id_input_re_2, .email_input_re_2{
-		color : red;
-		display : none;
-}
-
-.cateLabel {
-	display:inline-block;
-	width: 100px;
-	line-height: 23px;
-}
-
-#enrollSubmit{
-	cursor: pointer;
-	background-color: rgb(32, 51, 84);
-	color: white;
-	font-weight: bold;
-	font-size : 20px;
-	margin-bottom:4px;
-}
-
-#enrollSubmit: active{
-	barckground-color: white;
-}
-
-
-#kakaoSubmit{
-	cursor: pointer;
-	font-size : 20px;
-	font-weight: bold;
-	background-color: rgb(255, 232, 18);
-	background-repeat: no-repeat;
-	box-sizing: border-box;
-	background-position: 27% center;
-	background-size: 40px;
-}
-
-
-
-
-

@@ -10,17 +10,17 @@
 
 
 <div class="openTitle"><h2>오픈 예정 취미💙</h2></div>
-<div class="divList_open">
-	<div class="containerList_open">
+<div class="divList">
+	<div class="containerList">
 		<c:if test="${ list != null}">
 			<c:forEach var="hobby" items="${ list }">
-				<div class="item_open">
+				<div class="item">
 
 					<!-- 썸네일 이미지 -->
-					<img id="thumImg_open"
+					<img id="thumImg"
 						src="${path}/resources/upload/hobby/${hobby.hbThumRename}">
-					<div class="detail_open">
-						<div class="title_open">
+					<div class="detail">
+						<div class="title">
 
 							<!-- 제목 -->
 							<h2>
@@ -35,8 +35,8 @@
 									var="discountFee" />
 								<fmt:formatNumber value="${hobby.hbFee}" type="number"
 									var="originalFee" />
-								<span class="price_open">
-									<div class="discount_open">
+								<span class="price">
+									<div class="discount">
 										${ hobby.hbDiscountRate }% &nbsp;
 										<del>${originalFee}원</del>
 									</div> <b>${discountFee}원 </b>
@@ -47,22 +47,22 @@
 							<c:if test="${ hobby.hbDiscountStatus eq 'N' }">
 								<fmt:formatNumber value="${hobby.hbFee}" type="number"
 									var="originalFee" />
-								<span class="price_open"> <b>${ originalFee }원</b>
+								<span class="price"> <b>${ originalFee }원</b>
 								</span>
 							</c:if>
 
 						</div>
 
 						<!-- 상세 내용 -->
-						<div class="info_open">
-							<div class="size_open">
+						<div class="info">
+							<div class="size">
 								<label><b>Details</b></label>
 								<c:out value="${hobby.hbSummary}"></c:out>
 							</div>
 						</div>
 						<button
 							onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
-							class="add-cart-o">자세히 보기</button>
+							class="add-cart">자세히 보기</button>
 					</div>
 				</div>
 			</c:forEach>

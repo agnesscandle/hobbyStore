@@ -26,9 +26,10 @@ import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.member.model.mapper.MemberMapper;
 import com.kh.mvc.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
-
+@Slf4j
 @Service
 public class MemberServiceImpl implements MemberService{
 	@Autowired
@@ -80,6 +81,11 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.searchEmail(memEmail);
 	}
 	
+	@Override
+	public Member findByPhone(String memPhone) {
+
+		return mapper.searchPhone(memPhone);
+	}
 
 	@Override
 	public boolean validate(String memId) {
@@ -93,7 +99,12 @@ public class MemberServiceImpl implements MemberService{
 		return this.findByEmail(memEmail) != null;
 	}
 	
-
+	@Override
+	public boolean res(String memPhone) {
+		
+		return this.findByPhone(memPhone) != null;
+	}
+	
 	// 아이디 찾기
 	public Member findByIdAndName(String memName, String memEmail) {
 
@@ -179,34 +190,26 @@ public class MemberServiceImpl implements MemberService{
 		        }
 			
 		}
-
+		
+	/* 회원 이미지 저장*/	
 	@Override
-	public String saveFile(MultipartFile upfile, String savePath) {
-		String renameFileName = null;
-		String renamePath = null;
-		String originalFileName = upfile.getOriginalFilename();
+	public String saveFile(MultipartFile thumFile, String savePath) {
+		String thumOri = null;
+		String thumRename = null;
 		
-		
-		File folder = new File(savePath);
-		
-		if(!folder.exists()) {
-			folder.mkdirs();
-		}
-		
-		renameFileName = 
-				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + 
-				originalFileName.substring(originalFileName.lastIndexOf("."));
-		renamePath = savePath + "/"  + renameFileName;
+		/* 썸네일 이미지 저장 */
+		thumOri = thumFile.getOriginalFilename();
+		thumRename = System.currentTimeMillis() + thumOri;
 		
 		try {
-			// 업로드한 파일 데이터를 지정한 파일에 저장한다.
-			upfile.transferTo(new File(renamePath));
+			String safeFile = savePath + thumRename;
+			thumFile.transferTo(new File(safeFile));
 		} catch (IOException e) {
 			System.out.println("파일 전송 에러 : " + e.getMessage());
 			e.printStackTrace();
 		}
 		
-		return renameFileName;
+		return thumRename;
 	}
 	
 	// 비밀번호 찾기 새 비밀번호로 변경
@@ -238,9 +241,14 @@ public class MemberServiceImpl implements MemberService{
 	
 	/* 취미 */
 	@Override
-	public List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public Hobby findByNo(int hbNo) {
+		return mapper.selectHobbyByNo(hbNo);
+	}
+	
+	@Override
+	public List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfoLike) {
+		int offset = (pageInfoLike.getCurrentPage() - 1) * pageInfoLike.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfoLike.getListLimit());
 		
 		return mapper.selectHobbyLikedList(memNo, rowBounds);
 	}
@@ -251,19 +259,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int getLikedHobbyCount() {
-		return mapper.selectLikedHobbyCount();
+	public int getLikedHobbyCount(int memNo) {
+		return mapper.selectLikedHobbyCount(memNo);
 	}
 
 	@Override
-	public int getRsHobbyCount() {
-		return mapper.selectRsHobbyCount();
+	public int getRsHobbyCount(int memNo) {
+		return mapper.selectRsHobbyCount(memNo);
 	}
+	
 	
 	/* 예약 */
 	@Override
-	public List<Reserve> getRsList() {
-		return mapper.selectRsList();
+	public List<Reserve> getRsList(int memNo, PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectRsList(memNo, rowBounds);
 	}
 
 	@Override
@@ -274,15 +286,45 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectHobbyRsList(memNo, rowBounds);
 	}
 
+	
 	@Override
-	public Reserve findReserveByNo(int memNo, int hbNo) {
+	public Reserve findReserveViewByNo(int memNo, int hbNo) {
 		return mapper.selectRsByNo(memNo, hbNo);
 	}
 
 	@Override
-	public Hobby findByNo(int hbNo) {
-		return mapper.selectHobbyByNo(hbNo);
+	public Reserve findReserveByNo(int memNo, int hbNo, int resNo) {
+		
+		return mapper.selectRsViewByNo(memNo, hbNo, resNo);
 	}
+
+	@Override
+	public List<Reserve> getRsNo(int memNo) {
+		return mapper.selectRsNo(memNo);
+	}
+
+	@Override
+	public void deleteFile(String filePath) {
+		log.info("FILE PATH : {}" , filePath );
+		
+		File file = new File(filePath);
+		
+		if(file.exists()) {
+			file.delete();
+		}
+		
+	}
+
+	
+
+	
+	
+
+	
+	
+
+
+	
 
 	
 	

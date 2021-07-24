@@ -104,7 +104,7 @@ $(function(){
 
     $.ajax({
         type: "post",
-        url: "${path}/member/checkSMS",
+        url: "${path}/merchant/checkSMS",
         data: {
             "phoneNumber" : phoneNumber
         },
@@ -118,7 +118,7 @@ $(function(){
                 	
                 	$.ajax({
                 		type: "post",
-                        url: "${path}/member/sendNewPw",
+                        url: "${path}/merchant/sendNewPw",
                         data: {
                             "phoneNumber" : phoneNumber
                         },

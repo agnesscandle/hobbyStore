@@ -18,9 +18,10 @@ public interface MemberService {
 	Member findById(String memId);
 
 	Member findByIdAndName(String memName, String memEmail);
-
 	
 	Member findByEmail(String memEmail);
+	
+	Member findByPhone(String memPhone);
 	
 	Member checkpw(String memId, String memPassword);
 	
@@ -28,6 +29,8 @@ public interface MemberService {
 
 	boolean result(String memEmail);
 
+	boolean res(String memPhone);
+	
 	int save(Member member);
 
 	int changePw(Member member);
@@ -38,29 +41,59 @@ public interface MemberService {
 	
 	void sendNewPwNumber(String memPhone, String cerNum);
 
-	String saveFile(MultipartFile upfile, String savePath);
+	String saveFile(MultipartFile thumFile, String savePath);
 
 	int setNewPw(String memPhone, String numStr);
 	
-	List<Category> getCateList();
 
-	List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfo);
-
-	List<Liked> getLikedList();
-
+	/* 취미 */
+	Hobby findByNo(int hbNo);
+	
 	int getHobbyCount();
-
-	List<Reserve> getRsList();
-
+	
+	List<Hobby> getHobbyLikedList(int memNo, PageInfo pageInfoLike);
+	
 	List<Hobby> getHobbyRsList(int memNo, PageInfo pageInfo);
 
-	Reserve findReserveByNo(int memNo, int hbNo);
+    /* 좋아요 */
+	List<Liked> getLikedList();
+	
+	int getLikedHobbyCount(int memNo);
 
-	Hobby findByNo(int hbNo);
+	
+	/* 예약 */
+	int getRsHobbyCount(int memNo);
+	
+	List<Reserve> getRsList(int memNo, PageInfo pageInfo);
 
-	int getLikedHobbyCount();
+	Reserve findReserveViewByNo(int memNo, int hbNo);
 
-	int getRsHobbyCount();
+	Reserve findReserveByNo(int memNo, int hbNo, int resNo);
+	
+	
+	
+	List<Category> getCateList();
+
+	List<Reserve> getRsNo(int memNo);
+
+	void deleteFile(String filePath);
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
 
 
 

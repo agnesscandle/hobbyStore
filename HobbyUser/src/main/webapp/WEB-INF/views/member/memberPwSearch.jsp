@@ -66,13 +66,40 @@
 	cursor: pointer;
 }
 
+/* 라디오 체크 */
+#PwSearchForm .login_gubun{ width:187px; margin:0 auto; display:block; }
+#PwSearchForm .container_radio { display: inline-block; position: relative; padding-left: 35px; white-space:nowrap; cursor: pointer; font-size: 18px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+#PwSearchForm .container_radio input { position: absolute; opacity: 0; cursor: pointer; }
+#PwSearchForm .checkmark { position: absolute; top: 0; left: 0; height: 23px; width: 23px; border:1px solid #dae0e9; border-radius: 50%; }
+#PwSearchForm .container input:checked ~ .checkmark { background-color: #fff; }
+#PwSearchForm .checkmark:after { content: ""; position: absolute; display: none; }
+#PwSearchForm .container_radio input:checked ~ .checkmark:after { display: block; }
+#PwSearchForm .container_radio .checkmark:after { top: 6px; left: 6px; width: 11px; height: 11px; border-radius: 50%; background:rgb(32, 51, 84); }
+#PwSearchForm .gubun_cont label:first-child{ margin-right:40px; margin-bottom: 15px;}
+
 </style>
 
 <div class="searchPwPage">
-<form name="mPwSearchFrm" id="PwSearchForm" 
-	action="${ path }/member/memberPwSearch" method="POST">
+<form name="form" id="PwSearchForm" 
+	 method="POST">
 	<div class="mPw_Search_Title">비밀번호 찾기</div>
 	
+	<div class="login_gubun">
+	<div class="gubun_cont">
+      <label for="member_flag_mem" class="container_radio" >
+         손님
+      <input type="radio" id="member_flag_mem" name="member_flag"  value="m" checked>
+      <span class="checkmark"></span>
+      </label>
+      
+      <label for="member_flag_mer" class="container_radio" >
+         상인
+      <input type="radio" id="member_flag_mer" name="member_flag"  value="s">   
+      <span class="checkmark"></span>
+      </label>
+   </div>
+   </div>
+   
 	<div class="search_box">
 	<label class="labelMId">아이디</label><br>
 	<input type="text" class="pwSearchInput" name="memId" id="memId" placeholder="hobbymarket"/>
@@ -80,7 +107,7 @@
 	</div>
 	
 	<p>
-		<button type="submit" id="searchPw_submit" class="searchPw_btn">다음</button>
+		<button type="submit" id="searchPw_submit" class="searchPw_btn" onclick="radio_chk();">다음</button>
 	</p>
 
 </form>
@@ -104,6 +131,19 @@ $("#searchPw_submit").on("click",function(){
 	}
 });
 
+
+function radio_chk(){
+	var member_flag = $('input[name=member_flag]:checked').val();
+	
+	if(member_flag == 'm'){
+		form.action='${path}/member/memberPwSearch';
+		
+	}
+	
+	if(member_flag == 's'){
+		form.action='${path}/merchant/findPw';
+	}
+}
 </script>
 
 

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <style>
@@ -13,7 +13,7 @@ a {
 }
 
 .deletePage {
-	padding: 10% 33% 10% 33%;
+	padding: 5% 33% 10% 33%;
 }
 
 
@@ -66,7 +66,7 @@ a {
 	letter-spacing: -0.15px;
 	border: 1px solid rgb(214, 212, 212);
 	background-color: white;
-	width: 320px;
+	width: 318px;
 	height: 48px;
 	flex: 1 1 auto;
 	color: rgb(26, 26, 26);
@@ -105,7 +105,7 @@ a {
 		<div class="delete_box">
 			<label class="delMId">아이디</label><br> <input type="text"
 				class="delMemInput" name="merId" id="merId"
-				value="${ loginMember.merId }" readonly />
+				value="${ loginMerchant.merId }" readonly />
 		</div>
 
 		<div class="delete_box">
@@ -117,7 +117,7 @@ a {
 
 		<div class="wrap_btn">
 			<button type="button" class="delete_btn"
-				onclick="location.href='${path}/merchant/merMain'">
+				onclick="location.href='${path}/merchant/list?merNo=${loginMerchant.merNo}'">
 				<span class="btn_comm btn_cancle">취소</span>
 			</button>
 

@@ -23,9 +23,28 @@ import com.kh.mvc.hobby.model.vo.Review;
 
 @Mapper
 public interface MerchantMapper {
+	
 	Merchant selectMerchantMember(@Param("merId") String merId);
 
 	int insertMerchantMember(Merchant merchantMember);
+	
+	int updateMerPwd(Merchant merchantmember);
+	
+	int updateMerchantMember(Merchant merchantMember);
+	
+	int deleteMerchant(@Param("merNo") int merNo);
+	
+	Merchant searchEmail(@Param("merEmail") String merEmail);
+	
+	Merchant searchPhone(@Param("merPhone") String merPhone);
+	
+	Merchant findMerId(@Param("merName") String merName, @Param("merEmail") String merEmail);
+	
+	Merchant searchNick(@Param("merNick") String merNick);
+	
+	Merchant findByPhone(String merPhone);
+
+	Merchant searchBankNum(@Param("bankNumber") String bankNumber);
 	
 	/* 취미 등록 */
 	int selectHobbyCount();
@@ -105,6 +124,29 @@ public interface MerchantMapper {
 	int selectCalculWaitCount(int merNo);
 
 	int selectCalFinishCount(int merNo);
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+	
+
+	
+
+	
+
+	
 
 
 	int imgsDelete(int hbNo);

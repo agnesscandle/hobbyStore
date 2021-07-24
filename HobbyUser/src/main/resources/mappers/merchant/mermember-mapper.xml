@@ -107,6 +107,49 @@
 		WHERE MER_ID = #{merId} AND STATUS ='Y'
  	</select>
  	
+ 	<!-- 핸드폰 중복 검사 -->
+ 	<select id="searchPhone" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
+		WHERE MER_PHONE = #{merPhone} AND STATUS ='Y'
+ 	</select>
+ 	
+ 	<!-- 이메일 중복 검사 -->
+ 	<select id="searchEmail" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
+		WHERE MER_EMAIL = #{merEmail} AND STATUS ='Y'
+ 	</select>
+ 	
+ 	<!-- 계좌번호 중복 검사 -->
+ 	<select id="searchBankNum" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
+		WHERE BANK_NUMBER = #{bankNumber} AND STATUS ='Y'
+ 	</select>
+ 	
+ 	<!-- 닉네임 중복 검사 -->
+ 	<select id="searchNick" parameterType="string" resultMap="merchantmemberResultMap">
+ 		<include refid="selectMerchantMemberSql" />
+		WHERE MER_NICK = #{merNick} AND STATUS ='Y'
+ 	</select>
+ 	
+ 	<!-- 아이디 찾기 -->
+	<select id="findMerId" parameterType="String" resultMap="merchantmemberResultMap">
+		SELECT MER_ID FROM MERCHANT 
+		WHERE MER_NAME = #{merName} 
+		AND MER_EMAIL = #{merEmail}
+	</select>
+ 	
+ 	<select id="findByPhone" parameterType="String" resultMap="merchantmemberResultMap">
+		SELECT 
+			MER_NO,
+			MER_ID,
+			MER_PASSWORD
+		FROM MERCHANT
+		WHERE 
+			MER_PHONE = #{merPhone}
+		AND STATUS ='Y'
+	</select>
+	
+ 	<!-- 회원가입 -->
  	<insert id="insertMerchantMember" parameterType="Merchant"
  		useGeneratedKeys="true" keyColumn="MER_NO" keyProperty="merNo" >
 
@@ -134,7 +177,7 @@
 			#{merEmail},
 			#{merName},
 			#{merPhone},
-			#{merDate},
+			DEFAULT,
 			#{bank},
 			#{bankNumber},
 			#{merNick},
@@ -142,10 +185,45 @@
 			#{merImgOriginal},
 			#{merImgRename},
 			#{merIDCARD},
-			DEFAULT,
+			#{cateNo},
 			#{greeting}
 		)
  	</insert>
+ 	
+ 	<!-- 상인정보 업데이트 -->
+ 	<update id="updateMerchantMember" parameterType="Merchant">
+ 		UPDATE MERCHANT 
+ 		SET 
+ 			<if test="merImgOriginal != null">
+ 			MER_IMG_ORIGINAL = #{merImgOriginal},
+ 			MER_IMG_RENAME = #{merImgRename},
+ 			</if>
+ 			MER_NAME = #{merName},
+ 			MER_NICK = #{merNick},
+ 			MER_PHONE = #{merPhone},
+ 			MER_EMAIL = #{merEmail},
+ 			GREETING = #{greeting}
+		WHERE MER_NO = #{merNo}
+ 	</update>
+ 	
+ 	<!-- 비밀번호 업데이트 -->
+ 	<update id="updateMerPwd" parameterType="Merchant">
+ 		UPDATE MERCHANT 
+ 		SET
+ 			MER_PASSWORD = #{merPassword}
+		WHERE MER_NO = #{merNo}
+	</update>
+	
+	<!-- 상인 삭제 -->
+	<update id="deleteMerchant" parameterType="_int">
+ 		UPDATE MERCHANT
+ 		SET
+ 			STATUS='N'
+ 		WHERE
+ 			MER_NO = #{merNo}
+ 	</update>
+ 	
+ 	
  	
  	<sql id="HobbyListSql">
 		SELECT HB_NO,

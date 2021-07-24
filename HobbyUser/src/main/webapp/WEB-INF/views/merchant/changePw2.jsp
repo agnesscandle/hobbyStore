@@ -4,10 +4,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <style>
+
+#footer{
+ margin-top : 10%;
+}
+
 .changePwPage {
 	padding: 8% 33% 8% 33%;
 }
@@ -68,12 +73,12 @@
 </style>
 
 <div class="changePwPage">
-<form id="merChangePwFrm_2" action="${ path }/merchantMember/changePw2" method="POST">
+<form id="merChangePwFrm_2" action="${ path }/merchant/changePw2" method="POST">
 <div class="merPw_Change_Title">비밀번호 변경</div>
 <div class="merPw_Change_step">step 2) 새로운 비밀번호를 입력하세요.</div>
 
 <div class="change_box">
-	<input type="hidden" name="merId" value="${ loginMerMember.merId }" readonly/>
+	<input type="hidden" name="merId" value="${ loginMerchant.merId }" readonly/>
 	<label class="labelMPw">새 비밀번호</label><br>
 	<input type="password" class="pwChangeInput newPw" id="merPassword" name="merPassword" required />
 	<div id="pw-success"></div>
@@ -109,34 +114,40 @@ $("#merPassword").on("input",function(){
 		$("#pw-danger").show();
 		$("#pw-success").hide();
 		$("#pw-danger").html("");
+		$("#newPwUpdate").attr("disabled", "disabled");
 	} else if(pw.length < 4 || pw.length > 20) {
 		$("#pw-danger").show();
 		$("#pw-success").hide();
 		$("#pw-danger").html("10자리 ~ 20자리 이내로 입력해주세요.").css("color","red");
+		$("#newPwUpdate").attr("disabled", "disabled");
 	} else if(pw.search(/\s/) != -1){
-		 $("#pw-danger").show();
+		$("#pw-danger").show();
 		 $("#pw-success").hide();
 		 $("#pw-danger").html("비밀번호는 공백 없이 입력해주세요.");
+		 $("#newPwUpdate").attr("disabled", "disabled");
 	} else if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
 		$("#pw-danger").show(); 
 		$("#pw-success").hide();
 		$("#pw-danger").html("영문,숫자,특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+		$("#newPwUpdate").attr("disabled", "disabled");
+		
 	} else {
 		 $("#pw-success").show();
 		 $("#pw-danger").hide();
-		 $("#pw-success").html("사용가능한 비밀번호입니다.").css("color","blue");	 
+		 $("#pw-success").html("사용가능한 비밀번호입니다.").css("color","blue");	
+		 $("#newPwUpdate").removeAttr("disabled");
 	}
 });
 
-$("#memPassword2").on("input",function(){
+$("#merPassword2").on("input",function(){
 	$("#alert-success").hide();
 	$("#alert-danger").hide();
 
-	var memPassword = $("#memPassword").val();
-	var memPassword2 = $("#memPassword2").val();
+	var merPassword = $("#merPassword").val();
+	var merPassword2 = $("#merPassword2").val();
 	
-	if (memPassword != "" || memPassword2 != "") {
-		if (memPassword == memPassword2) {
+	if (merPassword != "" || merPassword2 != "") {
+		if (merPassword == merPassword2) {
 			$("#alert-success").show();
 			$("#alert-success").html("비밀번호가 일치합니다.").css("color","blue");
 			$("#alert-danger").hide();
@@ -149,7 +160,11 @@ $("#memPassword2").on("input",function(){
 		}
 	}
 });
+
+
+
 </script>
 
-
+<div id="footer">
 	<%@ include file="../../views/common/footer.jsp"%>
+</div>

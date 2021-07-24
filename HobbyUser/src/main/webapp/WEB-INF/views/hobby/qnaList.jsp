@@ -13,6 +13,11 @@ body{
 	align-content: center;
 	color :  #34486b;
 }
+
+#footer{
+	margin-top:auto;
+}
+
 .qnaL_container {
 	height: max-content;
 	width : 1400px;
@@ -178,7 +183,7 @@ width:500px;
 </style>
 <body>
 
-<div> <c:out value="${loginMerchant.merId }"></c:out> </div>
+<br><br><br><br>
 
 	<div class="qnaL_container">
 	<div class="qnaL_title"><h1>문의 하기 _</h1></div>
@@ -374,7 +379,8 @@ width:500px;
 
 
 </body>
+<br><br><br><br><br><br><br><br><br><br>
 
-
-
+<div id="footer">
 <%@ include file="../../views/common/footer.jsp"%>
+</div>

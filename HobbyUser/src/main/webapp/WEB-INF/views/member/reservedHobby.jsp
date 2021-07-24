@@ -53,8 +53,10 @@
 <span class="mainLabel"><h2>예약한 취미</h2></span>
 <div class="divList_h">
 	<div class="containerList_h">
-		<c:if test="${ hobbyList != null }">
+		<c:if test="${ hobbyList != null && reserveList != null}">
+				<c:forEach var="reserve" items="${ reserveList }">
 			<c:forEach var="hobby" items="${ hobbyList }">
+				<c:if test="${reserve.hbNo == hobby.hbNo}">	
 					<div class="item_h">
 						<!-- 썸네일 이미지 -->
 						<img id="thumImg_h"
@@ -101,10 +103,12 @@
 								</div>
 							</div>
 							<button
-								onclick="location.replace('${path}/member/reservedHbView?hbNo=${hobby.hbNo}')"
+								onclick="location.replace('${path}/member/reservedHbView?resNo=${reserve.resNo}&hbNo=${hobby.hbNo}')"
 								class="add-cart_h">자세히 보기</button>
 						</div>
 					</div>
+					</c:if>
+			</c:forEach>
 			</c:forEach>
 		</c:if>
 	</div>

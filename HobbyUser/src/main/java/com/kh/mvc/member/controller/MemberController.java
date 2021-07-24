@@ -24,12 +24,14 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.mvc.common.util.PageInfo;
 import com.kh.mvc.hobby.model.vo.Category;
 import com.kh.mvc.hobby.model.vo.Liked;
 import com.kh.mvc.hobby.model.vo.Reserve;
+import com.kh.mvc.hobby.model.vo.Review;
 import com.kh.mvc.hobby.model.vo.Hobby;
 import com.kh.mvc.member.model.service.MemberService;
 import com.kh.mvc.member.model.vo.Member;
@@ -162,6 +164,19 @@ public class MemberController {
 		return map;
 	}
 	
+	// 핸드폰번호 중복검사 
+		@GetMapping("/member/dupPhoneNum")
+		@ResponseBody
+		public Map<String, Object> dupPhoneNum(@RequestParam("memPhone") String memPhone) {
+			log.info("User ID : {}", memPhone);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("res", service.res(memPhone));
+			
+			return map;
+		}
+		
 	// 이메일 중복검사 
 	@GetMapping("/member/memberEmailChk")
 	@ResponseBody
@@ -171,7 +186,7 @@ public class MemberController {
 			Map<String, Object> map = new HashMap<>();
 			
 			map.put("result", service.result(memEmail));
-			
+			  
 			return map;
 		}
 	
@@ -206,13 +221,6 @@ public class MemberController {
 		
 	}
 	
-	// 비밀번호 찾기 페이지 이동
-	@GetMapping("/member/memberPwSearch")
-	public String pwSearchView() { 
-		log.info("비밀번호 찾기 페이지 요청");
-		
-		return "member/memberPwSearch";
-	}
 	
 	// 마이페이지 이동
     @GetMapping("/member/myInfo")
@@ -221,28 +229,37 @@ public class MemberController {
           @RequestParam(value = "page", required = false, defaultValue = "1") int page) { 
        log.info("회원정보 페이지 요청");
        
-       List<Hobby> hobbyList = null;
-       List<Hobby> hobbyList_ = null;
-       
-       PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 4);
+       // 예약 취미
+       List<Hobby> hobbyListRs = null;
+       // 좋아요 취미
+       List<Hobby> hobbyListLike = null;
+       // 예약 리스트
+       List<Reserve> reserveList = null;
        
        int memNo = 0;
        memNo = loginMember.getMemNo();
        
-       hobbyList = service.getHobbyRsList(memNo, pageInfo);
-       hobbyList_ = service.getHobbyLikedList(memNo, pageInfo);
+       PageInfo pageInfo = new PageInfo(page, 10, service.getRsHobbyCount(memNo), 4);
+       PageInfo pageInfoLike = new PageInfo(page, 10, service.getLikedHobbyCount(memNo), 4);
        
-       model.addObject("hobbyList", hobbyList);
-       model.addObject("hobbyList_", hobbyList_);
+       
+       
+       hobbyListRs = service.getHobbyRsList(memNo, pageInfo);
+       reserveList = service.getRsNo(memNo);
+       hobbyListLike = service.getHobbyLikedList(memNo, pageInfoLike);
+       
+       model.addObject("hobbyListRs", hobbyListRs);
+       model.addObject("hobbyListLike", hobbyListLike);
+       model.addObject("reserveList", reserveList);
+       
        model.addObject("pageInfo", pageInfo);
+       model.addObject("pageInfo", pageInfoLike);
        
        model.setViewName("/member/myInfo");
+
+       System.out.println(hobbyListRs);
+       System.out.println(reserveList);
        
-		System.out.println("예약취미 : " + hobbyList);
-		System.out.println("좋아요취미: " + hobbyList_);
-		// System.out.println(rsList);
-		// System.out.println(likedList);
-		
        return model;
     }
 		
@@ -254,21 +271,24 @@ public class MemberController {
 			
 			log.info("좋아요관리 페이지 요청");
 			
-			List<Hobby> hobbyList = null;
-			PageInfo pageInfo = new PageInfo(page, 10, service.getLikedHobbyCount(), 8);
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
 			
-			hobbyList = service.getHobbyLikedList(memNo, pageInfo);
+			List<Hobby> hobbyList = null;
+			PageInfo pageInfoLike = new PageInfo(page, 10, service.getLikedHobbyCount(memNo), 8);
+			
+			
+			hobbyList = service.getHobbyLikedList(memNo, pageInfoLike);
 			
 			model.addObject("hobbyList", hobbyList);
-			model.addObject("pageInfo", pageInfo);
+			model.addObject("pageInfo", pageInfoLike);
 			
 			System.out.println(hobbyList);
-			System.out.println(pageInfo);
+			System.out.println(pageInfoLike);
 			
 			model.setViewName("/member/likedHobby");
 			
+			System.out.println("좋아요 개수 : " + service.getLikedHobbyCount(memNo));
 			return model;
 		}
 		
@@ -280,14 +300,24 @@ public class MemberController {
 			
 			log.info("예약관리 페이지 요청");
 			
-			List<Hobby> hobbyList = null;
-			PageInfo pageInfo = new PageInfo(page, 10, service.getRsHobbyCount(), 8);
-			
 			int memNo = 0;
 			memNo = loginMember.getMemNo();
 			
-			hobbyList = service.getHobbyRsList(memNo, pageInfo);
+			// 예약 취미
+			List<Hobby> hobbyList = null;
 			
+			// 예약 리스트
+		    List<Reserve> reserveList = null;
+		    
+			PageInfo pageInfo = new PageInfo(page, 10, service.getRsHobbyCount(memNo), 8);
+			
+			System.out.println("예약 개수 : " + service.getRsHobbyCount(memNo));
+			
+			hobbyList = service.getHobbyRsList(memNo, pageInfo);
+			reserveList = service.getRsNo(memNo);
+			 
+			 
+			model.addObject("reserveList", reserveList);
 			model.addObject("hobbyList", hobbyList);
 			model.addObject("pageInfo", pageInfo);
 			
@@ -309,45 +339,53 @@ public class MemberController {
 	// 회원정보 수정
 		@PostMapping("/member/update")
 		public ModelAndView update(ModelAndView model, HttpServletRequest request,
-				@ModelAttribute Member member, @RequestParam("upfile") MultipartFile upfile,
+				@ModelAttribute Member member, MultipartHttpServletRequest mtfRequest,
 				@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+			
+			log.info("프로필 수정 작성 요청");
 			
 			int result = 0;
 			
-			log.info("프로필 수정 작성 요청");
-			System.out.println(upfile.getOriginalFilename());
-			System.out.println(upfile.isEmpty());
+			MultipartFile thumFile = mtfRequest.getFile("input-file");
+			
+			System.out.println(thumFile.getOriginalFilename());
+			System.out.println(thumFile.isEmpty());
 			
 			
 			if(loginMember.getMemId().equals(member.getMemId())) {
 				member.setMemNo(loginMember.getMemNo());
 				
-				if(upfile != null && !upfile.isEmpty()) {
+				if(thumFile != null && !thumFile.isEmpty()) {
 					
 					String rootPath = request.getSession().getServletContext().getRealPath("resources");
-					String savePath = rootPath + "/upload/profile";
-					String renameFileName = service.saveFile(upfile, savePath);
+					String savePath = rootPath + "/upload/profile/";
 					
-					System.out.println(renameFileName);
+					if(member.getMemImgRename() != null) {
+						service.deleteFile(savePath + "/" + member.getMemImgRename());
+					}
 					
-					if(renameFileName != null) {
-						member.setMemImgOriginal(upfile.getOriginalFilename());
-						member.setMemImgRename(renameFileName); // board 객체에 반환된 renameFileName set 해줌
+					String thumRename = service.saveFile(thumFile, savePath);
+					
+					System.out.println(thumRename);
+					
+					if(thumRename != null) {
+						member.setMemImgOriginal(thumFile.getOriginalFilename());
+						member.setMemImgRename(thumRename); 
 					}
 				}
 				
-				
 				result = service.save(member);		
-				
-				if(result > 0) {
-					model.addObject("loginMember" , service.findById(loginMember.getMemId())); 
-					model.addObject("msg", "회원정보 수정을 완료했습니다.");
-					model.addObject("location", "/member/updateMyInfo");
-				} else {
-					model.addObject("msg", "회원정보 수정에 실패했습니다.");
-					model.addObject("location", "/member/updateMyInfo");
-				}			
-			} else {
+					
+					if(result > 0) {
+						model.addObject("loginMember" , service.findById(loginMember.getMemId())); 
+						model.addObject("msg", "회원정보 수정을 완료했습니다.");
+						model.addObject("location", "/member/updateMyInfo");
+					} else {
+						model.addObject("msg", "회원정보 수정에 실패했습니다.");
+						model.addObject("location", "/member/updateMyInfo");
+					}		
+			}
+			else {
 				model.addObject("msg", "잘못된 접근입니다");
 				model.addObject("location", "/");
 			}
@@ -457,6 +495,15 @@ public class MemberController {
 			return model;
 		}
 		
+		// 비밀번호 찾기 페이지 이동
+		@GetMapping("/member/memberPwSearch")
+		public String pwSearchView() { 
+			log.info("비밀번호 찾기 페이지 요청");
+			
+			return "member/memberPwSearch";
+		}
+		
+		
 		// 비밀번호 찾기 실행 전 아이디 확인
 		@RequestMapping(value="/member/memberPwSearch", method = {RequestMethod.POST})
 		public ModelAndView memberPwSearch(ModelAndView model, 
@@ -529,22 +576,25 @@ public class MemberController {
 			@GetMapping("/member/reservedHbView")
 			public ModelAndView reservedHbView(ModelAndView model,
 					@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-					@RequestParam("hbNo") int hbNo
+					 @ModelAttribute Reserve reserve, @RequestParam("resNo") int resNo, @RequestParam("hbNo") int hbNo
 					) { 
 				log.info("예약 상세 페이지 요청");
 				
 				int memNo = 0;
 				memNo = loginMember.getMemNo();
 				
-				Reserve reserve = service.findReserveByNo(memNo, hbNo);
+				
 				Hobby hobby = service.findByNo(hbNo);
-		
+//				int resNo = service.findReserveViewByNo(memNo, hbNo).getResNo();
+				 
+				reserve = service.findReserveByNo(memNo,hbNo,resNo);
 				
 				model.addObject("reserve", reserve);
 				model.addObject("hobby", hobby);
 				
 				model.setViewName("member/reservedHbView");
 				
+				System.out.println("hbNo : " + hbNo);
 				return model;
 			}
 			

@@ -115,7 +115,24 @@
 </div>   
   
 </nav>
+
+
+<nav id="nav5">
+<div class="topMenu5 menu"> 		
+ 		
+            <span>마이페이지</span>
+            <ul class="dept05 hide">
+                 <div class="hobbyEnroll" id="updateMyInfo">프로필 수정</div>
+                 <div class="hobbyEnroll" id="changePw">비밀번호 변경</div>
+                 <div class="hobbyEnroll" id="deleteMerchant">회원 탈퇴</div>
+            </ul>        
+        
+           
+</div>   
+  
+</nav>
 </div>
+</html>
 </body>
 
 <script>
@@ -134,6 +151,9 @@ $("#nav3").click(function(){
   });
 $("#nav4").click(function(){
     $(".dept04").slideToggle();
+  });
+$("#nav5").click(function(){
+    $(".dept05").slideToggle();
   });
 
 <!-- 취미만들기 페이지 이동 -->
@@ -196,6 +216,36 @@ $(function(){
 })
 
 
+<!--프로필 수정 페이지 이동-->
+$(function(){
+	   $("#updateMyInfo").click(function(){
+	      location.href='${ path }/merchant/updateMyInfo';
+	   })
+	})
+	
+<!--비밀번호 변경 페이지 이동-->
+$(function(){
+	   $("#changePw").click(function(){
+	      location.href='${ path }/merchant/changePw';
+	   })
+	})
+	
+<!--회원탈퇴 페이지 이동-->
+$(function(){
+	   $("#deleteMerchant").click(function(){
+	      location.href='${ path }/merchant/deleteAgree';
+	   })
+	})	
+	
+	
+$(document).on('mouseover', '.topMenu2 span', function () {
+    $('.dept02').slideDown(700);
+});
+$(document).on('mouseover', 'div', function () {
+    if (!$(this).hasClass('topMenu2')) {
+        $('.dept02').slideUp(700);
+    }
+});
 
 <!-- qna 페이지 이동 -->
 $(function(){

@@ -56,7 +56,7 @@
 	<div class="reserved-wrap">
 		<span class="rsTitle"><h1>예약 상세</h1></span> <br> 
 		<input type="hidden" id="hbNo" name="hbNo" value="${hobby.hbNo}" /> 
-		<input type="hidden" id="resDate" name="resDate" value="${ reserve.resDate }" /> 
+		<input type="hidden" id="resNo" name="resNo" value="${ reserve.resNo }" /> 
 		
 		<span class="title_date"><c:out value="${ reserve.resDate }" />&nbsp예약&nbsp&nbsp</span>
 		<span class="title_number">No <c:out value="${reserve.resNo}" /></span>

@@ -208,6 +208,7 @@
 		WHERE L.STATUS = 'Y' AND H.STATUS = 'Y'
 	</select>
 	
+	<!-- 오픈예정 취미 -->
 	<select id="selectOpenHobbyList" parameterType="map"
 		resultMap="HobbyListResultMap">
 		SELECT
@@ -359,6 +360,7 @@
 		JOIN LIKED L ON(H.HB_NO = L.HB_NO)
 		WHERE L.STATUS = 'Y' AND H.STATUS = 'Y')
 	</select>
+	
 	<!-- 카테고리  -->
  	<select id="selectCateList" parameterType="map"
 		resultMap="CateListResultMap">

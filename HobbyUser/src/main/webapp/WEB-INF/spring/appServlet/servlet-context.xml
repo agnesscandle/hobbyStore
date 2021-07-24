@@ -32,6 +32,7 @@
 		
 		<mapping path="/member/**"/>
 		<mapping path="/hobby/**"/>
+		<mapping path="/merchant/**"/>
 		
 		<exclude-mapping path="/member/enroll"/>
 		<exclude-mapping path="/member/registerPage_1"/>
@@ -42,7 +43,7 @@
 		<exclude-mapping path="/member/sendNewPw"/>
 		<exclude-mapping path="/member/memberIdChk"/>
 		<exclude-mapping path="/member/memberEmailChk"/>
-		<exclude-mapping path="/member/memberPhChk"/>
+		<exclude-mapping path="/member/dupPhoneNum"/>
 		<exclude-mapping path="/member/memberIdSearch"/>
 		<exclude-mapping path="/member/memberPwSearch"/>
 		<exclude-mapping path="/member/memberPwSearch2"/>
@@ -56,8 +57,20 @@
 		<exclude-mapping path="/hobby/list/search"/>
 		<exclude-mapping path="/hobby/merInfo"/>
 		
-		
-		
+		<exclude-mapping path="/merchant/enroll"/>
+		<exclude-mapping path="/merchant/registerPage_1"/>
+		<exclude-mapping path="/merchant/registerPage_2"/>
+		<exclude-mapping path="/merchant/registerPage_3"/>
+		<exclude-mapping path="/merchant/merlogin"/>
+		<exclude-mapping path="/merchant/emailChk"/>
+		<exclude-mapping path="/merchant/idChk"/>
+		<exclude-mapping path="/merchant/idSearch"/>
+		<exclude-mapping path="/merchant/findPw"/>
+		<exclude-mapping path="/merchant/checkSMS"/>
+		<exclude-mapping path="/merchant/sendNewPw"/>
+		<exclude-mapping path="/merchant/dupPhoneNum"/>
+		<exclude-mapping path="/merchant/dupBankNum"/>
+		<exclude-mapping path="/merchant/dupNickName"/>
 		
 		
 		<beans:bean id="loginCheckInterceptor" class="com.kh.mvc.common.Interceptor.LoginCheckIntercaptor" />

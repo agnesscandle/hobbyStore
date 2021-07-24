@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
@@ -16,52 +16,7 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-.profile-wrapper{
-	height: 151px;
-	width: 150px;
-	position: relative;
-	border: 2px solid rgb(32, 51, 84);
-	border-radius: 50%;
-	background: url('${ path }/profile/${ loginMember.memImgRename }');
-	background-size: 100% 100% ;
-	margin: 50px auto;
-	overflow: hideen;
-}
 
-.my_file{
-	position:absolute;
-	bottom: 0;
-	outline: none;
-	color: transparent;
-	width: 100%;
-	box-sizing: border-box;
-	padding: 15px 120px;
-	cursor: pointer;
-	transition: 0.5s;
-	background: rgba(0,0,0,0.5);
-}
-
-#my-profile{
-	position: absoulte;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	border: 0;
-	margin: -1px;
-	display: none;
-}
-
-.profile-wrapper label {
-	display: inline-block;
-	margin: 80% 0% 0% 75%;
-	color: #999;
-	cursor: pointer;
-	background: url('${ path }/images/camera.png');
-	background-repeat: no-repeat;
-	background-size: 40px 35px;
-	width:100%;
-	height: 30%;
-}
 
 .updateMemInfo {
 	padding: 0% 35% 5% 35%;
@@ -123,42 +78,159 @@
     cursor: pointer;
 }
 
+.enrollArea{
+	resize: none;
+	height: 100px;
+	
+}
+
+.label_bank{
+	font-size: 16px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(239, 239, 239);
+    background-color: white;
+    height: 48px;
+    color: rgb(26, 26, 26);
+    box-sizing: border-box;
+    padding: 0px 16px;
+    border-radius: 3px;
+    width: 282px;
+}
+
+/* image */
+
+
+.profile-wrapper{
+	height: 150px;
+	width: 150px;
+	position: relative;
+	border: 2px solid rgb(32, 51, 84);
+	border-radius: 50%;
+	background: url('${ path }/profile/${ loginMerchant.merImgRename }');
+	background-size: 100% 100% ;
+	margin: 50px auto;
+	overflow: hideen;
+}
+
+.upload-thumb{
+	height: 150px;
+	width: 150px;
+	position: relative;
+	border: 2px solid rgb(32, 51, 84);
+	border-radius: 50%;
+	margin: 47px -4px;
+	overflow: hidden;
+}
+.upload_btn {
+	height: 150px;
+	width: 150px;
+	position: absolute;
+	border-radius: 50%;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-size: 100% 100% ;
+	margin: -1px -2px;
+	overflow: hideen;
+}
+
+
+
+/* 파일 필드 숨기기 */
+.file-upload input[type="file"] {  
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+
+
+
+/* imaged preview */
+.file-upload .upload-display {  /* 이미지가 표시될 지역 */
+    margin-bottom: 5px;
+}
+
+@media(min-width: 768px) { 
+    .file-upload .upload-display {
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
+}
+
+.file-upload .upload-thumb-wrap {  /* 추가될 이미지를 감싸는 요소 */
+    display: inline-block;
+	border-radius: 50%;
+    width: 200px;
+    padding: 2px;
+    margin-top:-50px;
+    vertical-align: middle;
+    
+}
+
+
 </style>
 
 <div class="updateMemInfo">
 
-<form id="memberFrm" action="${ path }/member/update" method="POST" enctype="multipart/form-data">
-<div class="profile-wrapper">
-	<input type="file" id="my-profile" class="my-file" name="upfile"/>
-	<label class="my-file-button" for="my-profile"></label>
+<form id="memberFrm" action="${ path }/merchant/updateMyInfo" method="POST" enctype="multipart/form-data">
+
+<div class="file-upload preview-image profile-wrapper">
+   <input type="hidden" class="upload-name" value="" disabled="disabled"> 
+   <label for="input-file" class="upload_btn" ></label> 
+   <input type="file" id="input-file" name="input-file" class="upload-hidden">
 </div>
 
-<div class="infoTitle">${ loginMerMember.merName } 님, 안녕하세요!</div><br>
+<div class="infoTitle">${ loginMerchant.merName } 님, 안녕하세요!</div><br>
 <div class="m_infoG">
 <label class="mInfoLabel">아이디</label><br>
-		<input type="text" name="memId" id="memId" class="mInfoInput"
-			value="${ loginMerMember.merId }" readonly required />
+		<input type="text" name="merId" id="merId" class="mInfoInput"
+			value="${ loginMerchant.merId }" readonly required />
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">이름</label><br>
 <input type="text" name="merName" id="merName" class="mInfoInput"
-			value="${ loginMerMember.merName }" required/>
+			value="${ loginMerchant.merName }" readonly required/>
+</div>
+
+<div class="m_infoG">
+<label class="mInfoLabel">닉네임</label><br>
+<input type="text" name="merNick" id="merNick" class="mInfoInput"
+			value="${ loginMerchant.merNick }" required/>
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">휴대폰 번호</label><br>
 <input type="text" name="merPhone" id="merPhone" 
-			value="${ loginMerMember.merPhone }" class="mInfoInput" required/>
+			value="${ loginMerchant.merPhone }" class="mInfoInput" required/>
 </div>
 
 <div class="m_infoG">
 <label class="mInfoLabel">이메일</label><br>
-<input type="text" name="memEmail" id="merEmail" 
-			value="${ loginMerMember.merEmail }"  class="mInfoInput" required/>
+<input type="text" name="merEmail" id="merEmail" 
+			value="${ loginMerchant.merEmail }"  class="mInfoInput" required/>
 </div>
 
+<div class="m_infoG">
+<label class="mInfoLabel">계좌정보</label><br>
 
+<input class="label_bank" type="text" name="bank" id="bank" placeholder="${ loginMerchant.bank }은행"  required="required" readonly>
+<input class="label_bank" type="text" name="bankNumber" id="bankNumber" placeholder="${ loginMerchant.bankNumber }"  required="required" readonly>
+</div>
+
+<div class="m_infoG">
+<label class="mInfoLabel">소개글</label><br>
+<textarea name="greeting" id="greeting" 
+			  class="enrollArea mInfoInput" >${ loginMerchant.greeting }</textarea>
+</div>
 
 <p>
 <input type="submit" id="mInfoSubmit" value="정보 수정" />
@@ -169,7 +241,52 @@
 </div>
 
 <script>
+/* 썸네일 이미지 파일 미리보기 */
+$(document).ready(function(){
 
+    var fileTarget = $('.file-upload .upload-hidden');
+
+    fileTarget.on('change', function(){  // 값이 변경되면
+         if(window.FileReader){  // modern browser
+              var filename = $(this)[0].files[0].name;
+         } 
+         else {  // old IE
+              var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+         }
+
+         // 추출한 파일명 삽입
+         $(this).siblings('.upload-name').val(filename);
+    });
+}); 
+
+var imgTarget = $('.preview-image .upload-hidden');
+
+imgTarget.on('change', function(){
+    var parent = $(this).parent();
+    parent.children('.upload-display').remove();
+
+    if(window.FileReader){
+         //image 파일만
+         if (!$(this)[0].files[0].type.match(/image\//)) return;
+
+         var reader = new FileReader();
+         reader.onload = function(e){
+              var src = e.target.result;
+              parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+         }
+         reader.readAsDataURL($(this)[0].files[0]);
+    }
+
+    else {
+         $(this)[0].select();
+         $(this)[0].blur();
+         var imgSrc = document.selection.createRange().text;
+         parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+         var img = $(this).siblings('.upload-display').find('img');
+         img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+    }
+});
 </script>
 
 <div id="footer">

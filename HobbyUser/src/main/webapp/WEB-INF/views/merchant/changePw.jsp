@@ -4,12 +4,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ include file="../../views/common/header.jsp"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <style>
+#footer{
+ margin-top : 10%;
+}
 .changePwPage {
-	padding: 7% 33% 8% 33%;
+	padding: 10% 33% 8% 33%;
 }
 
 .merPw_Change_Title {
@@ -74,13 +77,13 @@
 </style>
 
 <div class="changePwPage">
-<form id="merChangePwFrm" action="${ path }/merchantMember/changePw" method="POST">
+<form id="merChangePwFrm" action="${ path }/merchant/changePw" method="POST">
 <div class="merPw_Change_Title">비밀번호 변경하기</div>
 
 <div class="merPw_Change_step">Step 1) 현재 사용하고 있는 비밀번호를 입력해주세요.</div>
 
 	<div class="change_box">
-	<input type="hidden" name="merId" value="${ loginMerMember.merId }" readonly/>
+	<input type="hidden" name="merId" value="${ loginMerchant.merId }" readonly/>
 	<label class="labelMPw">현재 비밀번호</label><br>
 	<input type="password" class="pwChangeInput curPw" id="merPassword" name="merPassword" required/>
 	</div>
@@ -106,5 +109,6 @@ $(function(){
 
 </script>
 
-
+<div id="footer">
 <%@ include file="../../views/common/footer.jsp"%>
+</div>

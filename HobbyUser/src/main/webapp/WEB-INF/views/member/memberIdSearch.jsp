@@ -5,15 +5,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%@ include file="../../views/common/header.jsp"%>
+<script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 
 
 
-<div class="findIdPage">
-<form name="mIdSearchFrm" id="idSearchForm" 
-	action="${ path }/member/memberIdSearch" method="POST">
+<div id="findIdPage">
+<form name="form" id="idSearchForm" method="POST" name="form">
 	<div class="mId_Search_Title">아이디 찾기</div>
+	
+	<div class="login_gubun">
+	<div class="gubun_cont">
+      <label for="member_flag_mem" class="container_radio" >
+         손님
+      <input type="radio" id="member_flag_mem" name="member_flag"  value="m" checked>
+      <span class="checkmark"></span>
+      </label>
+      
+      <label for="member_flag_mer" class="container_radio" >
+         상인
+      <input type="radio" id="member_flag_mer" name="member_flag"  value="s">   
+      <span class="checkmark"></span>
+      </label>
+   </div>
+   </div>
+   
 	<div class="search_box">
 		<label class="labelMname">이름</label><br>
 		<input type="text" class="idSearchInput"  name="memName" id="memName" placeholder="홍길동"/>
@@ -26,8 +43,11 @@
 		<div class="email regex"></div>
 	</div>
 	
+	
+   
+   
 	<p>
-		<button type="submit" id="searchId_submit" class="searchId_btn">아이디 찾기</button>
+		<button type="submit" id="searchId_submit" class="searchId_btn" onclick="radio_chk();">아이디 찾기</button>
 	</p>
 
 
@@ -36,8 +56,8 @@
 </div>
 
 <style>
-.findIdPage {
-	padding: 7% 40% 10% 40%;
+#findIdPage {
+	padding: 5% 40% 10% 40%;
 }
 
 .mId_Search_Title {
@@ -93,6 +113,18 @@
 #searchId_submit{
 	cursor: pointer;
 }
+
+/* 라디오 체크 */
+#findIdPage .login_gubun{ width:187px; margin:0 auto; display:block; }
+#findIdPage .container_radio { display: inline-block; position: relative; padding-left: 35px; white-space:nowrap; cursor: pointer; font-size: 18px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+#findIdPage .container_radio input { position: absolute; opacity: 0; cursor: pointer; }
+#findIdPage .checkmark { position: absolute; top: 0; left: 0; height: 23px; width: 23px; border:1px solid #dae0e9; border-radius: 50%; }
+#findIdPage .container input:checked ~ .checkmark { background-color: #fff; }
+#findIdPage .checkmark:after { content: ""; position: absolute; display: none; }
+#findIdPage .container_radio input:checked ~ .checkmark:after { display: block; }
+#findIdPage .container_radio .checkmark:after { top: 6px; left: 6px; width: 11px; height: 11px; border-radius: 50%; background:rgb(32, 51, 84); }
+#findIdPage .gubun_cont label:first-child{ margin-right:40px; margin-bottom: 15px;}
+
 </style>
 
 <script>
@@ -120,6 +152,18 @@ $("#memEmail").on("input",function(){
     }
 });
 
+function radio_chk(){
+	var member_flag = $('input[name=member_flag]:checked').val();
+	
+	if(member_flag == 'm'){
+		form.action='${path}/member/memberIdSearch';
+		
+	}
+	
+	if(member_flag == 's'){
+		form.action='${path}/merchant/idSearch';
+	}
+}
 
 </script>
 	<%@ include file="../../views/common/footer.jsp"%>

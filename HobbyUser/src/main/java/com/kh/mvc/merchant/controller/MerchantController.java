@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -118,18 +119,73 @@ public class MerchantController {
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/enroll")
-	public String enrollView() { 
+	public ModelAndView merenrollView(ModelAndView model, @ModelAttribute Category category) { 
 		log.info("회원가입 페이지 요청");
 		
-		return "/merchant/enroll";
+		List<Category> list = null;
+		list = service.getCateList();
+		
+		model.addObject("list", list);
+		model.setViewName("merchant/enroll");
+		return model;
+	}
+	
+	// 회원가입 이용약관 페이지 이동
+	@GetMapping("/registerPage_1")
+	public String registerPage_1_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "merchant/registerPage_1";
+	}
+			
+	// 회원가입 이용약관2 페이지 이동
+	@GetMapping("/registerPage_2")
+	public String registerPage_2_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "merchant/registerPage_2";
+	}
+				
+	// 회원가입 이용약관3 페이지 이동
+	@GetMapping("/registerPage_3")
+	public String registerPage_3_view() { 
+		log.info("회원가입 페이지 요청");
+		
+		return "merchant/registerPage_3";
 	}
 	
 	// 회원가입 처리
 	@RequestMapping(value = "/enroll", method = {RequestMethod.POST})
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember) {
-		System.out.println(merchantmember);
+	public ModelAndView enroll(ModelAndView model, @ModelAttribute Merchant merchantmember,
+			HttpServletRequest request, MultipartHttpServletRequest mtfRequest) {
 		
-		int result = service.save(merchantmember);
+		
+		/* 썸네일 파일 불러오기 */
+		MultipartFile thumFile = mtfRequest.getFile("input-file");
+		
+		System.out.println(merchantmember);
+		System.out.println(thumFile.getOriginalFilename());
+		System.out.println(thumFile.isEmpty());
+		
+		
+		if(!thumFile.isEmpty()) {
+			
+			/* 경로, 변수 설정 */
+			String src = mtfRequest.getParameter("src");
+			System.out.println("src value : " + src);
+			String rootPath = mtfRequest.getSession().getServletContext().getRealPath("resources");
+			String savePath = rootPath + "/upload/profile/";
+			String thumRename = service.saveMerFile(thumFile, savePath);
+			
+			if(thumRename != null) {
+				merchantmember.setMerImgOriginal(thumFile.getOriginalFilename());
+				merchantmember.setMerImgRename(thumRename);
+			}
+		}
+		
+		int result = 0;
+		
+		result = service.save(merchantmember);
 		
 		if(result > 0) {
 			model.addObject("msg", "회원가입이 정상적으로 완료되었습니다.");
@@ -138,20 +194,332 @@ public class MerchantController {
 			model.addObject("msg", "회원가입을 실패하였습니다.");
 			model.addObject("location", "/merchant/enroll");
 		}
-		
+			
 		model.setViewName("common/msg");
 		
 		return model;
 	}
 	
-	//로그인 페이지 이동
-//	@GetMapping("/merchantMember/login")
-//	public String loginView() { 
-//		log.info("로그인 페이지 요청");
-//		
-//		return "merchantMember/login";
-//	}
+	
+	// 아이디 중복검사 
+		@GetMapping("/idChk")
+		@ResponseBody
+		public Map<String, Object> merchantIdChk(@RequestParam("merId") String merId) {
+			log.info("User ID : {}", merId);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("validate", service.validate(merId));
+			
+			return map;
+		}
+		
+		
+		// 핸드폰번호 중복검사 
+			@GetMapping("/dupPhoneNum")
+			@ResponseBody
+			public Map<String, Object> dupPhoneNum(@RequestParam("merPhone") String merPhone) {
+				log.info("User Phone : {}", merPhone);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("res", service.res(merPhone));
+				
+				return map;
+			}
+				
+		// 이메일 중복검사 
+		@GetMapping("/emailChk")
+		@ResponseBody
+			public Map<String, Object> merchantEmailChk(@RequestParam("merEmail") String merEmail) {
+				log.info("User Email : {}", merEmail);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("result", service.result(merEmail));
+				
+				return map;
+			}
+		
+		// 계좌 중복검사 
+		@GetMapping("/dupBankNum")
+		@ResponseBody
+			public Map<String, Object> dupBankNum(@RequestParam("bankNumber") String bankNumber) {
+				log.info("User BankNum : {}", bankNumber);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("rs", service.rs(bankNumber));
+				
+				return map;
+			}
+		
+		// 닉네임 중복검사 
+		@GetMapping("/dupNickName")
+		@ResponseBody
+			public Map<String, Object> dupNickName(@RequestParam("merNick") String merNick) {
+				log.info("NickName : {}", merNick);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("nickVal", service.nickVal(merNick));
+				
+				return map;
+			}
 
+
+		// 아이디 찾기 실행
+		@RequestMapping(value="/idSearch", method = {RequestMethod.POST})
+		public ModelAndView findId(ModelAndView model, @ModelAttribute Merchant merchantmember,
+				@RequestParam("memName")String merName, @RequestParam("memEmail")String merEmail) {
+			
+			// 테스트 로그
+			log.info("{}, {}", merName, merEmail);
+			
+			Merchant result = service.findByIdAndName(merName, merEmail);
+			
+			if(result == null) {
+				model.addObject("msg", "일치하는 회원이 없습니다.");
+				model.addObject("location", "/member/memberIdSearch");
+			} else {
+				model.addObject("msg", "아이디는 " + result.getMerId() + " 입니다.");
+				model.addObject("location", "/member/login");
+			}
+			model.setViewName("common/msg");
+			
+			return model;
+			
+		}
+		
+	   // 프로필 수정 이동
+		@GetMapping("/updateMyInfo")
+		public String updateMyInfoView() { 
+			log.info("프로필수정 페이지 요청");
+			
+			return "merchant/updateMyInfo";
+		}	
+		
+		
+		// 프로필 수정 
+		@PostMapping("/updateMyInfo")
+		public ModelAndView update(ModelAndView model, HttpServletRequest request,
+				@ModelAttribute Merchant merchantmember, MultipartHttpServletRequest mtfRequest,
+				@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+			
+			log.info("프로필 수정 작성 요청");
+			int result = 0;
+			
+			MultipartFile thumFile = mtfRequest.getFile("input-file");
+			
+			System.out.println(merchantmember);
+			System.out.println(thumFile.getOriginalFilename());
+			System.out.println(thumFile.isEmpty());
+			
+			
+			if(loginMerchant.getMerId().equals(merchantmember.getMerId())) {
+				merchantmember.setMerNo(loginMerchant.getMerNo());
+				
+				if(thumFile != null && !thumFile.isEmpty()) {
+					
+					String rootPath = request.getSession().getServletContext().getRealPath("resources");
+					String savePath = rootPath + "/upload/profile/";
+					
+					if(merchantmember.getMerImgRename() != null) {
+						service.deleteFile(savePath + "/" + merchantmember.getMerImgRename());
+					}
+					
+					String thumRename = service.saveMerFile(thumFile, savePath);
+					
+					System.out.println(thumRename);
+					System.out.println(savePath);
+					if(thumRename != null) {
+						merchantmember.setMerImgOriginal(thumFile.getOriginalFilename());
+						merchantmember.setMerImgRename(thumRename); 
+					}
+				}
+				
+				result = service.save(merchantmember);		
+				
+				if(result > 0) {
+					model.addObject("loginMerchant" , service.findById(loginMerchant.getMerId())); 
+					model.addObject("msg", "회원정보 수정을 완료했습니다.");
+					model.addObject("location", "/merchant/updateMyInfo");
+				} else {
+					model.addObject("msg", "회원정보 수정에 실패했습니다.");
+					model.addObject("location", "/merchant/updateMyInfo");
+				}			
+			} else {
+				model.addObject("msg", "잘못된 접근입니다");
+				model.addObject("location", "/");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
+		
+		// 비밀번호 변경 페이지 이동
+		@GetMapping("/changePw")
+		public String changePwView() { 
+			log.info("상인정보 수정 페이지 요청");
+			
+			return "merchant/changePw";
+		}
+		
+		
+		// 현재 비밀번호 확인 처리 요청
+		@PostMapping("/changePw")
+		public ModelAndView changePw(ModelAndView model,
+				@RequestParam("merId")String merId, @RequestParam("merPassword")String merPassword) {
+			
+			log.info("{}, {}", merId, merPassword);
+			
+			Merchant loginMerchant = service.checkpw(merId, merPassword);
+			
+			if(loginMerchant != null) {
+				model.setViewName("/merchant/changePw2");
+			} else {
+				model.addObject("msg", "패스워드가 일치하지 않습니다.");
+				model.addObject("location", "/merchant/changePw");
+				model.setViewName("common/msg");
+			}
+			
+			return model;
+		}
+		
+		
+		// 새로운 비밀번호 변경 처리
+		@PostMapping("/changePw2")
+		public ModelAndView changePw2(ModelAndView model, SessionStatus status,
+				@ModelAttribute Merchant merchantmember,
+				@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+			
+			int result = 0;
+			
+			if(loginMerchant.getMerId().equals(merchantmember.getMerId())) {
+				merchantmember.setMerNo(loginMerchant.getMerNo());
+				
+				result = service.changePw(merchantmember);
+			if(result > 0) {
+				model.addObject("loginMerchant" , service.findById(loginMerchant.getMerId()));
+				model.addObject("msg", "비밀번호 변경이 완료되었습니다. 다시 로그인해주세요.");
+				status.setComplete();
+				model.addObject("location", "/member/login");
+			} else {
+				model.addObject("msg", "비밀번호 변경을 실패하였습니다.");
+				model.addObject("location", "/merchant/changePw2");
+			} 
+			}else {
+				model.addObject("msg", "잘못된 접근입니다");
+				model.addObject("location", "/");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+			
+		}
+			
+		// 회원탈퇴 약관동의 페이지 이동
+		@GetMapping("/deleteAgree")
+		public String deleteAgreeView() { 
+			log.info("상인탈퇴 약관동의 페이지 요청");
+			
+			return "merchant/deleteAgree";
+			}	
+	
+		// 회원 약관동의 후 탈퇴 페이지 이동
+		@GetMapping("/delete")
+		public String delete() { 
+			log.info("상인탈퇴 페이지 요청");
+			
+			return "merchant/delete";
+		}
+	
+		// 탈퇴처리
+		@PostMapping("/delete")
+		public ModelAndView delete(ModelAndView model,
+				@RequestParam("merId")String merId, @RequestParam("merPassword")String merPassword,
+				@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
+			
+			Merchant chkMember = service.checkpw(merId, merPassword);
+
+			int result = service.delete(loginMerchant.getMerNo());
+			
+			if(chkMember != null && result > 0) {
+				model.addObject("msg", "정상적으로 탈퇴되었습니다.");
+				model.addObject("location", "/merchant/merlogout");
+			} else {
+				model.addObject("msg", "회원탈퇴에 실패했습니다.");
+				model.addObject("location", "/member/delete");
+			}
+			
+			model.setViewName("common/msg");
+			
+			return model;
+		}
+		
+		// 비밀번호 찾기 실행 전 아이디 확인
+		@RequestMapping(value="/findPw", method = {RequestMethod.POST})
+		public ModelAndView memberPwSearch(ModelAndView model, 
+				@RequestParam("memId")String merId) {
+			
+			// 테스트 로그
+			log.info("회원 아이디 : " + merId);
+			
+			Merchant loginMerchant = service.findById(merId);
+			
+			if(loginMerchant != null) {
+				model.setViewName("/merchant/memberPwSearch2");
+			} else {
+				model.addObject("msg", "일치하는 회원이 없습니다.");
+				model.addObject("location", "/member/memberPwSearch");
+				model.setViewName("common/msg");
+			}
+			
+			return model;
+			
+		}
+		
+		
+		
+		// 비번찾기 핸드폰 번호 인증 
+		@PostMapping("/checkSMS")
+		@ResponseBody
+		public String checkSMS(@RequestParam("phoneNumber")String merPhone) {
+
+	        Random rand  = new Random();
+	        String numStr = "";
+	        for(int i=0; i<6; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+
+	        System.out.println("수신자 번호 : " + merPhone);
+	        System.out.println("인증번호 : " + numStr);
+//				        service.certifiedPhoneNumber(memPhone,numStr);
+	        return numStr;
+	    }
+		
+		// 임시번호 휴대폰 발송 
+		@PostMapping("/sendNewPw")
+		@ResponseBody
+		public String sendNewPw(@RequestParam("phoneNumber")String merPhone) {
+		
+			Random rand  = new Random();
+	        String numStr = "";
+	        for(int i=0; i<8; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+	        
+	        System.out.println("수신자 번호 : " + merPhone);
+	        System.out.println("임시비밀번호 : " + numStr);
+//				        service.sendNewPwNumber(memPhone,numStr);
+	        service.setNewPw(merPhone, numStr);
+	        return numStr;
+		}
+		
 	/*
 	 * @GetMapping("/hobby/enroll") public String hobbyView() { log.info("취미관리페이지");
 	 * 

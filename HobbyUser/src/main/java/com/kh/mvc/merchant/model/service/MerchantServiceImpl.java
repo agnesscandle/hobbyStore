@@ -3,6 +3,8 @@ package com.kh.mvc.merchant.model.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,10 +23,14 @@ import com.kh.mvc.hobby.model.vo.Qna;
 import com.kh.mvc.hobby.model.vo.Reply;
 import com.kh.mvc.hobby.model.vo.Reserve;
 import com.kh.mvc.hobby.model.vo.Review;
+import com.kh.mvc.member.model.service.MemberServiceImpl;
+import com.kh.mvc.member.model.vo.Member;
 import com.kh.mvc.merchant.model.mapper.MerchantMapper;
 import com.kh.mvc.merchant.model.vo.Merchant;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class MerchantServiceImpl implements MerchantService{
 	@Autowired
@@ -52,8 +58,8 @@ public class MerchantServiceImpl implements MerchantService{
 		int result = 0;
 		
 		if(merchantMember.getMerNo() != 0) {
-			// update
-//			result = mapper.updateMember(member);
+			
+			result = mapper.updateMerchantMember(merchantMember);
 		} else {
 			merchantMember.setMerPassword(passwordEncoder.encode(merchantMember.getMerPassword()));
 			
@@ -63,23 +69,136 @@ public class MerchantServiceImpl implements MerchantService{
 		return result;
 	}
 	
+	/* 상인회원 이미지 저장*/
+	@Override
+	public String saveMerFile(MultipartFile thumFile, String savePath) {
+		
+		String thumOri = null;
+		String thumRename = null;
+
+		/* 썸네일 이미지 저장 */
+		thumOri = thumFile.getOriginalFilename();
+		thumRename = System.currentTimeMillis() + thumOri;
+
+		try {
+			String safeFile = savePath + thumRename;
+			thumFile.transferTo(new File(safeFile));
+		} catch (IOException e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return thumRename;
+	}
+	
+	
 	@Override
 	public Merchant findById(String merId) {
-		Merchant a = mapper.selectMerchantMember(merId);
-       System.out.println(a);
 
 		return mapper.selectMerchantMember(merId);
 	}
 	
 	
-
 	@Override
-	public boolean validate(String merid) {
-		// TODO Auto-generated method stub
-		return false;
+	public Merchant findByEmail(String merEmail) {
+
+		return mapper.searchEmail(merEmail);
 	}
 	
+	@Override
+	public Merchant findByPhone(String merPhone) {
+
+		return mapper.searchPhone(merPhone);
+	}
 	
+	@Override
+	public Merchant findByBankNum(String bankNumber) {
+		
+		return mapper.searchBankNum(bankNumber);
+	}
+	
+	@Override
+	public Merchant findByNick(String merNick) {
+		
+		return mapper.searchNick(merNick);
+	}
+	
+	@Override
+	public Merchant findByIdAndName(String merName, String merEmail) {
+		
+		return mapper.findMerId(merName, merEmail);
+	}
+	
+	@Override
+	public int setNewPw(String merPhone, String numStr) {
+		Merchant merchantMember = mapper.findByPhone(merPhone);
+		int result = 0;
+        System.out.println(merchantMember);
+        
+        if(merchantMember.getMerNo() != 0) {
+        	merchantMember.setMerPassword(passwordEncoder.encode(numStr));
+        	result= mapper.updateMerPwd(merchantMember);
+        }
+		
+		return result;
+		
+	}
+	
+	@Override
+	public boolean validate(String merId) {
+		
+		return this.findById(merId) != null;
+	}
+	
+	@Override
+	public boolean res(String merPhone) {
+		
+		return this.findByPhone(merPhone) != null;
+	}
+	
+	@Override
+	public boolean result(String merEmail) {
+
+		return this.findByEmail(merEmail) != null;
+	}
+	
+	@Override
+	public boolean rs(String bankNumber) {
+
+		return this.findByBankNum(bankNumber) != null;
+	}
+	
+	@Override
+	public boolean nickVal(String merNick) {
+		
+		return this.findByNick(merNick) != null;
+	}
+	
+	@Override
+	public Merchant checkpw(String merId, String merPassword) {
+		Merchant merchantMember = this.findById(merId);
+		
+		return merchantMember != null && 
+				passwordEncoder.matches(merPassword, merchantMember.getMerPassword()) ? merchantMember : null;
+	}
+	
+	@Override
+	public int changePw(Merchant merchantmember) {
+		int result = 0;
+		
+		if(merchantmember.getMerNo() != 0) {
+			
+			merchantmember.setMerPassword(passwordEncoder.encode(merchantmember.getMerPassword()));
+			result = mapper.updateMerPwd(merchantmember);
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int delete(int merNo) {
+		return mapper.deleteMerchant(merNo);
+	}
 	
 	
 	
@@ -442,4 +561,28 @@ public class MerchantServiceImpl implements MerchantService{
 	public int getCalFinishCount(int merNo) {
 		return mapper.selectCalFinishCount(merNo);
 	}
+
+
+	
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+	
+
+	
+
+	
+
 }

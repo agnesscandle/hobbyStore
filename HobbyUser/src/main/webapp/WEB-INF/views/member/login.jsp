@@ -3,14 +3,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<% response.setHeader("Cache-Control","no-store"); response.setHeader("Pragma","no-cache"); response.setDateHeader("Expires",0); if (request.getProtocol().equals("HTTP/1.1")) response.setHeader("Cache-Control", "no-cache"); %>
 <%@ include file="../../views/common/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${ path }/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/css/member_css/login.css">
 <div class="mLoginWrapper">
-<form name="memberLoginFrm" id="loginForm" method="post" name="form">
+<form name="form" id="loginForm" method="post" name="form">
 	<div class="loginTitle">로그인</div>
+	
+	<!-- 라디오 체크 -->
+	<div class="login_gubun">
+	<div class="gubun_cont">
+      <label for="member_flag_mem" class="container_radio" >
+         손님
+      <input type="radio" id="member_flag_mem" name="member_flag"  value="m" checked>
+      <span class="checkmark"></span>
+      </label>
+      
+      <label for="member_flag_mer" class="container_radio" >
+         상인
+      <input type="radio" id="member_flag_mer" name="member_flag"  value="s">   
+      <span class="checkmark"></span>
+      </label>
+   </div>
+   </div>
+   
 	<!-- 아이디 -->
 	<div class="loginGroup">
 	<label class="mloginLabel">아이디</label><br>
@@ -25,22 +43,18 @@
 	 <span id="find_mPw_btn" class="find mPw">비밀번호를 잊으셨나요?</span>	
 	 </div>
 	 
-	 <hr>
-	 <br><br>
-	<!-- 로그인 버튼 -->
+	 <!-- 로그인 버튼 -->
 	<div id="mLoginBtn">
-	<input class="mloginInput_b" type="submit" id="mLoginSubmit" value="손님으로 로그인" 
-	onclick="javascript: form.action='${path}/member/login';"/>
+	<button class="mloginInput_b" type="submit" id="mLoginSubmit" value="로그인" 
+	onclick="radio_chk();">로그인</button>
+	
+	 <hr class="barline">
+	
 	<!-- 손님회원 가입하기 버튼 -->
 	<button type="button" class="mloginInput_b" id="mEnrollSubmit" onclick="location.href='${path}/member/enroll'">손님회원 가입하기</button>
-	</div>
-	<div id="EnrollBtn">
+	
 	<!-- 상인회원 가입하기 버튼  -->
-	<input class="mloginInput_b" type="submit" id="merLoginSumit" 
-
-	onclick="javascript: form.action='${path}/merchant/merlogin';"  value="상인으로 로그인"/>
-
-	<button type="submit" class="mloginInput_b" id="merEnrollSubmit" 
+	<button type="button" class="mloginInput_b" id="merEnrollSubmit" 
 	onclick="location.href='${path}/merchant/enroll'" >상인회원 가입하기</button>
 	</div>
 	<br>
@@ -59,5 +73,19 @@
 			location.href='${ path }/member/memberPwSearch';
 		})
 	})
+	
+	function radio_chk(){
+	var member_flag = $('input[name=member_flag]:checked').val();
+	
+	if(member_flag == 'm'){
+		form.action='${path}/member/login';
+		
+	}
+	
+	if(member_flag == 's'){
+		form.action='${path}/merchant/merlogin';
+	}
+}
 </script>
+<br>
 <%@ include file="../../views/common/footer.jsp"%>
