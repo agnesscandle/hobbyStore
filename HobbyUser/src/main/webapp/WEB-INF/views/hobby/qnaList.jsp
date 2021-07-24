@@ -35,12 +35,12 @@ body{
 	margin-bottom: 60px;
 }
 #qnaItem {
-	border: 3px solid black;
+	border: 2px solid #34486b;
 	border-bottom: none;
 	font-size: 15px;
 	width: max;
 	height: 3em;
-	background-color: #eee;
+	background-color:#FFFAF0;
 	font-weight: bold;
 	display: block;	
 }
@@ -94,7 +94,7 @@ width: inherit;
 .qnaContentUpdate {
 	
 	width: max;	
-	background-color: #f1e4ee;
+	background-color: #fafafa;
 	color : 2c3c89;
 		overflow:hidden;
 		height:auto;

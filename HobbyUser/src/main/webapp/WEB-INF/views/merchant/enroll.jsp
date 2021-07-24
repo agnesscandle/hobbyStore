@@ -206,7 +206,7 @@ $('.next').click(function(){
           return;
       }
    }
-
+   
    seq = seq +1;
     $('.step').siblings('.step').removeClass('active')
     $('.step-'+seq).addClass('active')
@@ -223,21 +223,7 @@ $('.next').click(function(){
   });
  
  
- /* 등록하기 버튼 클릭 시 마지막 section 항목들이 다 작성되어있는지 검사 */
- $('.register').click(function(){
-    var is_empty = false;
-      $('.enroll-5').find('.req').each(function(){
-             if(!$(this).val()) {
-                 is_empty = true;
-             }
-      });
-      if(is_empty) {
-          alert('값을 전부 입력해주십시오.');
-          return;
-      }else{
-         $('#memberEnrollFrm').submit();
-      }
- });
+ 
  
   
   
@@ -333,10 +319,10 @@ $(function() {
 			$("#pw-danger").show();
 			$("#pw-success").hide();
 			$("#pw-danger").html("");
-		} else if(pw.length < 4 || pw.length > 20) {
+		} else if(pw.length < 6 || pw.length > 20) {
 			$("#pw-danger").show();
 			$("#pw-success").hide();
-			$("#pw-danger").html("10자리 ~ 20자리 이내로 입력해주세요.").css("color","red");
+			$("#pw-danger").html("6자리 ~ 20자리 이내로 입력해주세요.").css("color","red");
 			$("#enrollNextA").attr("disabled", "disabled");
 		} else if(pw.search(/\s/) != -1){
 			 $("#pw-danger").show();
@@ -361,7 +347,7 @@ $(function() {
 $(function() {
 	$("#alert-success").hide();
 	$("#alert-danger").hide();
-	$("input").keyup(function() {
+	$("#merPassword2").on("input",function() {
 		var merPassword = $("#merPassword").val();
 		var merPassword2 = $("#merPassword2").val();
 		if (merPassword != "" || merPassword2 != "") {
@@ -657,5 +643,17 @@ function showPopup2(){
 function showPopup3(){
 	window.open("${path}/merchant/registerPage_3", "이용약관", "width=800, height=500, left=350, top=110"
 			);}
+		
+// 약관동의 체크 했는지 검사
+$("#enrollNextC").click(function(){
+	  if($("input:checkbox[name='memAgree']").is(":checked")==false){
+		  alert('약관에 동의해주세요.');
+		  $("#enrollNextC").attr("disabled", "disabled");
+	  } 
+	  if($("input:checkbox[name='memAgree']").is(":checked")== true){
+		  $("#enrollNextC").removeAttr("disabled");
+	  }
+});
+
 </script>
 

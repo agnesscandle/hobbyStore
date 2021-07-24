@@ -174,10 +174,10 @@ $('#memId').on("input", function(){
 			$("#pw-danger").show();
 			$("#pw-success").hide();
 			$("#pw-danger").html("");
-		} else if(pw.length < 4 || pw.length > 20) {
+		} else if(pw.length < 6 || pw.length > 20) {
 			$("#pw-danger").show();
 			$("#pw-success").hide();
-			$("#pw-danger").html("10자리 ~ 20자리 이내로 입력해주세요.").css("color","red");
+			$("#pw-danger").html("6자리 ~ 20자리 이내로 입력해주세요.").css("color","red");
 			$("#enrollSubmit").attr("disabled", "disabled");
 		} else if(pw.search(/\s/) != -1){
 			 $("#pw-danger").show();
@@ -203,7 +203,7 @@ $('#memId').on("input", function(){
 	$(function() {
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
-		$("input").keyup(function() {
+		$("#memPassword2").on("input", function() {
 			var memPassword = $("#memPassword").val();
 			var memPassword2 = $("#memPassword2").val();
 			if (memPassword != "" || memPassword2 != "") {

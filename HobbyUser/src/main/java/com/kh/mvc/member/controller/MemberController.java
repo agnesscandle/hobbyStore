@@ -379,7 +379,7 @@ public class MemberController {
 					if(result > 0) {
 						model.addObject("loginMember" , service.findById(loginMember.getMemId())); 
 						model.addObject("msg", "회원정보 수정을 완료했습니다.");
-						model.addObject("location", "/member/updateMyInfo");
+						model.addObject("location", "/member/myInfo");
 					} else {
 						model.addObject("msg", "회원정보 수정에 실패했습니다.");
 						model.addObject("location", "/member/updateMyInfo");
