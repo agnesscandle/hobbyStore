@@ -99,4 +99,9 @@ public interface MerchantMapper {
 	String selectResAttendByNo(HashMap<String, Integer> hashMap);
 
 	int resAttendN(HashMap<String, Integer> hashMap);
+
+	int updateHobby(Hobby hobby);
+
+	int imgsDelete(int hbNo);
+
 }

@@ -397,6 +397,8 @@ public class MerchantController {
 	public ModelAndView merQnaView(ModelAndView model,
 			@RequestParam(value="hbNo") int hbNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		
+		Hobby hobby = service.findByNo(hbNo);
 
 		 //Qna리스트 불러오기
 	    List<Qna> qnaList = null;
@@ -415,7 +417,7 @@ public class MerchantController {
 	       qnaList.get(i).setReply(replyList);
 	       System.out.println(qnaList);
 	    }
-	    
+	    model.addObject("hobby", hobby);
 	    model.addObject("qnaList", qnaList);
 	    model.addObject("pageInfo", pageInfo);
 	    model.addObject("listCount", listCount);
@@ -816,6 +818,132 @@ public class MerchantController {
 		model.addObject("count", count);
 		model.addObject("listCount", listCount);
 		model.setViewName("merchant/Reviewmanagement");
+
+		return model;
+	}
+	
+	//취미수정페이지이동
+	@GetMapping("/hobbyUpdate")
+	public ModelAndView hobbyUpdateView(ModelAndView model,
+			HttpServletRequest request,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@RequestParam("hbNo") int hbNo) {
+		
+		Hobby hobby = service.findByNo(hbNo);
+		List<Category> list = null;
+		list = service.getCateList();
+
+		model.addObject("list", list);
+	       model.addObject("hbNo", hbNo);
+	       model.addObject("hobby",hobby);
+	       model.setViewName("/merchant/hobbyUpdate");
+		
+		
+		return model;
+	}
+	
+	//취미수정
+	@PostMapping("/hobbyUpdate")
+	public ModelAndView hobbyUpdate(ModelAndView model,@RequestParam("postcode") String postcode,
+	        @RequestParam("exactAddress") String exactAddress, 
+			MultipartHttpServletRequest mtfRequest,
+			@RequestParam("hbNo") int hbNo,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant,
+			@ModelAttribute Hobby hobby) {
+		
+		List<String> setFile = null;
+		
+		
+		/* 다중 파일 불러오기 */
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		
+		/* 썸네일 파일 불러오기 */
+		MultipartFile thumFile = mtfRequest.getFile("input-file");
+		
+		/* 상세페이지 이미지 파일 불러오기 */
+		MultipartFile detailFile = mtfRequest.getFile("input-file-detail");
+		
+		
+		/* 경로, 변수 설정 */
+		String rootPath = mtfRequest.getSession().getServletContext().getRealPath("resources");
+		String savePath = rootPath + "/upload/hobby/";
+		
+		if(hobby.getHbImgsRename() != null) {
+			// 이전에 업로드된 첨부파일 삭제
+			service.deleteFile(savePath +"/" + hobby.getHbImgsRename() + hobby.getHbImgsOri());
+		}
+		if(hobby.getHbThumRename() != null) {
+			// 이전에 업로드된 첨부파일 삭제
+			service.deleteFile(savePath +"/" + hobby.getHbThumRename() + hobby.getHbThumOri());
+		}
+		if(hobby.getHbDetailRename() != null) {
+			// 이전에 업로드된 첨부파일 삭제
+			service.deleteFile(savePath +"/" + hobby.getHbDetailRename() + hobby.getHbDetailOri());
+		}
+		
+		if(!fileList.get(0).isEmpty()) {
+			/*
+			 * String originalFileString = null; String renamedFileString = null; String
+			 * thumOri = null; String thumRename = null;
+			 */
+			service.saveFiles(fileList, savePath, hobby);
+		
+		}
+		if(!thumFile.isEmpty()) {
+			setFile = service.saveFile(thumFile, savePath, hobby);
+			hobby.setHbThumOri(setFile.get(0));
+			hobby.setHbThumRename(setFile.get(1));
+		
+		}
+		
+		if(!detailFile.isEmpty()) {
+			setFile = service.saveFile(detailFile, savePath, hobby);
+			hobby.setHbDetailOri(setFile.get(0));
+			hobby.setHbDetailRename(setFile.get(1));
+		}
+
+		
+		int result = 0;
+		
+		
+		if(loginMerchant.getMerNo() == hobby.getMerNo()) {
+			
+			if (hobby.getHbDiscountStatus() == null) {
+				hobby.setHbDiscountStatus("N");
+				hobby.setHbDiscountRate(null);
+			}
+
+			String location = postcode + "," + hobby.getHbLocation() + "," + exactAddress;
+			hobby.setHbLocation(location);
+			result = service.save(hobby);
+			System.out.println("result" + result);
+	    	if(result > 0) {
+	    		model.addObject("msg", "게시글이 정상적으로 수정되었습니다.");
+	    		model.addObject("location", "/merchant/list?merNo=" + loginMerchant.getMerNo());
+	    	} else {
+	    		model.addObject("msg", "게시글 수정을 실패하였습니다.");
+	    		model.addObject("location", "/merchant/list?merNo=" + loginMerchant.getMerNo());
+	    	}
+	    }else {
+			model.addObject("msg", "잘못된 접근입니다");
+			model.addObject("location", "/merchant/list?merNo=" + loginMerchant.getMerNo());
+	    }
+		model.addObject("hbNo",hbNo);
+		model.setViewName("common/msg");
+		return model;
+	}
+	
+	//추가이미지삭제버튼 구현
+	@PostMapping("/imgsDelete")
+	public ModelAndView imgsDelete(ModelAndView model,
+			@RequestParam("hbNo") int hbNo) {
+
+		int result = service.imgsDelete(hbNo);
+
+
+		model.addObject("hbNo",hbNo);
+		
+		model.setViewName("/common/msg");
 
 		return model;
 	}

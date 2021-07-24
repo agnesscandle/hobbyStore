@@ -79,6 +79,16 @@
    	width: 200px;
    	height: 35px;
    }
+   #dateTrans{
+   margin: 10px 30px 10px 20px; 
+   cursor: pointer; 
+   height: 24px;
+    width: 90px; 
+    border: 1px solid #333; 
+    text-align: center; 
+    font-weight: bold; 
+   font-size: 10px;
+   }
 
 </style>
 

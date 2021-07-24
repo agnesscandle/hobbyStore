@@ -400,7 +400,51 @@
 		)
 	</insert>
 	
+	<update id="updateHobby" parameterType="map">
+	UPDATE HOBBY
+	SET
+	CATE_NO = #{cateNo},
+	HB_TITLE = #{hbTitle},
+	HB_SUMMARY = #{hbSummary},
+	HB_FEE = TO_NUMBER(#{hbFee}),
+	<if test="hbDiscountStatus != null">
+	HB_DISCOUNT_RATE = TO_NUMBER(#{hbDiscountRate}),
+	HB_DISCOUNT_STATUS = #{hbDiscountStatus},
+	</if>
+	<if test="hbDiscountStatus == null">
+	HB_DISCOUNT_RATE = NULL,
+	HB_DISCOUNT_STATUS = DEFAULT,
+	</if>
+	HB_STARTDATE = TO_DATE(#{hbStartDate},'YYYY-MM-DD'),
+	HB_ENDDATE = TO_DATE(#{hbEndDate},'YYYY-MM-DD'),
+	<if test="hbImgsOri != null">
+	HB_IMGS_ORI = #{hbImgsOri},
+	HB_IMGS_RENAME = #{hbImgsRename},
+	</if>
+	<if test="hbThumOri != null">
+	HB_THUM_ORI = #{hbThumOri},
+	HB_THUM_RENAME = #{hbThumRename},
+	</if>
+	HB_INFO = #{hbInfo},
+	HB_LOCATION = #{hbLocation},
+	<if test="hbDetailOri != null">
+	HB_DETAIL_ORI = #{hbDetailOri},
+	HB_DETAIL_RENAME = #{hbDetailRename},
+	</if>
+	HB_DETAIL_INFO = #{hbDetailInfo}
+	WHERE
+	HB_NO = #{hbNo}
+	</update>
 	
+	<!-- 업데이트시 추가이미지 삭제버튼 -->
+	<update id="imgsDelete">
+	UPDATE HOBBY
+	SET
+	HB_IMGS_ORI = NULL,
+	HB_IMGS_RENAME = NULL
+	WHERE
+	HB_NO = #{hbNo}
+	</update>
 	
 	<select id="selectReserveList" parameterType="map"
 		resultMap="ReservListResultMap">
@@ -806,5 +850,7 @@
 		JOIN MERCHANT M ON(H.MER_NO = M.MER_NO)
 		WHERE M.MER_NO = #{merNo}
 	</select>
+	
+	
 
  </mapper>

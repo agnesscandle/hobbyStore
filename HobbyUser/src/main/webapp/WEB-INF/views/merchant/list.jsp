@@ -61,8 +61,8 @@
                      </div>
                   </div>
                   <button
-                     onclick="location.replace('${path}/hobby/view?hbNo=${hobby.hbNo}')"
-                     class="add-cart">자세히 보기</button>
+                     onclick="location.replace('${path}/merchant/hobbyUpdate?hbNo=${hobby.hbNo}')"
+                     class="add-cart">취미 수정하기</button>
                </div>
             </div>
          </c:forEach>

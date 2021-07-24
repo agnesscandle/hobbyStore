@@ -108,4 +108,9 @@ public interface MerchantService {
 	String selectResAttendByNo(int hbNo, int resNo);
 
 	int resAttendN(int hbNo, int resNo);
+
+	void deleteFile(String string);
+
+	int imgsDelete(int hbNo);
+
 }

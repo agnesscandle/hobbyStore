@@ -59,18 +59,18 @@ public class HobbyServiceImpl implements HobbyService {
 		return mapper.getHobbySearchList(rowBounds, search);
 	}
 
-	@Override
-	@Transactional
-	public int save(Hobby hobby) {
-		int result = 0;
-
-		if (hobby.getHbNo() != 0) {
-			// 업데이트
-		} else {
-			result = mapper.insertHobby(hobby);
-		}
-		return result;
-	}
+//	@Override
+//	@Transactional
+//	public int save(Hobby hobby) {
+//		int result = 0;
+//
+//		if (hobby.getHbNo() != 0) {
+//			
+//		} else {
+//			result = mapper.insertHobby(hobby);
+//		}
+//		return result;
+//	}
 
 	@Override
 	public List<Category> getCateList() {

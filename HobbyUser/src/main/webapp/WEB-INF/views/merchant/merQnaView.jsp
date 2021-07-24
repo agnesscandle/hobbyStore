@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%-- <%@ include file="../../views/common/Merchantheader.jsp"%> --%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<%@ include file="../../views/common/header.jsp"%>
 
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 <style>
@@ -89,8 +90,8 @@ width: inherit;
 .qnaContentUpdate {
 	
 	width: max;	
-	background-color: #f1e4ee;
-	color : 2c3c89;
+	background-color: #2c3c89;
+	color : f8e9a8;
 		overflow:hidden;
 		height:auto;
 	font-weight: bold;
@@ -180,7 +181,8 @@ width:500px;
 
 
 	<div class="qnaL_container">
-	<div class="qnaL_title"><h1>문의 하기 _</h1></div>
+	<div class="qnaL_title">
+	<h1> <c:out value="${hobby.hbTitle }"/> _ 문의 목록 </h1></div>
 		<c:if test="${ qnaList != null }">
 			
 			<c:forEach var="qna" items="${ qnaList }" varStatus="status">

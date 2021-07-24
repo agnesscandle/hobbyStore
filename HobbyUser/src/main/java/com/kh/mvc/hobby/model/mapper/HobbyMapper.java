@@ -114,6 +114,8 @@ public interface HobbyMapper {
 
 	List<Hobby> getHobbyListByCateNo(RowBounds rowBounds, int cateNo);
 
+	int updateHobby(Hobby hobby);
+
 	
 
 }

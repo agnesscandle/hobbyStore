@@ -21,7 +21,7 @@ public interface HobbyService {
 
 	List<Hobby> getHobbyList(PageInfo pageInfo);
 
-	int save(Hobby hobby);
+//	int save(Hobby hobby);
 
 	List<Category> getCateList();
 

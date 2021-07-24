@@ -104,7 +104,7 @@ public class MerchantServiceImpl implements MerchantService{
 		int result = 0;
 
 		if (hobby.getHbNo() != 0) {
-			// 업데이트
+			result = mapper.updateHobby(hobby);
 		} else {
 			result = mapper.insertHobby(hobby);
 		}
@@ -410,6 +410,23 @@ public class MerchantServiceImpl implements MerchantService{
 		
 		return mapper.resAttendN(hashMap);
 	}
+
+	@Override
+	public void deleteFile(String filePath) {
+
+		File file = new File(filePath);
+		
+		if(file.exists()) {
+			file.delete();			
+		}
+		
+	}
+
+	@Override
+	public int imgsDelete(int hbNo) {
+		return mapper.imgsDelete(hbNo);
+	}
+
 
 
 

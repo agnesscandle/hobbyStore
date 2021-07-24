@@ -90,7 +90,7 @@
                         <td><c:out value="${ reserve.resCount }"/>명</td>
                         <td>
                             <c:if test="${ reserve.resAttend eq 'Y'}">
-                                <button type="button" class="btnRes" > 출석확인 </button>
+                                <button type="button" class="btnRes" onclick="changeRes(this,'${hbNo}', '${reserve.resNo }')"> 출석확인 </button>
                             </c:if>
                             <c:if test="${ reserve.resAttend eq 'N'}">
                                 <button type="button" class="btnRes2" onclick="changeRes(this,'${hbNo}', '${reserve.resNo }')"> 미출석 </button>
