@@ -439,6 +439,7 @@ public class HobbyController {
 	@GetMapping("/report")
 	public String reportView(@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
 		log.info("신고글 작성 페이지 요청");
+		
 		return "hobby/report";
 	}
 

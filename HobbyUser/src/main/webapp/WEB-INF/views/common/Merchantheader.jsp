@@ -27,7 +27,7 @@
 
 
 	<header>
-		<div class="logo" onclick="location.href='${path}/merchant/list?adNo=${loginMerchant.merNo}'">
+		<div class="logo" onclick="location.href='${path}/merchant/list?merNo=${loginMerchant.merNo}'">
 			<img class="logoImg" src="${ path }/images/logo.png">
 			<h4>취미상점 상인</h4>
 		</div>
@@ -38,7 +38,7 @@
 				<!-- 로그인 되어있는 경우 -->
 				<c:if test="${ loginMerchant != null }">
 					<tr class="main info">
-				<td colspan="3" class="infoId">${ loginMerchant.merName }님,환영합니다</td>
+					<td colspan="3" class="infoId">${ loginMerchant.merName }님,환영합니다</td>
 					</tr>
 					<tr>
 						<td class="btn logout"><button type="button"

@@ -37,7 +37,7 @@
 	}
     
     #tbl-board {
-    width: 1000px;
+    width: 1200px;
     border-top: 1px solid #34486b;
     border-collapse: collapse;
   }
@@ -48,8 +48,8 @@
     text-align : center;
   }
 
-  #c1, #c2, #c4, #c5{ width : 180px;}
-  #c3, #c5, #c6, #c7{ width : 140px; }
+  #c1, #c2, #c4, #c5, #c7{ width : 180px;}
+  #c3, #c5, #c6{ width : 140px; }
   
   .tblContainer{
       position : relative;
@@ -81,11 +81,23 @@
     
     #dateTrans{
       font-size : 15px;
-        height : 26px;
+        height : 27px;
         width : 80px;
         border-radius : 8px;
         color : white;
         background-color : #293a57;
+        cursor : pointer;
+   }
+   
+   #totalList{
+    	font-size : 15px;
+    	text-align : center;
+        height : 27px;
+        width : 120px;
+        border-radius : 8px;
+        color : white;
+        background-color : #293a57;
+        cursor : pointer;
    }
 
 </style>
@@ -98,8 +110,9 @@
     </div>
     <div id="search-container">
 	    	<input type="hidden" id="hbNo" name="hbNo" value="${hbNo}"/>
-			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd">
+			<input type="text" id="takeDate" name="takeDate" pattern="yyMMdd" placeholder="수강일을 선택하세요.">
 			<input type="submit" id="dateTrans" value="조회하기" >
+			<input type="text" id="totalList" value="전체 예약자 보기" onclick="location.replace('${path}/merchant/reserveList?hbNo=${hobby.hbNo}')"/>
     </div>
     
 	<div id="reserveList-container">
@@ -108,6 +121,7 @@
         <table id="tbl-board">
 			<tr>
                 <th id="c1">예약일</th>
+                <th id="c7">수강일</th>
 				<th id="c2">예약 아이디</th>
 				<th id="c3">예약자 성명</th>
 				<th id="c4">휴대폰 번호</th>
@@ -118,7 +132,7 @@
 			
 			<c:if test="${ list eq [] }">
 				<tr>
-					<td colspan="6">
+					<td colspan="7">
 						조회된 예약 이력이 없습니다.
 					</td>
 				</tr>
@@ -130,6 +144,10 @@
 					
 					<tr>
 						<td><fmt:formatDate type="DATE" pattern="yyyy-MM-dd" value="${ reserve.resDate }"/></td>
+						<td>
+						<c:set var ="takeDate" value="${ reserve.takeDate }"/>
+						<c:out value="${ fn:substring(takeDate,0,10)}"/>
+						</td>
 						<td><c:out value="${ reserve.memId }"/></td>
 						<td><c:out value="${ reserve.resName }"/></td>
 						<td><c:out value="${ reserve.resPhone }"/></td>

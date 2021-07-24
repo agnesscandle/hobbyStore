@@ -23,38 +23,38 @@
     </head>
 <body>
                <div class="container">
-               <h1> 신고하기 </h1>
-                <form id="reportForm" name="reportForm">
-                    <table id="tblReport">
-                        <tr>
-                            <th class="tblHeader">취미명</th>
-                            <td>
-                               <input class="col1" id="hbTitle" type="text" name="hbTitle" value="${param.hbTitle}" readonly/>
-                               <input type="hidden" id="hbNo" name="hbNo" value="${param.hbNo}"/>                               
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>작성자</th>
-                            <td><input  class="col1" id="rpWriterId" type="text" name="rpWriterId" value="${loginMember.memId}" readonly/></td>
-                        </tr>
-                        <tr>
-                            <th>신고 제목</th>
-                            <td><input class="col1" id="rpTitle" type="text" placeholder="신고합니다."/></td>
-                        </tr>
-                        <tr>
-                            <th >신고 내용</th>
-                            <td>
-                                <textarea class="col1" cols="70" rows="15" id="rpContent" name="rpContent" placeholder="신고하고 싶은 내용을 입력하세요." required></textarea>
-                            </td>
-                        </tr>
-                        <br><br>
-                        <tr>
-                            <th id="btnContainer" colspan="2">
-                                <input class="btn" id="btnReport" type="button" value="신고하기">
-                                <input class="btn" id="btnCancle" type="button" value="취소하기">
-                            </th>
-                        </tr>
-               </table>
+               <h1> 신고하기 </h1><br>
+               <div class="formContainer">
+               	<form id="reportForm" name="reportForm">
+	                    <table id="tblReport">
+	                        <tr>
+	                            <th class="tblHeader">취미명</th>
+	                            <td>
+	                               <input class="col1" id="hbTitle" type="text" name="hbTitle" value="${param.hbTitle}" readonly/>
+	                               <input type="hidden" id="hbNo" name="hbNo" value="${param.hbNo}"/>                               
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>작성자</th>
+	                            <td><input  class="col1" id="rpWriterId" type="text" name="rpWriterId" value="${loginMember.memId}" readonly/></td>
+	                        </tr>
+	                        <tr>
+	                            <th>신고 제목</th>
+	                            <td><input class="col1" id="rpTitle" type="text" placeholder="신고합니다."/></td>
+	                        </tr>
+	                        <tr>
+	                            <th >신고 내용</th>
+	                            <td>
+	                                <textarea class="col2" cols="70" rows="15" id="rpContent" name="rpContent" placeholder="신고하고 싶은 내용을 입력하세요." required></textarea>
+	                            </td>
+	                        </tr>
+	               </table>
+	               </div>
+	               <hr>
+	               <div class="reportBtnContainer">
+		                <input class="btn" id="btnReport" type="button" value="신고하기">
+		                <input class="btn" id="btnCancle" type="button" value="취소하기">
+	               </div>
              </form>
             </div>
 </body>

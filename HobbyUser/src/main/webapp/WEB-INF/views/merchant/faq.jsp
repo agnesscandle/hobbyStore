@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<%@ include file="../../views/common/header.jsp"%>
+<%@ include file="../../views/common/Merchantheader.jsp"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 
 <style>
@@ -107,7 +107,7 @@
     /* 모달창 속성 */
     .modal{ 
         position:absolute; 
-        width:1900px; 
+        width:2100px; 
         height:1400px; 
         background: rgba(0,0,0,0.8); 
         top:0; 
@@ -116,27 +116,30 @@
     }
 
 	#fc1{
-		height : 280px;
+		height : 300px;
 	}
 	
 	#fc2 {
-		height : 350px;
+		height : 400px;
 	}
 	
-	#fc3, #fc7 {
-		height : 340px;
+	#fc3  {
+		height : 380px;
 	}
 	
-	#fc4, #fc6{
+	#fc4 {
 		height : 380px;
 	}
 	
 	#fc5{
-		height : 400px;
+		height : 460px;
 	}
 	
+	#fc6, #fc7{
+		height : 450px;
+	}
 	#fc8{
-		height : 250px;
+		height : 280px;
 	}
 
 	
@@ -144,7 +147,7 @@
     width:800px; height:550px;
     background:#fff; border-radius:10px;
     border : 6px solid  #eacc16;
-    position:relative; top:400px; left:700px;
+    position:relative; top:500px; left:800px;
     margin-top:-100px; margin-left:-200px;
     text-align:center;
     box-sizing:border-box; padding:74px 0;

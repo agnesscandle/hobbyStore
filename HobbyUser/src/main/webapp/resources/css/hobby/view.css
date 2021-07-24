@@ -99,6 +99,7 @@
 }
 
 
+
 /* 상단 오른쪽 : 취미 버튼 영역 */
 .forBorder{
     border: 2px solid #ddd;
@@ -172,7 +173,7 @@
     font-weight: bold;
 }
 
-#btnLiked, #btnLikedA, #btnLikedB, #btnShare, #btnQuestion, #btnReport{
+#btnLiked, #btnLiked2, #btnShare, #btnQuestion, #btnReport, #btnReport2{
     background-color: #34486b;
     color: #fff;
     width : 135px;
@@ -223,7 +224,7 @@
     font-size : 25px;
 }
 .bottom>hr{
-    width : 80%;
+    width : 90%;
     color :  #d3d3d3;
 }
 
@@ -231,6 +232,15 @@
     font-size : 25px;
     font-weight : bolder;
     /* border : 1px solid black; */
+}
+
+#hbDetailInfo{
+	width : 1200px;
+	font-size : 20px;
+}
+#hobbyDetailImg{
+	width : 1200px;
+	overflow : hidden;
 }
 
 #locationD{

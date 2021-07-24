@@ -78,7 +78,12 @@
 				<button class="btn" id="btnMerchantInfo" onclick="merInfoPopup();">상인 정보보기</button>
 			</p>
 			<p class="btnSml1">
-					<button class="btn" id="btnLiked">좋아요</button>
+					<c:if test="${loginMember == null}">
+						<button class="btn" id="btnLiked2">좋아요</button>
+					</c:if>
+					<c:if test="${ loginMember != null }">
+						<button class="btn" id="btnLiked">좋아요</button>
+					</c:if>
 					<button class="btn" id="btnShare">공유하기</button>	
 			</p>
 						<div class="modal">
@@ -97,7 +102,12 @@
 							<button class="btn" id="btnQuestion"
 									onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기','width=500, height=450, left=100, top=50')">
 								문의하기</button>
-							<button class="btn" id="btnReport" onclick="reportPopup();">신고하기</button>
+								<c:if test="${loginMember == null}">
+									<button class="btn" id="btnReport2">신고하기</button>
+								</c:if>
+								<c:if test="${ loginMember != null }">
+									<button class="btn" id="btnReport" onclick="reportPopup();">신고하기</button>
+								</c:if>
 						</p>
 					</div>
 				</div>
@@ -118,7 +128,14 @@
 		<!-- 하단 영역 : 상세 내용(후기, 취미소개, 위치, 문의하기, 환불정책) -->
 		<div class="bottom">
 			<span class="bottomMenu" id="infoM"> 취미소개 </span>
-			<span class="detail" id="infoD"></span>
+			<span class="detail" id="infoD">
+				<span id=hbDetailInfo> 
+						<c:out value="${hobby.hbDetailInfo}"/>
+				</span><br><br><br>
+				<span id=hbDetailImage>
+					<img id="hobbyDetailImg" src="${ path }/upload/hobby/${hobby.hbDetailRename}">
+				</span>
+			</span>
 			<br><hr><br>
 			<span class="bottomMenu" id="locationM"> 위치 </span>
 			<span class="detail address" id="locationD">
@@ -307,7 +324,17 @@ $(document).ready(()=>{
 $("#btnPay2").on("click", (e)=>{
 	alert("로그인 후 이용 가능합니다.");
 });
-	
+
+// 비회원용 신고하기 버튼
+$("#btnReport2").on("click", (e)=> {
+	alert("로그인 후 이용 가능합니다.");
+});
+
+// 비회원용 좋아요 버튼
+$("#btnLiked2").on("click", (e)=> {
+	alert("로그인 후 이용 가능합니다.");
+});
+
 // 결제하기 버튼
 $("#btnPay").on("click", (e)=>{
 	location.href="${path}/hobby/reserve?hbNo=${hobby.hbNo}";
