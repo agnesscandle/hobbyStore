@@ -44,7 +44,7 @@ public interface MerchantMapper {
 
 	int selectReserveCount(int hbNo);
 
-	List<Reserve> selectReserveList(int hbNo);
+	List<Reserve> selectReserveList(RowBounds rowBounds, int hbNo);
 
 	int reserveUpdateStatus(Reserve reserve);
 
@@ -76,7 +76,7 @@ public interface MerchantMapper {
 
 	Hobby selectHobbyByNo(int hbNo);
 
-	List<Calculation> selectCalWaitList(int merNo);
+	List<Reserve> selectCalWaitList(int merNo);
 
 	List<Calculation> selectCalFinishList(int merNo);
 
@@ -101,6 +101,11 @@ public interface MerchantMapper {
 	int resAttendN(HashMap<String, Integer> hashMap);
 
 	int updateHobby(Hobby hobby);
+
+	int selectCalculWaitCount(int merNo);
+
+	int selectCalFinishCount(int merNo);
+
 
 	int imgsDelete(int hbNo);
 

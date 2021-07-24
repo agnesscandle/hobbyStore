@@ -222,9 +222,11 @@ public class MerchantServiceImpl implements MerchantService{
 	}
 
 	@Override
-	public List<Reserve> getReserveList(int hbNo) {
-
-		return mapper.selectReserveList(hbNo);
+	public List<Reserve> getReserveList(PageInfo pageInfo, int hbNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return mapper.selectReserveList(rowBounds,hbNo);
 	}
 
 	@Override
@@ -235,7 +237,7 @@ public class MerchantServiceImpl implements MerchantService{
 
 
 	
-	public List<Calculation> getCalculateList(int merNo) {
+	public List<Reserve> getCalculateList(int merNo) {
 		
 		return mapper.selectCalWaitList(merNo);
 	}
@@ -430,4 +432,14 @@ public class MerchantServiceImpl implements MerchantService{
 
 
 
+	@Override
+	public int getCalculationWaitCount(int merNo) {
+		// TODO Auto-generated method stub
+		return mapper.selectCalculWaitCount(merNo);
+	}
+
+	@Override
+	public int getCalFinishCount(int merNo) {
+		return mapper.selectCalFinishCount(merNo);
+	}
 }

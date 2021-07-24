@@ -6,7 +6,7 @@
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <%@ include file="../../views/common/Merchantheader.jsp"%>
 <link rel="stylesheet" href="${path}/css/hobby/list.css">
-<h1 style="display:block;">정산관리</h1><br>
+<h1 style="display:block  ; position:relative; left: 20px;">정산관리</h1><br>
 <div class="divList">
    <div class="containerList">
       <c:if test="${ list != null}">

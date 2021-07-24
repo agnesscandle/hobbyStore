@@ -56,7 +56,7 @@ public interface MerchantService {
 
 	int getReserveCount(int merNo);
 
-	List<Reserve> getReserveList(int hbNo);
+	List<Reserve> getReserveList(PageInfo pageInfo, int hbNo);
 
 	int reserveUpdateStatus(Reserve reserve);
 
@@ -69,7 +69,7 @@ public interface MerchantService {
 
 	List<Reserve> getReserveListByHbNo(PageInfo pageInfo, int hbNo);
 
-	List<Calculation> getCalculateList(int merNo);
+	List<Reserve> getCalculateList(int merNo);
 
 	List<Calculation> getCalFinishList(int merNo);
 
@@ -92,6 +92,10 @@ public interface MerchantService {
 	int deleteReply(Reply reply);
 
 	List<Reserve> getReserveListByTakeDate(int hbNo, String takeDate);
+
+	int getCalculationWaitCount(int merNo);
+
+	int getCalFinishCount(int merNo);
 	
 	/* 후기 관련 메서드[김예원] */
 	int getReviewCount(int memNo);
@@ -101,7 +105,6 @@ public interface MerchantService {
 	List<String> getHobbyTitle(int merNo);
 
 	List<Review> getReviewListByNo(PageInfo pageInfo, int hbNo);
-
 
 	int resAttendY(int hbNo, int resNo);
 

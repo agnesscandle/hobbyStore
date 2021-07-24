@@ -260,7 +260,7 @@ public class MerchantController {
           
         List<Hobby> list = null;
 
-		PageInfo pageInfo = new PageInfo(page, 10, service.getCalculateCount(), 8);
+		PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCountByMerNo(merNo), 8);
 		list = service.getHobbycalList(pageInfo, merNo);
 		
 		
@@ -276,19 +276,20 @@ public class MerchantController {
 	
 	@RequestMapping(value="/calculateview",method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView calculateview(ModelAndView model,
-			@RequestParam(value="hbNo") int hbNo) {
+			@RequestParam(value="hbNo") int hbNo,
+			@RequestParam(value="page", required = false, defaultValue = "1")int page) {
           System.out.println("리스트호출");
   		
           
         List<Reserve> list = null;
-		
-		list = service.getReserveList(hbNo);
-		
-		
-		
-		System.out.println(list+"맵퍼 확인");
+        PageInfo pageInfo = new PageInfo(page, 10, service.getReserveCount(hbNo), 8);
+        
+        
+		list = service.getReserveList(pageInfo,hbNo);
+		System.out.println(list+"뷰확인");
 		model.addObject("list", list);
-
+		model.addObject("hbNo",hbNo);
+		model.addObject("pageInfo",pageInfo);
 		model.setViewName("calculation/calculationview");
 
 		return model;
@@ -297,30 +298,37 @@ public class MerchantController {
 	
 	@GetMapping("/calculateWait")
 	public ModelAndView calculateHistory(ModelAndView model,
-			@RequestParam("merNo")int merNo)
+			@RequestParam("merNo")int merNo,
+			@RequestParam(value="page", required = false, defaultValue = "1")int page)
 	{
 		//Calculation가져오기
-		List<Calculation> list = null;
-		System.out.println(merNo);
+		List<Reserve> list = null;
+        PageInfo pageInfo = new PageInfo(page, 10, service.getCalculationWaitCount(merNo), 8);
+		
 		list = service.getCalculateList(merNo);
+		
 		System.out.println(list+"웨잇확인");
 		model.addObject("list", list);
-
+		model.addObject("pageInfo",pageInfo);
 		model.setViewName("calculation/calculationWait");
 		return model;
 	}
 	
+	
 	@GetMapping("/calculateFinish")
 	public ModelAndView calculateFinish(ModelAndView model,
-			@RequestParam("merNo")int merNo)
+			@RequestParam("merNo")int merNo,
+			@RequestParam(value="page", required = false, defaultValue = "1")int page)
 	{
 		//Calculation가져오기
 		List<Calculation> list = null;
+		PageInfo pageInfo = new PageInfo(page, 10, service.getCalFinishCount(merNo), 8);
+		
 		System.out.println(merNo);
 		list = service.getCalFinishList(merNo);
 		System.out.println(list+"웨잇확인");
 		model.addObject("list", list);
-
+		model.addObject("pageInfo",pageInfo);
 		model.setViewName("calculation/calculationFinish");
 		return model;
 	}

@@ -309,6 +309,38 @@
 	</select>
 	
 	
+
+	<select id="selectCalculWaitCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM RESERVE R
+		JOIN HOBBY H ON(R.HB_NO=H.HB_NO)
+		JOIN MEMBER M ON(R.MEM_NO=M.MEM_NO)
+		JOIN CALCULATION C ON(R.RES_NO=C.PAY_NO)
+		WHERE RES_STATUS = 'Y'
+		AND RES_ATTEND = 'Y'
+		AND C.STATUS='Y'
+		AND C.CAL_FINISH='N'
+		AND H.MER_NO=#{merNo}
+		ORDER BY
+		R.RES_DATE DESC
+	</select>
+	
+	<select id="selectCalFinishCount" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM RESERVE R
+		JOIN HOBBY H ON(R.HB_NO=H.HB_NO)
+		JOIN MEMBER M ON(R.MEM_NO=M.MEM_NO)
+		JOIN CALCULATION C ON(R.RES_NO=C.PAY_NO)
+		WHERE
+		H.MER_NO = #{merNo}
+		AND C.CAL_FINISH='Y'
+		ORDER BY
+		R.RES_DATE DESC
+	</select>
+	
+	
 	<select id="selectHobbyCalList" parameterType="map"
 		resultMap="HobbyListResultMap">
 
@@ -499,6 +531,7 @@
 		AND RES_ATTEND = 'Y'
 		AND C.STATUS='Y'
 		AND C.CAL_FINISH='N'
+		AND H.MER_NO=#{merNo}
 		ORDER BY
 		R.RES_DATE DESC
 	</select>
@@ -525,7 +558,8 @@
 		JOIN MEMBER M ON(R.MEM_NO=M.MEM_NO)
 		JOIN CALCULATION C ON(R.RES_NO=C.PAY_NO)
 		WHERE
-		C.CAL_FINISH='Y'
+		H.MER_NO = #{merNo}
+		AND C.CAL_FINISH='Y'
 		ORDER BY
 		R.RES_DATE DESC
 	</select>
@@ -609,9 +643,7 @@
 		<result property="qnaDate" column="QNA_DATE" />
 		<result property="qnaSecure" column="QNA_SECURE" />
 	</resultMap>
-	
-	
-	
+		
 	<select id="selectQnaCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM QNA
