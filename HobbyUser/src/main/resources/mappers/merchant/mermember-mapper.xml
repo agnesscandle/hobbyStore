@@ -506,7 +506,7 @@
 		#{hbDetailInfo},
 		#{hbInfo},
 		#{hbLocation},
-		'Y'
+		DEFAULT
 		)
 	</insert>
 	
