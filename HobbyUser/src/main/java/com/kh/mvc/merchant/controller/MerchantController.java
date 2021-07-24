@@ -69,7 +69,8 @@ public class MerchantController {
 			List<Hobby> list = null;
 
 			PageInfo pageInfo = new PageInfo(page, 10, service.getHobbyCount(), 8);
-			list = service.getHobbyList(pageInfo);
+			list = service.getHobbyList(pageInfo, loginMerchantMember.getMerNo());
+
 
 			model.addObject("list", list);
 			model.addObject("pageInfo", pageInfo);
