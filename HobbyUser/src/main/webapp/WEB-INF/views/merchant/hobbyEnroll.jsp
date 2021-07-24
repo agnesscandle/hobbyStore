@@ -28,7 +28,7 @@
    <form id="enrollForm" action="${ path }/merchant/hobbyEnroll" method="POST"
       enctype="multipart/form-data">
 
-      <input type="hidden" name="merNo" value="1" /> 
+      <input type="hidden" name="merNo" value="${loginMerchant.merNo}" /> 
 
       <div class="enroll enroll-1 active">
          <section>

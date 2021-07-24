@@ -188,8 +188,8 @@
        <result property="bank" column="BANK"/>
        <result property="merNick" column="MER_NICK"/>
        <result property="status" column="STATUS"/>
-       <result property="merImgOriginal" column="MEM_IMG_ORIGINAL"/>
-       <result property="merImgRename" column="MEM_IMG_RENAME"/>
+       <result property="merImgOriginal" column="MER_IMG_ORIGINAL"/>
+       <result property="merImgRename" column="MER_IMG_RENAME"/>
        <result property="merIDCARD" column="MER_IDCARD"/>
        <result property="cateNo" column="CATE_NO"/>
        <result property="greeting" column="GREETING"/>
@@ -362,7 +362,7 @@
 		)
 		VALUES(
 		SEQ_HOBBY_NO.NEXTVAL,
-		1,
+		#{merNo},
 		#{cateNo},
 		#{hbTitle},
 		TO_NUMBER(#{hbFee}),

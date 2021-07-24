@@ -369,6 +369,7 @@ public class HobbyController {
 		
 		Merchant merchant = service.findMerInfoByNo(merNo);		
 		
+		System.out.println(merchant.getMerImgRename());
 		model.addObject("hobby", hobby);
 		model.addObject("merchant", merchant);
 		model.setViewName("hobby/merInfo");

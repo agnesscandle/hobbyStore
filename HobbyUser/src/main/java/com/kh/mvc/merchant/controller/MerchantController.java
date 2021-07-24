@@ -528,7 +528,8 @@ public class MerchantController {
 
 	/* 취미 등록페이지 요청 */
 	@GetMapping("/hobbyEnroll")
-	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category) {
+	public ModelAndView enrollView(ModelAndView model, @ModelAttribute Category category,
+			@SessionAttribute(name = "loginMerchant", required = false) Merchant loginMerchant) {
 
 		List<Category> list = null;
 		list = service.getCateList();
