@@ -16,8 +16,8 @@ h1{
 
 hr{
     position : relative;
-    left : 170px;
-    width : 155px;
+    left : 220px;
+    width : 165px;
     color : lightgray;
 }
 
@@ -54,15 +54,14 @@ sub{
     font-size : 9px;
     font-weight: bold;
 }
-#btnClose{
-    font-size : 15px;
+#btnClose{	
+	background-color: #34486b;
+    color: #fff;
     font-weight : bold;
-    color : white;
-    background-color: #0277bd;
-    border : none;
+	border : 3px solid #34486b;
     width : 100px;
     height : 30px;
     border-radius : 8px;
     position : relative;
-    left : 200px;
+    left : 250px;
 }
