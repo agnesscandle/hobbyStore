@@ -488,7 +488,7 @@
 		)
 		VALUES(
 		SEQ_HOBBY_NO.NEXTVAL,
-		1,
+		#{merNo},
 		#{cateNo},
 		#{hbTitle},
 		TO_NUMBER(#{hbFee}),

@@ -28,7 +28,7 @@
             <div class="tblContainer">
                 <table>
                     <tr>
-                        <td rowspan="2"><img id="merProfile" src="${ path }/resources/upload/profile/${ merchant.merImgRename }"></td>
+                        <td rowspan="2"><img id="merProfile" src="${ path }/profile/${ merchant.merImgRename }"></td>
                         <th rowspan="2" colspan="2" id="merNick">
                         	<c:out value="${merchant.merNick}"/>
                         </th>
