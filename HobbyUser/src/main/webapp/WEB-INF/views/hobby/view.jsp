@@ -100,7 +100,7 @@
 						</div>
 						<p class="btnSml2">
 							<button class="btn" id="btnQuestion"
-									onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기','width=500, height=450, left=100, top=50')">
+									onclick="window.open('${path}/hobby/question?hbNo=${hobby.hbNo }','문의하기','width=600, height=630, left=100, top=50')">
 								문의하기</button>
 								<c:if test="${loginMember == null}">
 									<button class="btn" id="btnReport2">신고하기</button>
@@ -373,7 +373,7 @@ $("#btnPay").on("click", (e)=>{
 	function merInfoPopup(){
 			var url = "${path}/hobby/merInfo?hbNo=${hobby.hbNo}&merNo=${hobby.merNo}";
 			var name="merchantInfo";
-			var option = "width=610, height=400, left=600, top=250, location=no, resizable=no, scrollbars=no";
+			var option = "width=700, height=480, left=600, top=250, location=no, resizable=no, scrollbars=no";
 		window.open(url, name, option);
 	}
 
@@ -384,7 +384,7 @@ $("#btnPay").on("click", (e)=>{
 	
 	   var url = "${path}/hobby/report?hbNo=${hobby.hbNo}&hbTitle=${hobby.hbTitle}";
 	   var name = "report";
-	   var option = "width=660, height=680, left=400, top=150, location=no, resizable=no, scrollbars=no";
+	   var option = "width=725, height=750, left=400, top=150, location=no, resizable=no, scrollbars=no";
 	   window.open(url, name, option);
 	}
 

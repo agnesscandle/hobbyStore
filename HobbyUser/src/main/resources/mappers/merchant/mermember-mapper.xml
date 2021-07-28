@@ -303,6 +303,7 @@
 		<result property="hbDetailInfo" column="HB_DETAIL_INFO" />
 		<result property="hbInfo" column="HB_INFO" />
 		<result property="hbLocation" column="HB_LOCATION" />
+		<result property="hbTotalFee" column="HB_TOTALFEE"/>
 	</resultMap>
 		
 		

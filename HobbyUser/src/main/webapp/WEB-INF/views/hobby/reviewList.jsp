@@ -461,5 +461,5 @@
 </script>
 
 <div id="footer">
-<%@ include file="../../views/common/footer.jsp"%>
+
 </div>

@@ -54,6 +54,7 @@
 		<exclude-mapping path="/hobby/qnaList"/>
 		<exclude-mapping path="/hobby/view"/>
 		<exclude-mapping path="/hobby/list"/>
+		<exclude-mapping path="/hobby/list/cate"/>
 		<exclude-mapping path="/hobby/list/search"/>
 		<exclude-mapping path="/hobby/merInfo"/>
 		

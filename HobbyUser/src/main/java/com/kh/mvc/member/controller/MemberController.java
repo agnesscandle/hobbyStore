@@ -549,7 +549,7 @@ public class MemberController {
 
 		        System.out.println("수신자 번호 : " + memPhone);
 		        System.out.println("인증번호 : " + numStr);
-//		        service.certifiedPhoneNumber(memPhone,numStr);
+		        service.certifiedPhoneNumber(memPhone,numStr);
 		        return numStr;
 		    }
 
@@ -567,7 +567,7 @@ public class MemberController {
 		        
 		        System.out.println("수신자 번호 : " + memPhone);
 		        System.out.println("임시비밀번호 : " + numStr);
-//		        service.sendNewPwNumber(memPhone,numStr);
+		        service.sendNewPwNumber(memPhone,numStr);
 		        service.setNewPw(memPhone, numStr);
 		        return numStr;
 			}
